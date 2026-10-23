@@ -48,7 +48,7 @@ export function Composer({ busy, disabled, onSend, onStop, voice }: ComposerProp
 
   return (
     <form
-      className={styles.composer}
+      className={`${styles.composer} glass3d`}
       onSubmit={(event) => {
         event.preventDefault();
         submit();

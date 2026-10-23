@@ -1,27 +1,35 @@
 .home {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
   padding: var(--space-6) var(--space-8) var(--space-6);
+  overflow: hidden;
 }
 
-/* Accueil vide : la sphère au centre, en grand. */
+/* Accueil vide : le masque en toile de fond pleine page */
 .stage {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
-}
-
-.sphere {
-  --sphere-size: min(56vh, 32rem);
-
+  gap: var(--space-1);
   width: 100%;
 }
 
+.sphere {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .heading {
-  margin-top: calc(var(--sphere-size, 32rem) * -0.08);
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-4);
   text-align: center;
 }
 
@@ -47,6 +55,8 @@
 }
 
 .thread {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -54,6 +64,8 @@
 }
 
 .bottom {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);

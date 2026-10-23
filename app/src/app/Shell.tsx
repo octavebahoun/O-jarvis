@@ -16,7 +16,7 @@ import { quitApp } from "../lib/engine/connection";
 import { usePlans } from "../lib/engine/queries";
 import { useEngineStore } from "../lib/engine/store";
 import { useReducedMotion } from "../lib/motion";
-import { Notices } from "./Notices";
+import { Notices } from "./Notices.tsx";
 import styles from "./Shell.module.css";
 
 interface NavItem {
