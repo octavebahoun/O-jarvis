@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+import asyncio
+import contextlib
+import os
+import signal
 import sys
 import time
 from collections.abc import Callable
@@ -12,7 +16,6 @@ import pytest
 
 from ojarvis.core.errors import NotFoundError
 from ojarvis.shell import cli
-from ojarvis.tools import shell
 from ojarvis.tools.base import Level, ToolContext, ToolRegistry
 from ojarvis.tools.guards import BlockedTargetError
 from ojarvis.tools.shell import OpenShell, RunCommand, clean_environment
@@ -29,11 +32,28 @@ def context(home: Path) -> ToolContext:
     return ToolContext(http=httpx.AsyncClient(), secret=lambda _name: None, home=home)
 
 
+def tool_for(home: Path, environ: dict[str, str] | None = None) -> RunCommand:
+    environ = environ or {"PATH": "/usr/bin:/bin", "HOME": str(home)}
+    return RunCommand(home, log_dir=home / "journaux", environ=environ)
+
+
 async def run(
-    home: Path, command: str, *, delai_s: int = 20, environ: dict[str, str] | None = None
+    home: Path,
+    command: str,
+    *,
+    delai_s: int = 20,
+    environ: dict[str, str] | None = None,
+    background: bool = False,
 ) -> str:
-    tool = RunCommand(home, environ=environ or {"PATH": "/usr/bin:/bin", "HOME": str(home)})
-    args = tool.parse({"commande": command, "dossier": "~/projet", "delai_s": delai_s})
+    tool = tool_for(home, environ)
+    args = tool.parse(
+        {
+            "commande": command,
+            "dossier": "~/projet",
+            "delai_s": delai_s,
+            "arriere_plan": background,
+        }
+    )
     output = await tool.run(args, context(home))
     assert output.external  # la sortie est une donnée, jamais une instruction
     return output.text
@@ -66,15 +86,70 @@ async def test_the_deadline_stops_the_whole_process_group(home: Path) -> None:
     assert time.monotonic() - start < 8
 
 
-async def test_a_background_process_holding_the_output_is_stopped(
-    home: Path, monkeypatch: pytest.MonkeyPatch
+def alive(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    return True
+
+
+def stop(pid: int) -> None:
+    with contextlib.suppress(ProcessLookupError):
+        os.killpg(pid, signal.SIGKILL)
+
+
+async def test_a_process_left_attached_to_the_output_is_stopped_at_the_deadline(
+    home: Path,
 ) -> None:
-    monkeypatch.setattr(shell, "DRAIN_S", 0.3)
     start = time.monotonic()
-    text = await run(home, "echo parti; sleep 30 &")
+    text = await run(home, "echo parti; sleep 30 &", delai_s=1)
     assert "code de sortie 0" in text
     assert "parti" in text
+    assert "arriere_plan=true" in text  # la piste pour un serveur
     assert time.monotonic() - start < 5
+
+
+async def test_a_well_detached_server_keeps_running(home: Path) -> None:
+    """Le 26/10, un Vite lancé avec nohup et une redirection a été tué par l'ancien délai de
+    2 s : un serveur dont la sortie va dans un fichier n'est plus jamais arrêté."""
+    log = home / "serveur.log"
+    start = time.monotonic()
+    text = await run(home, f"nohup sleep 30 > {log} 2>&1 & echo $!")
+    pid = int(text.split("--- sortie ---\n")[1].split()[0])
+    try:
+        assert time.monotonic() - start < 5
+        await asyncio.sleep(0.3)
+        assert alive(pid)
+    finally:
+        stop(pid)
+
+
+async def test_a_background_command_is_detached_with_its_journal(home: Path) -> None:
+    script = "import time; print('pret', flush=True); time.sleep(30)"
+    text = await run(home, f'python3 -c "{script}"', background=True)
+    assert "lancée en arrière-plan : PID" in text
+    pid = int(text.split("PID ")[1].split(",")[0])
+    try:
+        assert "pret" in text  # le début du journal
+        assert "journal ~/journaux/" in text
+        assert alive(pid)
+        journal = next((home / "journaux").glob("*.log"))
+        assert journal.stat().st_mode & 0o777 == 0o600
+    finally:
+        stop(pid)
+
+
+async def test_a_background_command_that_fails_at_once_says_so(home: Path) -> None:
+    text = await run(home, "echo port déjà pris; exit 3", background=True)
+    assert "arrêtée tout de suite (code de sortie 3)" in text
+    assert "port déjà pris" in text
+
+
+def test_the_description_says_in_background(home: Path) -> None:
+    tool = tool_for(home)
+    args = tool.parse({"commande": "npm run dev", "dossier": "~/projet", "arriere_plan": True})
+    assert tool.describe(args) == "Lancer en arrière-plan « npm run dev » dans ~/projet"
 
 
 async def test_a_long_output_keeps_its_beginning_and_its_end(home: Path) -> None:
@@ -111,7 +186,7 @@ def test_clean_environment_keeps_what_commands_need() -> None:
 
 
 def test_the_level_comes_from_the_command(home: Path) -> None:
-    tool = RunCommand(home)
+    tool = tool_for(home)
 
     def level(command: str) -> Level:
         return tool.level_for(tool.parse({"commande": command, "dossier": "~/projet"}))
@@ -126,14 +201,14 @@ def test_the_level_comes_from_the_command(home: Path) -> None:
 
 
 def test_the_folder_must_be_in_the_home_and_not_a_secret_one(home: Path) -> None:
-    tool = RunCommand(home)
+    tool = tool_for(home)
     for folder in ("/etc", "~/.ssh"):
         with pytest.raises(BlockedTargetError):
             tool.level_for(tool.parse({"commande": "ls", "dossier": folder}))
 
 
 def test_the_tool_is_only_offered_in_shell_mode(home: Path) -> None:
-    registry = ToolRegistry([RunCommand(home)])
+    registry = ToolRegistry([tool_for(home)])
     assert registry.specs(max_level=Level.DETRUIRE) == []
     shell_specs = registry.specs(max_level=Level.DETRUIRE, shell_mode=True)
     assert [s.name for s in shell_specs] == ["executer_commande"]
@@ -195,7 +270,7 @@ async def test_open_shell_refuses_secret_folders_and_needs_a_terminal(home: Path
 
 
 def test_open_shell_is_offered_in_the_app(home: Path) -> None:
-    registry = ToolRegistry([RunCommand(home), OpenShell(home)])
+    registry = ToolRegistry([tool_for(home), OpenShell(home)])
     assert [s.name for s in registry.specs(max_level=Level.DETRUIRE)] == ["ouvrir_mode_shell"]
 
 
