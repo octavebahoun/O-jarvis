@@ -85,7 +85,10 @@ def test_an_action_waits_then_jarvis_reads_the_result_and_continues(
 
     conversation_id = events[0][1]["conversation_id"]
     shell_chat(client, "Continue.", conversation_id=conversation_id, after_plan=plan["id"])
-    last = llm["deepseek"].requests[-1][0].messages[-1].content
+    # La dernière requête du mode shell : l'extraction des souvenirs, en arrière-plan, peut
+    # arriver après elle.
+    shell = [r for r, _ in llm["deepseek"].requests if "Mode shell" in r.messages[0].content]
+    last = shell[-1].messages[-1].content
     assert "Continue." in last
     assert "Résultats" in last
     assert '<donnees origine="commande">' in last

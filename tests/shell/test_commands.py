@@ -51,6 +51,11 @@ READS = [
     "echo $HOME",
     "cat <<EOF\nrm -rf x\nEOF",  # le texte d'un heredoc n'est pas une commande
     "ls # rm -rf /",  # un commentaire
+    "gcloud projects list",
+    "gcloud config list",
+    "gcloud auth list",
+    "gcloud services list --enabled --project=demo",
+    "gcloud ai --help 2>&1 | head -40",
 ]
 
 ACTIONS = [
@@ -72,6 +77,11 @@ ACTIONS = [
     "awk '{print $1}' f.txt",
     "un-outil-inconnu --option",
     "ls 'non fermé",
+    # Un jeton passé à curl dans une sous-commande : le shell le garde pour lui.
+    'curl -s -H "Authorization: Bearer $(gcloud auth print-access-token)" https://exemple.com',
+    "TOKEN=$(gcloud auth print-access-token); echo prêt",
+    "gcloud config set project demo",
+    "gcloud services enable aiplatform.googleapis.com",
 ]
 
 DESTRUCTIONS = [
@@ -120,6 +130,15 @@ REFUSED = [
     "API=$(cat .env) ls",
     "grep -r password ~",
     "cat id_rsa",
+    # Des commandes qui affichent un secret : leur sortie partirait vers le modèle.
+    "gcloud auth print-access-token",
+    "gcloud auth print-access-token 2>&1 | cut -c1-20",
+    "timeout 5 gcloud auth print-access-token",
+    "gh auth token",
+    "aws --profile perso sts get-session-token",
+    "kubectl config view --raw",
+    "pass show banque",
+    "secret-tool lookup service o-jarvis",
 ]
 
 
@@ -160,6 +179,11 @@ def test_the_reason_names_the_riskiest_part(home: Path) -> None:
 def test_sudo_is_explained_not_just_refused(home: Path) -> None:
     with pytest.raises(BlockedTargetError, match="tape lui-même"):
         classify("sudo systemctl restart docker", cwd=home, home=home)
+
+
+def test_a_secret_printer_is_explained(home: Path) -> None:
+    with pytest.raises(BlockedTargetError, match="sous-commande"):
+        classify("gcloud auth print-access-token | cut -c1-20", cwd=home, home=home)
 
 
 def test_an_empty_command_is_refused(home: Path) -> None:

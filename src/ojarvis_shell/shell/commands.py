@@ -16,6 +16,7 @@ import glob
 import re
 import shlex
 from collections.abc import Callable
+from contextvars import ContextVar
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -65,6 +66,30 @@ WRAPPERS: dict[str, frozenset[str]] = {
     "watch": frozenset({"-n", "-d", "--interval"}),
 }
 SHELLS = frozenset({"bash", "sh", "zsh", "dash", "fish", "ksh"})
+#: Ce qui remplace une sous-commande dans la ligne (elle est classée à part).
+SUBSTITUTED = "SOUS_COMMANDE"
+#: Vrai pendant le classement d'une sous-commande : sa sortie reste au shell.
+_CAPTURED: ContextVar[bool] = ContextVar("captured", default=False)
+#: Commandes qui affichent un secret (jeton, mot de passe) : leur sortie partirait vers le
+#: modèle. Permises seulement dans une sous-commande (« -H "Bearer $(…)" »). Ajoutées le
+#: 26/10/2026, après qu'un essai a affiché le début d'un jeton Google.
+SECRET_PRINTERS = (
+    ("gcloud", "auth", "print-access-token"),
+    ("gcloud", "auth", "print-identity-token"),
+    ("gcloud", "auth", "application-default", "print-access-token"),
+    ("gcloud", "secrets", "versions", "access"),
+    ("gh", "auth", "token"),
+    ("az", "account", "get-access-token"),
+    ("aws", "sts", "get-session-token"),
+    ("aws", "configure", "get"),
+    ("aws", "ecr", "get-login-password"),
+    ("aws", "secretsmanager", "get-secret-value"),
+    ("vault", "read"),
+    ("vault", "kv", "get"),
+    ("op", "read"),
+    ("secret-tool", "lookup"),
+    ("heroku", "auth:token"),
+)
 #: Ne montrent que des noms, des tailles ou des types, jamais un contenu : un dossier de
 #: secrets peut y figurer (« du -sh ~/.* » pour un disque plein).
 METADATA = frozenset({"ls", "ll", "la", "dir", "du", "df", "stat", "tree", "find", "file", "wc"})
@@ -114,11 +139,17 @@ def _classify(text: str, *, cwd: Path, home: Path, depth: int) -> Verdict:
     if depth > 4:
         return Verdict(Level.AGIR, "commandes imbriquées trop profondément")
     verdicts: list[Verdict] = []
-    inner = _substitutions(text)
+    text, inner = _substitutions(text)
     if inner:
-        # `$(…)`, `` `…` ``, `<(…)` : exécutés même entre guillemets ; classés à part.
+        # `$(…)`, `` `…` ``, `<(…)` : exécutés même entre guillemets ; classés à part. Leur
+        # sortie reste au shell (un jeton passé à curl), d'où « captée ».
         verdicts.append(Verdict(Level.AGIR, "sous-commande"))
-        verdicts.extend(_classify(part, cwd=cwd, home=home, depth=depth + 1) for part in inner)
+        captured = _CAPTURED.set(True)
+        try:
+            for part in inner:
+                verdicts.append(_classify(part, cwd=cwd, home=home, depth=depth + 1))
+        finally:
+            _CAPTURED.reset(captured)
     try:
         tokens = _tokens(text)
     except ValueError:
@@ -173,18 +204,32 @@ def _split_operators(run: str) -> list[str]:
     return parts
 
 
-def _substitutions(text: str) -> list[str]:
-    """Le texte des sous-commandes `$(…)`, `<(…)`, `>(…)` et `` `…` `` (guillemets compris)."""
+def _substitutions(text: str) -> tuple[str, list[str]]:
+    """Les sous-commandes `$(…)`, `<(…)`, `>(…)` et `` `…` `` (guillemets compris), et la
+    ligne où chacune est remplacée par un mot neutre : elle n'y est pas classée deux fois."""
     found: list[str] = []
-    for match in re.finditer(r"[$<>]\(", text):
-        start = match.end()
-        depth, index = 1, start
-        while index < len(text) and depth:
-            depth += {"(": 1, ")": -1}.get(text[index], 0)
+    line: list[str] = []
+    index = 0
+    while index < len(text):
+        if text[index] in "$<>" and text[index + 1 : index + 2] == "(":
+            start = index + 2
+            depth, end = 1, start
+            while end < len(text) and depth:
+                depth += {"(": 1, ")": -1}.get(text[end], 0)
+                end += 1
+            found.append(text[start : end - 1] if depth == 0 else text[start:])
+            line.append(SUBSTITUTED)
+            index = end
+        elif text[index] == "`":
+            end = text.find("`", index + 1)
+            end = len(text) if end < 0 else end
+            found.append(text[index + 1 : end])
+            line.append(SUBSTITUTED)
+            index = end + 1
+        else:
+            line.append(text[index])
             index += 1
-        found.append(text[start : index - 1] if depth == 0 else text[start:])
-    found.extend(re.findall(r"`([^`]*)`?", text))
-    return [part for part in found if part.strip()]
+    return "".join(line), [part for part in found if part.strip()]
 
 
 def _defines_function(tokens: list[str]) -> bool:
@@ -228,6 +273,12 @@ def _segment(tokens: list[str], *, piped: bool, cwd: Path, home: Path, depth: in
         raise BlockedTargetError(
             f"Jarvis ne lance jamais « {name} » : il ne voit pas ton mot de passe. Montre la "
             "commande à l'utilisateur pour qu'il la tape lui-même."
+        )
+    if not _CAPTURED.get() and _prints_secret(name, words[1:]):
+        raise BlockedTargetError(
+            f"« {' '.join(words[:4])} » affiche un secret : sa sortie partirait vers le modèle. "
+            "Utilise-le seulement dans une sous-commande, par exemple "
+            '-H "Authorization: Bearer $(gcloud auth print-access-token)".'
         )
     if name in WRAPPERS:
         rest = _skip_options(words[1:], WRAPPERS[name])
@@ -356,14 +407,31 @@ def _check_recursive_search(name: str, args: list[str], *, cwd: Path, home: Path
         )
 
 
+def _prints_secret(name: str, args: list[str]) -> bool:
+    words = [a for a in args if not a.startswith("-")]
+    if name == "kubectl" and words[:2] == ["config", "view"]:
+        return "--raw" in args
+    if name == "pass":  # `pass` seul liste des noms ; `pass x` affiche un mot de passe
+        return bool(words) and words[0] not in ("ls", "list", "find", "search")
+    return any(name == p[0] and _in_order(p[1:], words) for p in SECRET_PRINTERS)
+
+
+def _in_order(wanted: tuple[str, ...], words: list[str]) -> bool:
+    """« sts get-session-token » dans « --profile x sts get-session-token » aussi."""
+    remaining = iter(words)
+    return all(any(word == part for word in remaining) for part in wanted)
+
+
 # --------------------------------------------------------------------------- par commande
 
 
-def _command(  # noqa: PLR0911 - une table de décision, lue de haut en bas
+def _command(  # noqa: PLR0911, PLR0912 - une table de décision, lue de haut en bas
     name: str, args: list[str], *, piped: bool, cwd: Path, home: Path, depth: int
 ) -> Verdict:
     if name in DESTRUCTIVE or name.startswith("mkfs"):
         return Verdict(Level.DETRUIRE, f"{name} supprime, écrase ou arrête")
+    if "--help" in args:
+        return Verdict(Level.LIRE, f"{name} --help")
     if name in SHELLS:
         if "-c" in args:
             index = args.index("-c") + 1
@@ -531,6 +599,22 @@ def _find(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verd
     return Verdict(Level.LIRE, "find cherche")
 
 
+GCLOUD_READ = frozenset({"list", "describe", "get-value", "info", "version", "help"})
+GCLOUD_WRITE = frozenset(
+    {"create", "delete", "set", "unset", "update", "enable", "disable", "deploy", "add",
+     "remove", "reset", "activate", "login", "revoke", "ssh", "scp", "run", "submit", "import",
+     "export", "start", "stop", "resize", "patch", "replace", "move"}
+)  # fmt: skip
+
+
+def _gcloud(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verdict:
+    del cwd, home, depth
+    words = {a for a in args if not a.startswith("-")}
+    if words & GCLOUD_READ and not words & GCLOUD_WRITE:
+        return Verdict(Level.LIRE, f"{name} lit")
+    return Verdict(Level.AGIR, f"{name} agit")
+
+
 def _crontab(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verdict:
     del name, cwd, home, depth
     if "-r" in args:
@@ -594,6 +678,7 @@ PACKAGE_REMOVE = frozenset({"remove", "purge", "autoremove", "uninstall"})
 
 SPECIAL: dict[str, Special] = {
     "git": _git,
+    "gcloud": _gcloud,
     "docker": _docker,
     "podman": _docker,
     "systemctl": _systemctl,
