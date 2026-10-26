@@ -67,6 +67,21 @@ def test_a_read_runs_at_once_and_its_output_is_data(
     assert "~/projet" in first.messages[0].content
 
 
+def test_every_command_goes_to_the_audit_log_reads_included(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    del project
+    llm["deepseek"]._script = shell_script("ls")
+    shell_chat(client, "Qu'y a-t-il ici ?")
+    audit = client.get("/v1/audit").json()
+    entries = [(i["action"], i["level"], i["summary"]) for i in reversed(audit["items"])]
+    assert entries == [
+        ("outil.executer_commande", 1, "Lancé : Lancer « ls » dans ~/projet"),
+        ("outil.executer_commande.fait", 1, "Fait : Lancer « ls » dans ~/projet"),
+    ]
+    assert client.post("/v1/audit/verify").json()["ok"] is True
+
+
 def test_an_action_waits_then_jarvis_reads_the_result_and_continues(
     client: TestClient, llm: dict[str, FakeProvider], project: Path
 ) -> None:
