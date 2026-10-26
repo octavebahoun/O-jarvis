@@ -33,6 +33,8 @@ from ojarvis.tools.guards import BlockedTargetError, resolve_user_path, shown
 #: Ce que Jarvis dit après une validation : la suite part avec les résultats du plan.
 CONTINUE = "Continue."
 YES = frozenset({"o", "oui", "y", "yes"})
+#: Pour quitter : ces mots ne partent jamais vers le modèle.
+EXIT_WORDS = frozenset({"exit", "quit", ":q", "/exit", "/quit", "/quitter"})
 LEVEL_NAMES = {1: "lecture", 2: "action", 3: "destruction"}
 #: Lignes de sortie montrées sous une commande (Jarvis, lui, lit tout).
 PREVIEW_LINES = 12
@@ -505,7 +507,7 @@ def _loop(client: ShellClient, style: Style, where: str) -> None:
             continue
         if not text:
             continue
-        if text in ("exit", "quit", ":q", "/quitter"):
+        if text in EXIT_WORDS:
             return
         if text == "/nouveau":
             client.conversation_id = None
