@@ -2,16 +2,20 @@
 
 from __future__ import annotations
 
+import sys
 import time
+from collections.abc import Callable
 from pathlib import Path
 
 import httpx
 import pytest
 
+from ojarvis.core.errors import NotFoundError
+from ojarvis.shell import cli
 from ojarvis.tools import shell
 from ojarvis.tools.base import Level, ToolContext, ToolRegistry
 from ojarvis.tools.guards import BlockedTargetError
-from ojarvis.tools.shell import RunCommand, clean_environment
+from ojarvis.tools.shell import OpenShell, RunCommand, clean_environment
 
 
 @pytest.fixture
@@ -133,3 +137,72 @@ def test_the_tool_is_only_offered_in_shell_mode(home: Path) -> None:
     assert registry.specs(max_level=Level.DETRUIRE) == []
     shell_specs = registry.specs(max_level=Level.DETRUIRE, shell_mode=True)
     assert [s.name for s in shell_specs] == ["executer_commande"]
+
+
+# --------------------------------------------------------------------------- ouvrir le mode shell
+
+
+def only(*installed: str) -> Callable[[str], str | None]:
+    return lambda name: f"/usr/bin/{name}" if name in installed else None
+
+
+async def test_open_shell_starts_the_user_terminal_in_the_folder(home: Path) -> None:
+    launched: list[list[str]] = []
+    tool = OpenShell(home, environ={}, which=only("ptyxis"), launch=launched.append)
+    output = await tool.run(tool.parse({"dossier": "~/projet"}), context(home))
+    assert launched == [
+        [
+            "/usr/bin/ptyxis",
+            "--new-window",
+            "--",
+            sys.executable,
+            "-m",
+            "ojarvis.shell.cli",
+            "--dossier",
+            str(home / "projet"),
+        ]
+    ]
+    assert output.text == "Mode shell ouvert dans ~/projet (ptyxis) : Jarvis t'y attend."
+    assert tool.level == Level.LIRE
+
+
+async def test_the_preferred_terminal_comes_first_and_the_data_folder_follows(
+    home: Path,
+) -> None:
+    launched: list[list[str]] = []
+    environ = {"OJARVIS_HOME": "/donnees/essai", "XDG_RUNTIME_DIR": "/run/user/1000", "X": "y"}
+    tool = OpenShell(
+        home, environ=environ, which=only("ptyxis", "xdg-terminal-exec"), launch=launched.append
+    )
+    await tool.run(tool.parse({}), context(home))
+    command = launched[0]
+    assert command[0] == "/usr/bin/xdg-terminal-exec"
+    # Un terminal déjà ouvert ignore notre environnement : `env` porte ce qu'il faut.
+    assert command[1:4] == ["env", "OJARVIS_HOME=/donnees/essai", "XDG_RUNTIME_DIR=/run/user/1000"]
+    assert "X=y" not in command
+    assert command[-2:] == ["--dossier", str(home)]
+
+
+async def test_open_shell_refuses_secret_folders_and_needs_a_terminal(home: Path) -> None:
+    tool = OpenShell(home, environ={}, which=only(), launch=lambda _c: None)
+    with pytest.raises(NotFoundError, match="Aucun terminal"):
+        await tool.run(tool.parse({}), context(home))
+    (home / ".ssh").mkdir()
+    with pytest.raises(BlockedTargetError):
+        await tool.run(tool.parse({"dossier": "~/.ssh"}), context(home))
+    with pytest.raises(NotFoundError, match="introuvable"):
+        await tool.run(tool.parse({"dossier": "~/inexistant"}), context(home))
+
+
+def test_open_shell_is_offered_in_the_app(home: Path) -> None:
+    registry = ToolRegistry([RunCommand(home), OpenShell(home)])
+    assert [s.name for s in registry.specs(max_level=Level.DETRUIRE)] == ["ouvrir_mode_shell"]
+
+
+def test_the_client_refuses_a_folder_outside_the_home(
+    home: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setenv("OJARVIS_USER_HOME", str(home))
+    assert cli.main(["--dossier", "/etc"]) == 2
+    assert cli.main(["--dossier", "~/inexistant"]) == 2
+    assert "Dossier introuvable" in capsys.readouterr().out

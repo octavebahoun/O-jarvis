@@ -9,6 +9,7 @@ continue.
 
 from __future__ import annotations
 
+import argparse
 import contextlib
 import itertools
 import json
@@ -462,14 +463,28 @@ def _banner(client: ShellClient, style: Style, where: str, own_engine: bool) -> 
     client.line(style("« /nouveau » : nouvelle conversation · « exit » : quitter", DIM))
 
 
+def parse_args(argv: list[str] | None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="ojarvis-shell", description="Jarvis dans ton terminal, dans un dossier à toi."
+    )
+    parser.add_argument(
+        "--dossier",
+        help="le dossier de travail (défaut : le dossier courant) ; l'app s'en sert quand elle "
+        "ouvre le mode shell, car un terminal déjà lancé ignore le dossier de l'appelant",
+    )
+    return parser.parse_args(argv)
+
+
 def main(argv: list[str] | None = None) -> int:
-    del argv
+    args = parse_args(argv)
     env = dict(os.environ)
     out = sys.stdout
     style = Style(out.isatty() and "NO_COLOR" not in env)
     home = Path(env.get("OJARVIS_USER_HOME") or Path.home())
     try:
-        folder = resolve_user_path(str(Path.cwd()), home)
+        folder = resolve_user_path(args.dossier or str(Path.cwd()), home)
+        if not folder.is_dir():
+            raise BlockedTargetError(f"Dossier introuvable : {args.dossier}.")
     except BlockedTargetError as exc:
         out.write(style(f"✗ {exc.message} Lance ojarvis-shell depuis un dossier à toi.\n", RED))
         return 2

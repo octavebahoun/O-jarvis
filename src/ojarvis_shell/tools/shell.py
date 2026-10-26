@@ -18,9 +18,12 @@ import asyncio
 import contextlib
 import os
 import re
+import shutil
 import signal
+import subprocess
+import sys
 import time
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import ClassVar
@@ -244,4 +247,113 @@ class RunCommand(Tool[CommandArgs]):
             },
             external=True,
             source="commande",
+        )
+
+
+# --------------------------------------------------------------------------- ouvrir le mode shell
+
+#: Terminaux connus, avec la façon de leur faire lancer une commande. `xdg-terminal-exec`
+#: d'abord : c'est le terminal choisi par l'utilisateur (Ubuntu 26.04 : Ptyxis).
+TERMINALS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("xdg-terminal-exec", ()),
+    ("ptyxis", ("--new-window", "--")),
+    ("gnome-terminal", ("--",)),
+    ("kgx", ("--",)),
+    ("konsole", ("-e",)),
+    ("xfce4-terminal", ("-x",)),
+    ("x-terminal-emulator", ("-e",)),
+    ("xterm", ("-e",)),
+)
+#: Ce dont le terminal a besoin pour rejoindre le même moteur (mêmes données, même connexion).
+#: Passé par `env` : un terminal déjà ouvert lance la commande avec son propre environnement.
+SHELL_ENV = (
+    "OJARVIS_HOME",
+    "OJARVIS_USER_HOME",
+    "XDG_DATA_HOME",
+    "XDG_CONFIG_HOME",
+    "XDG_CACHE_HOME",
+    "XDG_STATE_HOME",
+    "XDG_RUNTIME_DIR",
+)
+
+
+def shell_command(folder: Path, environ: Mapping[str, str]) -> list[str]:
+    """La commande qui lance `ojarvis-shell` dans ce dossier, avec ce même Python."""
+    variables = [f"{name}={environ[name]}" for name in SHELL_ENV if environ.get(name)]
+    program = [sys.executable, "-m", "ojarvis.shell.cli", "--dossier", str(folder)]
+    return ["env", *variables, *program] if variables else program
+
+
+def terminal_command(
+    folder: Path, environ: Mapping[str, str], which: Callable[[str], str | None]
+) -> tuple[str, list[str]] | None:
+    """Le premier terminal installé, et la ligne qui y ouvre le mode shell."""
+    for name, prefix in TERMINALS:
+        path = which(name)
+        if path is not None:
+            return name, [path, *prefix, *shell_command(folder, environ)]
+    return None
+
+
+def _launch(command: list[str]) -> None:
+    subprocess.Popen(  # noqa: S603 - un terminal installé, avec ojarvis-shell
+        command,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        start_new_session=True,  # le terminal vit sa vie, même si le moteur s'arrête
+    )
+
+
+class OpenShellArgs(ToolArgs):
+    dossier: str = Field(
+        default="~",
+        min_length=1,
+        max_length=1000,
+        description="Le dossier où travailler (~/… ; ~ par défaut).",
+    )
+
+
+class OpenShell(Tool[OpenShellArgs]):
+    name: ClassVar[str] = "ouvrir_mode_shell"
+    description: ClassVar[str] = (
+        "Ouvre le mode shell : un terminal où tu travailles avec l'utilisateur dans un dossier "
+        "(lancer des commandes, lire leur sortie, corriger). À utiliser quand il dit « passe en "
+        "mode shell » ou veut que tu lances des commandes."
+    )
+    Args: ClassVar[type[ToolArgs]] = OpenShellArgs
+    level: ClassVar[Level] = Level.LIRE
+
+    def __init__(
+        self,
+        home: Path,
+        *,
+        environ: Mapping[str, str] | None = None,
+        which: Callable[[str], str | None] = shutil.which,
+        launch: Callable[[list[str]], None] = _launch,
+    ) -> None:
+        self._home = home
+        self._environ = environ
+        self._which = which
+        self._launch = launch
+
+    def describe(self, args: OpenShellArgs) -> str:
+        return f"Ouvrir le mode shell dans {args.dossier}"
+
+    async def run(self, args: OpenShellArgs, ctx: ToolContext) -> ToolOutput:
+        folder = resolve_user_path(args.dossier, self._home)
+        if not folder.is_dir():
+            raise NotFoundError(f"Dossier introuvable : {args.dossier}.")
+        environ = os.environ if self._environ is None else self._environ
+        found = terminal_command(folder, environ, self._which)
+        if found is None:
+            raise NotFoundError(
+                "Aucun terminal trouvé. Lance « ojarvis-shell » toi-même dans un terminal."
+            )
+        name, command = found
+        self._launch(command)
+        where = shown(folder, ctx.home)
+        return ToolOutput(
+            f"Mode shell ouvert dans {where} ({name}) : Jarvis t'y attend.",
+            {"dossier": str(folder), "terminal": name},
         )
