@@ -1,0 +1,264 @@
+"""Le terminal du mode shell, face à un faux moteur : afficher, demander, valider, continuer."""
+
+from __future__ import annotations
+
+import io
+import json
+import os
+from collections.abc import Iterator
+from pathlib import Path
+from typing import Any
+
+import httpx
+import pytest
+
+from ojarvis.config import resolve_paths
+from ojarvis.shell import cli
+from ojarvis.shell.cli import ShellClient, Style, preview, sse_events
+from ojarvis.shell.connection import EngineInfo, info_path, read_info, remove_info, write_info
+
+
+def sse(*events: tuple[str, dict[str, Any]]) -> str:
+    return "".join(f"event: {kind}\ndata: {json.dumps(data)}\n\n" for kind, data in events)
+
+
+START = ("start", {"conversation_id": "c1", "user_message_id": 1, "assistant_message_id": 2})
+ROUTE = ("route", {"provider": "meta", "model": "muse-spark-1.3", "fallback_from": None})
+DONE: tuple[str, dict[str, Any]] = ("done", {})
+
+
+def plan(level: int, status: str = "proposed") -> dict[str, Any]:
+    return {
+        "id": "p1",
+        "title": "Nettoyer",
+        "status": status,
+        "max_level": level,
+        "tainted": False,
+        "steps": [{"position": 1, "description": "Lancer « docker image prune -f »", "level": 3}],
+    }
+
+
+class FakeEngine:
+    """Rejoue des tours de chat et suit un plan ; garde chaque requête reçue."""
+
+    def __init__(self, turns: list[str]) -> None:
+        self.turns: Iterator[str] = iter(turns)
+        self.requests: list[tuple[str, str, dict[str, Any]]] = []
+        self.plan_polls = 0
+
+    def __call__(self, request: httpx.Request) -> httpx.Response:
+        body = json.loads(request.content) if request.content else {}
+        self.requests.append((request.method, request.url.path, body))
+        if request.url.path == "/v1/chat":
+            return httpx.Response(200, text=next(self.turns))
+        if request.url.path.endswith(("/approve", "/refuse")):
+            return httpx.Response(200, json={})
+        if request.url.path == "/v1/plans/p1":
+            self.plan_polls += 1
+            status = "running" if self.plan_polls == 1 else "done"
+            step = {
+                "position": 1,
+                "tool": "executer_commande",
+                "description": "Lancer « docker image prune -f »",
+                "status": "running" if status == "running" else "done",
+                "result": "$ docker image prune -f\ndossier : ~\ncode de sortie 0 (1 s)\n"
+                "--- sortie ---\nTotal reclaimed space: 25.4GB",
+                "error": None,
+            }
+            return httpx.Response(200, json={"status": status, "steps": [step]})
+        return httpx.Response(404, json={"error": {"message": "inconnu"}})
+
+
+def session(engine: FakeEngine, answers: list[str]) -> tuple[ShellClient, io.StringIO]:
+    out = io.StringIO()
+    replies = iter(answers)
+    http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(engine))
+    client = ShellClient(
+        http, "/home/test/projet", out=out, ask=lambda _q: next(replies), style=Style(False)
+    )
+    client._poll_s = 0.0
+    return client, out
+
+
+def chats(engine: FakeEngine) -> list[dict[str, Any]]:
+    return [body for method, path, body in engine.requests if path == "/v1/chat"]
+
+
+def test_a_read_shows_the_model_the_command_and_its_output() -> None:
+    tool = {
+        "id": "t1",
+        "name": "executer_commande",
+        "description": "Lancer « df -h » dans ~/projet",
+        "status": "done",
+        "output": "$ df -h\ndossier : ~/projet\ncode de sortie 0 (0 s)\n--- sortie ---\n"
+        "/dev/sda2  457G  386G  48G  90% /",
+    }
+    engine = FakeEngine(
+        [
+            sse(
+                START,
+                ROUTE,
+                ("tool", {**tool, "status": "running"}),
+                ("tool", tool),
+                ROUTE,
+                ("delta", {"text": "Ton disque est plein à 90 %."}),
+                DONE,
+            )
+        ]
+    )
+    client, out = session(engine, [])
+    client.send("Pourquoi mon disque est plein ?")
+    text = out.getvalue()
+    assert text.count("· meta / muse-spark-1.3") == 1  # annoncé une fois par tour
+    assert "  ✓ Lancer « df -h » dans ~/projet" in text
+    assert "/dev/sda2  457G  386G  48G  90% /" in text
+    assert "$ df -h" not in text  # l'en-tête est déjà dans la ligne ✓
+    assert "Ton disque est plein à 90 %." in text
+    assert client.conversation_id == "c1"
+    assert chats(engine)[0] == {
+        "text": "Pourquoi mon disque est plein ?",
+        "channel": "shell",
+        "folder": "/home/test/projet",
+    }
+
+
+def test_an_approved_action_runs_then_jarvis_continues_with_its_results() -> None:
+    engine = FakeEngine(
+        [
+            sse(START, ("plan", plan(2)), ("delta", {"text": "Je te propose de nettoyer."}), DONE),
+            sse(START, ("delta", {"text": "25,4 Go libérés, vérifié avec df."}), DONE),
+        ]
+    )
+    client, out = session(engine, ["o"])
+    client.send("Libère de la place.")
+    text = out.getvalue()
+    assert "┌ À valider · niveau 2 (action)" in text
+    assert "│ 1. Lancer « docker image prune -f »" in text
+    assert "  ✓ Lancer « docker image prune -f »" in text
+    assert "Total reclaimed space: 25.4GB" in text
+    assert "25,4 Go libérés" in text
+    approve = next(b for m, p, b in engine.requests if p.endswith("/approve"))
+    assert approve == {"double_confirm": False}
+    follow = chats(engine)[1]
+    assert follow["after_plan"] == "p1"
+    assert follow["conversation_id"] == "c1"
+    assert follow["text"] == cli.CONTINUE
+
+
+def test_a_refused_plan_runs_nothing_and_stops_there() -> None:
+    engine = FakeEngine([sse(START, ("plan", plan(2)), DONE)])
+    client, out = session(engine, ["n"])
+    client.send("Libère de la place.")
+    paths = [p for _m, p, _b in engine.requests]
+    assert "/v1/plans/p1/refuse" in paths
+    assert "/v1/plans/p1/approve" not in paths
+    assert len(chats(engine)) == 1  # pas de suite
+    assert "Refusé : rien n'a été lancé." in out.getvalue()
+
+
+def test_a_destruction_needs_the_whole_word_yes() -> None:
+    engine = FakeEngine([sse(START, ("plan", plan(3)), DONE)])
+    client, _out = session(engine, ["o"])  # « o » ne suffit pas pour détruire
+    client.send("Supprime les images.")
+    assert "/v1/plans/p1/approve" not in [p for _m, p, _b in engine.requests]
+
+    engine = FakeEngine([sse(START, ("plan", plan(3)), DONE), sse(START, DONE)])
+    client, out = session(engine, ["oui"])
+    client.send("Supprime les images.")
+    approve = next(b for m, p, b in engine.requests if p.endswith("/approve"))
+    assert approve == {"double_confirm": True}
+    assert "┌ À valider · niveau 3 (destruction)" in out.getvalue()
+
+
+def test_a_reading_plan_is_followed_without_a_question() -> None:
+    engine = FakeEngine([sse(START, ("plan", plan(1, status="approved")), DONE), sse(START, DONE)])
+    client, _out = session(engine, [])  # aucune réponse à donner
+    client.send("Regarde l'espace disque.")
+    assert chats(engine)[1]["after_plan"] == "p1"
+
+
+def test_an_engine_refusal_is_shown() -> None:
+    def refuse(_request: httpx.Request) -> httpx.Response:
+        return httpx.Response(422, json={"error": {"message": "Dossier protégé."}})
+
+    out = io.StringIO()
+    http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(refuse))
+    client = ShellClient(http, "~", out=out, ask=input, style=Style(False))
+    client.send("Bonjour")
+    assert "✗ Dossier protégé." in out.getvalue()
+
+
+def test_sse_and_preview_helpers() -> None:
+    lines = ["event: delta", 'data: {"text": "a"}', "", "event: done", "data: {}", ""]
+    assert list(sse_events(lines)) == [("delta", {"text": "a"}), ("done", {})]
+    report = "$ seq 20\ndossier : ~\ncode de sortie 0 (0 s)\n--- sortie ---\n" + "\n".join(
+        str(n) for n in range(1, 21)
+    )
+    shown = preview(report, lines=5)
+    assert shown.splitlines()[0] == "[… 15 lignes plus haut]"
+    assert shown.splitlines()[-1] == "20"
+    # Un échec garde son code : c'est l'information utile.
+    failed = "$ make\ndossier : ~\ncode de sortie 2 (1 s)\n--- erreurs ---\nmake: *** Erreur 1"
+    assert preview(failed) == "code de sortie 2 (1 s)\n--- erreurs ---\nmake: *** Erreur 1"
+
+
+# --------------------------------------------------------------------------- la connexion
+
+
+@pytest.fixture
+def runtime(tmp_path: Path) -> dict[str, str]:
+    return {"OJARVIS_HOME": str(tmp_path / "donnees"), "XDG_RUNTIME_DIR": str(tmp_path / "run")}
+
+
+def test_the_connection_is_read_only_when_private_and_alive(runtime: dict[str, str]) -> None:
+    path = info_path(resolve_paths(runtime), runtime)
+    assert path is not None
+    info = EngineInfo(port=4242, pid=os.getpid(), token="j" * 43, version="1.1.0")
+    write_info(path, info)
+    assert read_info(path) == info
+    path.chmod(0o644)  # lisible par d'autres : on n'y touche pas
+    assert read_info(path) is None
+    path.chmod(0o600)
+    write_info(path, EngineInfo(4242, 999_999_999, "j" * 43, "1.1.0"))  # processus disparu
+    assert read_info(path) is None
+
+
+def test_the_connection_is_removed_only_by_its_engine(runtime: dict[str, str]) -> None:
+    path = info_path(resolve_paths(runtime), runtime)
+    assert path is not None
+    write_info(path, EngineInfo(4242, os.getpid(), "j" * 43, "1.1.0"))
+    remove_info(path, pid=1)  # un autre moteur : il ne l'efface pas
+    assert path.exists()
+    remove_info(path, pid=os.getpid())
+    assert not path.exists()
+
+
+def test_two_data_folders_never_share_a_connection(tmp_path: Path) -> None:
+    first = {"OJARVIS_HOME": str(tmp_path / "a"), "XDG_RUNTIME_DIR": str(tmp_path / "run")}
+    second = {**first, "OJARVIS_HOME": str(tmp_path / "b")}
+    assert info_path(resolve_paths(first), first) != info_path(resolve_paths(second), second)
+    assert info_path(resolve_paths(first), {}) is None  # sans dossier d'exécution
+
+
+def test_connect_joins_the_app_engine_or_starts_its_own(
+    runtime: dict[str, str], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    started: list[bool] = []
+    own = EngineInfo(5000, 1, "k" * 43, "1.1.0")
+
+    def fake_start(env: object) -> tuple[EngineInfo, None]:
+        del env
+        started.append(True)
+        return own, None
+
+    monkeypatch.setattr(cli, "start_engine", fake_start)
+    monkeypatch.setattr(cli, "reachable", lambda info: True)
+    assert cli.connect(runtime) == (own, None)  # rien de publié : il lance le sien
+    assert started == [True]
+
+    path = info_path(resolve_paths(runtime), runtime)
+    assert path is not None
+    app = EngineInfo(4242, os.getpid(), "j" * 43, "1.1.0")
+    write_info(path, app)
+    assert cli.connect(runtime) == (app, None)  # le moteur de l'app
+    assert started == [True]

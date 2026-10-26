@@ -1,0 +1,523 @@
+"""`ojarvis-shell` : Jarvis dans ton terminal, dans le dossier où tu le lances.
+
+Il rejoint le moteur de l'app s'il tourne (`ojarvis.shell.connection`), sinon il lance le
+sien, qui s'arrête avec lui. Chaque message part sur le canal « shell » avec le dossier
+courant : une lecture s'exécute aussitôt, une action s'affiche et attend ton « o », une
+destruction ton « oui » en toutes lettres. Après ta décision, Jarvis relit le résultat et
+continue.
+"""
+
+from __future__ import annotations
+
+import contextlib
+import itertools
+import json
+import os
+import secrets
+import subprocess
+import sys
+import threading
+import time
+from collections.abc import Callable, Iterable, Iterator, Mapping
+from pathlib import Path
+from types import TracebackType
+from typing import Any, TextIO
+
+import httpx
+
+from ojarvis import __version__
+from ojarvis.config import resolve_paths
+from ojarvis.shell.connection import EXIT_LOCKED, READY_PREFIX, EngineInfo, info_path, read_info
+from ojarvis.tools.guards import BlockedTargetError, resolve_user_path, shown
+
+#: Ce que Jarvis dit après une validation : la suite part avec les résultats du plan.
+CONTINUE = "Continue."
+YES = frozenset({"o", "oui", "y", "yes"})
+LEVEL_NAMES = {1: "lecture", 2: "action", 3: "destruction"}
+#: Lignes de sortie montrées sous une commande (Jarvis, lui, lit tout).
+PREVIEW_LINES = 12
+
+
+class Style:
+    """Couleurs ANSI, seulement dans un vrai terminal et sans `NO_COLOR`."""
+
+    def __init__(self, enabled: bool) -> None:
+        self.enabled = enabled
+
+    def __call__(self, text: str, *codes: str) -> str:
+        if not self.enabled or not codes:
+            return text
+        return f"\033[{';'.join(codes)}m{text}\033[0m"
+
+    def prompt(self, text: str, *codes: str) -> str:
+        """Pour `input()` : readline ne doit pas compter les codes de couleur."""
+        if not self.enabled:
+            return text
+        return f"\001\033[{';'.join(codes)}m\002{text}\001\033[0m\002"
+
+
+DIM, BOLD, RED, GREEN, YELLOW, CYAN = "2", "1", "31", "32", "33", "36"
+LEVEL_COLORS = {1: GREEN, 2: YELLOW, 3: RED}
+
+
+class Spinner:
+    """« Jarvis réfléchit… » pendant l'attente, effacé dès que quelque chose s'affiche."""
+
+    FRAMES = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
+
+    def __init__(self, out: TextIO, enabled: bool) -> None:
+        self._out = out
+        self._enabled = enabled
+        self._label = ""
+        self._halt = threading.Event()
+        self._thread: threading.Thread | None = None
+
+    def start(self, label: str = "Jarvis réfléchit…") -> None:
+        if not self._enabled or self._thread is not None:
+            return
+        self._label = label
+        self._halt.clear()
+        self._thread = threading.Thread(target=self._spin, name="spinner", daemon=True)
+        self._thread.start()
+
+    def _spin(self) -> None:
+        for frame in itertools.cycle(self.FRAMES):
+            if self._halt.wait(0.1):
+                return
+            self._out.write(f"\r{frame} {self._label}")
+            self._out.flush()
+
+    def stop(self) -> None:
+        if self._thread is None:
+            return
+        self._halt.set()
+        self._thread.join()
+        self._thread = None
+        self._out.write("\r\033[K")
+        self._out.flush()
+
+    def __enter__(self) -> Spinner:
+        return self
+
+    def __exit__(
+        self,
+        kind: type[BaseException] | None,
+        error: BaseException | None,
+        trace: TracebackType | None,
+    ) -> None:
+        self.stop()
+
+
+def sse_events(lines: Iterable[str]) -> Iterator[tuple[str, dict[str, Any]]]:
+    """Les événements d'un flux SSE (`event: …` puis `data: {…}`)."""
+    kind: str | None = None
+    for line in lines:
+        if line.startswith("event: "):
+            kind = line[7:].strip()
+        elif line.startswith("data: ") and kind is not None:
+            data = json.loads(line[6:])
+            yield kind, data if isinstance(data, dict) else {"value": data}
+            kind = None
+
+
+def error_message(response: httpx.Response) -> str:
+    try:
+        error = response.json().get("error", {})
+        message = error.get("message") if isinstance(error, dict) else None
+    except ValueError:
+        message = None
+    return str(message or f"Réponse inattendue du moteur (HTTP {response.status_code}).")
+
+
+def preview(report: str, lines: int = PREVIEW_LINES) -> str:
+    """La fin de ce qu'a affiché une commande, sans l'en-tête déjà montré (la commande, le
+    dossier) ; le code de sortie seulement s'il signale un échec."""
+    body = [
+        line
+        for line in report.splitlines()
+        if not line.startswith(("$ ", "dossier : ", "code de sortie 0 ", "--- sortie ---"))
+    ]
+    kept = body[-lines:]
+    hidden = len(body) - len(kept)
+    return "\n".join(([f"[… {hidden} lignes plus haut]"] if hidden > 0 else []) + kept)
+
+
+class ShellClient:
+    """Une session : la conversation, et la boucle « proposer, valider, continuer »."""
+
+    def __init__(
+        self,
+        http: httpx.Client,
+        folder: str,
+        *,
+        out: TextIO,
+        ask: Callable[[str], str],
+        style: Style,
+        poll_s: float = 0.3,
+        wait_s: float = 1800.0,
+    ) -> None:
+        self.http = http
+        self.folder = folder
+        self.conversation_id: str | None = None
+        self._out = out
+        self._ask = ask
+        self._style = style
+        self._poll_s = poll_s
+        self._wait_s = wait_s
+        self._spinner = Spinner(out, style.enabled)
+        self._line_open = False
+        #: Le modèle déjà annoncé pendant ce tour (il ne change qu'en cas de relais).
+        self._route: str | None = None
+
+    # ------------------------------------------------------------------ affichage
+
+    def _write(self, text: str) -> None:
+        self._out.write(text)
+        self._out.flush()
+        if text:
+            self._line_open = not text.endswith("\n")
+
+    def line(self, text: str) -> None:
+        if self._line_open:
+            self._write("\n")
+        self._write(text + "\n")
+
+    def _indented(self, text: str, *codes: str) -> None:
+        for line in text.splitlines():
+            self.line(self._style(f"    {line}", *codes))
+
+    def error(self, message: str) -> None:
+        self.line(self._style(f"✗ {message}", RED))
+
+    # ------------------------------------------------------------------ un message
+
+    def send(self, text: str) -> None:
+        """Un message, puis chaque plan qu'il propose : décidé, attendu, et la suite."""
+        plans = self._turn(text)
+        while plans:
+            finished = [plan_id for plan in plans if (plan_id := self._decide(plan))]
+            if not finished:
+                return
+            plans = self._turn(CONTINUE, after_plan=finished[-1])
+
+    def _turn(self, text: str, *, after_plan: str | None = None) -> list[dict[str, Any]]:
+        body: dict[str, Any] = {"text": text, "channel": "shell", "folder": self.folder}
+        if self.conversation_id is not None:
+            body["conversation_id"] = self.conversation_id
+        if after_plan is not None:
+            body["after_plan"] = after_plan
+        plans: list[dict[str, Any]] = []
+        self._route = None
+        self._spinner.start()
+        try:
+            timeout = httpx.Timeout(15.0, read=None)
+            with self.http.stream("POST", "/v1/chat", json=body, timeout=timeout) as response:
+                if response.status_code != 200:
+                    response.read()
+                    self._spinner.stop()
+                    self.error(error_message(response))
+                    return []
+                for kind, data in sse_events(response.iter_lines()):
+                    self._on_event(kind, data, plans)
+        finally:
+            self._spinner.stop()
+        if self._line_open:
+            self._write("\n")
+        return plans
+
+    def _on_event(self, kind: str, data: dict[str, Any], plans: list[dict[str, Any]]) -> None:
+        if kind == "start":
+            self.conversation_id = str(data["conversation_id"])
+        elif kind == "route":
+            route = f"{data.get('provider')} / {data.get('model')}"
+            if route != self._route:
+                self._route = route
+                relay = f", relais de {data['fallback_from']}" if data.get("fallback_from") else ""
+                self._spinner.stop()
+                self.line(self._style(f"· {route}{relay}", DIM))
+                self._spinner.start()
+        elif kind == "delta":
+            self._spinner.stop()
+            text = str(data.get("text", ""))
+            if not self._line_open and text.startswith("\n"):
+                text = "\n" + text.lstrip("\n")  # une seule ligne vide après une commande
+            self._write(text)
+        elif kind == "tool":
+            self._on_tool(data)
+        elif kind == "plan":
+            plans.append(data)
+        elif kind == "error":
+            self._spinner.stop()
+            self.error(str(data.get("message", "erreur du moteur")))
+
+    def _on_tool(self, data: dict[str, Any]) -> None:
+        status = data.get("status")
+        if status == "running" or data.get("name") == "proposer_un_plan":
+            return  # le plan s'affiche à part, avec la question
+        self._spinner.stop()
+        description = str(data.get("description") or data.get("name"))
+        if status == "failed":
+            self.line(self._style(f"  ✗ {description} : {data.get('error')}", RED))
+        elif status == "done":
+            self.line(self._style(f"  ✓ {description}", DIM))
+            if data.get("output"):
+                self._indented(preview(str(data["output"])), DIM)
+        self._spinner.start()
+
+    # ------------------------------------------------------------------ un plan
+
+    def _decide(self, plan: dict[str, Any]) -> str | None:
+        """Montre le plan et ta décision ; rend son id s'il a tourné jusqu'au bout."""
+        plan_id = str(plan["id"])
+        level = int(plan.get("max_level", 2))
+        if plan.get("status") != "proposed":
+            return self._wait(plan_id)  # une lecture : partie sans attendre
+        color = LEVEL_COLORS.get(level, YELLOW)
+        self.line(self._style(f"┌ À valider · niveau {level} ({LEVEL_NAMES.get(level)})", color))
+        for step in plan.get("steps", []):
+            self.line(self._style("│ ", color) + f"{step['position']}. {step['description']}")
+        if plan.get("tainted"):
+            warning = "│ ⚠ l'idée vient d'un contenu lu (page, fichier, sortie) : vérifie bien."
+            self.line(self._style(warning, color))
+        if level >= 3:
+            question = "└ Destruction : tape « oui » pour confirmer, autre chose pour refuser › "
+            approved = self._ask(self._style.prompt(question, color)).strip().lower() == "oui"
+        else:
+            question = "└ Valider ? [o]ui / [n]on › "
+            approved = self._ask(self._style.prompt(question, color)).strip().lower() in YES
+        self._line_open = False
+        if not approved:
+            self.http.post(f"/v1/plans/{plan_id}/refuse")
+            self.line(self._style("Refusé : rien n'a été lancé.", DIM))
+            return None
+        response = self.http.post(
+            f"/v1/plans/{plan_id}/approve", json={"double_confirm": level >= 3}
+        )
+        if response.status_code != 200:
+            self.error(error_message(response))
+            return None
+        return self._wait(plan_id)
+
+    def _wait(self, plan_id: str) -> str | None:
+        """Suit le plan étape par étape, jusqu'à sa fin."""
+        shown_steps: set[int] = set()
+        deadline = time.monotonic() + self._wait_s
+        self._spinner.start("Jarvis exécute…")
+        try:
+            while time.monotonic() < deadline:
+                plan = self.http.get(f"/v1/plans/{plan_id}").json()
+                for step in plan.get("steps", []):
+                    position = int(step["position"])
+                    if position in shown_steps or step["status"] in ("pending", "running"):
+                        continue
+                    shown_steps.add(position)
+                    self._spinner.stop()
+                    self._show_step(step)
+                    self._spinner.start("Jarvis exécute…")
+                if plan.get("status") in ("done", "failed", "refused"):
+                    return plan_id
+                time.sleep(self._poll_s)
+        finally:
+            self._spinner.stop()
+        self.error("Le plan tourne encore dans Jarvis ; je n'attends plus.")
+        return None
+
+    def _show_step(self, step: dict[str, Any]) -> None:
+        if step["status"] == "done":
+            self.line(self._style(f"  ✓ {step['description']}", GREEN))
+            if step.get("tool") == "executer_commande" and step.get("result"):
+                self._indented(preview(str(step["result"])), DIM)
+        elif step["status"] == "failed":
+            self.line(self._style(f"  ✗ {step['description']} : {step.get('error')}", RED))
+        else:
+            self.line(self._style(f"  – {step['description']} (non lancée)", DIM))
+
+
+# --------------------------------------------------------------------------- le moteur
+
+
+class EngineUnavailableError(Exception):
+    pass
+
+
+def reachable(info: EngineInfo) -> bool:
+    try:
+        response = httpx.get(
+            f"{info.url}/v1/status",
+            headers={"Authorization": f"Bearer {info.token}"},
+            timeout=3.0,
+        )
+    except httpx.HTTPError:
+        return False
+    return response.status_code == 200
+
+
+def start_engine(
+    env: Mapping[str, str], *, timeout_s: float = 180.0
+) -> tuple[EngineInfo, subprocess.Popen[bytes]]:
+    """Lance un moteur pour ce terminal, comme le fait l'app : jeton sur l'entrée standard,
+    gardée ouverte ; il s'arrête quand le terminal se ferme."""
+    token = secrets.token_urlsafe(32)
+    process = subprocess.Popen(
+        [sys.executable, "-m", "ojarvis"],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        env={**env, "OJARVIS_SKIP_WARMUP": "1"},
+        start_new_session=True,  # Ctrl+C dans le terminal ne coupe pas le moteur
+    )
+    stdin, stdout = process.stdin, process.stdout
+    if stdin is None or stdout is None:
+        process.kill()
+        raise EngineUnavailableError("Le moteur n'a pas de tubes d'entrée et de sortie.")
+    stdin.write(token.encode() + b"\n")
+    stdin.flush()
+    ready: dict[str, Any] = {}
+
+    def read_ready() -> None:
+        for raw in stdout:
+            line = raw.decode("utf-8", "replace")
+            if line.startswith(READY_PREFIX) and not ready:
+                ready.update(json.loads(line[len(READY_PREFIX) :]))
+            # La suite est lue et jetée : un tube plein bloquerait le moteur.
+
+    threading.Thread(target=read_ready, name="engine-stdout", daemon=True).start()
+    deadline = time.monotonic() + timeout_s
+    while not ready:
+        if process.poll() is not None:
+            if process.returncode == EXIT_LOCKED:
+                raise EngineUnavailableError(
+                    "Le moteur de l'app tourne déjà mais ne publie pas sa connexion : "
+                    "redémarre l'app (version à jour) ou ferme-la, puis relance."
+                )
+            raise EngineUnavailableError(
+                f"Le moteur n'a pas démarré (code {process.returncode}) : voir son journal, "
+                "~/.local/state/o-jarvis/logs/engine.log."
+            )
+        if time.monotonic() > deadline:
+            process.kill()
+            raise EngineUnavailableError("Le moteur met trop de temps à démarrer.")
+        time.sleep(0.1)
+    info = EngineInfo(int(ready["port"]), int(ready["pid"]), token, str(ready.get("version")))
+    return info, process
+
+
+def connect(env: Mapping[str, str]) -> tuple[EngineInfo, subprocess.Popen[bytes] | None]:
+    """Le moteur de l'app s'il tourne, sinon un moteur à ce terminal."""
+    path = info_path(resolve_paths(env), env)
+    if path is not None:
+        info = read_info(path)
+        if info is not None and reachable(info):
+            return info, None
+    return start_engine(env)
+
+
+def stop_engine(process: subprocess.Popen[bytes] | None) -> None:
+    if process is None:
+        return
+    if process.stdin is not None:
+        with contextlib.suppress(OSError):
+            process.stdin.close()  # le moteur s'arrête à la fermeture de son entrée
+    try:
+        process.wait(15)
+    except subprocess.TimeoutExpired:
+        process.kill()
+
+
+# --------------------------------------------------------------------------- terminal
+
+
+def _history(env: Mapping[str, str]) -> Path:
+    return resolve_paths(env).state_dir / "shell_history"
+
+
+def _setup_readline(path: Path) -> Callable[[], None]:
+    try:
+        import readline  # noqa: PLC0415 - absent hors des terminaux Unix
+    except ImportError:
+        return lambda: None
+    with contextlib.suppress(OSError):
+        readline.read_history_file(path)
+    readline.set_history_length(1000)
+
+    def save() -> None:
+        with contextlib.suppress(OSError):
+            path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+            readline.write_history_file(path)
+            path.chmod(0o600)
+
+    return save
+
+
+def _banner(client: ShellClient, style: Style, where: str, own_engine: bool) -> None:
+    profile = ""
+    with contextlib.suppress(httpx.HTTPError, ValueError):
+        if client.http.get("/v1/settings").json().get("model_profile") == "meta":
+            profile = " · profil Tout Meta"
+    origin = "moteur lancé pour ce terminal" if own_engine else "le Jarvis de ton app"
+    client.line(style(f"O-jarvis · mode shell (v{__version__})", BOLD, CYAN))
+    client.line(style(f"Dossier {where} · {origin}{profile}", DIM))
+    client.line(style("« /nouveau » : nouvelle conversation · « exit » : quitter", DIM))
+
+
+def main(argv: list[str] | None = None) -> int:
+    del argv
+    env = dict(os.environ)
+    out = sys.stdout
+    style = Style(out.isatty() and "NO_COLOR" not in env)
+    home = Path(env.get("OJARVIS_USER_HOME") or Path.home())
+    try:
+        folder = resolve_user_path(str(Path.cwd()), home)
+    except BlockedTargetError as exc:
+        out.write(style(f"✗ {exc.message} Lance ojarvis-shell depuis un dossier à toi.\n", RED))
+        return 2
+    spinner = Spinner(out, style.enabled)
+    spinner.start("Je rejoins Jarvis…")
+    try:
+        info, process = connect(env)
+    except EngineUnavailableError as exc:
+        spinner.stop()
+        out.write(style(f"✗ {exc}\n", RED))
+        return 1
+    spinner.stop()
+    save_history = _setup_readline(_history(env))
+    headers = {"Authorization": f"Bearer {info.token}"}
+    with httpx.Client(base_url=info.url, headers=headers, timeout=30.0) as http:
+        client = ShellClient(http, str(folder), out=out, ask=input, style=style)
+        where = shown(folder, home)
+        _banner(client, style, where, process is not None)
+        try:
+            _loop(client, style, where)
+        finally:
+            save_history()
+            stop_engine(process)
+    return 0
+
+
+def _loop(client: ShellClient, style: Style, where: str) -> None:
+    while True:
+        try:
+            text = input("\n" + style.prompt(f"{where} ❯ ", CYAN)).strip()
+        except EOFError:
+            client.line("")
+            return
+        except KeyboardInterrupt:
+            continue
+        if not text:
+            continue
+        if text in ("exit", "quit", ":q", "/quitter"):
+            return
+        if text == "/nouveau":
+            client.conversation_id = None
+            client.line(style("Nouvelle conversation.", DIM))
+            continue
+        try:
+            client.send(text)
+        except KeyboardInterrupt:
+            client.line(style("(interrompu)", DIM))
+        except httpx.HTTPError as exc:
+            client.error(f"Le moteur ne répond plus ({type(exc).__name__}).")
+
+
+if __name__ == "__main__":
+    sys.exit(main())
