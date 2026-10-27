@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ojarvis.shell.commands import classify
+from ojarvis.shell.commands import classify, signatures
 from ojarvis.tools.base import Level
 from ojarvis.tools.guards import BlockedTargetError
 
@@ -189,3 +189,43 @@ def test_a_secret_printer_is_explained(home: Path) -> None:
 def test_an_empty_command_is_refused(home: Path) -> None:
     with pytest.raises(BlockedTargetError):
         classify("   ", cwd=home, home=home)
+
+
+# --------------------------------------------------------------------------- « toujours »
+
+
+@pytest.mark.parametrize(
+    ("command", "kinds"),
+    [
+        ("npm install react", {"npm install"}),
+        ("ls && npm run build", {"npm run"}),  # une lecture n'a pas besoin de « toujours »
+        ("python3 -m unittest -v", {"python3 -m unittest"}),
+        ("python3 script.py --vite", {"python3 script.py"}),
+        ("mkdir build && touch build/a.txt", {"mkdir", "touch"}),
+        ("git commit -m 'retouche'", {"git commit"}),
+        ("LANG=C timeout 60 npm test", {"npm test"}),
+        ("ls -la", set()),
+    ],
+)
+def test_the_kinds_of_a_command(command: str, kinds: set[str], home: Path) -> None:
+    assert signatures(command, cwd=home / "projet", home=home) == frozenset(kinds)
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        "curl https://exemple.com",  # parle au réseau
+        "git push origin main",
+        "gcloud services enable aiplatform.googleapis.com",  # agit dans le cloud
+        "rm -rf build",  # une destruction : chaque fois
+        "python3 -c 'print(1)'",  # du code écrit à la volée
+        "echo $(date)",  # une sous-commande
+        "bash -c 'ls'",
+        "find . -name '*.log' | xargs rm",
+        "sudo apt install vim",  # refusée de toute façon
+        "cat .env",
+        "ls 'non fermé",
+    ],
+)
+def test_some_commands_never_get_always(command: str, home: Path) -> None:
+    assert signatures(command, cwd=home / "projet", home=home) is None

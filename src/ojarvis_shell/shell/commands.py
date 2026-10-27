@@ -744,3 +744,81 @@ SPECIAL: dict[str, Special] = {
         )
     ),
 }
+
+
+# --------------------------------------------------------------------------- « toujours »
+
+#: Commandes à « sous-commande » : le type d'une commande est le programme et sa sous-commande
+#: (« npm install », « git commit »).
+SUBCOMMANDS = frozenset(
+    {"git", "npm", "pnpm", "yarn", "npx", "docker", "podman", "cargo", "uv", "pip", "pip3",
+     "make", "go", "dotnet", "deno", "bun", "composer", "bundle", "mvn", "gradle", "flutter",
+     "dart", "poetry", "pipx", "systemctl", "snap", "flatpak", "apt", "apt-get"}
+)  # fmt: skip
+#: Jamais « toujours » : elles parlent au réseau, publient ou agissent dans le cloud. Un
+#: contenu piégé pourrait s'en servir pour faire sortir des données : tu valides chaque fois.
+NEVER_ALWAYS = frozenset(
+    {"curl", "wget", "ssh", "scp", "sftp", "rsync", "nc", "ncat", "netcat", "telnet", "ftp",
+     "socat", "gcloud", "aws", "az", "kubectl", "doctl", "heroku", "vercel", "firebase", "gh",
+     "git push", "git remote", "npm publish", "pnpm publish", "yarn publish", "docker push",
+     "docker login", "podman push", "twine", "bash", "sh", "zsh", "eval", "source", ".",
+     "xargs"}
+)  # fmt: skip
+
+
+def signatures(  # noqa: PLR0911 - une table de décision, lue de haut en bas
+    command: str, *, cwd: Path, home: Path
+) -> frozenset[str] | None:
+    """Les types d'action d'une commande (« npm install »…), pour « toujours pour cette
+    session » ; None si elle ne peut pas en bénéficier (destruction, réseau, code à la volée,
+    sous-commande, ligne illisible)."""
+    text = command.strip()
+    rest, inner = _substitutions(text)
+    if not text or inner:
+        return None
+    try:
+        tokens = _tokens(rest)
+        if _defines_function(tokens):
+            return None
+        found: set[str] = set()
+        for segment, piped in _segments(tokens):
+            verdict = _segment(segment, piped=piped, cwd=cwd, home=home, depth=0)
+            if verdict.level == Level.LIRE:
+                continue  # une lecture n'a pas besoin de « toujours »
+            if verdict.level >= Level.DETRUIRE:
+                return None
+            signature = _signature(segment)
+            if signature is None or signature in NEVER_ALWAYS:
+                return None
+            if signature.split()[0] in NEVER_ALWAYS:
+                return None
+            found.add(signature)
+    except (ValueError, BlockedTargetError):
+        return None
+    return frozenset(found)
+
+
+def _signature(tokens: list[str]) -> str | None:
+    words, _floor = _redirections(tokens, cwd=Path("/"), home=Path("/"))
+    while words and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*=.*", words[0]):
+        words = words[1:]
+    while words and Path(words[0]).name in WRAPPERS:
+        name = Path(words[0]).name
+        words = _skip_options(words[1:], WRAPPERS[name])
+        if name == "timeout" and words and re.fullmatch(r"[0-9.]+[smhd]?", words[0]):
+            words = words[1:]
+    if not words:
+        return None
+    name, args = Path(words[0]).name, words[1:]
+    if name in INTERPRETERS:
+        if {"-c", "-e", "--eval"} & set(args):
+            return None  # du code écrit à la volée : chaque fois
+        if "-m" in args:
+            index = args.index("-m") + 1
+            return f"{name} -m {args[index]}" if index < len(args) else None
+        script = next((a for a in args if not a.startswith("-")), None)
+        return f"{name} {script}" if script else None
+    if name in SUBCOMMANDS:
+        sub = next((a for a in args if not a.startswith("-")), None)
+        return f"{name} {sub}" if sub else name
+    return name

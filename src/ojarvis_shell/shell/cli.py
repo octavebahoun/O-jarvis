@@ -29,12 +29,15 @@ import httpx
 
 from ojarvis import __version__
 from ojarvis.config import resolve_paths
+from ojarvis.shell.commands import signatures
 from ojarvis.shell.connection import EXIT_LOCKED, READY_PREFIX, EngineInfo, info_path, read_info
+from ojarvis.tools.base import Level
 from ojarvis.tools.guards import BlockedTargetError, resolve_user_path, shown
 
 #: Ce que Jarvis dit après une validation : la suite part avec les résultats du plan.
 CONTINUE = "Continue."
 YES = frozenset({"o", "oui", "y", "yes"})
+ALWAYS = frozenset({"t", "toujours"})
 #: Pour quitter : ces mots ne partent jamais vers le modèle.
 EXIT_WORDS = frozenset({"exit", "quit", ":q", "/exit", "/quit", "/quitter"})
 LEVEL_NAMES = {1: "lecture", 2: "action", 3: "destruction"}
@@ -171,6 +174,7 @@ class ShellClient:
         poll_s: float = 0.3,
         wait_s: float = 1800.0,
         budget: Budget | None = None,
+        home: Path | None = None,
     ) -> None:
         self.http = http
         self.folder = folder
@@ -186,6 +190,9 @@ class ShellClient:
         self._route: str | None = None
         self.budget = budget or Budget()
         self._spent = 0.0
+        self.home = home or Path.home()
+        #: Les types de commande validés « toujours » : seulement pour cette session.
+        self.allowed: set[str] = set()
 
     # ------------------------------------------------------------------ affichage
 
@@ -326,18 +333,19 @@ class ShellClient:
                 self._diff(str(step["preview"]), color)
         if isinstance(plan.get("review"), dict):
             self._review(plan["review"], color)
-        if plan.get("tainted"):
-            warning = "│ ⚠ l'idée vient d'un contenu lu (page, fichier, sortie) : vérifie bien."
+        if plan.get("web"):
+            # Ici presque tout suit une lecture de ta machine ; seul le web mérite l'alerte.
+            warning = "│ ⚠ l'idée vient d'un contenu lu sur le web : vérifie bien."
             self.line(self._style(warning, color))
-        if level >= 3:
-            question = "└ Destruction : tape « oui » pour confirmer, autre chose pour refuser › "
+        always = self._always(plan)
+        if always and always <= self.allowed:
+            kinds = ", ".join(sorted(always))
+            self.line(
+                self._style(f"└ Validé d'office (toujours pour cette session : {kinds})", color)
+            )
+            approved = True
         else:
-            question = "└ Valider ? [o]ui / [n]on › "
-        try:
-            answer = self._ask(self._style.prompt(question, color)).strip().lower()
-        except EOFError:
-            answer = ""  # entrée fermée (Ctrl+D) : un refus, rien n'est lancé
-        approved = answer == "oui" if level >= 3 else answer in YES
+            approved = self._ask_approval(level, always, color)
         self._line_open = False
         if not approved:
             self.http.post(f"/v1/plans/{plan_id}/refuse")
@@ -384,6 +392,40 @@ class ShellClient:
         who = f"{review.get('provider')} / {review.get('model')}"
         verdict = self._style(f"Relecture · {who} : {mark} {notes}", color)
         self.line(self._style("│ ", frame) + verdict)
+
+    def _always(self, plan: dict[str, Any]) -> frozenset[str] | None:
+        """Les types de commande du plan si « toujours » peut s'y appliquer : seulement des
+        commandes de niveau 2, aucune retouche de fichier, rien après une lecture du web."""
+        if int(plan.get("max_level", 2)) != Level.AGIR or plan.get("web"):
+            return None
+        kinds: set[str] = set()
+        for step in plan.get("steps", []):
+            if step.get("tool") != "executer_commande" or not step.get("command"):
+                return None
+            found = signatures(str(step["command"]), cwd=Path(self.folder), home=self.home)
+            if found is None:
+                return None
+            kinds |= found
+        return frozenset(kinds) or None
+
+    def _ask_approval(self, level: int, always: frozenset[str] | None, color: str) -> bool:
+        if level >= Level.DETRUIRE:
+            question = "└ Destruction : tape « oui » pour confirmer, autre chose pour refuser › "
+        elif always:
+            kinds = ", ".join(sorted(always))
+            question = f"└ Valider ? [o]ui / [n]on / [t]oujours ({kinds}) › "
+        else:
+            question = "└ Valider ? [o]ui / [n]on › "
+        try:
+            answer = self._ask(self._style.prompt(question, color)).strip().lower()
+        except EOFError:
+            answer = ""  # entrée fermée (Ctrl+D) : un refus, rien n'est lancé
+        if level >= Level.DETRUIRE:
+            return answer == "oui"
+        if always and answer in ALWAYS:
+            self.allowed |= always
+            return True
+        return answer in YES
 
     def _wait(self, plan_id: str) -> str | None:
         """Suit le plan étape par étape, jusqu'à sa fin."""
@@ -544,7 +586,13 @@ def _banner(client: ShellClient, style: Style, where: str, own_engine: bool) -> 
     origin = "moteur lancé pour ce terminal" if own_engine else "le Jarvis de ton app"
     client.line(style(f"O-jarvis · mode shell (v{__version__})", BOLD, CYAN))
     client.line(style(f"Dossier {where} · {origin}{profile}", DIM))
-    client.line(style("« /nouveau » : nouvelle conversation · « exit » : quitter", DIM))
+    client.line(
+        style(
+            "« /nouveau » : nouvelle conversation · « /toujours » : ce qui est validé d'office "
+            "· « exit » : quitter",
+            DIM,
+        )
+    )
 
 
 def parse_args(argv: list[str] | None) -> argparse.Namespace:
@@ -584,7 +632,7 @@ def main(argv: list[str] | None = None) -> int:
     save_history = _setup_readline(_history(env))
     headers = {"Authorization": f"Bearer {info.token}"}
     with httpx.Client(base_url=info.url, headers=headers, timeout=30.0) as http:
-        client = ShellClient(http, str(folder), out=out, ask=input, style=style)
+        client = ShellClient(http, str(folder), out=out, ask=input, style=style, home=home)
         where = shown(folder, home)
         _banner(client, style, where, process is not None)
         try:
@@ -611,6 +659,14 @@ def _loop(client: ShellClient, style: Style, where: str) -> None:
         if text == "/nouveau":
             client.conversation_id = None
             client.line(style("Nouvelle conversation.", DIM))
+            continue
+        if text == "/toujours":
+            kinds = ", ".join(sorted(client.allowed)) or "rien pour l'instant"
+            client.line(style(f"Validé d'office dans cette session : {kinds}", DIM))
+            continue
+        if text == "/oublier":
+            client.allowed.clear()
+            client.line(style("Chaque commande demandera de nouveau ta validation.", DIM))
             continue
         try:
             client.send(text)

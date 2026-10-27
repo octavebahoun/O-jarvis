@@ -8,7 +8,7 @@ from typing import Any
 import pytest
 from fastapi.testclient import TestClient
 
-from ojarvis.agent.loop import ROUNDS_EXHAUSTED
+from ojarvis.agent.loop import ROUNDS_EXHAUSTED, from_web
 from ojarvis.chat.service import SHELL_TOOL_ROUNDS
 from ojarvis.llm.providers.fake import FakeProvider, FakeReply, Script
 from ojarvis.llm.structured import TOOL_NAME
@@ -242,3 +242,29 @@ def test_at_the_step_limit_jarvis_stops_and_says_where_it_is(
     assert events[-1][0] == "done"
     text = "".join(d["text"] for e, d in events if e == "delta")
     assert text.endswith("il reste à relancer les tests.")
+
+
+def test_the_plan_tells_the_terminal_the_command_and_whether_the_web_was_read(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    del project
+    llm["deepseek"]._script = shell_script("touch rapport.txt")
+    plan = next(d for e, d in shell_chat(client, "Crée rapport.txt.") if e == "plan")
+    assert plan["steps"][0]["tool"] == "executer_commande"
+    assert plan["steps"][0]["command"] == "touch rapport.txt"
+    assert plan["web"] is False
+
+
+@pytest.mark.parametrize(
+    ("source", "web"),
+    [
+        ("https://exemple.com/article", True),
+        ("recherche web", True),
+        ("http://localhost:5173/", False),  # ta page en développement
+        ("commande", False),
+        ("~/projet/stats.py", False),
+        (None, False),
+    ],
+)
+def test_what_counts_as_read_from_the_web(source: str | None, web: bool) -> None:
+    assert from_web(source) is web

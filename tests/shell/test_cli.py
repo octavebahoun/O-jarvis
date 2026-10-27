@@ -316,3 +316,90 @@ def test_the_cost_budget_stops_before_the_next_follow_up() -> None:
     client.send("Fais tout.")  # budget par défaut : 1 $
     assert len(chats(engine)) == 1
     assert "Budget de cette demande atteint (2.00 $)" in out.getvalue()
+
+
+def command_plan(
+    command: str, *, level: int = 2, web: bool = False, plan_id: str = "p1"
+) -> dict[str, Any]:
+    return {
+        "id": plan_id,
+        "title": "Installer",
+        "status": "proposed",
+        "max_level": level,
+        "tainted": True,
+        "web": web,
+        "steps": [
+            {
+                "position": 1,
+                "description": f"Lancer « {command} » dans ~/projet",
+                "level": level,
+                "tool": "executer_commande",
+                "command": command,
+            }
+        ],
+    }
+
+
+def test_always_approves_the_same_kind_of_command_for_the_session(tmp_path: Path) -> None:
+    engine = FakeEngine(
+        [
+            sse(START, ("plan", command_plan("npm install react")), DONE),
+            sse(START, ("plan", command_plan("npm install vite")), DONE),
+            sse(START, DONE),
+        ]
+    )
+    client, out = session(engine, [])
+    questions: list[str] = []
+
+    def ask(question: str) -> str:
+        questions.append(question)
+        return "t"
+
+    client._ask = ask
+    client.home = tmp_path
+    client.send("Installe React puis Vite.")
+    assert len(questions) == 1  # la 2ᵉ installation ne demande rien
+    assert "[t]oujours (npm install)" in questions[0]
+    assert "└ Validé d'office (toujours pour cette session : npm install)" in out.getvalue()
+    assert [p for _m, p, _b in engine.requests].count("/v1/plans/p1/approve") == 2
+    assert client.allowed == {"npm install"}
+    # Après une lecture du web, une installation demande de nouveau ta validation.
+    late = FakeEngine([sse(START, ("plan", command_plan("npm install x", web=True)), DONE)])
+    client.http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(late))
+    client._ask = lambda _q: "n"
+    client.send("Installe x.")
+    assert "/v1/plans/p1/refuse" in [p for _m, p, _b in late.requests]
+    assert "l'idée vient d'un contenu lu sur le web" in out.getvalue()
+
+
+@pytest.mark.parametrize(
+    "plan_data",
+    [
+        command_plan("curl https://exemple.com"),  # réseau
+        command_plan("rm -rf build", level=3),  # destruction
+        command_plan("npm install x", web=True),  # après le web
+        {
+            **plan(2),
+            "steps": [{"position": 1, "description": "Modifier", "tool": "modifier_fichier"}],
+        },
+    ],
+)
+def test_always_is_not_offered_when_it_should_not(
+    plan_data: dict[str, Any], tmp_path: Path
+) -> None:
+    engine = FakeEngine([sse(START, ("plan", plan_data), DONE)])
+    questions: list[str] = []
+
+    def ask(question: str) -> str:
+        questions.append(question)
+        return "t"
+
+    out = io.StringIO()
+    http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(engine))
+    client = ShellClient(http, str(tmp_path), out=out, ask=ask, style=Style(False), home=tmp_path)
+    client.send("Vas-y.")
+    assert "[t]oujours" not in questions[0]
+    assert "/v1/plans/p1/approve" not in [
+        p for _m, p, _b in engine.requests
+    ]  # « t » ne vaut pas « o »
+    assert not client.allowed
