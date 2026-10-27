@@ -8,7 +8,7 @@ from typing import Any
 import pytest
 from fastapi.testclient import TestClient
 
-from ojarvis.agent.loop import ROUNDS_EXHAUSTED, from_web
+from ojarvis.agent.loop import ROUNDS_EXHAUSTED, SHELL_TOOL, from_web
 from ojarvis.chat.service import SHELL_TOOL_ROUNDS
 from ojarvis.llm.providers.fake import FakeProvider, FakeReply, Script
 from ojarvis.llm.structured import TOOL_NAME
@@ -110,6 +110,41 @@ def test_an_action_waits_then_jarvis_reads_the_result_and_continues(
     assert "Résultats" in last
     assert '<donnees origine="commande">' in last
     assert "code de sortie 0" in last
+
+
+def test_a_follow_up_keeps_the_request_and_the_marks_of_what_was_read(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path, services: Services
+) -> None:
+    del project
+    llm["deepseek"]._script = shell_script("curl --version > version.txt")
+    events = shell_chat(client, "Note la version de curl.")
+    plan = next(d for e, d in events if e == "plan")
+    assert client.post(f"/v1/plans/{plan['id']}/approve", json={}).status_code == 200
+    assert wait_plan(client, plan["id"])["status"] == "done"
+
+    def again(request: LLMRequest) -> FakeReply:
+        if request.tools and request.tools[0].name == TOOL_NAME:
+            return FakeReply(tool_calls=[ToolCall("m", TOOL_NAME, {"faits": []})])
+        if "titre" in request.messages[0].content:
+            return FakeReply(text="Session shell")
+        if any(m.role == "tool" for m in request.messages):
+            return FakeReply(text="J'attends ta validation.")
+        arguments = {"commande": "touch annexe.txt", "dossier": "~/projet"}
+        return FakeReply(text="Et l'annexe.", tool_calls=[ToolCall("c2", SHELL_TOOL, arguments)])
+
+    llm["deepseek"]._script = again
+    conversation_id = events[0][1]["conversation_id"]
+    follow = shell_chat(
+        client, "Continue.", conversation_id=conversation_id, after_plan=[plan["id"]]
+    )
+    second = next(d for e, d in follow if e == "plan")
+    # Les sorties revenues restent des données, et curl a parlé au réseau : pas de « toujours ».
+    assert second["tainted"] is True
+    assert second["web"] is True
+    # La suite n'a pour texte que « Continue. » : le plan garde la demande d'origine.
+    assert client.portal is not None
+    stored = client.portal.call(services.plans.get, second["id"])
+    assert stored.request == "Note la version de curl."
 
 
 def test_the_folder_goes_with_shell_mode_only(client: TestClient, project: Path) -> None:
@@ -227,18 +262,19 @@ def test_at_the_step_limit_jarvis_stops_and_says_where_it_is(
             return FakeReply(tool_calls=[ToolCall("m", TOOL_NAME, {"faits": []})])
         if "titre" in request.messages[0].content:
             return FakeReply(text="Sans fin")
-        if not request.tools:
+        if request.messages[-1].content == ROUNDS_EXHAUSTED:
             return FakeReply(text="J'ai fait 16 étapes ; il reste à relancer les tests.")
         call = ToolCall("c", "executer_commande", {"commande": "ls", "dossier": "~/projet"})
-        return FakeReply(text="Encore une.", tool_calls=[call])
+        return FakeReply(text="", tool_calls=[call])  # des outils, sans un mot
 
     llm["deepseek"]._script = endless
     events = shell_chat(client, "Vérifie tout, encore et encore.")
     ran = [d for e, d in events if e == "tool" and d["status"] == "done"]
     assert len(ran) == SHELL_TOOL_ROUNDS
     last = [r for r, _ in llm["deepseek"].requests if "Mode shell" in r.messages[0].content][-1]
-    assert not last.tools  # le dernier appel ne propose plus d'outil
     assert last.messages[-1].content == ROUNDS_EXHAUSTED
+    # Aucun message vide sans appel d'outil : l'API le refuserait.
+    assert all(m.content or m.tool_calls for m in last.messages if m.role == "assistant")
     assert events[-1][0] == "done"
     text = "".join(d["text"] for e, d in events if e == "delta")
     assert text.endswith("il reste à relancer les tests.")
@@ -264,7 +300,19 @@ def test_the_plan_tells_the_terminal_the_command_and_whether_the_web_was_read(
         ("commande", False),
         ("~/projet/stats.py", False),
         (None, False),
+        # Revue du 27/10/2026 : un contenu d'ailleurs, même sans adresse web.
+        ("GitHub (list_issues)", True),
+        ("agent recherche", True),
+        ("registre MCP", True),
+        ("ton écran", True),
+        ("bac à sable", False),
     ],
 )
 def test_what_counts_as_read_from_the_web(source: str | None, web: bool) -> None:
     assert from_web(source) is web
+
+
+def test_a_command_that_talks_to_the_network_counts_as_the_web() -> None:
+    assert from_web("commande", "curl -s https://exemple.com | jq .") is True
+    assert from_web("commande", "git clone https://exemple.com/x.git") is True
+    assert from_web("commande", "ls -la && git status") is False

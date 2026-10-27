@@ -179,6 +179,9 @@ class ShellClient:
         self.http = http
         self.folder = folder
         self.conversation_id: str | None = None
+        #: Plans finis dont le modèle n'a pas encore lu les résultats (arrêt sur le budget) :
+        #: ils partent avec ton prochain message.
+        self.pending: list[str] = []
         self._out = out
         self._ask = ask
         self._style = style
@@ -223,7 +226,8 @@ class ShellClient:
         started = time.monotonic()
         follow_ups = 0
         try:
-            plans = self._turn(text)
+            pending, self.pending = self.pending, []
+            plans = self._turn(text, after_plan=pending)
             while plans:
                 finished = [plan_id for plan in plans if (plan_id := self._decide(plan))]
                 if not finished:
@@ -235,9 +239,10 @@ class ShellClient:
                         "Écris « continue » pour reprendre."
                     )
                     self.line(self._style(message, YELLOW))
+                    self.pending = finished
                     return
                 follow_ups += 1
-                plans = self._turn(CONTINUE, after_plan=finished[-1])
+                plans = self._turn(CONTINUE, after_plan=finished)
         finally:
             if self._spent > 0:
                 self.line(self._style(f"· coût de cette demande : {self._spent:.3f} $", DIM))
@@ -251,11 +256,11 @@ class ShellClient:
             return f"{self._spent:.2f} $"
         return None
 
-    def _turn(self, text: str, *, after_plan: str | None = None) -> list[dict[str, Any]]:
+    def _turn(self, text: str, *, after_plan: list[str] | None = None) -> list[dict[str, Any]]:
         body: dict[str, Any] = {"text": text, "channel": "shell", "folder": self.folder}
         if self.conversation_id is not None:
             body["conversation_id"] = self.conversation_id
-        if after_plan is not None:
+        if after_plan:
             body["after_plan"] = after_plan
         plans: list[dict[str, Any]] = []
         self._route = None
@@ -658,6 +663,7 @@ def _loop(client: ShellClient, style: Style, where: str) -> None:
             return
         if text == "/nouveau":
             client.conversation_id = None
+            client.pending.clear()
             client.line(style("Nouvelle conversation.", DIM))
             continue
         if text == "/toujours":

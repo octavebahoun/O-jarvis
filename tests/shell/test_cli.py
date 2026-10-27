@@ -140,7 +140,7 @@ def test_an_approved_action_runs_then_jarvis_continues_with_its_results() -> Non
     approve = next(b for m, p, b in engine.requests if p.endswith("/approve"))
     assert approve == {"double_confirm": False}
     follow = chats(engine)[1]
-    assert follow["after_plan"] == "p1"
+    assert follow["after_plan"] == ["p1"]
     assert follow["conversation_id"] == "c1"
     assert follow["text"] == cli.CONTINUE
 
@@ -174,7 +174,7 @@ def test_a_reading_plan_is_followed_without_a_question() -> None:
     engine = FakeEngine([sse(START, ("plan", plan(1, status="approved")), DONE), sse(START, DONE)])
     client, _out = session(engine, [])  # aucune réponse à donner
     client.send("Regarde l'espace disque.")
-    assert chats(engine)[1]["after_plan"] == "p1"
+    assert chats(engine)[1]["after_plan"] == ["p1"]
 
 
 def test_an_engine_refusal_is_shown() -> None:
@@ -298,7 +298,11 @@ def test_closing_the_input_during_a_question_refuses_the_plan() -> None:
 def test_the_follow_ups_stop_cleanly_at_the_budget() -> None:
     priced = ("done", {"cost_usd": 0.01})
     engine = FakeEngine(
-        [sse(START, ("plan", plan(2)), priced), sse(START, ("plan", plan(2)), priced)]
+        [
+            sse(START, ("plan", plan(2)), priced),
+            sse(START, ("plan", plan(2)), priced),
+            sse(START, ("done", {})),
+        ]
     )
     client, out = session(engine, ["o", "o"])
     client.budget = cli.Budget(follow_ups=1)
@@ -308,6 +312,10 @@ def test_the_follow_ups_stop_cleanly_at_the_budget() -> None:
     assert "Budget de cette demande atteint (1 suites)" in text
     assert "Écris « continue » pour reprendre." in text
     assert "· coût de cette demande : 0.020 $" in text
+    # Les résultats du dernier plan partent avec le message suivant : rien n'est perdu.
+    client.send("continue")
+    assert chats(engine)[2]["after_plan"] == ["p1"]
+    assert client.pending == []
 
 
 def test_the_cost_budget_stops_before_the_next_follow_up() -> None:

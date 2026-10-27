@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ojarvis.shell.commands import classify, signatures
+from ojarvis.shell.commands import classify, signatures, talks_to_network
 from ojarvis.tools.base import Level
 from ojarvis.tools.guards import BlockedTargetError
 
@@ -297,3 +297,19 @@ def test_the_kinds_of_a_command(command: str, kinds: set[str], home: Path) -> No
 )
 def test_some_commands_never_get_always(command: str, home: Path) -> None:
     assert signatures(command, cwd=home / "projet", home=home) is None
+
+
+@pytest.mark.parametrize(
+    ("command", "network"),
+    [
+        ("curl -s https://exemple.com", True),
+        ("timeout 9 wget -qO- https://exemple.com", True),
+        ("git -C ~/projet pull", True),
+        ("echo $(curl -s https://exemple.com)", True),
+        ("gh issue list", True),
+        ("ls -la && git status", False),
+        ("npm test", False),
+    ],
+)
+def test_what_talks_to_the_network(command: str, network: bool) -> None:
+    assert talks_to_network(command) is network

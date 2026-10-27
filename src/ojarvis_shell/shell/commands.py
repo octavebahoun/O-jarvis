@@ -1128,6 +1128,33 @@ def signatures(  # noqa: PLR0911 - une table de décision, lue de haut en bas
     return frozenset(found)
 
 
+#: Ramènent un contenu d'ailleurs : leur sortie peut porter des consignes piégées.
+NETWORK_TOOLS = frozenset(
+    {"curl", "wget", "http", "https", "xh", "aria2c", "lynx", "w3m", "ssh", "scp", "sftp",
+     "rsync", "nc", "ncat", "netcat", "telnet", "ftp", "socat", "gcloud", "aws", "az", "kubectl",
+     "doctl", "heroku", "vercel", "firebase", "gh", *NETWORK_LOOKUPS}
+)  # fmt: skip
+GIT_NETWORK = frozenset({"clone", "fetch", "pull", "push", "ls-remote", "remote", "submodule"})
+
+
+def talks_to_network(command: str) -> bool:
+    """La commande ramène-t-elle un contenu d'ailleurs (curl, git clone, gh…) ? Sa sortie
+    compte alors comme lue sur le web : plus de « toujours » ensuite. Illisible : oui."""
+    text, inner = _substitutions(command)
+    if any(talks_to_network(part) for part in inner):
+        return True
+    try:
+        segments = _segments(_tokens(text))
+        signatures = [_signature(segment) for segment, _piped in segments]
+    except (ValueError, BlockedTargetError):
+        return True
+    for signature in signatures:
+        name, _, sub = (signature or "").partition(" ")
+        if name in NETWORK_TOOLS or (name == "git" and sub in GIT_NETWORK):
+            return True
+    return False
+
+
 def _signature(tokens: list[str]) -> str | None:  # noqa: PLR0911 - une table de décision
     words, _floor = _redirections(tokens, cwd=Path("/"), home=Path("/"))
     while words:
