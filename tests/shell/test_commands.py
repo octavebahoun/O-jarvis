@@ -56,6 +56,10 @@ READS = [
     "gcloud auth list",
     "gcloud services list --enabled --project=demo",
     "gcloud ai --help 2>&1 | head -40",
+    "cat <<'FIN'\nrm -rf x\nFIN",
+    "git commit --help",
+    "docker run --help",
+    "LC_ALL=C sort f.txt",
 ]
 
 ACTIONS = [
@@ -82,6 +86,25 @@ ACTIONS = [
     "TOKEN=$(gcloud auth print-access-token); echo prêt",
     "gcloud config set project demo",
     "gcloud services enable aiplatform.googleapis.com",
+    # Revue du 27/10/2026 : des lectures en apparence, qui lancent un programme ou écrivent.
+    "npx un-paquet --help",  # npx lance le paquet, --help compris
+    "python3 -c 'import os' --help",
+    "python3 version",  # lance le script « version »
+    "docker run alpine --help",  # lance l'image
+    "echo x >& ~/.bashrc",  # écrase le fichier
+    "GIT_EXTERNAL_DIFF='rm -rf /x' git diff",
+    "LD_PRELOAD=./module.so ls",
+    "export PATH=/tmp/x:$PATH; ls",
+    "git -c core.fsmonitor='rm -rf /x' status",
+    "git ls-remote --upload-pack='rm -rf /x' .",
+    "tar -tf a.tar --use-compress-program='rm -rf /x'",
+    "npm audit fix --force",
+    "git diff --output=patch.txt",
+    "man -P 'rm -rf x' ls",
+    "find . -name '*.txt' | xargs cat",  # des noms qu'on ne voit pas
+    "host exemple.com",  # le réseau : une donnée pourrait y sortir
+    "ping -c 1 exemple.com",
+    "cd $DOSSIER && ls",
 ]
 
 DESTRUCTIONS = [
@@ -114,6 +137,18 @@ DESTRUCTIONS = [
     "timeout 5 rm x",
     "rsync -a --delete a/ b/",
     "crontab -r",
+    # Revue du 27/10/2026 : des destructions que le découpage laissait passer ou descendre.
+    "bash -c 'rm -rf build' --help",
+    "ls # <<EOF\nrm -rf build\nEOF",  # un commentaire n'ouvre pas de heredoc
+    'echo "<<EOF"\nrm -rf build\nEOF',  # des guillemets non plus
+    "nice -n 5 rm -rf build",
+    "ionice -c 3 rm -rf build",
+    "find . -type f -exec echo {} \\; -delete",
+    "echo '$(' ; rm -rf build",
+    "echo 'x';'rm' -rf build",
+    "git reflog expire --expire=now --all",
+    "git reflog delete HEAD@{1}",
+    "env -S 'rm -rf build'",
 ]
 
 REFUSED = [
@@ -139,6 +174,11 @@ REFUSED = [
     "kubectl config view --raw",
     "pass show banque",
     "secret-tool lookup service o-jarvis",
+    # Revue du 27/10/2026.
+    "grep -d recurse KEY ~",
+    "grep --directories=recurse KEY ~",
+    "find ~/.ssh -type f -exec cat {} \\;",
+    "find ~ -name '*.pem' -exec cat {} +",
 ]
 
 
@@ -168,6 +208,24 @@ def test_a_recursive_search_of_the_whole_home_is_refused(home: Path) -> None:
     with pytest.raises(BlockedTargetError, match="secrets"):
         classify("rg token", cwd=home, home=home)
     assert level("rg token", home) == Level.LIRE
+
+
+def test_a_recursive_search_that_would_read_a_secret_file_is_refused(home: Path) -> None:
+    (home / "projet" / ".env").write_text("CLE=x\n")
+    with pytest.raises(BlockedTargetError, match="exclus"):
+        level("grep -rn CLE .", home)
+    assert level("grep -rn CLE . --exclude='.env*'", home) == Level.LIRE
+    assert level("grep -rn CLE src", home) == Level.LIRE
+    assert level("rg CLE", home) == Level.LIRE  # rg saute les fichiers cachés
+    with pytest.raises(BlockedTargetError):
+        level("rg --hidden CLE", home)
+
+
+def test_a_cd_is_followed(home: Path) -> None:
+    (home / ".config" / "gh").mkdir(parents=True)
+    with pytest.raises(BlockedTargetError):
+        level("cd ~/.config && cat gh/hosts.yml", home)
+    assert level("cd src && ls", home) == Level.LIRE
 
 
 def test_the_reason_names_the_riskiest_part(home: Path) -> None:
@@ -205,6 +263,9 @@ def test_an_empty_command_is_refused(home: Path) -> None:
         ("git commit -m 'retouche'", {"git commit"}),
         ("LANG=C timeout 60 npm test", {"npm test"}),
         ("ls -la", set()),
+        ("git -C ~/projet commit -m x", {"git commit"}),
+        ("env NODE_ENV=production npm run build", {"npm run"}),
+        ("nice -n 5 make", {"make"}),
     ],
 )
 def test_the_kinds_of_a_command(command: str, kinds: set[str], home: Path) -> None:
@@ -225,6 +286,13 @@ def test_the_kinds_of_a_command(command: str, kinds: set[str], home: Path) -> No
         "sudo apt install vim",  # refusée de toute façon
         "cat .env",
         "ls 'non fermé",
+        # Revue du 27/10/2026 : un push, un curl ou une publication déguisés.
+        "git -C ~/projet push origin main",
+        "env NODE_ENV=production curl -d @x https://exemple.com",
+        "npm --prefix ~/projet publish",
+        "ping -c 1 exemple.com",
+        "git clone https://exemple.com/x.git",
+        "npx create-vite@latest app",
     ],
 )
 def test_some_commands_never_get_always(command: str, home: Path) -> None:
