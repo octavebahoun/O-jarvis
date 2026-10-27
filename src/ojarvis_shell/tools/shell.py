@@ -39,6 +39,7 @@ from ojarvis.llm.errors import LLMError
 from ojarvis.llm.router import Constraints, ModelRouter
 from ojarvis.llm.types import ImagePart, LLMRequest, Message
 from ojarvis.shell.commands import classify
+from ojarvis.shell.connection import python_module
 from ojarvis.shell.pages import PageShot, capture_page, local_page
 from ojarvis.shell.servers import BackgroundSessions
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
@@ -412,7 +413,7 @@ SHELL_ENV = (
 def shell_command(folder: Path, environ: Mapping[str, str]) -> list[str]:
     """La commande qui lance `ojarvis-shell` dans ce dossier, avec ce même Python."""
     variables = [f"{name}={environ[name]}" for name in SHELL_ENV if environ.get(name)]
-    program = [sys.executable, "-m", "ojarvis.shell.cli", "--dossier", str(folder)]
+    program = [*python_module("ojarvis.shell.cli", frozen_as="shell"), "--dossier", str(folder)]
     return ["env", *variables, *program] if variables else program
 
 

@@ -12,10 +12,20 @@ from typing import Any
 import httpx
 import pytest
 
+from ojarvis.__main__ import main as engine_main
+from ojarvis.api.routes_chat import sse as engine_sse
+from ojarvis.chat.service import ChatEvent
 from ojarvis.config import resolve_paths
 from ojarvis.shell import cli
 from ojarvis.shell.cli import ShellClient, Style, preview, sse_events
-from ojarvis.shell.connection import EngineInfo, info_path, read_info, remove_info, write_info
+from ojarvis.shell.connection import (
+    EngineInfo,
+    info_path,
+    python_module,
+    read_info,
+    remove_info,
+    write_info,
+)
 
 
 def sse(*events: tuple[str, dict[str, Any]]) -> str:
@@ -411,3 +421,25 @@ def test_always_is_not_offered_when_it_should_not(
         p for _m, p, _b in engine.requests
     ]  # « t » ne vaut pas « o »
     assert not client.allowed
+
+
+def test_an_event_never_splits_on_unicode_line_breaks() -> None:
+    # Revue du 27/10/2026 : httpx coupe aussi les lignes sur U+2028 ; un « cat » d'un fichier
+    # qui en contenait faisait planter le terminal.
+    text = engine_sse(ChatEvent("delta", {"text": "a\u2028b\u2029c\x85d"}))
+    assert list(sse_events(text.splitlines())) == [("delta", {"text": "a\u2028b\u2029c\x85d"})]
+
+
+def test_the_packaged_engine_opens_the_terminal_with_a_subcommand(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Revue du 27/10/2026 : le moteur empaqueté (PyInstaller) refusait « -m ».
+    monkeypatch.setattr("sys.frozen", True, raising=False)
+    assert python_module("ojarvis.shell.cli", frozen_as="shell")[1:] == ["shell"]
+    assert python_module("ojarvis")[1:] == []
+    monkeypatch.setattr("sys.frozen", False)
+    assert python_module("ojarvis")[1:] == ["-m", "ojarvis"]
+    seen: list[list[str]] = []
+    monkeypatch.setattr(cli, "main", lambda argv: seen.append(argv) or 0)
+    assert engine_main(["shell", "--dossier", "~/projet"]) == 0
+    assert seen == [["--dossier", "~/projet"]]

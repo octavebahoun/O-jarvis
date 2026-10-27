@@ -30,7 +30,14 @@ import httpx
 from ojarvis import __version__
 from ojarvis.config import resolve_paths
 from ojarvis.shell.commands import signatures
-from ojarvis.shell.connection import EXIT_LOCKED, READY_PREFIX, EngineInfo, info_path, read_info
+from ojarvis.shell.connection import (
+    EXIT_LOCKED,
+    READY_PREFIX,
+    EngineInfo,
+    info_path,
+    python_module,
+    read_info,
+)
 from ojarvis.tools.base import Level
 from ojarvis.tools.guards import BlockedTargetError, resolve_user_path, shown
 
@@ -492,8 +499,8 @@ def start_engine(
     """Lance un moteur pour ce terminal, comme le fait l'app : jeton sur l'entrée standard,
     gardée ouverte ; il s'arrête quand le terminal se ferme."""
     token = secrets.token_urlsafe(32)
-    process = subprocess.Popen(
-        [sys.executable, "-m", "ojarvis"],
+    process = subprocess.Popen(  # noqa: S603 - notre propre moteur, sans entrée extérieure
+        python_module("ojarvis"),
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.DEVNULL,
