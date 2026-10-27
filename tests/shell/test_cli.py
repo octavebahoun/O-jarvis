@@ -262,3 +262,20 @@ def test_connect_joins_the_app_engine_or_starts_its_own(
     write_info(path, app)
     assert cli.connect(runtime) == (app, None)  # le moteur de l'app
     assert started == [True]
+
+
+def test_a_code_plan_shows_its_diff_and_the_review() -> None:
+    code_plan = plan(2)
+    code_plan["steps"][0]["preview"] = (
+        "--- a/~/x.py\n+++ b/~/x.py\n@@ -1 +1 @@\n-ancien\n+nouveau\n"
+        + "\n".join(f"+ligne {n}" for n in range(100))
+    )
+    code_plan["review"] = {"ok": True, "notes": "", "provider": "meta", "model": "muse-wonder-1.0"}
+    engine = FakeEngine([sse(START, ("plan", code_plan), DONE)])
+    client, out = session(engine, ["n"])
+    client.send("Corrige.")
+    text = out.getvalue()
+    assert "│   -ancien" in text
+    assert "│   +nouveau" in text
+    assert "│   [… 25 lignes de plus]" in text  # un long diff est coupé à 80 lignes
+    assert "│ Relecture · meta / muse-wonder-1.0 : ✓ rien à signaler" in text

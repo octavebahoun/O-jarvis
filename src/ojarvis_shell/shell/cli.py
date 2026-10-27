@@ -39,6 +39,8 @@ EXIT_WORDS = frozenset({"exit", "quit", ":q", "/exit", "/quit", "/quitter"})
 LEVEL_NAMES = {1: "lecture", 2: "action", 3: "destruction"}
 #: Lignes de sortie montrées sous une commande (Jarvis, lui, lit tout).
 PREVIEW_LINES = 12
+#: Lignes d'un diff montrées avant validation.
+DIFF_LINES = 80
 
 
 class Style:
@@ -279,6 +281,10 @@ class ShellClient:
         self.line(self._style(f"┌ À valider · niveau {level} ({LEVEL_NAMES.get(level)})", color))
         for step in plan.get("steps", []):
             self.line(self._style("│ ", color) + f"{step['position']}. {step['description']}")
+            if step.get("preview"):
+                self._diff(str(step["preview"]), color)
+        if isinstance(plan.get("review"), dict):
+            self._review(plan["review"], color)
         if plan.get("tainted"):
             warning = "│ ⚠ l'idée vient d'un contenu lu (page, fichier, sortie) : vérifie bien."
             self.line(self._style(warning, color))
@@ -300,6 +306,40 @@ class ShellClient:
             self.error(error_message(response))
             return None
         return self._wait(plan_id)
+
+    def _diff(self, diff: str, frame: str) -> None:
+        """Le diff d'une étape, en couleurs : + ajouté, - retiré."""
+        lines = diff.splitlines()
+        shown_lines = lines[:DIFF_LINES]
+        for line in shown_lines:
+            if line.startswith(("+++", "---")):
+                color = BOLD
+            elif line.startswith("+"):
+                color = GREEN
+            elif line.startswith("-"):
+                color = RED
+            elif line.startswith("@@"):
+                color = CYAN
+            else:
+                color = DIM
+            self.line(self._style("│   ", frame) + self._style(line, color))
+        if len(lines) > len(shown_lines):
+            more = f"│   [… {len(lines) - len(shown_lines)} lignes de plus]"
+            self.line(self._style(more, DIM))
+
+    def _review(self, review: dict[str, Any], frame: str) -> None:
+        """L'avis du relecteur (un autre modèle) sur les modifications proposées."""
+        ok = review.get("ok")
+        if ok is True:
+            mark, color = "✓", GREEN
+        elif ok is False:
+            mark, color = "⚠", RED
+        else:
+            mark, color = "?", YELLOW
+        notes = str(review.get("notes") or ("rien à signaler" if ok else ""))
+        who = f"{review.get('provider')} / {review.get('model')}"
+        verdict = self._style(f"Relecture · {who} : {mark} {notes}", color)
+        self.line(self._style("│ ", frame) + verdict)
 
     def _wait(self, plan_id: str) -> str | None:
         """Suit le plan étape par étape, jusqu'à sa fin."""

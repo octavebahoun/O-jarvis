@@ -138,3 +138,78 @@ def test_a_plan_from_another_conversation_is_not_read(
         },
     )
     assert response.status_code == 404
+
+
+# --------------------------------------------------------------------------- retouches de code
+
+CODE = "def moyenne(notes):\n    return sum(notes) / len(notes)\n"
+FIX = {
+    "chemin": "~/projet/stats.py",
+    "ancien": "    return sum(notes) / len(notes)",
+    "nouveau": "    return sum(notes) / len(notes) if notes else 0",
+}
+
+
+def edit_script(arguments: dict[str, Any], verdict: str) -> Script:
+    """L'auteur propose une retouche ; le relecteur répond `verdict`."""
+
+    def script(request: LLMRequest) -> FakeReply:
+        system = request.messages[0].content
+        if request.tools and request.tools[0].name == TOOL_NAME:
+            return FakeReply(tool_calls=[ToolCall("m", TOOL_NAME, {"faits": []})])
+        if "titre" in system:
+            return FakeReply(text="Retouche")
+        if "Tu relis une modification de code" in system:
+            return FakeReply(text=verdict)
+        if any(m.role == "tool" for m in request.messages):
+            return FakeReply(text="Voilà la retouche, avec l'avis du relecteur.")
+        return FakeReply(
+            text="Je corrige.", tool_calls=[ToolCall("e1", "modifier_fichier", arguments)]
+        )
+
+    return script
+
+
+def test_a_code_edit_shows_its_diff_and_the_reviewer_verdict(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    (project / "stats.py").write_text(CODE)
+    llm["deepseek"]._script = edit_script(FIX, "PROBLÈME\nLa division par zéro reste possible.")
+    events = shell_chat(client, "Corrige la moyenne d'une liste vide.")
+    plan = next(d for e, d in events if e == "plan")
+    preview = plan["steps"][0]["preview"]
+    assert "-    return sum(notes) / len(notes)" in preview
+    assert "+    return sum(notes) / len(notes) if notes else 0" in preview
+    # Mode shell : la tâche est « reasoning » ; le relecteur passe par la tâche « review ».
+    assert plan["review"] == {
+        "ok": False,
+        "notes": "La division par zéro reste possible.",
+        "provider": "deepseek",
+        "model": "deepseek-v4-pro",
+    }
+    told = tool_messages(llm["deepseek"])[0]
+    assert "Relecture (deepseek / deepseek-v4-pro) : problème." in told
+    assert (project / "stats.py").read_text() == CODE  # rien avant ta validation
+
+
+def test_an_edit_that_would_not_apply_goes_back_to_the_model(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    (project / "stats.py").write_text(CODE)
+    wrong = {**FIX, "ancien": "    return 42"}
+    llm["deepseek"]._script = edit_script(wrong, "OK")
+    events = shell_chat(client, "Corrige la moyenne.")
+    assert not [e for e, _ in events if e == "plan"]
+    told = tool_messages(llm["deepseek"])[0]
+    assert told.startswith("Échec : Plan refusé : Le passage à remplacer est introuvable")
+
+
+def test_in_the_app_the_diff_is_shown_without_a_review(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    (project / "stats.py").write_text(CODE)
+    llm["deepseek"]._script = edit_script(FIX, "OK")
+    response = client.post("/v1/chat", json={"text": "Corrige la moyenne."})
+    plan = next(d for e, d in read_sse(response.text) if e == "plan")
+    assert "+    return sum(notes) / len(notes) if notes else 0" in plan["steps"][0]["preview"]
+    assert "review" not in plan
