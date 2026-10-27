@@ -341,3 +341,56 @@ def test_a_file_made_by_an_earlier_command_can_be_edited_in_the_same_plan(
     assert client.post(f"/v1/plans/{plan['id']}/approve", json={}).status_code == 200
     assert wait_plan(client, plan["id"])["status"] == "done"
     assert "if notes else 0" in (project / "copie.py").read_text()
+
+
+def test_after_two_failures_of_the_same_command_the_relay_model_takes_over(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path, services: Services
+) -> None:
+    del project
+    # Profil « Tout Meta » ; ici le relais est DeepSeek Flash (Meta n'a pas de clé en test).
+    settings = {"model_profile": "meta", "relay_model": "deepseek/deepseek-flash"}
+    assert client.patch("/v1/settings", json=settings).status_code == 200
+    llm["deepseek"]._script = shell_script("cat absent.txt > copie.txt")  # échoue : code 1
+    events = shell_chat(client, "Copie absent.txt.")
+    conversation_id = events[0][1]["conversation_id"]
+    routes: list[dict[str, Any]] = []
+    for _ in range(2):
+        plan = next(d for e, d in events if e == "plan")
+        assert client.post(f"/v1/plans/{plan['id']}/approve", json={}).status_code == 200
+        assert wait_plan(client, plan["id"])["status"] == "done"
+        llm["deepseek"]._script = again_script("cat absent.txt > copie.txt")
+        events = shell_chat(
+            client, "Continue.", conversation_id=conversation_id, after_plan=[plan["id"]]
+        )
+        routes.append(next(d for e, d in events if e == "route"))
+    # Un échec : Muse Spark (ici le modèle habituel) continue. Deux échecs : le relais.
+    assert routes[0]["relay"] is None
+    assert routes[1]["model"] == "deepseek-flash"
+    assert routes[1]["relay"] == (
+        "2 échecs de « cat absent.txt > copie.txt » : relais vers deepseek-flash"
+    )
+    # Le relais coupé (0) : plus jamais.
+    assert client.patch("/v1/settings", json={"relay_after": 0}).status_code == 200
+    plan = next(d for e, d in events if e == "plan")
+    assert client.post(f"/v1/plans/{plan['id']}/approve", json={}).status_code == 200
+    wait_plan(client, plan["id"])
+    events = shell_chat(
+        client, "Continue.", conversation_id=conversation_id, after_plan=[plan["id"]]
+    )
+    assert next(d for e, d in events if e == "route")["relay"] is None
+
+
+def again_script(command: str) -> Script:
+    """Le modèle relance la même commande à chaque suite, puis attend ta validation."""
+
+    def script(request: LLMRequest) -> FakeReply:
+        if request.tools and request.tools[0].name == TOOL_NAME:
+            return FakeReply(tool_calls=[ToolCall("m", TOOL_NAME, {"faits": []})])
+        if "titre" in request.messages[0].content:
+            return FakeReply(text="Session shell")
+        if any(m.role == "tool" for m in request.messages):
+            return FakeReply(text="J'attends ta validation.")
+        arguments = {"commande": command, "dossier": "~/projet"}
+        return FakeReply(text="Je relance.", tool_calls=[ToolCall("c", SHELL_TOOL, arguments)])
+
+    return script

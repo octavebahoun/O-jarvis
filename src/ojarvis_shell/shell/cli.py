@@ -297,6 +297,8 @@ class ShellClient:
                 self._route = route
                 relay = f", relais de {data['fallback_from']}" if data.get("fallback_from") else ""
                 self._spinner.stop()
+                if data.get("relay"):
+                    self.line(self._style(f"↑ {data['relay']}", YELLOW))
                 self.line(self._style(f"· {route}{relay}", DIM))
                 self._spinner.start()
         elif kind == "delta":
