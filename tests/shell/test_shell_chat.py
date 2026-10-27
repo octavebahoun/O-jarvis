@@ -9,12 +9,13 @@ import pytest
 from fastapi.testclient import TestClient
 
 from ojarvis.agent.loop import ROUNDS_EXHAUSTED, SHELL_TOOL, from_web
+from ojarvis.agent.plans import PLAN_TOOL
 from ojarvis.chat.service import SHELL_TOOL_ROUNDS
 from ojarvis.llm.providers.fake import FakeProvider, FakeReply, Script
 from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.services import Services
-from tests.test_agent_chat import tool_messages, wait_plan
+from tests.test_agent_chat import scripted, tool_messages, wait_plan
 from tests.test_chat import read_sse
 
 
@@ -316,3 +317,27 @@ def test_a_command_that_talks_to_the_network_counts_as_the_web() -> None:
     assert from_web("commande", "curl -s https://exemple.com | jq .") is True
     assert from_web("commande", "git clone https://exemple.com/x.git") is True
     assert from_web("commande", "ls -la && git status") is False
+
+
+def test_a_file_made_by_an_earlier_command_can_be_edited_in_the_same_plan(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    # Revue du 27/10/2026 : l'aperçu cherchait copie.py avant que la commande la crée.
+    (project / "stats.py").write_text(CODE)
+    copy = {"commande": "cp stats.py copie.py", "dossier": "~/projet"}
+    steps = [
+        {"outil": SHELL_TOOL, "arguments": copy, "pourquoi": "copier"},
+        {
+            "outil": "modifier_fichier",
+            "arguments": {**FIX, "chemin": "~/projet/copie.py"},
+            "pourquoi": "corriger la copie",
+        },
+    ]
+    llm["deepseek"]._script = scripted(
+        [[ToolCall("p", PLAN_TOOL, {"titre": "Copier puis corriger", "etapes": steps})]]
+    )
+    plan = next(d for e, d in shell_chat(client, "Copie puis corrige.") if e == "plan")
+    assert "preview" not in plan["steps"][1]  # le fichier n'existe qu'après l'étape 1
+    assert client.post(f"/v1/plans/{plan['id']}/approve", json={}).status_code == 200
+    assert wait_plan(client, plan["id"])["status"] == "done"
+    assert "if notes else 0" in (project / "copie.py").read_text()

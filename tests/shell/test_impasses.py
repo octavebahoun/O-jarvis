@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from functools import partial
 from pathlib import Path
 from typing import Any
 
@@ -118,3 +119,25 @@ def test_the_impasse_tools_exist_only_in_shell_mode(
     failed = [d for e, d in events if e == "tool" and d["status"] == "failed"]
     assert "mode shell" in failed[0]["error"]
     assert client.get("/v1/memory", params={"kind": "impasse"}).json() == []
+
+
+def test_impasses_that_look_alike_stay_apart(client: TestClient, services: Services) -> None:
+    # Revue du 27/10/2026 : à 0,97 de ressemblance, la seconde écrasait la première.
+    error = (
+        "test_liste_vide échoue : ZeroDivisionError, division par zéro dans moyenne quand "
+        "la liste des notes reçues est vide après le filtrage des absences du trimestre"
+    )
+    first = f"[~/projet] Erreur : {error} — Tenté : renvoyer None — Échec : le test attend zéro"
+    contents = [
+        first,
+        first.replace("None", "NaN"),  # un autre correctif tenté
+        first.replace("[~/projet]", "[~/autre]"),  # la même erreur dans un autre projet
+    ]
+    assert client.portal is not None
+    for content in contents:
+        _record, created = client.portal.call(partial(services.memory.add, "impasse", content))
+        assert created
+    assert len(client.get("/v1/memory", params={"kind": "impasse"}).json()) == 3
+    # La même impasse notée une seconde fois reste une seule.
+    _record, created = client.portal.call(partial(services.memory.add, "impasse", first))
+    assert not created

@@ -7,7 +7,7 @@ from pathlib import Path
 import httpx
 import pytest
 
-from ojarvis.core.errors import NotFoundError
+from ojarvis.core.errors import InvalidInputError, NotFoundError
 from ojarvis.tools.base import InvalidToolArgumentsError, Level, ToolContext
 from ojarvis.tools.files import EditFile, WriteFile, unified_diff
 from ojarvis.tools.guards import BlockedTargetError
@@ -98,3 +98,23 @@ def test_a_long_diff_is_cut() -> None:
     diff = unified_diff(before, "", "gros.txt")
     assert diff.endswith("[… diff coupé]")
     assert unified_diff("pareil", "pareil", "x") == "(aucun changement)"
+
+
+async def test_a_file_that_is_not_utf8_is_never_rewritten(home: Path) -> None:
+    # Revue du 27/10/2026 : décodé « au mieux » puis réécrit, il perdait chaque accent.
+    latin = home / "projet" / "notes.txt"
+    latin.write_bytes("café\nthé\n".encode("latin-1"))
+    tool = EditFile()
+    args = tool.parse({"chemin": "~/projet/notes.txt", "ancien": "th", "nouveau": "TH"})
+    with pytest.raises(InvalidInputError, match="UTF-8"):
+        await tool.run(args, context(home))
+    assert latin.read_bytes() == "café\nthé\n".encode("latin-1")
+
+
+def test_replacing_a_binary_file_shows_no_diff_but_is_not_refused(home: Path) -> None:
+    (home / "projet" / "image.bin").write_bytes(b"\x89PNG\x00\x01")
+    tool = WriteFile()
+    args = tool.parse({"chemin": "~/projet/image.bin", "contenu": "du texte"})
+    assert tool.preview(args, home) == (
+        "(remplace en entier ~/projet/image.bin, qui n'est pas un texte lisible)"
+    )
