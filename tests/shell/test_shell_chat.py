@@ -8,6 +8,8 @@ from typing import Any
 import pytest
 from fastapi.testclient import TestClient
 
+from ojarvis.agent.loop import ROUNDS_EXHAUSTED
+from ojarvis.chat.service import SHELL_TOOL_ROUNDS
 from ojarvis.llm.providers.fake import FakeProvider, FakeReply, Script
 from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
@@ -213,3 +215,30 @@ def test_in_the_app_the_diff_is_shown_without_a_review(
     plan = next(d for e, d in read_sse(response.text) if e == "plan")
     assert "+    return sum(notes) / len(notes) if notes else 0" in plan["steps"][0]["preview"]
     assert "review" not in plan
+
+
+def test_at_the_step_limit_jarvis_stops_and_says_where_it_is(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    del project
+
+    def endless(request: LLMRequest) -> FakeReply:
+        if request.tools and request.tools[0].name == TOOL_NAME:
+            return FakeReply(tool_calls=[ToolCall("m", TOOL_NAME, {"faits": []})])
+        if "titre" in request.messages[0].content:
+            return FakeReply(text="Sans fin")
+        if not request.tools:
+            return FakeReply(text="J'ai fait 16 étapes ; il reste à relancer les tests.")
+        call = ToolCall("c", "executer_commande", {"commande": "ls", "dossier": "~/projet"})
+        return FakeReply(text="Encore une.", tool_calls=[call])
+
+    llm["deepseek"]._script = endless
+    events = shell_chat(client, "Vérifie tout, encore et encore.")
+    ran = [d for e, d in events if e == "tool" and d["status"] == "done"]
+    assert len(ran) == SHELL_TOOL_ROUNDS
+    last = [r for r, _ in llm["deepseek"].requests if "Mode shell" in r.messages[0].content][-1]
+    assert not last.tools  # le dernier appel ne propose plus d'outil
+    assert last.messages[-1].content == ROUNDS_EXHAUSTED
+    assert events[-1][0] == "done"
+    text = "".join(d["text"] for e, d in events if e == "delta")
+    assert text.endswith("il reste à relancer les tests.")

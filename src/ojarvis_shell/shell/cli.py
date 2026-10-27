@@ -20,6 +20,7 @@ import sys
 import threading
 import time
 from collections.abc import Callable, Iterable, Iterator, Mapping
+from dataclasses import dataclass
 from pathlib import Path
 from types import TracebackType
 from typing import Any, TextIO
@@ -147,6 +148,15 @@ def preview(report: str, lines: int = PREVIEW_LINES) -> str:
     return "\n".join(([f"[… {hidden} lignes plus haut]"] if hidden > 0 else []) + kept)
 
 
+@dataclass(frozen=True, slots=True)
+class Budget:
+    """Ce qu'une demande peut consommer en suites automatiques, après tes validations."""
+
+    follow_ups: int = 12
+    seconds: float = 20 * 60
+    dollars: float = 1.0
+
+
 class ShellClient:
     """Une session : la conversation, et la boucle « proposer, valider, continuer »."""
 
@@ -160,6 +170,7 @@ class ShellClient:
         style: Style,
         poll_s: float = 0.3,
         wait_s: float = 1800.0,
+        budget: Budget | None = None,
     ) -> None:
         self.http = http
         self.folder = folder
@@ -173,6 +184,8 @@ class ShellClient:
         self._line_open = False
         #: Le modèle déjà annoncé pendant ce tour (il ne change qu'en cas de relais).
         self._route: str | None = None
+        self.budget = budget or Budget()
+        self._spent = 0.0
 
     # ------------------------------------------------------------------ affichage
 
@@ -197,13 +210,39 @@ class ShellClient:
     # ------------------------------------------------------------------ un message
 
     def send(self, text: str) -> None:
-        """Un message, puis chaque plan qu'il propose : décidé, attendu, et la suite."""
-        plans = self._turn(text)
-        while plans:
-            finished = [plan_id for plan in plans if (plan_id := self._decide(plan))]
-            if not finished:
-                return
-            plans = self._turn(CONTINUE, after_plan=finished[-1])
+        """Un message, puis chaque plan qu'il propose : décidé, attendu, et la suite, dans le
+        budget de la demande. Au-delà, il s'arrête proprement et attend ton « continue »."""
+        self._spent = 0.0
+        started = time.monotonic()
+        follow_ups = 0
+        try:
+            plans = self._turn(text)
+            while plans:
+                finished = [plan_id for plan in plans if (plan_id := self._decide(plan))]
+                if not finished:
+                    return
+                reason = self._over_budget(follow_ups, time.monotonic() - started)
+                if reason is not None:
+                    message = (
+                        f"Budget de cette demande atteint ({reason}) : je m'arrête ici. "
+                        "Écris « continue » pour reprendre."
+                    )
+                    self.line(self._style(message, YELLOW))
+                    return
+                follow_ups += 1
+                plans = self._turn(CONTINUE, after_plan=finished[-1])
+        finally:
+            if self._spent > 0:
+                self.line(self._style(f"· coût de cette demande : {self._spent:.3f} $", DIM))
+
+    def _over_budget(self, follow_ups: int, elapsed_s: float) -> str | None:
+        if follow_ups >= self.budget.follow_ups:
+            return f"{follow_ups} suites"
+        if elapsed_s >= self.budget.seconds:
+            return f"{elapsed_s / 60:.0f} min"
+        if self._spent >= self.budget.dollars:
+            return f"{self._spent:.2f} $"
+        return None
 
     def _turn(self, text: str, *, after_plan: str | None = None) -> list[dict[str, Any]]:
         body: dict[str, Any] = {"text": text, "channel": "shell", "folder": self.folder}
@@ -254,6 +293,8 @@ class ShellClient:
         elif kind == "error":
             self._spinner.stop()
             self.error(str(data.get("message", "erreur du moteur")))
+        elif kind == "done":
+            self._spent += float(data.get("cost_usd") or 0.0)
 
     def _on_tool(self, data: dict[str, Any]) -> None:
         status = data.get("status")

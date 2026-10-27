@@ -293,3 +293,26 @@ def test_closing_the_input_during_a_question_refuses_the_plan() -> None:
     client.send("Libère de la place.")  # Ctrl+D : pas de plantage
     assert "/v1/plans/p1/refuse" in [p for _m, p, _b in engine.requests]
     assert "Refusé : rien n'a été lancé." in out.getvalue()
+
+
+def test_the_follow_ups_stop_cleanly_at_the_budget() -> None:
+    priced = ("done", {"cost_usd": 0.01})
+    engine = FakeEngine(
+        [sse(START, ("plan", plan(2)), priced), sse(START, ("plan", plan(2)), priced)]
+    )
+    client, out = session(engine, ["o", "o"])
+    client.budget = cli.Budget(follow_ups=1)
+    client.send("Fais tout.")
+    text = out.getvalue()
+    assert len(chats(engine)) == 2  # la demande, puis une seule suite
+    assert "Budget de cette demande atteint (1 suites)" in text
+    assert "Écris « continue » pour reprendre." in text
+    assert "· coût de cette demande : 0.020 $" in text
+
+
+def test_the_cost_budget_stops_before_the_next_follow_up() -> None:
+    engine = FakeEngine([sse(START, ("plan", plan(2)), ("done", {"cost_usd": 2.0}))])
+    client, out = session(engine, ["o"])
+    client.send("Fais tout.")  # budget par défaut : 1 $
+    assert len(chats(engine)) == 1
+    assert "Budget de cette demande atteint (2.00 $)" in out.getvalue()
