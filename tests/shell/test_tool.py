@@ -177,6 +177,16 @@ async def test_secrets_are_removed_from_the_environment(home: Path) -> None:
     assert "GIT_TERMINAL_PROMPT=0" in text  # jamais de question qui bloquerait
 
 
+def test_commands_never_use_the_engine_own_python() -> None:
+    venv = "/home/test/O-jarvis/engine/.venv"
+    env = clean_environment(
+        {"PATH": f"{venv}/bin:/usr/local/bin:/usr/bin", "VIRTUAL_ENV": venv},
+        engine_bin=f"{venv}/bin",
+    )
+    assert env["PATH"] == "/usr/local/bin:/usr/bin"
+    assert "VIRTUAL_ENV" not in env
+
+
 def test_clean_environment_keeps_what_commands_need() -> None:
     env = clean_environment({"PATH": "/bin", "SSH_AUTH_SOCK": "/run/agent", "AWS_SECRET": "x"})
     assert env["PATH"] == "/bin"

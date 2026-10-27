@@ -66,13 +66,30 @@ QUIET_ENV = {
 }
 
 
-def clean_environment(environ: Mapping[str, str]) -> dict[str, str]:
-    """L'environnement du moteur, sans ses secrets ni ses variables à lui."""
+def _engine_bin() -> str | None:
+    """Le dossier `bin` de l'environnement Python du moteur, s'il tourne dans un venv."""
+    return str(Path(sys.prefix) / "bin") if sys.prefix != sys.base_prefix else None
+
+
+def clean_environment(
+    environ: Mapping[str, str], *, engine_bin: str | None = None
+) -> dict[str, str]:
+    """L'environnement du moteur, sans ses secrets, ses variables à lui, ni son Python.
+
+    Une commande doit utiliser les outils de ta machine : lancé par `uv run`, le moteur met
+    son venv en tête du PATH, et un `pip install` aurait installé dans Jarvis lui-même (vu le
+    27/10/2026 : `python3 -m pytest` tournait avec le Python interne de Jarvis)."""
+    own = engine_bin if engine_bin is not None else _engine_bin()
     env = {
         name: value
         for name, value in environ.items()
-        if not SECRET_NAME.search(name) and not name.startswith(("OJARVIS_", "VITE_OJARVIS"))
+        if not SECRET_NAME.search(name)
+        and not name.startswith(("OJARVIS_", "VITE_OJARVIS"))
+        and name not in ("VIRTUAL_ENV", "PYTHONHOME")
     }
+    if own and "PATH" in env:
+        kept = [entry for entry in env["PATH"].split(os.pathsep) if entry and entry != own]
+        env["PATH"] = os.pathsep.join(kept)
     env.update(QUIET_ENV)
     return env
 
