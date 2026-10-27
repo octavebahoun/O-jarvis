@@ -279,3 +279,17 @@ def test_a_code_plan_shows_its_diff_and_the_review() -> None:
     assert "│   +nouveau" in text
     assert "│   [… 25 lignes de plus]" in text  # un long diff est coupé à 80 lignes
     assert "│ Relecture · meta / muse-wonder-1.0 : ✓ rien à signaler" in text
+
+
+def test_closing_the_input_during_a_question_refuses_the_plan() -> None:
+    engine = FakeEngine([sse(START, ("plan", plan(2)), DONE)])
+    out = io.StringIO()
+    http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(engine))
+
+    def closed(_question: str) -> str:
+        raise EOFError
+
+    client = ShellClient(http, "/home/test/projet", out=out, ask=closed, style=Style(False))
+    client.send("Libère de la place.")  # Ctrl+D : pas de plantage
+    assert "/v1/plans/p1/refuse" in [p for _m, p, _b in engine.requests]
+    assert "Refusé : rien n'a été lancé." in out.getvalue()

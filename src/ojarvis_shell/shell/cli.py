@@ -290,10 +290,13 @@ class ShellClient:
             self.line(self._style(warning, color))
         if level >= 3:
             question = "└ Destruction : tape « oui » pour confirmer, autre chose pour refuser › "
-            approved = self._ask(self._style.prompt(question, color)).strip().lower() == "oui"
         else:
             question = "└ Valider ? [o]ui / [n]on › "
-            approved = self._ask(self._style.prompt(question, color)).strip().lower() in YES
+        try:
+            answer = self._ask(self._style.prompt(question, color)).strip().lower()
+        except EOFError:
+            answer = ""  # entrée fermée (Ctrl+D) : un refus, rien n'est lancé
+        approved = answer == "oui" if level >= 3 else answer in YES
         self._line_open = False
         if not approved:
             self.http.post(f"/v1/plans/{plan_id}/refuse")
