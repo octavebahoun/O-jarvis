@@ -291,3 +291,25 @@ def test_the_client_refuses_a_folder_outside_the_home(
     assert cli.main(["--dossier", "/etc"]) == 2
     assert cli.main(["--dossier", "~/inexistant"]) == 2
     assert "Dossier introuvable" in capsys.readouterr().out
+
+
+async def test_an_open_terminal_is_not_opened_again(home: Path) -> None:
+    # Le 27/10/2026, chaque phrase qui suivait « passe en mode shell » rouvrait un terminal.
+    launched: list[list[str]] = []
+    now = [1000.0]
+    tool = OpenShell(
+        home, environ={}, which=only("ptyxis"), launch=launched.append, clock=lambda: now[0]
+    )
+    await tool.run(tool.parse({"dossier": "~/projet"}), context(home))
+    now[0] += 20
+    again = await tool.run(tool.parse({"dossier": "~/projet"}), context(home))
+    assert len(launched) == 1
+    assert again.text.startswith("Le terminal est déjà ouvert dans ~/projet (depuis 20 s)")
+    # Fermé par l'utilisateur, puis redemandé : il se rouvre.
+    await tool.run(tool.parse({"dossier": "~/projet", "rouvrir": True}), context(home))
+    assert len(launched) == 2
+    # Un autre dossier, ou plus tard : un nouveau terminal.
+    await tool.run(tool.parse({"dossier": "~"}), context(home))
+    now[0] += 301
+    await tool.run(tool.parse({"dossier": "~/projet"}), context(home))
+    assert len(launched) == 4

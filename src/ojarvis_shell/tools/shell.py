@@ -438,6 +438,11 @@ def _launch(command: list[str]) -> None:
     )
 
 
+#: Un terminal ouvert il y a moins de 5 minutes dans le même dossier n'est pas rouvert : le
+#: 27/10/2026, chaque phrase qui suivait « passe en mode shell » en rouvrait un.
+RECENT_OPEN_S = 300.0
+
+
 class OpenShellArgs(ToolArgs):
     dossier: str = Field(
         default="~",
@@ -445,14 +450,19 @@ class OpenShellArgs(ToolArgs):
         max_length=1000,
         description="Le dossier où travailler (~/… ; ~ par défaut).",
     )
+    rouvrir: bool = Field(
+        default=False,
+        description="Rouvrir un terminal qui vient d'être ouvert ici : seulement si "
+        "l'utilisateur dit l'avoir fermé et le redemande.",
+    )
 
 
 class OpenShell(Tool[OpenShellArgs]):
     name: ClassVar[str] = "ouvrir_mode_shell"
     description: ClassVar[str] = (
-        "Ouvre le mode shell : un terminal où tu travailles avec l'utilisateur dans un dossier "
-        "(lancer des commandes, lire leur sortie, corriger). À utiliser quand il dit « passe en "
-        "mode shell » ou veut que tu lances des commandes."
+        "Ouvre le mode shell : un terminal où l'utilisateur écrit ses demandes et où tu lances "
+        "les commandes, dans un dossier. Seulement quand il demande le mode shell ou un "
+        "terminal, et une seule fois : déjà ouvert, il ne se rouvre pas."
     )
     Args: ClassVar[type[ToolArgs]] = OpenShellArgs
     level: ClassVar[Level] = Level.LIRE
@@ -464,11 +474,15 @@ class OpenShell(Tool[OpenShellArgs]):
         environ: Mapping[str, str] | None = None,
         which: Callable[[str], str | None] = shutil.which,
         launch: Callable[[list[str]], None] = _launch,
+        clock: Callable[[], float] = time.monotonic,
     ) -> None:
         self._home = home
         self._environ = environ
         self._which = which
         self._launch = launch
+        self._clock = clock
+        #: Quand un terminal a été ouvert, par dossier.
+        self._opened: dict[Path, float] = {}
 
     def describe(self, args: OpenShellArgs) -> str:
         return f"Ouvrir le mode shell dans {args.dossier}"
@@ -484,8 +498,19 @@ class OpenShell(Tool[OpenShellArgs]):
                 "Aucun terminal trouvé. Lance « ojarvis-shell » toi-même dans un terminal."
             )
         name, command = found
-        self._launch(command)
         where = shown(folder, ctx.home)
+        now = self._clock()
+        opened = self._opened.get(folder)
+        if opened is not None and now - opened < RECENT_OPEN_S and not args.rouvrir:
+            since = round(now - opened)
+            return ToolOutput(
+                f"Le terminal est déjà ouvert dans {where} (depuis {since} s) : ne le rouvre "
+                "pas. L'utilisateur y écrit ses demandes, en français, et tu y lances les "
+                "commandes. S'il dit l'avoir fermé, rouvre-le avec rouvrir=true.",
+                {"dossier": str(folder), "deja_ouvert": True},
+            )
+        self._launch(command)
+        self._opened[folder] = now
         return ToolOutput(
             f"Mode shell ouvert dans {where} ({name}) : Jarvis t'y attend.",
             {"dossier": str(folder), "terminal": name},
