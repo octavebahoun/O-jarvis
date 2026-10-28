@@ -18,7 +18,7 @@ from ojarvis.core.errors import NotFoundError
 from ojarvis.shell import cli
 from ojarvis.tools.base import Level, ToolContext, ToolRegistry
 from ojarvis.tools.guards import BlockedTargetError
-from ojarvis.tools.shell import OpenShell, RunCommand, clean_environment
+from ojarvis.tools.shell import OpenShell, ProposeAdmin, RunCommand, admin_level, clean_environment
 
 
 @pytest.fixture
@@ -313,3 +313,49 @@ async def test_an_open_terminal_is_not_opened_again(home: Path) -> None:
     now[0] += 301
     await tool.run(tool.parse({"dossier": "~/projet"}), context(home))
     assert len(launched) == 4
+
+
+# --------------------------------------------------------------------------- sudo, lancé par toi
+
+
+@pytest.mark.parametrize(
+    ("command", "level"),
+    [
+        ("sudo du -sh /var/lib/docker", Level.LIRE),
+        ("sudo apt install -y ncdu", Level.AGIR),
+        ("sudo -u postgres psql -c 'select 1'", Level.AGIR),
+        ("sudo apt update && sudo apt upgrade -y", Level.AGIR),
+        ("sudo rm -rf /var/lib/docker/overlay2/abc", Level.DETRUIRE),
+    ],
+)
+def test_a_sudo_command_is_judged_by_what_it_does(command: str, level: Level, home: Path) -> None:
+    assert admin_level(command, home=home) == level
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        "apt install ncdu",  # pas de sudo : executer_commande
+        "sudo",
+        "sudo cat /etc/shadow",  # sa sortie partirait vers le modèle
+        "sudo cat ~/.ssh/id_ed25519",
+        "sudo bash -c 'sudo ls'",
+    ],
+)
+def test_some_sudo_proposals_are_refused(command: str, home: Path) -> None:
+    (home / ".ssh").mkdir(exist_ok=True)
+    with pytest.raises(BlockedTargetError):
+        admin_level(command, home=home)
+
+
+async def test_jarvis_proposes_sudo_and_never_runs_it(home: Path) -> None:
+    tool = ProposeAdmin()
+    args = tool.parse({"commande": "sudo apt install -y ncdu", "pourquoi": "Mesurer le disque."})
+    output = await tool.run(args, context(home))
+    assert output.data["sudo"] == {
+        "command": "sudo apt install -y ncdu",
+        "level": 2,
+        "why": "Mesurer le disque.",
+    }
+    assert tool.level == Level.LIRE  # il ne lance rien
+    assert tool.shell_only

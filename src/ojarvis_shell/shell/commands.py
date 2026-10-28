@@ -413,8 +413,9 @@ def _segment(tokens: list[str], *, piped: bool, cwd: Path, home: Path, depth: in
     name = Path(words[0]).name
     if name in ADMIN or (name == "machinectl" and words[1:2] in (["shell"], ["login"])):
         raise BlockedTargetError(
-            f"Jarvis ne lance jamais « {name} » : il ne voit pas ton mot de passe. Montre la "
-            "commande à l'utilisateur pour qu'il la tape lui-même."
+            f"Jarvis ne lance jamais « {name} » : il ne voit pas ton mot de passe. En mode "
+            "shell, propose-la avec proposer_sudo : l'utilisateur la lance lui-même, en un "
+            "appui ; ailleurs, montre-la pour qu'il la tape lui-même."
         )
     if not _CAPTURED.get() and _prints_secret(name, words[1:]):
         raise BlockedTargetError(

@@ -44,6 +44,8 @@ from ojarvis.tools.guards import BlockedTargetError, resolve_user_path, shown
 #: Ce que Jarvis dit après une validation : la suite part avec les résultats du plan.
 CONTINUE = "Continue."
 YES = frozenset({"o", "oui", "y", "yes"})
+#: « [e]xécuter moi-même » : une commande sudo que tu lances.
+RUN_MYSELF = frozenset({"e", "exécuter", "executer", "o", "oui"})
 ALWAYS = frozenset({"t", "toujours"})
 #: Pour quitter : ces mots ne partent jamais vers le modèle.
 EXIT_WORDS = frozenset({"exit", "quit", ":q", "/exit", "/quit", "/quitter"})
@@ -167,6 +169,41 @@ class Budget:
     dollars: float = 1.0
 
 
+#: La fin de la sortie d'une commande lancée par toi, rendue à Jarvis (la limite de l'API).
+RAN_OUTPUT_CHARS = 20_000
+#: Lance une commande proposée (dans ce dossier) : son code de sortie et sa sortie.
+Runner = Callable[[str, str], tuple[int, str]]
+
+
+def run_yourself(command: str, folder: str, out: TextIO) -> tuple[int, str]:
+    """Lance la commande dans ce terminal, comme si tu la tapais : sudo lit ton mot de passe
+    sur le terminal lui-même, jamais sur un tube, et Jarvis ne le voit pas. La sortie
+    s'affiche au fil de l'eau ; sa fin revient à Jarvis."""
+    cwd = Path(folder).expanduser()
+    process = subprocess.Popen(  # noqa: S603 - ta commande, montrée puis lancée par toi
+        ["/bin/bash", "-c", command],
+        cwd=cwd if cwd.is_dir() else None,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        errors="replace",
+    )
+    kept: list[str] = []
+    size = 0
+    if process.stdout is not None:
+        try:
+            for line in process.stdout:
+                out.write(line)
+                out.flush()
+                kept.append(line)
+                size += len(line)
+                while size > RAN_OUTPUT_CHARS and len(kept) > 1:
+                    size -= len(kept.pop(0))
+        except KeyboardInterrupt:
+            process.terminate()
+    return process.wait(), "".join(kept)[-RAN_OUTPUT_CHARS:]
+
+
 class ShellClient:
     """Une session : la conversation, et la boucle « proposer, valider, continuer »."""
 
@@ -182,13 +219,18 @@ class ShellClient:
         wait_s: float = 1800.0,
         budget: Budget | None = None,
         home: Path | None = None,
+        run: Runner | None = None,
     ) -> None:
         self.http = http
         self.folder = folder
         self.conversation_id: str | None = None
         #: Plans finis dont le modèle n'a pas encore lu les résultats (arrêt sur le budget) :
-        #: ils partent avec ton prochain message.
+        #: ils partent avec ton prochain message, comme une commande que tu as lancée.
         self.pending: list[str] = []
+        self.pending_ran: dict[str, Any] | None = None
+        #: Commandes sudo proposées pendant le tour : c'est toi qui les lances.
+        self._proposals: list[dict[str, Any]] = []
+        self._run: Runner = run or (lambda command, where: run_yourself(command, where, out))
         self._out = out
         self._ask = ask
         self._style = style
@@ -234,10 +276,12 @@ class ShellClient:
         follow_ups = 0
         try:
             pending, self.pending = self.pending, []
-            plans = self._turn(text, after_plan=pending)
-            while plans:
+            ran, self.pending_ran = self.pending_ran, None
+            plans = self._turn(text, after_plan=pending, ran=ran)
+            while True:
                 finished = [plan_id for plan in plans if (plan_id := self._decide(plan))]
-                if not finished:
+                ran = self._admin()
+                if not finished and ran is None:
                     return
                 reason = self._over_budget(follow_ups, time.monotonic() - started)
                 if reason is not None:
@@ -246,10 +290,10 @@ class ShellClient:
                         "Écris « continue » pour reprendre."
                     )
                     self.line(self._style(message, YELLOW))
-                    self.pending = finished
+                    self.pending, self.pending_ran = finished, ran
                     return
                 follow_ups += 1
-                plans = self._turn(CONTINUE, after_plan=finished)
+                plans = self._turn(CONTINUE, after_plan=finished, ran=ran)
         finally:
             if self._spent > 0:
                 self.line(self._style(f"· coût de cette demande : {self._spent:.3f} $", DIM))
@@ -263,12 +307,20 @@ class ShellClient:
             return f"{self._spent:.2f} $"
         return None
 
-    def _turn(self, text: str, *, after_plan: list[str] | None = None) -> list[dict[str, Any]]:
+    def _turn(
+        self,
+        text: str,
+        *,
+        after_plan: list[str] | None = None,
+        ran: dict[str, Any] | None = None,
+    ) -> list[dict[str, Any]]:
         body: dict[str, Any] = {"text": text, "channel": "shell", "folder": self.folder}
         if self.conversation_id is not None:
             body["conversation_id"] = self.conversation_id
         if after_plan:
             body["after_plan"] = after_plan
+        if ran is not None:
+            body["ran"] = ran
         plans: list[dict[str, Any]] = []
         self._route = None
         self._spinner.start()
@@ -326,8 +378,11 @@ class ShellClient:
         if status == "failed":
             self.line(self._style(f"  ✗ {description} : {data.get('error')}", RED))
         elif status == "done":
-            self.line(self._style(f"  ✓ {description}", DIM))
-            if data.get("output"):
+            if data.get("sudo"):
+                self._proposals.append(dict(data["sudo"]))  # montrée à la fin du tour
+            else:
+                self.line(self._style(f"  ✓ {description}", DIM))
+            if data.get("output") and not data.get("sudo"):
                 self._indented(preview(str(data["output"])), DIM)
         self._spinner.start()
 
@@ -421,6 +476,46 @@ class ShellClient:
                 return None
             kinds |= found
         return frozenset(kinds) or None
+
+    def _admin(self) -> dict[str, Any] | None:
+        """La commande sudo proposée pendant ce tour : tu la lances toi-même, en un appui. sudo
+        te demande ton mot de passe directement ; Jarvis ne le voit jamais, et lit la sortie."""
+        proposals, self._proposals = self._proposals, []
+        if not proposals:
+            return None
+        proposal = proposals[-1]
+        command = str(proposal.get("command", ""))
+        level = int(proposal.get("level", Level.AGIR))
+        color = RED if level >= Level.DETRUIRE else YELLOW
+        self._spinner.stop()
+        self.line(self._style("┌ Commande d'administrateur : c'est toi qui la lances", color))
+        self.line(self._style("│ ", color) + command)
+        if proposal.get("why"):
+            self.line(self._style("│ ", color) + self._style(str(proposal["why"]), DIM))
+        if level >= Level.DETRUIRE:
+            question = (
+                "└ Destruction : tape « oui » pour la lancer toi-même, autre chose pour refuser › "
+            )
+        else:
+            question = "└ [e]xécuter moi-même / [n]on › "
+        try:
+            answer = self._ask(self._style.prompt(question, color)).strip().lower()
+        except EOFError:
+            answer = ""  # entrée fermée (Ctrl+D) : un refus
+        accepted = answer == "oui" if level >= Level.DETRUIRE else answer in RUN_MYSELF
+        if not accepted:
+            self.line(self._style("Pas lancée.", DIM))
+            return None
+        self.line(
+            self._style(
+                "↳ sudo te demande ton mot de passe ici : il va directement à sudo, Jarvis ne "
+                "le voit pas.",
+                DIM,
+            )
+        )
+        code, output = self._run(command, self.folder)
+        self.line(self._style(f"· code de sortie {code}", DIM))
+        return {"command": command, "code": code, "output": output}
 
     def _ask_approval(self, level: int, always: frozenset[str] | None, color: str) -> bool:
         if level >= Level.DETRUIRE:

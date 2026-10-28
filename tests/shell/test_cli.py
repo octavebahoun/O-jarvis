@@ -443,3 +443,56 @@ def test_the_packaged_engine_opens_the_terminal_with_a_subcommand(
     monkeypatch.setattr(cli, "main", lambda argv: seen.append(argv) or 0)
     assert engine_main(["shell", "--dossier", "~/projet"]) == 0
     assert seen == [["--dossier", "~/projet"]]
+
+
+SUDO = {"command": "sudo apt install -y ncdu", "level": 2, "why": "Pour mesurer le disque."}
+
+
+def sudo_tool(proposal: dict[str, Any]) -> tuple[str, dict[str, Any]]:
+    return (
+        "tool",
+        {
+            "id": "t1",
+            "name": "proposer_sudo",
+            "description": f"Proposer « {proposal['command']} », que tu lances toi-même",
+            "status": "done",
+            "output": "Proposée.",
+            "sudo": proposal,
+        },
+    )
+
+
+def test_a_proposed_sudo_command_runs_in_your_terminal_and_its_output_returns() -> None:
+    engine = FakeEngine([sse(START, sudo_tool(SUDO), DONE), sse(START, DONE)])
+    client, out = session(engine, ["e"])
+    ran: list[tuple[str, str]] = []
+
+    def run(command: str, folder: str) -> tuple[int, str]:
+        ran.append((command, folder))
+        return 0, "ncdu installé"
+
+    client._run = run
+    client.send("Installe ncdu.")
+    assert ran == [("sudo apt install -y ncdu", "/home/test/projet")]
+    assert chats(engine)[1]["ran"] == {
+        "command": "sudo apt install -y ncdu",
+        "code": 0,
+        "output": "ncdu installé",
+    }
+    text = out.getvalue()
+    assert "Commande d'administrateur : c'est toi qui la lances" in text
+    assert "il va directement à sudo, Jarvis ne le voit pas" in text
+
+
+def test_a_sudo_destruction_needs_oui_and_a_refusal_runs_nothing() -> None:
+    destroy = {**SUDO, "command": "sudo rm -rf /var/lib/docker/overlay2/abc", "level": 3}
+    engine = FakeEngine([sse(START, sudo_tool(destroy), DONE)])
+    client, out = session(engine, ["e"])  # « e » ne suffit pas pour une destruction
+
+    def run(command: str, folder: str) -> tuple[int, str]:
+        raise AssertionError(f"lancée sans « oui » : {command} dans {folder}")
+
+    client._run = run
+    client.send("Libère de la place.")
+    assert "Pas lancée." in out.getvalue()
+    assert len(chats(engine)) == 1  # rien ne repart vers Jarvis

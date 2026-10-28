@@ -410,3 +410,27 @@ def test_an_offer_is_not_an_announced_plan(text: str, claim: bool) -> None:
     # Essai du 28/10/2026 : « tu veux que je te propose un plan ? » relançait le modèle, qui
     # proposait le plan sans attendre la réponse.
     assert claims_missing_plan(text, []) is claim
+
+
+def test_a_command_you_ran_yourself_returns_as_data_and_goes_to_the_audit_log(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    del project
+    llm["deepseek"]._script = shell_script("ls")
+    events = shell_chat(client, "Combien pèse Docker ?")
+    conversation_id = events[0][1]["conversation_id"]
+    ran = {"command": "sudo du -sh /var/lib/docker", "code": 0, "output": "21G\t/var/lib/docker"}
+    shell_chat(client, "Continue.", conversation_id=conversation_id, ran=ran)
+    shell = [r for r, _ in llm["deepseek"].requests if "Mode shell" in r.messages[0].content]
+    last = next(m.content for m in reversed(shell[-1].messages) if m.role == "user")
+    assert "L'utilisateur a lancé lui-même la commande proposée (code de sortie 0)" in last
+    assert '<donnees origine="commande lancée par l’utilisateur">' in last
+    assert "21G" in last
+    audit = client.get("/v1/audit").json()
+    mine = [i for i in audit["items"] if i["action"] == "commande.utilisateur"]
+    assert [(i["summary"], i["actor"]) for i in mine] == [
+        ("Lancée par toi : sudo du -sh /var/lib/docker", "utilisateur")
+    ]
+    # Hors du mode shell, ou sans conversation : refusé.
+    body = {"text": "x", "ran": ran}
+    assert client.post("/v1/chat", json=body).status_code != 200
