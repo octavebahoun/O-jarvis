@@ -361,6 +361,10 @@ class ShellClient:
             self._write(text)
         elif kind == "tool":
             self._on_tool(data)
+        elif kind == "notice":
+            self._spinner.stop()
+            self.line(self._style(f"· {data.get('text', '')}", DIM))
+            self._spinner.start()
         elif kind == "plan":
             plans.append(data)
         elif kind == "error":

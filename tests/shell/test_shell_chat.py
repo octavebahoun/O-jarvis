@@ -79,6 +79,8 @@ def test_every_command_goes_to_the_audit_log_reads_included(
     audit = client.get("/v1/audit").json()
     entries = [(i["action"], i["level"], i["summary"]) for i in reversed(audit["items"])]
     assert entries == [
+        # Au premier tour du mode shell, la carte de la machine (en lecture seule).
+        ("machine.carte", 1, "Carte de la machine relevée, en lecture seule"),
         ("outil.executer_commande", 1, "Lancé : Lancer « ls » dans ~/projet"),
         ("outil.executer_commande.fait", 1, "Fait : Lancer « ls » dans ~/projet"),
     ]
