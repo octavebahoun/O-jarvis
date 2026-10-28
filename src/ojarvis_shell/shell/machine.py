@@ -203,7 +203,7 @@ def _disks(proc: Path) -> str:
             f"{mount} ({fstype}) {_size(usage.total)}, {_size(usage.used)} utilisés "
             f"({share} %), {_size(usage.free)} libres"
         )
-    return "Disques : " + ("; ".join(parts) or "aucun lu") + "."
+    return "Disques : " + (" ; ".join(parts) or "aucun lu") + "."
 
 
 def _tools(run: Run, which: Callable[[str], str | None]) -> tuple[str, set[str]]:
