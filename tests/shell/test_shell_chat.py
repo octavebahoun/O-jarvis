@@ -8,7 +8,7 @@ from typing import Any
 import pytest
 from fastapi.testclient import TestClient
 
-from ojarvis.agent.loop import ROUNDS_EXHAUSTED, SHELL_TOOL, from_web
+from ojarvis.agent.loop import ROUNDS_EXHAUSTED, SHELL_TOOL, claims_missing_plan, from_web
 from ojarvis.agent.plans import PLAN_TOOL
 from ojarvis.chat.service import SHELL_TOOL_ROUNDS
 from ojarvis.llm.providers.fake import FakeProvider, FakeReply, Script
@@ -394,3 +394,19 @@ def again_script(command: str) -> Script:
         return FakeReply(text="Je relance.", tool_calls=[ToolCall("c", SHELL_TOOL, arguments)])
 
     return script
+
+
+@pytest.mark.parametrize(
+    ("text", "claim"),
+    [
+        ("Voici le plan : on vide le cache npm.", True),
+        ("Je te propose un plan de nettoyage.", True),
+        ("Ton disque est à 91 %. Tu veux que je te propose un plan de nettoyage sûr ?", False),
+        ("Veux-tu que je prépare un plan ?", False),
+        ("Ton disque est à 91 %.", False),
+    ],
+)
+def test_an_offer_is_not_an_announced_plan(text: str, claim: bool) -> None:
+    # Essai du 28/10/2026 : « tu veux que je te propose un plan ? » relançait le modèle, qui
+    # proposait le plan sans attendre la réponse.
+    assert claims_missing_plan(text, []) is claim
