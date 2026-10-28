@@ -405,6 +405,8 @@ def again_script(command: str) -> Script:
         ("Je te propose un plan de nettoyage.", True),
         ("Ton disque est à 91 %. Tu veux que je te propose un plan de nettoyage sûr ?", False),
         ("Veux-tu que je prépare un plan ?", False),
+        ("Ta RAM sature. Je te prépare un plan pour libérer ça ?", False),
+        ("Le plan attend ta validation, tu valides ?", True),
         ("Ton disque est à 91 %.", False),
     ],
 )

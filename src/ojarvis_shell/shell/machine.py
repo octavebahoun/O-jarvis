@@ -36,6 +36,9 @@ KIND: MemoryKind = "machine"
 SOURCE = "carte de la machine"
 #: Au-delà, la carte est relevée de nouveau au premier tour du mode shell.
 MAX_AGE = timedelta(days=7)
+#: Une carte relevée il y a moins de 2 minutes ne l'est pas de nouveau (le 28/10/2026, le
+#: modèle la redemandait juste après le premier relevé).
+FRESH = timedelta(minutes=2)
 #: Les outils courants et l'option qui donne leur version.
 TOOLS: tuple[tuple[str, str], ...] = (
     ("docker", "--version"),
@@ -291,7 +294,8 @@ class MachineCard:
         self._lock = asyncio.Lock()
 
     async def lines(self) -> list[str]:
-        return [record.content for record in await self._memory.items(kind=KIND, limit=20)]
+        records = await self._memory.items(kind=KIND, limit=20)
+        return [record.content for record in sorted(records, key=lambda r: r.id)]
 
     async def ensure(self) -> bool:
         """Relève la carte si elle manque ou si elle date : True si elle vient de l'être."""
@@ -304,6 +308,9 @@ class MachineCard:
 
     async def refresh(self) -> list[str]:
         async with self._lock:
+            records = await self._memory.items(kind=KIND, limit=20)
+            if records and utc_now() - max(r.updated_at for r in records) < FRESH:
+                return [record.content for record in sorted(records, key=lambda r: r.id)]
             return await self._refresh_locked()
 
     async def _refresh_locked(self) -> list[str]:

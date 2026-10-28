@@ -21,8 +21,9 @@ class ReadMachineMap(Tool[MachineArgs]):
     name: ClassVar[str] = "carte_machine"
     description: ClassVar[str] = (
         "La carte de la machine de l'utilisateur : matériel, système, disques, outils "
-        "installés, services en marche, projets. Relue telle qu'elle est rangée dans Mémoire, "
-        "ou relevée de nouveau (rafraichir=true), toujours en lecture seule."
+        "installés, services en marche, projets, en lecture seule. En mode shell, elle est "
+        "déjà dans ton contexte : relève-la de nouveau (rafraichir=true) seulement après un "
+        "changement (une installation, un nouveau disque) ou si l'utilisateur le demande."
     )
     Args: ClassVar[type[ToolArgs]] = MachineArgs
     level: ClassVar[Level] = Level.LIRE
