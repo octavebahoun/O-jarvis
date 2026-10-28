@@ -28,6 +28,7 @@ from typing import Any, TextIO
 import httpx
 
 from ojarvis import __version__
+from ojarvis.agent.measures import MEASURE_AFTER, MEASURE_BEFORE
 from ojarvis.config import resolve_paths
 from ojarvis.shell.commands import signatures
 from ojarvis.shell.connection import (
@@ -202,6 +203,13 @@ def run_yourself(command: str, folder: str, out: TextIO) -> tuple[int, str]:
         except KeyboardInterrupt:
             process.terminate()
     return process.wait(), "".join(kept)[-RAN_OUTPUT_CHARS:]
+
+
+def _last_output_line(result: str) -> str:
+    """La dernière ligne de la sortie d'une commande (« /dev/sda2 457G 377G 58G 87% / »)."""
+    output = result.split("--- sortie ---", 1)[-1]
+    lines = [line.strip() for line in output.splitlines() if line.strip()]
+    return lines[-1] if lines else "(aucune sortie)"
 
 
 class ShellClient:
@@ -401,7 +409,10 @@ class ShellClient:
         color = LEVEL_COLORS.get(level, YELLOW)
         self.line(self._style(f"┌ À valider · niveau {level} ({LEVEL_NAMES.get(level)})", color))
         for step in plan.get("steps", []):
-            self.line(self._style("│ ", color) + f"{step['position']}. {step['description']}")
+            measure = f"(mesure {step['measure']}) " if step.get("measure") else ""
+            self.line(
+                self._style("│ ", color) + f"{step['position']}. {measure}{step['description']}"
+            )
             if step.get("preview"):
                 self._diff(str(step["preview"]), color)
         if isinstance(plan.get("review"), dict):
@@ -557,12 +568,26 @@ class ShellClient:
                     self._show_step(step)
                     self._spinner.start("Jarvis exécute…")
                 if plan.get("status") in ("done", "failed", "refused"):
+                    self._spinner.stop()
+                    self._measures(plan)
                     return plan_id
                 time.sleep(self._poll_s)
         finally:
             self._spinner.stop()
         self.error("Le plan tourne encore dans Jarvis ; je n'attends plus.")
         return None
+
+    def _measures(self, plan: dict[str, Any]) -> None:
+        """La mesure prise avant les actions, puis après : la preuve, côte à côte."""
+        found = {
+            str(step.get("why")): _last_output_line(str(step.get("result") or ""))
+            for step in plan.get("steps", [])
+            if step.get("status") == "done"
+        }
+        before, after = found.get(MEASURE_BEFORE), found.get(MEASURE_AFTER)
+        if before is not None and after is not None:
+            self.line(self._style(f"· Avant : {before}", DIM))
+            self.line(self._style(f"· Après : {after}", DIM))
 
     def _show_step(self, step: dict[str, Any]) -> None:
         if step["status"] == "done":

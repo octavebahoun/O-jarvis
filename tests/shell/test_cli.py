@@ -13,6 +13,7 @@ import httpx
 import pytest
 
 from ojarvis.__main__ import main as engine_main
+from ojarvis.agent.measures import MEASURE_AFTER, MEASURE_BEFORE
 from ojarvis.api.routes_chat import sse as engine_sse
 from ojarvis.chat.service import ChatEvent
 from ojarvis.config import resolve_paths
@@ -496,3 +497,50 @@ def test_a_sudo_destruction_needs_oui_and_a_refusal_runs_nothing() -> None:
     client.send("Libère de la place.")
     assert "Pas lancée." in out.getvalue()
     assert len(chats(engine)) == 1  # rien ne repart vers Jarvis
+
+
+def df(used: str, free: str, share: str) -> str:
+    return (
+        "$ df -h /\ndossier : ~\ncode de sortie 0 (0 s)\n--- sortie ---\n"
+        "Sys. de fichiers Taille Utilisé Dispo Uti% Monté sur\n"
+        f"/dev/sda2 457G {used} {free} {share} /"
+    )
+
+
+class MeasuredEngine(FakeEngine):
+    """Un plan avec sa mesure : avant, l'action, après."""
+
+    def __call__(self, request: httpx.Request) -> httpx.Response:
+        if request.url.path != "/v1/plans/p1":
+            return super().__call__(request)
+        before, after = df("392G", "43G", "91%"), df("377G", "58G", "87%")
+        steps = [
+            {"position": 1, "why": MEASURE_BEFORE, "status": "done", "result": before,
+             "description": "Lancer « df -h / » dans ~"},
+            {"position": 2, "why": "vider le cache", "status": "done", "result": "nettoyé",
+             "description": "Lancer « npm cache clean --force » dans ~"},
+            {"position": 3, "why": MEASURE_AFTER, "status": "done", "result": after,
+             "description": "Lancer « df -h / » dans ~"},
+        ]  # fmt: skip
+        return httpx.Response(200, json={"status": "done", "steps": steps})
+
+
+def test_the_terminal_shows_the_measure_before_and_after() -> None:
+    measured = {
+        **plan(2),
+        "steps": [
+            {"position": 1, "description": "Lancer « df -h / » dans ~", "level": 1,
+             "tool": "executer_commande", "measure": "avant"},
+            {"position": 2, "description": "Lancer « npm cache clean --force » dans ~", "level": 2,
+             "tool": "executer_commande", "command": "npm cache clean --force"},
+            {"position": 3, "description": "Lancer « df -h / » dans ~", "level": 1,
+             "tool": "executer_commande", "measure": "après"},
+        ],
+    }  # fmt: skip
+    engine = MeasuredEngine([sse(START, ("plan", measured), DONE), sse(START, DONE)])
+    client, out = session(engine, ["o"])
+    client.send("Libère de la place.")
+    text = out.getvalue()
+    assert "1. (mesure avant) Lancer « df -h / » dans ~" in text
+    assert "· Avant : /dev/sda2 457G 392G 43G 91% /" in text
+    assert "· Après : /dev/sda2 457G 377G 58G 87% /" in text

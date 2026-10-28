@@ -438,3 +438,52 @@ def test_a_command_you_ran_yourself_returns_as_data_and_goes_to_the_audit_log(
     # Hors du mode shell, ou sans conversation : refusé.
     body = {"text": "x", "ran": ran}
     assert client.post("/v1/chat", json=body).status_code != 200
+
+
+# --------------------------------------------------------------------------- avant / après (#15)
+
+
+def measured_plan(measure: dict[str, Any]) -> Script:
+    steps = [
+        {
+            "outil": SHELL_TOOL,
+            "arguments": {"commande": "touch preuve.txt", "dossier": "~/projet"},
+            "pourquoi": "créer le fichier",
+        }
+    ]
+    arguments = {"titre": "Créer preuve.txt", "etapes": steps, "mesure": measure}
+    return scripted([[ToolCall("p", PLAN_TOOL, arguments)]])
+
+
+def test_a_plan_measures_before_and_after_and_jarvis_must_compare(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    del project
+    llm["deepseek"]._script = measured_plan({"commande": "ls", "dossier": "~/projet"})
+    events = shell_chat(client, "Crée preuve.txt, et prouve-le.")
+    plan = next(d for e, d in events if e == "plan")
+    assert [s.get("measure") for s in plan["steps"]] == ["avant", None, "après"]
+    assert client.post(f"/v1/plans/{plan['id']}/approve", json={}).status_code == 200
+    final = wait_plan(client, plan["id"])
+    assert final["status"] == "done"
+    assert "preuve.txt" not in final["steps"][0]["result"]  # avant
+    assert "preuve.txt" in final["steps"][2]["result"]  # après
+    llm["deepseek"]._script = shell_script("ls")
+    conversation_id = events[0][1]["conversation_id"]
+    shell_chat(client, "Continue.", conversation_id=conversation_id, after_plan=[plan["id"]])
+    shell = [r for r, _ in llm["deepseek"].requests if "Mode shell" in r.messages[0].content]
+    last = next(m.content for m in reversed(shell[-1].messages) if m.role == "user")
+    assert "Mesure avant (Lancer « ls » dans ~/projet)" in last
+    assert "Mesure après (Lancer « ls » dans ~/projet)" in last
+    assert "sinon dis « non vérifié » et ce qui manque, jamais « fait »" in last
+
+
+def test_a_measure_must_be_a_read(
+    client: TestClient, llm: dict[str, FakeProvider], project: Path
+) -> None:
+    del project
+    llm["deepseek"]._script = measured_plan({"commande": "rm -rf build", "dossier": "~/projet"})
+    events = shell_chat(client, "Crée preuve.txt.")
+    assert not [e for e, _ in events if e == "plan"]
+    told = tool_messages(llm["deepseek"])[0]
+    assert "La mesure d'un plan est une simple lecture" in told
