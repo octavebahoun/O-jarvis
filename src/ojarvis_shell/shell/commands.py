@@ -52,7 +52,7 @@ WRITE_REDIRECTS = frozenset({">", ">>", ">|", "&>", "&>>", ">&", "<>"})
 HARMLESS_DEVICES = frozenset(
     {"/dev/null", "/dev/stdout", "/dev/stderr", "/dev/zero", "/dev/random", "/dev/urandom"}
 )
-ADMIN = frozenset({"sudo", "su", "doas", "pkexec", "run0"})
+ADMIN = frozenset({"sudo", "sudoedit", "su", "doas", "pkexec", "run0"})
 #: Enveloppes qui lancent la commande qui suit, avec leurs options suivies d'une valeur.
 WRAPPERS: dict[str, frozenset[str]] = {
     "time": frozenset(),
@@ -411,7 +411,7 @@ def _segment(tokens: list[str], *, piped: bool, cwd: Path, home: Path, depth: in
     if not words:
         return floor
     name = Path(words[0]).name
-    if name in ADMIN:
+    if name in ADMIN or (name == "machinectl" and words[1:2] in (["shell"], ["login"])):
         raise BlockedTargetError(
             f"Jarvis ne lance jamais « {name} » : il ne voit pas ton mot de passe. Montre la "
             "commande à l'utilisateur pour qu'il la tape lui-même."

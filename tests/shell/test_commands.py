@@ -179,6 +179,12 @@ REFUSED = [
     "grep --directories=recurse KEY ~",
     "find ~/.ssh -type f -exec cat {} \\;",
     "find ~ -name '*.pem' -exec cat {} +",
+    # Jamais sudo, même déguisé (#9).
+    "sudoedit /etc/hosts",
+    "machinectl shell root@",
+    "bash -c 'sudo ls'",
+    "ls | xargs sudo rm",
+    "find . -exec sudo rm {} +",
 ]
 
 
