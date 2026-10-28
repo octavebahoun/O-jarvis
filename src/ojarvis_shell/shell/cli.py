@@ -14,6 +14,7 @@ import contextlib
 import itertools
 import json
 import os
+import re
 import secrets
 import subprocess
 import sys
@@ -170,6 +171,8 @@ class Budget:
     dollars: float = 1.0
 
 
+#: Une phrase dite (« /voix ») : le temps laissé pour parler.
+DICTATION_S = 30
 #: La fin de la sortie d'une commande lancée par toi, rendue à Jarvis (la limite de l'API).
 RAN_OUTPUT_CHARS = 20_000
 #: Lance une commande proposée (dans ce dossier) : son code de sortie et sa sortie.
@@ -276,9 +279,35 @@ class ShellClient:
 
     # ------------------------------------------------------------------ un message
 
-    def send(self, text: str) -> None:
+    def dictate(self) -> str | None:
+        """« /voix » (#10) : une phrase dite, transcrite par le Jarvis de l'app, montrée ici,
+        puis traitée comme si tu l'avais écrite. Comme le bouton micro : rien ne quitte la
+        machine avant que tu parles."""
+        self.line(self._style("◉ Je t'écoute : parle, puis marque une pause.", CYAN))
+        self._spinner.start("J'écoute…")
+        try:
+            response = self.http.post(
+                "/v1/voice/dictate", json={"timeout_s": DICTATION_S}, timeout=DICTATION_S + 15
+            )
+        except httpx.HTTPError as exc:
+            self.error(f"Le moteur ne répond plus ({type(exc).__name__}).")
+            return None
+        finally:
+            self._spinner.stop()
+        if response.status_code != 200:
+            self.error(error_message(response))
+            return None
+        heard = str(response.json().get("text") or "").strip()
+        if not heard:
+            self.line(self._style("Je n'ai rien entendu.", DIM))
+            return None
+        self.line(self._style("Tu as dit : ", DIM) + f"« {heard} »")
+        return heard
+
+    def send(self, text: str, *, spoken: bool = False) -> None:
         """Un message, puis chaque plan qu'il propose : décidé, attendu, et la suite, dans le
-        budget de la demande. Au-delà, il s'arrête proprement et attend ton « continue »."""
+        budget de la demande. Au-delà, il s'arrête proprement et attend ton « continue ».
+        `spoken` : la demande a été dite, la dernière réponse l'est aussi."""
         self._spent = 0.0
         started = time.monotonic()
         follow_ups = 0
@@ -305,6 +334,15 @@ class ShellClient:
         finally:
             if self._spent > 0:
                 self.line(self._style(f"· coût de cette demande : {self._spent:.3f} $", DIM))
+            if spoken:
+                self._speak("".join(self._reply))
+
+    def _speak(self, reply: str) -> None:
+        """La réponse dite à voix haute (sans les marques du terminal), si la voix est en veille."""
+        text = re.sub(r"[`*_#]", "", reply).strip()
+        if text:
+            with contextlib.suppress(httpx.HTTPError):
+                self.http.post("/v1/voice/say", json={"text": text[:2000]})
 
     def _over_budget(self, follow_ups: int, elapsed_s: float) -> str | None:
         if follow_ups >= self.budget.follow_ups:
@@ -331,6 +369,7 @@ class ShellClient:
             body["ran"] = ran
         plans: list[dict[str, Any]] = []
         self._route = None
+        self._reply: list[str] = []
         self._spinner.start()
         try:
             timeout = httpx.Timeout(15.0, read=None)
@@ -367,6 +406,7 @@ class ShellClient:
             if not self._line_open and text.startswith("\n"):
                 text = "\n" + text.lstrip("\n")  # une seule ligne vide après une commande
             self._write(text)
+            self._reply.append(text)
         elif kind == "tool":
             self._on_tool(data)
         elif kind == "notice":
@@ -726,8 +766,8 @@ def _banner(client: ShellClient, style: Style, where: str, own_engine: bool) -> 
     client.line(style(f"Dossier {where} · {origin}{profile}", DIM))
     client.line(
         style(
-            "« /nouveau » : nouvelle conversation · « /toujours » : ce qui est validé d'office "
-            "· « exit » : quitter",
+            "« /voix » : parler · « /nouveau » : nouvelle conversation · « /toujours » : ce "
+            "qui est validé d'office · « exit » : quitter",
             DIM,
         )
     )
@@ -794,25 +834,39 @@ def _loop(client: ShellClient, style: Style, where: str) -> None:
             continue
         if text in EXIT_WORDS:
             return
-        if text == "/nouveau":
-            client.conversation_id = None
-            client.pending.clear()
-            client.line(style("Nouvelle conversation.", DIM))
+        if _command(client, style, text):
             continue
-        if text == "/toujours":
-            kinds = ", ".join(sorted(client.allowed)) or "rien pour l'instant"
-            client.line(style(f"Validé d'office dans cette session : {kinds}", DIM))
-            continue
-        if text == "/oublier":
-            client.allowed.clear()
-            client.line(style("Chaque commande demandera de nouveau ta validation.", DIM))
-            continue
-        try:
-            client.send(text)
-        except KeyboardInterrupt:
-            client.line(style("(interrompu)", DIM))
-        except httpx.HTTPError as exc:
-            client.error(f"Le moteur ne répond plus ({type(exc).__name__}).")
+        _ask(client, style, text)
+
+
+def _command(client: ShellClient, style: Style, text: str) -> bool:
+    """Les commandes « / » du terminal ; faux pour une demande à Jarvis."""
+    if text in ("/voix", "/v"):
+        heard = client.dictate()
+        if heard:
+            _ask(client, style, heard, spoken=True)
+    elif text == "/nouveau":
+        client.conversation_id = None
+        client.pending.clear()
+        client.line(style("Nouvelle conversation.", DIM))
+    elif text == "/toujours":
+        kinds = ", ".join(sorted(client.allowed)) or "rien pour l'instant"
+        client.line(style(f"Validé d'office dans cette session : {kinds}", DIM))
+    elif text == "/oublier":
+        client.allowed.clear()
+        client.line(style("Chaque commande demandera de nouveau ta validation.", DIM))
+    else:
+        return False
+    return True
+
+
+def _ask(client: ShellClient, style: Style, text: str, *, spoken: bool = False) -> None:
+    try:
+        client.send(text, spoken=spoken)
+    except KeyboardInterrupt:
+        client.line(style("(interrompu)", DIM))
+    except httpx.HTTPError as exc:
+        client.error(f"Le moteur ne répond plus ({type(exc).__name__}).")
 
 
 if __name__ == "__main__":

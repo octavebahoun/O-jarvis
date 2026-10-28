@@ -544,3 +544,29 @@ def test_the_terminal_shows_the_measure_before_and_after() -> None:
     assert "1. (mesure avant) Lancer « df -h / » dans ~" in text
     assert "· Avant : /dev/sda2 457G 392G 43G 91% /" in text
     assert "· Après : /dev/sda2 457G 377G 58G 87% /" in text
+
+
+class VoiceEngine(FakeEngine):
+    """Le moteur, avec la voix : une phrase entendue, une réponse dite."""
+
+    def __call__(self, request: httpx.Request) -> httpx.Response:
+        if request.url.path not in ("/v1/voice/dictate", "/v1/voice/say"):
+            return super().__call__(request)
+        body = json.loads(request.content) if request.content else {}
+        self.requests.append((request.method, request.url.path, body))
+        if request.url.path == "/v1/voice/dictate":
+            return httpx.Response(200, json={"text": "Liste les fichiers du dossier."})
+        return httpx.Response(200, json={"spoken": True})
+
+
+def test_a_spoken_request_is_shown_then_handled_like_a_written_one() -> None:
+    reply = ("delta", {"text": "Il y a `a.txt` et **b.txt**."})
+    engine = VoiceEngine([sse(START, reply, DONE)])
+    client, out = session(engine, [])
+    heard = client.dictate()
+    assert heard == "Liste les fichiers du dossier."
+    client.send(heard, spoken=True)
+    assert chats(engine)[0]["text"] == "Liste les fichiers du dossier."  # comme écrite
+    said = [body for _method, path, body in engine.requests if path == "/v1/voice/say"]
+    assert said == [{"text": "Il y a a.txt et b.txt."}]  # sans les marques du terminal
+    assert "Tu as dit : « Liste les fichiers du dossier. »" in out.getvalue()
