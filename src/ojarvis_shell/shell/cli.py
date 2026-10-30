@@ -616,7 +616,7 @@ class ShellClient:
                     self._spinner.stop()
                     self._show_step(step)
                     self._spinner.start("Jarvis exécute…")
-                if plan.get("status") in ("done", "failed", "refused"):
+                if plan.get("status") in ("done", "failed", "refused", "stopped"):
                     self._spinner.stop()
                     self._measures(plan)
                     return plan_id
