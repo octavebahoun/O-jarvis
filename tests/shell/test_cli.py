@@ -441,7 +441,12 @@ def test_the_packaged_engine_opens_the_terminal_with_a_subcommand(
     monkeypatch.setattr("sys.frozen", False)
     assert python_module("ojarvis")[1:] == ["-m", "ojarvis"]
     seen: list[list[str]] = []
-    monkeypatch.setattr(cli, "main", lambda argv: seen.append(argv) or 0)
+
+    def fake_main(argv: list[str]) -> int:
+        seen.append(argv)
+        return 0
+
+    monkeypatch.setattr(cli, "main", fake_main)
     assert engine_main(["shell", "--dossier", "~/projet"]) == 0
     assert seen == [["--dossier", "~/projet"]]
 
