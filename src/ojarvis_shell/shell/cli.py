@@ -231,9 +231,12 @@ class ShellClient:
         budget: Budget | None = None,
         home: Path | None = None,
         run: Runner | None = None,
+        own_engine: bool = False,
     ) -> None:
         self.http = http
         self.folder = folder
+        #: Moteur lancé pour ce terminal (l'app est fermée) : il n'a ni micro ni voix.
+        self.own_engine = own_engine
         self.conversation_id: str | None = None
         #: Plans finis dont le modèle n'a pas encore lu les résultats (arrêt sur le budget) :
         #: ils partent avec ton prochain message, comme une commande que tu as lancée.
@@ -294,6 +297,12 @@ class ShellClient:
             return None
         finally:
             self._spinner.stop()
+        if response.status_code == 409 and self.own_engine:
+            self.error(
+                "La voix vit dans l'app, et elle est fermée : quitte ce terminal (exit), ouvre "
+                "l'app, puis relance ojarvis-shell."
+            )
+            return None
         if response.status_code != 200:
             self.error(error_message(response))
             return None
@@ -810,9 +819,17 @@ def main(argv: list[str] | None = None) -> int:
     save_history = _setup_readline(_history(env))
     headers = {"Authorization": f"Bearer {info.token}"}
     with httpx.Client(base_url=info.url, headers=headers, timeout=30.0) as http:
-        client = ShellClient(http, str(folder), out=out, ask=input, style=style, home=home)
+        client = ShellClient(
+            http,
+            str(folder),
+            out=out,
+            ask=input,
+            style=style,
+            home=home,
+            own_engine=process is not None,
+        )
         where = shown(folder, home)
-        _banner(client, style, where, process is not None)
+        _banner(client, style, where, client.own_engine)
         try:
             _loop(client, style, where)
         finally:

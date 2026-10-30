@@ -564,6 +564,20 @@ class VoiceEngine(FakeEngine):
         return httpx.Response(200, json={"spoken": True})
 
 
+def test_with_the_app_closed_the_terminal_says_where_the_voice_lives() -> None:
+    def no_voice(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/v1/voice/dictate"
+        return httpx.Response(409, json={"error": {"message": "La voix est éteinte."}})
+
+    client, out = session(FakeEngine([]), [])
+    client.http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(no_voice))
+    assert client.dictate() is None
+    assert "La voix est éteinte." in out.getvalue()  # l'app est ouverte : son réglage
+    client.own_engine = True  # l'app est fermée : ce terminal a lancé son moteur
+    assert client.dictate() is None
+    assert "quitte ce terminal (exit), ouvre l'app, puis relance ojarvis-shell" in out.getvalue()
+
+
 def test_a_spoken_request_is_shown_then_handled_like_a_written_one() -> None:
     reply = ("delta", {"text": "Il y a `a.txt` et **b.txt**."})
     engine = VoiceEngine([sse(START, reply, DONE)])
