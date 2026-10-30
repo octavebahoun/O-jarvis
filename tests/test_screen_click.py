@@ -12,7 +12,13 @@ from fastapi.testclient import TestClient
 from PIL import Image, ImageDraw
 
 from ojarvis.core.errors import InvalidInputError, NotFoundError, UnavailableError
-from ojarvis.desktop.locate import AmbiguousTargetError, Locator, ScreenMarks, unchanged
+from ojarvis.desktop.locate import (
+    AmbiguousTargetError,
+    Locator,
+    ScreenMarks,
+    reading_order,
+    unchanged,
+)
 from ojarvis.desktop.pointer import Stream, to_stream
 from ojarvis.desktop.sam import Box, Segmentation, parse_boxes
 from ojarvis.llm.catalog import Catalog
@@ -51,13 +57,14 @@ class FakeSam:
         return Segmentation(self.found.get(concept, ()), 400, 200)
 
 
-def muse(*picks: dict[str, Any]) -> tuple[ModelRouter, FakeProvider]:
-    """Muse Spark (profil « Tout Meta ») qui répond, dans l'ordre, ces choix."""
-    answers = list(picks)
+def muse(*answers: dict[str, Any]) -> tuple[ModelRouter, FakeProvider]:
+    """Muse Spark (profil « Tout Meta ») qui répond, dans l'ordre : un choix sur la capture
+    numérotée, puis son avis sur le zoom, et ainsi de suite."""
+    left = list(answers)
 
     def script(request: LLMRequest) -> FakeReply:
-        assert request.messages[-2].images  # il voit la capture numérotée
-        return FakeReply(tool_calls=[ToolCall("p", TOOL_NAME, answers.pop(0))])
+        assert request.messages[-2].images  # il voit la capture (numérotée, ou agrandie)
+        return FakeReply(tool_calls=[ToolCall("p", TOOL_NAME, left.pop(0))])
 
     provider = FakeProvider("meta", script=script)
     router = ModelRouter({"meta": provider}, Catalog(), profile=lambda: "meta")
@@ -73,9 +80,9 @@ class Clock:
 
 
 def locator(
-    tmp_path: Path, sam: FakeSam, *picks: dict[str, Any], clock: Clock | None = None
+    tmp_path: Path, sam: FakeSam, *answers: dict[str, Any], clock: Clock | None = None
 ) -> Locator:
-    router, _ = muse(*picks)
+    router, _ = muse(*answers)
     marks = ScreenMarks(tmp_path / "reperes", clock=clock or Clock())
 
     async def grab() -> bytes:
@@ -105,37 +112,87 @@ def test_a_point_of_the_capture_lands_on_the_same_point_of_the_screen() -> None:
         to_stream(10, 10, (3286, 1080), Stream(42, 1366, 768))
 
 
-async def test_sam_frames_and_muse_spark_picks_the_element(tmp_path: Path) -> None:
+CONFIRMED = {"bon": True, "vu": "Bouton Enregistrer"}
+
+
+def test_boxes_are_numbered_in_reading_order_without_duplicates() -> None:
+    icon = Box(7, 22, 21, 118, 58)  # le même bouton, vu aussi comme une icône
+    right, left = Box(3, 300, 25, 330, 55), Box(4, 150, 30, 180, 50)
+    assert reading_order([BUTTONS[1], right, BUTTONS[0], icon, left]) == [
+        BUTTONS[0],
+        left,
+        right,
+        BUTTONS[1],
+    ]
+
+
+async def test_sam_frames_and_muse_spark_picks_then_checks_the_element(tmp_path: Path) -> None:
+    # SAM cherche boutons et icônes en même temps ; le choix est revu sur un zoom.
     sam = FakeSam({"button": BUTTONS})
     found = await locator(
-        tmp_path, sam, {"numero": 2, "candidats": [], "vu": "Bouton Enregistrer en bas"}
+        tmp_path, sam, {"numero": 2, "candidats": [], "vu": "en bas"}, CONFIRMED
     ).find("le bouton Enregistrer", "bouton")
     assert found.box == BUTTONS[1]
     assert found.center == (309, 159)
     assert (found.width, found.height) == (400, 200)
-    assert found.seen == "Bouton Enregistrer en bas"
+    assert found.seen == "Bouton Enregistrer"
     assert found.image.is_file()
     assert found.image.stat().st_mode & 0o777 == 0o600  # une capture de ton écran
-    assert sam.concepts == ["button"]
+    assert sorted(sam.concepts) == ["button", "icon"]
+
+
+async def test_a_choice_the_zoom_denies_is_picked_again_then_asked(tmp_path: Path) -> None:
+    """Le 30/10, Muse Spark avait pris l'icône voisine du bouton PDF dans LibreOffice."""
+    sam = FakeSam({"button": BUTTONS})
+    router, provider = muse(
+        {"numero": 1, "candidats": []},
+        {"bon": False, "vu": "l'icône Imprimer"},
+        {"numero": 2, "candidats": []},
+        CONFIRMED,
+    )
+    marks = ScreenMarks(tmp_path / "reperes", clock=Clock())
+
+    async def grab() -> bytes:
+        return window()
+
+    found = await Locator(sam, router, marks, grab).find("le bouton PDF", "bouton")  # type: ignore[arg-type]
+    assert found.box == BUTTONS[1]
+    second_pick = provider.requests[2][0].messages[-2].content
+    assert "Ce n'est pas le bon : le n° 1 est l'icône Imprimer." in second_pick
+    # Deux démentis : Jarvis demande, avec ce qu'il a vu de plus proche.
+    sam_again = FakeSam({"button": BUTTONS})
+    finder = locator(
+        tmp_path,
+        sam_again,
+        {"numero": 1, "candidats": []},
+        {"bon": "non", "vu": "l'icône Imprimer"},
+        {"numero": 2, "candidats": []},
+        {"bon": False, "vu": "l'icône Aperçu"},
+    )
+    with pytest.raises(AmbiguousTargetError, match="Le plus proche était : l'icône Imprimer"):
+        await finder.find("le bouton PDF", "bouton")
 
 
 async def test_nothing_found_asks_instead_of_guessing(tmp_path: Path) -> None:
-    # SAM ne voit aucun bouton, puis Muse Spark ne reconnaît aucune icône (« null » en texte).
+    # Muse Spark ne reconnaît aucun élément (« null » écrit en texte).
     sam = FakeSam({"icon": BUTTONS})
     finder = locator(tmp_path, sam, {"numero": "null", "candidats": []})
     with pytest.raises(AmbiguousTargetError, match="Je ne trouve pas « le bouton Supprimer »"):
         await finder.find("le bouton Supprimer", "bouton")
-    assert sam.concepts == ["button", "icon"]
+    nothing = locator(tmp_path, FakeSam({}))  # SAM ne voit rien : Muse Spark n'est pas appelé
+    with pytest.raises(AmbiguousTargetError, match="cherché comme : button, icon"):
+        await nothing.find("le bouton Supprimer", "bouton")
 
 
-async def test_two_possible_elements_ask_which_one(tmp_path: Path) -> None:
+async def test_two_possible_elements_ask_which_one_without_numbers(tmp_path: Path) -> None:
     sam = FakeSam({"button": BUTTONS})
     both = {
         "numero": 1,
         "candidats": [{"numero": 1, "ou": "en haut à gauche"}, {"numero": 2, "ou": "en bas"}],
     }
-    with pytest.raises(AmbiguousTargetError, match=r"n° 1, en haut à gauche ; n° 2, en bas"):
+    with pytest.raises(AmbiguousTargetError, match="en haut à gauche ; en bas") as raised:
         await locator(tmp_path, sam, both).find("le bouton Exporter", "bouton")
+    assert "n°" not in raised.value.message  # l'utilisateur ne voit aucun numéro
 
 
 def test_the_element_must_still_be_there_to_be_clicked(tmp_path: Path) -> None:
@@ -202,8 +259,9 @@ async def test_finding_refuses_to_send_the_screen_when_it_must_stay_local(
 
 async def test_finding_gives_a_mark_for_the_click(tmp_path: Path) -> None:
     sam = FakeSam({"button": BUTTONS})
-    pick = {"numero": 1, "candidats": [], "vu": "Bouton Exporter en PDF"}
-    tool = FindOnScreen(locator(tmp_path, sam, pick), lambda: "en_ligne")
+    pick = {"numero": 1, "candidats": [], "vu": "en haut"}
+    check = {"bon": True, "vu": "Bouton Exporter en PDF"}
+    tool = FindOnScreen(locator(tmp_path, sam, pick, check), lambda: "en_ligne")
     assert tool.level == Level.LIRE
     output = await tool.run(FindArgs(element="le bouton Exporter en PDF"), context(tmp_path))
     assert output.external  # ce que montre l'écran est une donnée
