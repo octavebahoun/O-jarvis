@@ -47,19 +47,32 @@ def window(*, covered: bool = False) -> bytes:
 
 
 class FakeSam:
-    def __init__(self, found: dict[str, tuple[Box, ...]]) -> None:
+    def __init__(self, found: dict[str, tuple[Box, ...]], under: Box | None = None) -> None:
         self.found = found
+        self.under = under
         self.concepts: list[str] = []
+        self.points: list[tuple[int, int]] = []
 
     async def find(self, image: bytes, concept: str, *, mime: str = "image/png") -> Segmentation:
         del image, mime
         self.concepts.append(concept)
         return Segmentation(self.found.get(concept, ()), 400, 200)
 
+    async def at_point(
+        self, image: bytes, x: int, y: int, size: tuple[int, int], *, mime: str = "image/png"
+    ) -> Segmentation:
+        del image, size, mime
+        self.points.append((x, y))
+        return Segmentation((self.under,) if self.under else (), 400, 200)
+
+
+#: Muse Spark désigne à peu près l'endroit : la zone autour contient les deux boutons.
+POINTED = {"trouve": True, "x": 189, "y": 99}
+
 
 def muse(*answers: dict[str, Any]) -> tuple[ModelRouter, FakeProvider]:
-    """Muse Spark (profil « Tout Meta ») qui répond, dans l'ordre : un choix sur la capture
-    numérotée, puis son avis sur le zoom, et ainsi de suite."""
+    """Muse Spark (profil « Tout Meta ») qui répond, dans l'ordre : l'endroit désigné, un
+    choix sur la zone agrandie, puis son avis sur le zoom, et ainsi de suite."""
     left = list(answers)
 
     def script(request: LLMRequest) -> FakeReply:
@@ -126,11 +139,12 @@ def test_boxes_are_numbered_in_reading_order_without_duplicates() -> None:
     ]
 
 
-async def test_sam_frames_and_muse_spark_picks_then_checks_the_element(tmp_path: Path) -> None:
-    # SAM cherche boutons et icônes en même temps ; le choix est revu sur un zoom.
+async def test_sam_frames_and_muse_spark_points_picks_then_checks(tmp_path: Path) -> None:
+    # SAM cherche boutons et icônes en même temps ; Muse Spark désigne la zone, y choisit,
+    # puis revoit son choix sur un zoom.
     sam = FakeSam({"button": BUTTONS})
     found = await locator(
-        tmp_path, sam, {"numero": 2, "candidats": [], "vu": "en bas"}, CONFIRMED
+        tmp_path, sam, POINTED, {"numero": 2, "candidats": [], "vu": "en bas"}, CONFIRMED
     ).find("le bouton Enregistrer", "bouton")
     assert found.box == BUTTONS[1]
     assert found.center == (309, 159)
@@ -145,6 +159,7 @@ async def test_a_choice_the_zoom_denies_is_picked_again_then_asked(tmp_path: Pat
     """Le 30/10, Muse Spark avait pris l'icône voisine du bouton PDF dans LibreOffice."""
     sam = FakeSam({"button": BUTTONS})
     router, provider = muse(
+        POINTED,
         {"numero": 1, "candidats": []},
         {"bon": False, "vu": "l'icône Imprimer"},
         {"numero": 2, "candidats": []},
@@ -157,13 +172,14 @@ async def test_a_choice_the_zoom_denies_is_picked_again_then_asked(tmp_path: Pat
 
     found = await Locator(sam, router, marks, grab).find("le bouton PDF", "bouton")  # type: ignore[arg-type]
     assert found.box == BUTTONS[1]
-    second_pick = provider.requests[2][0].messages[-2].content
+    second_pick = provider.requests[3][0].messages[-2].content
     assert "Ce n'est pas le bon : le n° 1 est l'icône Imprimer." in second_pick
     # Deux démentis : Jarvis demande, avec ce qu'il a vu de plus proche.
     sam_again = FakeSam({"button": BUTTONS})
     finder = locator(
         tmp_path,
         sam_again,
+        POINTED,
         {"numero": 1, "candidats": []},
         {"bon": "non", "vu": "l'icône Imprimer"},
         {"numero": 2, "candidats": []},
@@ -174,14 +190,34 @@ async def test_a_choice_the_zoom_denies_is_picked_again_then_asked(tmp_path: Pat
 
 
 async def test_nothing_found_asks_instead_of_guessing(tmp_path: Path) -> None:
-    # Muse Spark ne reconnaît aucun élément (« null » écrit en texte).
+    # Muse Spark ne voit pas l'élément sur la capture.
+    unseen = locator(tmp_path, FakeSam({"icon": BUTTONS}), {"trouve": "non"})
+    with pytest.raises(AmbiguousTargetError, match="Je ne vois pas « le bouton Supprimer »"):
+        await unseen.find("le bouton Supprimer", "bouton")
+    # Il le désigne, mais n'en reconnaît aucun dans la zone (« null » écrit en texte), et SAM
+    # ne voit rien sous le point.
     sam = FakeSam({"icon": BUTTONS})
-    finder = locator(tmp_path, sam, {"numero": "null", "candidats": []})
+    finder = locator(tmp_path, sam, POINTED, {"numero": "null", "candidats": []})
     with pytest.raises(AmbiguousTargetError, match="Je ne trouve pas « le bouton Supprimer »"):
         await finder.find("le bouton Supprimer", "bouton")
-    nothing = locator(tmp_path, FakeSam({}))  # SAM ne voit rien : Muse Spark n'est pas appelé
+    assert sam.points == [(189, 99)]
+    nothing = locator(tmp_path, FakeSam({}), POINTED)  # SAM ne voit rien dans la zone
     with pytest.raises(AmbiguousTargetError, match="cherché comme : button, icon"):
         await nothing.find("le bouton Supprimer", "bouton")
+
+
+async def test_an_element_sam_did_not_frame_is_framed_from_the_pointed_spot(
+    tmp_path: Path,
+) -> None:
+    # Une lettre « B » n'est ni un bouton ni une icône pour SAM : il encadre l'objet sous
+    # le point désigné par Muse Spark, et le zoom confirme (essai du 31/10, bouton Gras).
+    letter = Box(1, 300, 150, 312, 166)
+    sam = FakeSam({}, under=letter)
+    found = await locator(
+        tmp_path, sam, {"trouve": True, "x": 306, "y": 158}, {"bon": True, "vu": "lettre B"}
+    ).find("le bouton Gras", "bouton")
+    assert found.box == letter
+    assert sam.points == [(306, 158)]
 
 
 async def test_two_possible_elements_ask_which_one_without_numbers(tmp_path: Path) -> None:
@@ -191,7 +227,7 @@ async def test_two_possible_elements_ask_which_one_without_numbers(tmp_path: Pat
         "candidats": [{"numero": 1, "ou": "en haut à gauche"}, {"numero": 2, "ou": "en bas"}],
     }
     with pytest.raises(AmbiguousTargetError, match="en haut à gauche ; en bas") as raised:
-        await locator(tmp_path, sam, both).find("le bouton Exporter", "bouton")
+        await locator(tmp_path, sam, POINTED, both).find("le bouton Exporter", "bouton")
     assert "n°" not in raised.value.message  # l'utilisateur ne voit aucun numéro
 
 
@@ -217,25 +253,28 @@ def context(home: Path) -> ToolContext:
     return ToolContext(http=None, secret=lambda _name: None, home=home)  # type: ignore[arg-type]
 
 
-async def test_a_click_only_happens_on_a_recent_unchanged_mark(tmp_path: Path) -> None:
+async def test_a_click_only_happens_on_a_recent_mark_once_it_is_visible(tmp_path: Path) -> None:
     clock = Clock()
     marks = ScreenMarks(tmp_path / "reperes", clock=clock)
     mark = marks.keep("le bouton Enregistrer", BUTTONS[1], window(), (400, 200), "")
-    screen = {"image": window(covered=True)}
+    screens = [window(covered=True)]
 
     async def grab() -> bytes:
-        return screen["image"]
+        return screens.pop(0) if len(screens) > 1 else screens[0]
 
     pointer = FakePointer()
-    tool = ClickOnScreen(marks, pointer, grab)
+    tool = ClickOnScreen(marks, pointer, grab, wait_s=0.05, poll_s=0.01)
     assert tool.level == Level.AGIR
     assert tool.describe(ClickArgs(repere=mark.id)) == (
         f"Cliquer sur le bouton Enregistrer (repère {mark.id})"
     )
+    # Une fenêtre reste devant : rien n'est cliqué.
     with pytest.raises(InvalidInputError, match="rien n'a été cliqué"):
         await tool.run(ClickArgs(repere=mark.id), context(tmp_path))
     assert pointer.clicks == []
-    screen["image"] = window()
+    # À la validation, la fenêtre de Jarvis est devant, puis se réduit : le clic attend de
+    # revoir l'élément (le 31/10, il était refusé aussitôt).
+    screens[:] = [window(covered=True), window(covered=True), window()]
     output = await tool.run(ClickArgs(repere=mark.id), context(tmp_path))
     assert pointer.clicks == [(309, 159, (400, 200))]
     assert "Clic fait sur « le bouton Enregistrer » en (309, 159)" in output.text
@@ -261,13 +300,21 @@ async def test_finding_gives_a_mark_for_the_click(tmp_path: Path) -> None:
     sam = FakeSam({"button": BUTTONS})
     pick = {"numero": 1, "candidats": [], "vu": "en haut"}
     check = {"bon": True, "vu": "Bouton Exporter en PDF"}
-    tool = FindOnScreen(locator(tmp_path, sam, pick, check), lambda: "en_ligne")
+    waits: list[float] = []
+
+    async def sleep(seconds: float) -> None:
+        waits.append(seconds)
+
+    tool = FindOnScreen(locator(tmp_path, sam, POINTED, pick, check), lambda: "en_ligne", sleep)
     assert tool.level == Level.LIRE
-    output = await tool.run(FindArgs(element="le bouton Exporter en PDF"), context(tmp_path))
+    args = FindArgs(element="le bouton Exporter en PDF", attendre_s=3)
+    output = await tool.run(args, context(tmp_path))
+    assert waits == [3]  # « attends 3 s » : le temps de mettre la fenêtre devant
     assert output.external  # ce que montre l'écran est une donnée
     assert output.data["repere"].startswith("r")
     assert (output.data["x"], output.data["y"]) == (69, 39)
     assert f"repere={output.data['repere']}" in output.text
+    assert "sans redemander" in output.text  # le plan, aussitôt
 
 
 def test_the_app_shows_the_annotated_capture_and_the_tools_need_pc_control(

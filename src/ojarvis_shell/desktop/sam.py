@@ -88,7 +88,17 @@ class SamClient:
     def available(self) -> bool:
         return bool(self._api_key())
 
-    async def find(self, image: bytes, concept: str, *, mime: str = "image/png") -> Segmentation:
+    async def at_point(
+        self, image: bytes, x: int, y: int, size: tuple[int, int], *, mime: str = "image/png"
+    ) -> Segmentation:
+        """L'objet qui se trouve sous ce point de l'image (une icône, un bouton…)."""
+        width, height = size
+        prompt = f"<0f>1<|point;x={x};y={y};w={width};h={height}|>"
+        return await self.find(image, prompt, mime=mime, label="point")
+
+    async def find(
+        self, image: bytes, concept: str, *, mime: str = "image/png", label: str | None = None
+    ) -> Segmentation:
         """Tous les éléments de l'image qui répondent au concept (aucun : une liste vide)."""
         key = self._api_key()
         if not key:
@@ -115,7 +125,11 @@ class SamClient:
         if self._tracer is None:
             return await self._call(key, body)
         async with self._tracer.span(
-            "segmentation SAM 3.1", kind="llm", provider="meta", model=SAM_MODEL, concept=concept
+            "segmentation SAM 3.1",
+            kind="llm",
+            provider="meta",
+            model=SAM_MODEL,
+            concept=label or concept,
         ) as span:
             result = await self._call(key, body)
             span.set(
