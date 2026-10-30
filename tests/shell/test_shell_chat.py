@@ -348,11 +348,11 @@ def test_a_file_made_by_an_earlier_command_can_be_edited_in_the_same_plan(
 def test_after_two_failures_of_the_same_command_the_relay_model_takes_over(
     client: TestClient, llm: dict[str, FakeProvider], project: Path, services: Services
 ) -> None:
-    del project
-    # Profil « Tout Meta » ; ici le relais est DeepSeek Flash (Meta n'a pas de clé en test).
-    settings = {"model_profile": "meta", "relay_model": "deepseek/deepseek-flash"}
-    assert client.patch("/v1/settings", json=settings).status_code == 200
-    llm["deepseek"]._script = shell_script("cat absent.txt > copie.txt")  # échoue : code 1
+    del project, llm
+    # Profil « Tout Meta » : Muse Spark, puis Muse Wonder en relais (un seul faux fournisseur).
+    meta = FakeProvider("meta", script=shell_script("cat absent.txt > copie.txt"))  # code 1
+    services.router.providers["meta"] = meta
+    assert client.patch("/v1/settings", json={"model_profile": "meta"}).status_code == 200
     events = shell_chat(client, "Copie absent.txt.")
     conversation_id = events[0][1]["conversation_id"]
     routes: list[dict[str, Any]] = []
@@ -360,16 +360,17 @@ def test_after_two_failures_of_the_same_command_the_relay_model_takes_over(
         plan = next(d for e, d in events if e == "plan")
         assert client.post(f"/v1/plans/{plan['id']}/approve", json={}).status_code == 200
         assert wait_plan(client, plan["id"])["status"] == "done"
-        llm["deepseek"]._script = again_script("cat absent.txt > copie.txt")
+        meta._script = again_script("cat absent.txt > copie.txt")
         events = shell_chat(
             client, "Continue.", conversation_id=conversation_id, after_plan=[plan["id"]]
         )
         routes.append(next(d for e, d in events if e == "route"))
-    # Un échec : Muse Spark (ici le modèle habituel) continue. Deux échecs : le relais.
+    # Un échec : Muse Spark continue. Deux échecs : le relais.
     assert routes[0]["relay"] is None
-    assert routes[1]["model"] == "deepseek-flash"
+    assert routes[0]["model"] == "muse-spark-1.3"
+    assert routes[1]["model"] == "muse-wonder-1.0"
     assert routes[1]["relay"] == (
-        "2 échecs de « cat absent.txt > copie.txt » : relais vers deepseek-flash"
+        "2 échecs de « cat absent.txt > copie.txt » : relais vers muse-wonder-1.0"
     )
     # Le relais coupé (0) : plus jamais.
     assert client.patch("/v1/settings", json={"relay_after": 0}).status_code == 200
