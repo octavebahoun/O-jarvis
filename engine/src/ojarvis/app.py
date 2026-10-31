@@ -16,6 +16,7 @@ from ojarvis.api import (
     routes_agents,
     routes_automations,
     routes_chat,
+    routes_chrome,
     routes_core,
     routes_graph,
     routes_integrations,
@@ -88,6 +89,7 @@ def create_app(
     app.include_router(routes_stream.router)
     app.include_router(routes_graph.router)
     app.include_router(routes_chat.router)
+    app.include_router(routes_chrome.router)
     app.include_router(routes_voice.router)
     app.include_router(routes_local_models.router)
     app.include_router(routes_agent.router)

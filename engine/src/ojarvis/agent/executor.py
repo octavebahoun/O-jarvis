@@ -224,7 +224,8 @@ class PlanExecutor:
             conversation = await self._conversations.get(plan.conversation_id)
         except EngineError:
             return False
-        return conversation.channel == "shell"
+        # Le panneau de Chrome aussi : il relance Jarvis avec l'onglet, qui lit les résultats.
+        return conversation.channel in ("shell", "chrome")
 
     async def _synthesize(self, plan: PlanRecord, sections: list[str]) -> str:
         request = LLMRequest(

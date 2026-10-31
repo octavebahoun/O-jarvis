@@ -32,7 +32,7 @@ With the default **"All Meta"** profile, every model O-jarvis calls at runtime i
 | **Muse Wonder 1.0** | Meta Model API | Reviews each code edit in shell mode; takes over when the same command fails twice |
 | **Muse Voice Transcribe 1.0** | Meta Model API | Speech to text, after the shortcut, the mic button or `/voix` in the terminal |
 | **MMS TTS, French** (`facebook/mms-tts-fra`) | On the user's PC (ONNX Runtime, CPU) | Jarvis's voice; numbers, units and acronyms are spelled out first by plain code |
-| **SAM 3.1** | Meta Model API | Frames the buttons and icons of a desktop app on a screenshot, so Jarvis can click the one Muse Spark picked |
+| **SAM 3.1** | Meta Model API | Frames the buttons and icons of a desktop app on a screenshot, so Jarvis can click the one Muse Spark picked; in Chrome, the same fallback for an element the page does not name (an unlabeled icon, a canvas) |
 
 Operating system features and plain code (no AI model):
 
@@ -44,6 +44,7 @@ Operating system features and plain code (no AI model):
 - **Live screen share and recordings**: GNOME's ScreenCast portal, read by GStreamer (two images per second, kept in memory only); ffmpeg turns a recording into an MP4 clip, deleted once Muse Spark has watched it.
 - **Memory search**: SQLite full-text search and hashed word vectors.
 - **Browser actions**: Playwright drives Chromium; screenshots use the desktop portal.
+- **Jarvis in Chrome**: a Chrome extension (side panel) talks to the engine through Chrome's native messaging; the open tab is read by the extension and sent to Muse Spark as framed data.
 - **Safety**: command classification and secret masking are rules in code.
 
 The "Automatic" profile, outside the submission, can also use DeepSeek, Anthropic, OpenAI, OpenRouter, Ollama, Groq, Cartesia, Piper, Whisper, openWakeWord, Silero VAD and multilingual-e5.
@@ -88,6 +89,22 @@ scripts/install-launcher.sh       # compile et ajoute « O-jarvis » au menu des
 Fermer la fenêtre arrête tout, moteur compris. `Ctrl+Q` aussi.
 
 Au premier lancement, le moteur télécharge ses modèles locaux (environ 350 Mo : recherche par le sens, mot de réveil, transcription, voix de secours), puis la voix est prête. Le script d'installation installe aussi le Chromium du navigateur de Jarvis (environ 170 Mo) et l'image Docker du bac à sable. Au premier lancement par l'icône, GNOME demande d'autoriser le raccourci `Ctrl+Alt+J`.
+
+## Jarvis dans Chrome
+
+Une extension ouvre Jarvis dans le panneau latéral de Chrome, à côté de la page que tu regardes. Sur les sites que tu autorises (Chrome te le demande une fois par site), Jarvis lit l'onglet ouvert : son titre, son adresse, son texte visible et ta sélection, jamais tes cookies ni tes champs de saisie. Pour lui, la page est une donnée, jamais une consigne : un plan proposé après sa lecture est signalé, et chaque action attend ta validation dans le panneau.
+
+Jarvis agit aussi dans ton onglet : cliquer sur un lien ou un bouton, remplir un champ, ouvrir une adresse. L'extension numérote les éléments de la page ; avant d'agir, elle vérifie que l'élément est bien celui du plan. Jarvis ne remplit jamais un mot de passe ni une carte bancaire, et un paiement, un achat ou une suppression est une action de niveau 3, à confirmer deux fois. Après un plan, il relit l'onglet et continue (huit fois au plus par demande).
+
+Quand la page ne nomme pas un élément (une icône sans nom, un dessin dans un canvas), Jarvis le repère sur une capture de l'onglet, comme pour les applications du bureau : SAM 3.1 encadre les éléments, Muse Spark choisit le bon et le vérifie ; avant le clic, une nouvelle capture vérifie que rien n'a bougé.
+
+Le mode « Agir sans demander », par site et éteint par défaut, fait les plans qui restent dans l'onglet sans attendre ta validation ; tout le reste (fichiers, commandes, niveau 3) la demande toujours. Chaque action est écrite au journal, et le bouton Stop arrête tout.
+
+```bash
+scripts/install-chrome.sh         # déclare à Chrome le pont vers le moteur (messagerie native)
+```
+
+Puis, dans Chrome : `chrome://extensions` → Mode développeur → Charger l'extension non empaquetée → dossier `extension/`. Le panneau rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
 
 ## Vérifier
 

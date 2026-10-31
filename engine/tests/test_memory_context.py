@@ -73,6 +73,17 @@ async def test_vector_index_native_and_fallback_agree(db: Database) -> None:
     assert [h[0] for h in await native.search(query, 1)] == [3]
 
 
+async def test_a_message_without_words_does_not_break_the_search(db: Database) -> None:
+    # « ok » n'a aucun mot de trois lettres : son vecteur est nul, et sqlite-vec lui donne une
+    # distance cosinus vide. Le 31/10, toute recherche échouait alors, et Jarvis ne répondait plus.
+    index = VectorIndex(db, "message", "zero", 3)
+    await index.ensure()
+    await index.upsert(1, np.zeros(3, dtype=np.float32))
+    await index.upsert(2, np.array([1, 0, 0], dtype=np.float32))
+    assert [h[0] for h in await index.search(np.array([1, 0, 0], dtype=np.float32), 2)] == [2]
+    assert await index.search(np.zeros(3, dtype=np.float32), 2) == []
+
+
 async def test_vector_index_resyncs_from_table(db: Database) -> None:
     index = VectorIndex(db, "memory", "resync", 3)
     await index.ensure()

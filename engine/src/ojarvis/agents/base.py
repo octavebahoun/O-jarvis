@@ -15,9 +15,10 @@ from typing import ClassVar
 
 from pydantic import ValidationError
 
-from ojarvis.agent.loop import Agent, AgentTurn
+from ojarvis.agent.loop import Agent
 from ojarvis.agent.plans import PLAN_TOOL, PlanIn
 from ojarvis.agent.reports import urls_in
+from ojarvis.agent.turn import AgentTurn
 from ojarvis.context.engine import PERSONA
 from ojarvis.llm.router import ModelRouter
 from ojarvis.llm.types import LLMRequest, Message, ToolCall, ToolSpec

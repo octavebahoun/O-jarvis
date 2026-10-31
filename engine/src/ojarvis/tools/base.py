@@ -97,6 +97,8 @@ class Tool[A: ToolArgs](ABC):
     os_control: ClassVar[bool] = False
     #: Mode shell seulement (lancer une commande) : jamais proposé ni accepté ailleurs.
     shell_only: ClassVar[bool] = False
+    #: Panneau de Chrome seulement (agir dans ton onglet) : jamais proposé ni accepté ailleurs.
+    chrome_only: ClassVar[bool] = False
 
     def parse(self, raw: dict[str, Any]) -> A:
         try:
@@ -170,7 +172,12 @@ class ToolRegistry:
         return list(self._tools.values())
 
     def specs(
-        self, *, max_level: Level, os_control: bool = True, shell_mode: bool = False
+        self,
+        *,
+        max_level: Level,
+        os_control: bool = True,
+        shell_mode: bool = False,
+        chrome_mode: bool = False,
     ) -> list[ToolSpec]:
         return [
             t.spec()
@@ -178,6 +185,7 @@ class ToolRegistry:
             if t.level <= max_level
             and (os_control or not t.os_control)
             and (shell_mode or not t.shell_only)
+            and (chrome_mode or not t.chrome_only)
         ]
 
     def catalog(self) -> list[dict[str, Any]]:

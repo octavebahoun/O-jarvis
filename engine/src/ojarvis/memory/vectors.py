@@ -141,7 +141,9 @@ class VectorIndex:
                 )
                 .all()
             )
-            return [(int(r[0]), 1.0 - float(r[1])) for r in rows]
+            # Un vecteur nul (un texte sans mot, comme « ok ») n'a pas de distance cosinus :
+            # sqlite-vec la rend vide, et ce voisin ne ressemble à rien.
+            return [(int(r[0]), 1.0 - float(r[1])) for r in rows if r[1] is not None]
 
         def brute(session: Session) -> list[tuple[int, float]]:
             rows = session.execute(
