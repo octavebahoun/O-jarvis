@@ -5,6 +5,7 @@ from __future__ import annotations
 import io
 import json
 import os
+import sys
 from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
@@ -12,6 +13,7 @@ from typing import Any
 import httpx
 import pytest
 
+from ojarvis.__main__ import announce_running
 from ojarvis.__main__ import main as engine_main
 from ojarvis.agent.measures import MEASURE_AFTER, MEASURE_BEFORE
 from ojarvis.api.routes_chat import sse as engine_sse
@@ -564,18 +566,46 @@ class VoiceEngine(FakeEngine):
         return httpx.Response(200, json={"spoken": True})
 
 
-def test_with_the_app_closed_the_terminal_says_where_the_voice_lives() -> None:
+def test_a_voice_turned_off_is_said_in_the_terminal() -> None:
     def no_voice(request: httpx.Request) -> httpx.Response:
         assert request.url.path == "/v1/voice/dictate"
-        return httpx.Response(409, json={"error": {"message": "La voix est éteinte."}})
+        message = "La voix est éteinte : allume-la dans Réglages (Voix)."
+        return httpx.Response(409, json={"error": {"message": message}})
 
     client, out = session(FakeEngine([]), [])
     client.http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(no_voice))
     assert client.dictate() is None
-    assert "La voix est éteinte." in out.getvalue()  # l'app est ouverte : son réglage
-    client.own_engine = True  # l'app est fermée : ce terminal a lancé son moteur
-    assert client.dictate() is None
-    assert "quitte ce terminal (exit), ouvre l'app, puis relance ojarvis-shell" in out.getvalue()
+    assert "La voix est éteinte : allume-la dans Réglages (Voix)." in out.getvalue()
+
+
+def test_the_terminal_engine_is_complete_and_announces_itself_to_the_app(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Le moteur lancé par le terminal a la voix et le préchauffage, comme celui de l'app ;
+    un second moteur sur les mêmes données donne sa connexion au lieu d'échouer."""
+    started: dict[str, Any] = {}
+
+    class Popen:
+        def __init__(self, _args: list[str], **kwargs: Any) -> None:
+            started.update(kwargs)
+            raise OSError("pas de vrai moteur dans les tests")
+
+    monkeypatch.setattr("ojarvis.shell.cli.subprocess.Popen", Popen)
+    with pytest.raises(OSError, match="pas de vrai moteur"):
+        cli.start_engine({"HOME": str(tmp_path)})
+    assert "OJARVIS_SKIP_WARMUP" not in started["env"]
+    connection = tmp_path / "moteur.json"
+    write_info(connection, EngineInfo(4242, os.getpid(), "jeton", "1.1.0"))
+    printed = io.StringIO()
+    monkeypatch.setattr(sys, "stdout", printed)
+    announce_running(connection)
+    line = printed.getvalue()
+    assert line.startswith("OJARVIS_RUNNING ")
+    assert json.loads(line.removeprefix("OJARVIS_RUNNING ")) == {
+        "port": 4242,
+        "pid": os.getpid(),
+        "token": "jeton",
+    }
 
 
 def test_a_spoken_request_is_shown_then_handled_like_a_written_one() -> None:

@@ -236,7 +236,7 @@ class ShellClient:
     ) -> None:
         self.http = http
         self.folder = folder
-        #: Moteur lancé pour ce terminal (l'app est fermée) : il n'a ni micro ni voix.
+        #: Moteur lancé par ce terminal (l'app était fermée) : complet, l'app peut le rejoindre.
         self.own_engine = own_engine
         #: Les captures annotées des éléments trouvés à l'écran (#48), pour un clic à valider.
         self.marks_dir = marks_dir
@@ -300,12 +300,6 @@ class ShellClient:
             return None
         finally:
             self._spinner.stop()
-        if response.status_code == 409 and self.own_engine:
-            self.error(
-                "La voix vit dans l'app, et elle est fermée : quitte ce terminal (exit), ouvre "
-                "l'app, puis relance ojarvis-shell."
-            )
-            return None
         if response.status_code != 200:
             self.error(error_message(response))
             return None
@@ -720,15 +714,16 @@ def reachable(info: EngineInfo) -> bool:
 def start_engine(
     env: Mapping[str, str], *, timeout_s: float = 180.0
 ) -> tuple[EngineInfo, subprocess.Popen[bytes]]:
-    """Lance un moteur pour ce terminal, comme le fait l'app : jeton sur l'entrée standard,
-    gardée ouverte ; il s'arrête quand le terminal se ferme."""
+    """Lance le moteur complet, comme le fait l'app (voix comprise) : jeton sur l'entrée
+    standard, gardée ouverte ; il s'arrête quand le terminal se ferme. L'app ouverte ensuite
+    le rejoint au lieu d'en lancer un second."""
     token = secrets.token_urlsafe(32)
     process = subprocess.Popen(  # noqa: S603 - notre propre moteur, sans entrée extérieure
         python_module("ojarvis"),
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.DEVNULL,
-        env={**env, "OJARVIS_SKIP_WARMUP": "1"},
+        env=dict(env),
         start_new_session=True,  # Ctrl+C dans le terminal ne coupe pas le moteur
     )
     stdin, stdout = process.stdin, process.stdout
@@ -884,8 +879,19 @@ def main(argv: list[str] | None = None) -> int:
             _loop(client, style, where)
         finally:
             save_history()
+            if process is not None:
+                _warn_app(client, style)
             stop_engine(process)
     return 0
+
+
+def _warn_app(client: ShellClient, style: Style) -> None:
+    """Le moteur de ce terminal s'arrête avec lui : l'app qui l'avait rejoint relance le sien."""
+    with contextlib.suppress(httpx.HTTPError, ValueError):
+        if client.http.get("/v1/status").json().get("stream_clients", 0) > 0:
+            client.line(
+                style("L'app utilisait ce moteur : elle relance le sien (quelques secondes).", DIM)
+            )
 
 
 def _loop(client: ShellClient, style: Style, where: str) -> None:
