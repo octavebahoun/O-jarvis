@@ -404,7 +404,7 @@ class Locator:
         size = await asyncio.to_thread(image_size, image)
         concepts = CONCEPTS[kind]
         segmented, point = await asyncio.gather(
-            asyncio.gather(*(self._sam.find(image, c) for c in concepts)),
+            asyncio.gather(*(self._sam.find(image, c, mime=_mime(image)) for c in concepts)),
             self._point(image, size, target),
         )
         if point is None:
