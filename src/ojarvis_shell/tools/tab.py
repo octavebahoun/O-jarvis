@@ -1,5 +1,6 @@
 """Agir dans ton onglet Chrome, celui que tu regardes à côté du panneau de Jarvis : cliquer,
-remplir un champ, ouvrir une adresse. Le panneau fait l'action (voir `ojarvis.chrome.bridge`).
+remplir un champ, ouvrir une adresse, fermer l'onglet. Le panneau fait l'action (voir
+`ojarvis.chrome.bridge`).
 
 Proposés seulement dans le panneau de Chrome, et toujours dans un plan. Un paiement, un
 achat, une suppression ou un champ sensible est de niveau 3 : jamais fait sans demander.
@@ -119,5 +120,21 @@ class TabOpen(TabTool[OpenTabArgs]):
         return f"Ouvrir {args.url} dans ton onglet"
 
 
+class CloseTabArgs(ToolArgs):
+    pass
+
+
+class TabClose(TabTool[CloseTabArgs]):
+    name: ClassVar[str] = "onglet_fermer"
+    description: ClassVar[str] = "Ferme l'onglet Chrome de l'utilisateur (celui lu par le panneau)."
+    Args: ClassVar[type[ToolArgs]] = CloseTabArgs
+    level: ClassVar[Level] = Level.AGIR
+    kind: ClassVar[str] = "fermer"
+
+    def describe(self, args: CloseTabArgs) -> str:
+        del args
+        return "Fermer ton onglet"
+
+
 def tab_tools(bridge: ChromeBridge) -> list[Tool[Any]]:
-    return [TabClick(bridge), TabFill(bridge), TabOpen(bridge)]
+    return [TabClick(bridge), TabFill(bridge), TabOpen(bridge), TabClose(bridge)]

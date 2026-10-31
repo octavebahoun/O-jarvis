@@ -117,6 +117,11 @@ export async function perform(tabId, action) {
       await chrome.tabs.update(tabId, { url: action.args.url });
       return { ok: true, text: await after(tabId, `Ouvert : ${action.args.url}.`) };
     }
+    if (action.kind === "fermer") {
+      const tab = await chrome.tabs.get(tabId);
+      await chrome.tabs.remove(tabId);
+      return { ok: true, text: `Onglet « ${tab.title} » fermé.` };
+    }
     const [result] = await chrome.scripting.executeScript({
       target: { tabId },
       func: performInPage,
