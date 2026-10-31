@@ -20,9 +20,7 @@ GIT_READ = frozenset({
     "whatchanged", "cherry", "count-objects",
 })
 
-
 GIT_BRANCH_LIST = frozenset({"-a", "-r", "-v", "-vv", "--list", "--show-current", "--all"})
-
 
 #: Options de git avant la sous-commande, suivies d'une valeur.
 GIT_OPTIONS = frozenset({"-C", "-c", "--git-dir", "--work-tree", "--namespace", "--config-env"})
@@ -92,7 +90,6 @@ DOCKER_DESTROY = frozenset({
     "container remove",
 })
 
-
 DOCKER_READ = frozenset({
     "ps", "images", "info", "version", "inspect", "logs", "stats", "top", "port", "diff",
     "history", "events", "search", "--version", "system df", "system info", "image ls",
@@ -123,7 +120,6 @@ SYSTEMCTL_READ = frozenset({
     "list-sockets", "list-dependencies", "list-jobs", "is-active", "is-enabled", "is-failed",
     "is-system-running", "get-default", "help", "--version",
 })
-
 
 SYSTEMCTL_DESTROY = frozenset({
     "stop", "disable", "mask", "kill", "isolate", "poweroff", "reboot", "halt", "suspend",
@@ -183,7 +179,6 @@ def _find(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verd
 
 
 GCLOUD_READ = frozenset({"list", "describe", "get-value", "info", "version", "help"})
-
 
 GCLOUD_WRITE = frozenset(
     {"create", "delete", "set", "unset", "update", "enable", "disable", "deploy", "add",
@@ -282,10 +277,8 @@ PACKAGE_READ = frozenset({
     "changes", "history", "remotes", "ps", "tree", "metadata", "--version", "-v", "version",
 })
 
-
 # fmt: on
 PACKAGE_REMOVE = frozenset({"remove", "purge", "autoremove", "uninstall"})
-
 
 SPECIAL: dict[str, Special] = {
     "git": _git,

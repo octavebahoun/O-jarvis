@@ -32,7 +32,6 @@ NEVER_ALWAYS = frozenset(
      "xargs", *NETWORK_LOOKUPS}
 )  # fmt: skip
 
-
 #: Options suivies d'une valeur avant la sous-commande : « git -C ~/projet push » est un push.
 SUBCOMMAND_OPTIONS: dict[str, frozenset[str]] = {
     "git": GIT_OPTIONS,
@@ -46,7 +45,6 @@ SUBCOMMAND_OPTIONS: dict[str, frozenset[str]] = {
     "make": frozenset({"-C", "-f", "--directory", "--file", "--makefile", "-I", "-o", "-W"}),
     "go": frozenset({"-C"}),
 }
-
 
 #: Une sous-commande se reconnaît (« install », « run-script ») : pas un chemin, pas une URL.
 SUBCOMMAND_WORD = re.compile(r"[a-z][a-z0-9:_-]*")
@@ -90,7 +88,6 @@ NETWORK_TOOLS = frozenset(
      "rsync", "nc", "ncat", "netcat", "telnet", "ftp", "socat", "gcloud", "aws", "az", "kubectl",
      "doctl", "heroku", "vercel", "firebase", "gh", *NETWORK_LOOKUPS}
 )  # fmt: skip
-
 
 GIT_NETWORK = frozenset({"clone", "fetch", "pull", "push", "ls-remote", "remote", "submodule"})
 

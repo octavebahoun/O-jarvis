@@ -40,25 +40,19 @@ SECRET_PRINTERS = (
     ("heroku", "auth:token"),
 )
 
-
 #: Ne montrent que des noms, des tailles ou des types, jamais un contenu : un dossier de
 #: secrets peut y figurer (« du -sh ~/.* » pour un disque plein).
 METADATA = frozenset({"ls", "ll", "la", "dir", "du", "df", "stat", "tree", "find", "file", "wc"})
 
-
 SEARCHERS = frozenset({"grep", "egrep", "fgrep", "rg", "ag", "zgrep"})
-
 
 #: Fouille bornée avant une recherche récursive : assez pour trouver le `.env` d'un projet,
 #: sans parcourir des milliers de fichiers.
 SCAN_DEPTH = 3
 
-
 SCAN_LIMIT = 5000
 
-
 SCAN_SKIPPED = frozenset({".git", "node_modules", ".venv", "venv", "__pycache__", ".cache"})
-
 
 #: Options de rg et ag qui fouillent aussi les fichiers cachés (`.env`).
 SEARCH_HIDDEN = frozenset({"--hidden", "-.", "-u", "-uu", "-uuu", "--unrestricted"})

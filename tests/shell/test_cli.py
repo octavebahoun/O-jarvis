@@ -19,8 +19,8 @@ from ojarvis.agent.measures import MEASURE_AFTER, MEASURE_BEFORE
 from ojarvis.api.routes_chat import sse as engine_sse
 from ojarvis.chat.service import ChatEvent
 from ojarvis.config import resolve_paths
-from ojarvis.shell import cli
-from ojarvis.shell.cli import ShellClient, Style, preview, sse_events
+from ojarvis.shell import cli, connection
+from ojarvis.shell.cli import ShellClient
 from ojarvis.shell.connection import (
     EngineInfo,
     info_path,
@@ -29,6 +29,7 @@ from ojarvis.shell.connection import (
     remove_info,
     write_info,
 )
+from ojarvis.shell.display import Style, preview, sse_events
 
 
 def sse(*events: tuple[str, dict[str, Any]]) -> str:
@@ -264,16 +265,16 @@ def test_connect_joins_the_app_engine_or_starts_its_own(
         started.append(True)
         return own, None
 
-    monkeypatch.setattr(cli, "start_engine", fake_start)
-    monkeypatch.setattr(cli, "reachable", lambda info: True)
-    assert cli.connect(runtime) == (own, None)  # rien de publié : il lance le sien
+    monkeypatch.setattr(connection, "start_engine", fake_start)
+    monkeypatch.setattr(connection, "reachable", lambda info: True)
+    assert connection.connect(runtime) == (own, None)  # rien de publié : il lance le sien
     assert started == [True]
 
     path = info_path(resolve_paths(runtime), runtime)
     assert path is not None
     app = EngineInfo(4242, os.getpid(), "j" * 43, "1.1.0")
     write_info(path, app)
-    assert cli.connect(runtime) == (app, None)  # le moteur de l'app
+    assert connection.connect(runtime) == (app, None)  # le moteur de l'app
     assert started == [True]
 
 
@@ -590,15 +591,15 @@ def test_the_terminal_engine_is_complete_and_announces_itself_to_the_app(
             started.update(kwargs)
             raise OSError("pas de vrai moteur dans les tests")
 
-    monkeypatch.setattr("ojarvis.shell.cli.subprocess.Popen", Popen)
+    monkeypatch.setattr("ojarvis.shell.connection.subprocess.Popen", Popen)
     with pytest.raises(OSError, match="pas de vrai moteur"):
-        cli.start_engine({"HOME": str(tmp_path)})
+        connection.start_engine({"HOME": str(tmp_path)})
     assert "OJARVIS_SKIP_WARMUP" not in started["env"]
-    connection = tmp_path / "moteur.json"
-    write_info(connection, EngineInfo(4242, os.getpid(), "jeton", "1.1.0"))
+    published = tmp_path / "moteur.json"
+    write_info(published, EngineInfo(4242, os.getpid(), "jeton", "1.1.0"))
     printed = io.StringIO()
     monkeypatch.setattr(sys, "stdout", printed)
-    announce_running(connection)
+    announce_running(published)
     line = printed.getvalue()
     assert line.startswith("OJARVIS_RUNNING ")
     assert json.loads(line.removeprefix("OJARVIS_RUNNING ")) == {

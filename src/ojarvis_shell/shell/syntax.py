@@ -16,39 +16,30 @@ from ojarvis.tools.base import Level
 
 PUNCTUATION = ";&|()<>{}"
 
-
 #: Opérateurs, du plus long au plus court : « };| » se lit « } ; | ».
 OPERATORS = (
     "&>>", "<<<", "&&", "||", "|&", ";;", ">>", "&>", ">&", "<&", "<<", ">|", "<>",
     "|", "&", ";", "(", ")", "{", "}", "<", ">",
 )  # fmt: skip
 
-
 SEPARATORS = frozenset({"|", "||", "|&", "&", "&&", ";", ";;", "(", ")", "{", "}"})
-
 
 REDIRECTS = frozenset({">", ">>", ">|", "&>", "&>>", ">&", "<", "<>", "<&", "<<", "<<<"})
 
-
 WRITE_REDIRECTS = frozenset({">", ">>", ">|", "&>", "&>>", ">&", "<>"})
-
 
 HARMLESS_DEVICES = frozenset(
     {"/dev/null", "/dev/stdout", "/dev/stderr", "/dev/zero", "/dev/random", "/dev/urandom"}
 )
 
-
 #: Ce qui remplace une sous-commande dans la ligne (elle est classée à part).
 SUBSTITUTED = "SOUS_COMMANDE"
-
 
 #: Vrai pendant le classement d'une sous-commande : sa sortie reste au shell.
 _CAPTURED: ContextVar[bool] = ContextVar("captured", default=False)
 
-
 #: « NOM=valeur » devant une commande, ou après `env` et `export`.
 ASSIGNMENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*=.*")
-
 
 #: Variables sans effet sur ce qui est lancé (langue, fuseau, couleurs). Toute autre
 #: (`LD_PRELOAD`, `GIT_EXTERNAL_DIFF`, `PATH`, `PAGER`…) peut faire lancer un autre programme.
@@ -57,10 +48,8 @@ HARMLESS_VARIABLES = re.compile(
     r"|TERM)="
 )
 
-
 #: Ouverture d'un heredoc : `<<FIN`, `<<-FIN`, `<<'FIN'`, `<<"FIN"`, `<<\FIN`.
 HEREDOC = re.compile(r"<<(-?)[ \t]*(?:'([A-Za-z_]\w*)'|\"([A-Za-z_]\w*)\"|\\?([A-Za-z_]\w*))")
-
 
 #: Le « {} » et le « \; » de `find -exec` : des mots, que le découpage prendrait pour des
 #: opérateurs. Remplacés le temps du découpage.
