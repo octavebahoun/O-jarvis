@@ -34,7 +34,9 @@ from ojarvis.shell.display import (
     BOLD,
     CYAN,
     DIM,
+    GREEN,
     RED,
+    WHITE,
     YELLOW,
     Spinner,
     Style,
@@ -101,7 +103,7 @@ class ShellClient(PlanDecisions):
         self._style = style
         self._poll_s = poll_s
         self._wait_s = wait_s
-        self._spinner = Spinner(out, style.enabled)
+        self._spinner = Spinner(out, style.enabled, style)
         self._line_open = False
         #: Le modèle déjà annoncé pendant ce tour (il ne change qu'en cas de relais).
         self._route: str | None = None
@@ -234,15 +236,14 @@ class ShellClient(PlanDecisions):
                 self._spinner.stop()
                 if data.get("relay"):
                     self.line(self._style(f"↑ {data['relay']}", YELLOW))
-                self.line(self._style(f"· {route}{relay}", DIM))
+                self.line(
+                    self._style(f"· {data.get('provider')} / ", DIM)
+                    + self._style(str(data.get("model")), CYAN)
+                    + (self._style(relay, DIM) if relay else "")
+                )
                 self._spinner.start()
         elif kind == "delta":
-            self._spinner.stop()
-            text = str(data.get("text", ""))
-            if not self._line_open and text.startswith("\n"):
-                text = "\n" + text.lstrip("\n")  # une seule ligne vide après une commande
-            self._write(text)
-            self._reply.append(text)
+            self._on_delta(str(data.get("text", "")))
         elif kind == "tool":
             self._on_tool(data)
         elif kind == "notice":
@@ -257,6 +258,18 @@ class ShellClient(PlanDecisions):
         elif kind == "done":
             self._spent += float(data.get("cost_usd") or 0.0)
 
+    def _on_delta(self, text: str) -> None:
+        self._spinner.stop()
+        if not self._line_open and text.startswith("\n"):
+            text = "\n" + text.lstrip("\n")  # une seule ligne vide après une commande
+        body = text.lstrip("\n")
+        if body and not any(part.strip("\n") for part in self._reply):
+            # Le losange ouvre la réponse : après les lignes vides, devant le premier mot.
+            self._write(text[: len(text) - len(body)] + self._style("◆ ", BOLD, CYAN) + body)
+        else:
+            self._write(text)
+        self._reply.append(text)
+
     def _on_tool(self, data: dict[str, Any]) -> None:
         status = data.get("status")
         if status == "running" or data.get("name") == "proposer_un_plan":
@@ -269,7 +282,7 @@ class ShellClient(PlanDecisions):
             if data.get("sudo"):
                 self._proposals.append(dict(data["sudo"]))  # montrée à la fin du tour
             else:
-                self.line(self._style(f"  ✓ {description}", DIM))
+                self.line(self._style("  ✓ ", GREEN) + description)
             if data.get("output") and not data.get("sudo"):
                 self._indented(preview(str(data["output"])), DIM)
         self._spinner.start()
@@ -336,7 +349,7 @@ def _banner(client: ShellClient, style: Style, where: str, own_engine: bool) -> 
         if client.http.get("/v1/settings").json().get("model_profile") == "meta":
             profile = " · profil Tout Meta"
     origin = "moteur lancé pour ce terminal" if own_engine else "le Jarvis de ton app"
-    client.line(style(f"O-jarvis · mode shell (v{__version__})", BOLD, CYAN))
+    client.line(style("◉ O-jarvis", BOLD, WHITE) + style(f" · mode shell (v{__version__})", CYAN))
     client.line(style(f"Dossier {where} · {origin}{profile}", DIM))
     client.line(
         style(
@@ -372,7 +385,7 @@ def main(argv: list[str] | None = None) -> int:
     except BlockedTargetError as exc:
         out.write(style(f"✗ {exc.message} Lance ojarvis-shell depuis un dossier à toi.\n", RED))
         return 2
-    spinner = Spinner(out, style.enabled)
+    spinner = Spinner(out, style.enabled, style)
     spinner.start("Je rejoins Jarvis…")
     try:
         info, process = connect(env)
@@ -418,7 +431,9 @@ def _warn_app(client: ShellClient, style: Style) -> None:
 def _loop(client: ShellClient, style: Style, where: str) -> None:
     while True:
         try:
-            text = input("\n" + style.prompt(f"{where} ❯ ", CYAN)).strip()
+            text = input(
+                "\n" + style.prompt(f"{where} ", DIM) + style.prompt("❯ ", BOLD, CYAN)
+            ).strip()
         except EOFError:
             client.line("")
             return

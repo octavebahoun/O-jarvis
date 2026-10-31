@@ -38,7 +38,7 @@ class Style:
         return f"\001\033[{';'.join(codes)}m\002{text}\001\033[0m\002"
 
 
-DIM, BOLD, RED, GREEN, YELLOW, CYAN = "2", "1", "31", "32", "33", "36"
+DIM, BOLD, RED, GREEN, YELLOW, CYAN, WHITE = "2", "1", "31", "32", "33", "36", "97"
 
 LEVEL_COLORS = {1: GREEN, 2: YELLOW, 3: RED}
 
@@ -48,9 +48,10 @@ class Spinner:
 
     FRAMES = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
 
-    def __init__(self, out: TextIO, enabled: bool) -> None:
+    def __init__(self, out: TextIO, enabled: bool, style: Style | None = None) -> None:
         self._out = out
         self._enabled = enabled
+        self._style = style or Style(False)
         self._label = ""
         self._halt = threading.Event()
         self._thread: threading.Thread | None = None
@@ -67,7 +68,7 @@ class Spinner:
         for frame in itertools.cycle(self.FRAMES):
             if self._halt.wait(0.1):
                 return
-            self._out.write(f"\r{frame} {self._label}")
+            self._out.write(f"\r{self._style(frame, BOLD, CYAN)} {self._style(self._label, DIM)}")
             self._out.flush()
 
     def stop(self) -> None:
@@ -156,4 +157,4 @@ class Terminal:
             self.line(self._style(f"    {line}", *codes))
 
     def error(self, message: str) -> None:
-        self.line(self._style(f"✗ {message}", RED))
+        self.line(self._style(f"✗ {message}", BOLD, RED))
