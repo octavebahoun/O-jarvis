@@ -29,6 +29,7 @@ const MODEL_LABEL: Record<string, string> = {
   transcription: "Transcription",
   voix_locale: "Voix locale",
   voix_meta: "Voix de Meta (MMS)",
+  voix_meta_en: "Voix anglaise de Meta (MMS)",
 };
 
 function statusTone(status: VoiceStatus): "ok" | "down" | "idle" {

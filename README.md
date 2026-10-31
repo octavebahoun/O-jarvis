@@ -8,7 +8,7 @@ A personal desktop assistant for Ubuntu that doesn't just talk: it acts on your 
 
 O-jarvis is a Tauri v2 desktop app (Rust shell, React + TypeScript interface) with a Python engine (FastAPI) that runs on `127.0.0.1` only, protected by a token drawn at every launch. Data stays in a local SQLite database, and API keys live in the system keyring.
 
-> **Language.** Jarvis answers in the language you use: ask in English, it answers in English. The interface is in French, and so is its voice (MMS French).
+> **Language.** Jarvis answers in the language you use: ask in English, it answers in English, and speaks with Meta's English MMS voice. The interface is in French.
 
 ## Meta Global AI Developer Hackathon
 
@@ -37,7 +37,7 @@ With the default **"All Meta"** profile, every model O-jarvis calls at runtime i
 | **Muse Spark Open** (`muse-spark-open-1026`) | Baseten | Takes over every task when Muse Spark does not answer |
 | **Muse Wonder 1.0** | Meta Model API | Reviews each code edit in shell mode; takes over when the same command fails twice |
 | **Muse Voice Transcribe 1.0** | Meta Model API | Speech to text, after the shortcut, the mic button or `/voix` in the terminal |
-| **MMS TTS, French** (`facebook/mms-tts-fra`) | On the user's PC (ONNX Runtime, CPU) | Jarvis's voice; numbers, units and acronyms are spelled out first by plain code |
+| **MMS TTS, French and English** (`facebook/mms-tts-fra`, `facebook/mms-tts-eng`) | On the user's PC (ONNX Runtime, CPU) | Jarvis's voice: each sentence is spoken by the voice of its language; numbers, units and acronyms are spelled out first by plain code |
 | **SAM 3.1** | Meta Model API | Frames the buttons and icons of a desktop app on a screenshot, so Jarvis can click the one Muse Spark picked; in Chrome, the same fallback for an element the page does not name (an unlabeled icon, a canvas) |
 
 Operating system features and plain code (no AI model):

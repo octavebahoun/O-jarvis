@@ -55,7 +55,7 @@ from ojarvis.voice.stt_online import (
     StreamingTranscriber,
 )
 from ojarvis.voice.tts import CARTESIA_VERSION, CartesiaTTS, FallbackTTS, PiperTTS
-from ojarvis.voice.tts_meta import EspeakTTS, MmsTTS
+from ojarvis.voice.tts_meta import EspeakTTS, MmsVoices
 from ojarvis.voice.turn import TurnReport
 from ojarvis.voice.vad import EndpointConfig, EnergyVad, SileroVad
 from ojarvis.voice.wake import OpenWakeWord
@@ -221,7 +221,7 @@ class VoiceService:
         self._parts_profile = profile
 
     async def _meta_parts(self) -> dict[str, Any]:
-        mms = MmsTTS(self._models / "mms-tts-fra")
+        mms = MmsVoices(self._models)
         await mms.warm_up()
         return {
             "wake": None,
