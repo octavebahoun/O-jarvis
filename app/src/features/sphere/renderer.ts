@@ -1,5 +1,7 @@
 import { uiLog } from "../../lib/log";
 import type { FrameParams } from "./animator";
+import { generateCyberMaskPoints } from "./cyberMask";
+import { MASK_POINTS_FRAGMENT, MASK_POINTS_VERTEX } from "./maskShaders";
 import {
   GLOW_FRAGMENT,
   GLOW_VERTEX,
@@ -58,9 +60,14 @@ function link(
 }
 
 /** Points répartis régulièrement sur la sphère (spirale de Fibonacci). */
-export function fibonacciSphere(count: number): { positions: Float32Array; seeds: Float32Array } {
+export function fibonacciSphere(count: number): {
+  positions: Float32Array;
+  seeds: Float32Array;
+  kinds: Float32Array;
+} {
   const positions = new Float32Array(count * 3);
   const seeds = new Float32Array(count);
+  const kinds = new Float32Array(count); // 0 = générique
   const golden = Math.PI * (3 - Math.sqrt(5));
   for (let i = 0; i < count; i += 1) {
     const y = 1 - ((i + 0.5) * 2) / count;
@@ -71,8 +78,26 @@ export function fibonacciSphere(count: number): { positions: Float32Array; seeds
     positions[i * 3 + 2] = Math.sin(theta) * radius;
     const s = Math.sin(i * 12.9898) * 43758.5453;
     seeds[i] = s - Math.floor(s);
+    kinds[i] = 0;
   }
-  return { positions, seeds };
+  return { positions, seeds, kinds };
+}
+
+/** Vert "code" de l'image, mélangé à la couleur d'état pour garder un retour visuel. */
+const MASK_GREEN = [0.3, 1.0, 0.62] as const;
+const MASK_GREEN_HOT = [0.85, 1.0, 0.92] as const;
+
+function tintInto(
+  out: Float32Array,
+  base: ArrayLike<number>,
+  target: readonly number[],
+  k: number,
+): void {
+  for (let i = 0; i < 3; i += 1) {
+    const b = base[i] ?? 0;
+    const t = target[i] ?? 0;
+    out[i] = b * (1 - k) + t * k;
+  }
 }
 
 function perspective(): Float32Array {
@@ -97,8 +122,11 @@ export function rotation(yaw: number, tilt = TILT_RAD): Float32Array {
   return new Float32Array([cy, sx * sy, -cx * sy, 0, cx, sx, sy, -sx * cy, cx * cy]);
 }
 
+export type AvatarModel = "sphere" | "cyberMask";
+
 export interface RendererOptions {
   pointCount: number;
+  avatarModel?: AvatarModel;
 }
 
 export class SphereRenderer {
@@ -112,31 +140,54 @@ export class SphereRenderer {
   private readonly buffers: WebGLBuffer[] = [];
   private readonly projection = perspective();
   private readonly pointCount: number;
+  private readonly avatarModel: AvatarModel;
+  private readonly tint = new Float32Array(3);
+  private readonly tintHot = new Float32Array(3);
   private flowTime = 0;
   private ringTime = 0;
   private yaw = 0;
   private time = 0;
   private dpr = 1;
+  private extentX = 1;
+  private extentY = 1;
+
+  /** Garde le carré [-1,1]² de l'image entièrement visible, quel que soit le ratio. */
+  private setAspect(aspect: number): void {
+    const m = this.projection;
+    m[0] = aspect >= 1 ? FOCAL / aspect : FOCAL;
+    m[5] = aspect >= 1 ? FOCAL : FOCAL * aspect;
+    this.extentX = Math.max(aspect, 1);
+    this.extentY = Math.max(1 / aspect, 1);
+  }
 
   private constructor(gl: WebGL2RenderingContext, options: RendererOptions) {
     this.gl = gl;
     this.pointCount = options.pointCount;
-    this.points = link(gl, POINTS_VERTEX, POINTS_FRAGMENT, [
-      "u_proj",
-      "u_rot",
-      "u_camera",
-      "u_flowTime",
-      "u_time",
-      "u_amp",
-      "u_freq",
-      "u_audio",
-      "u_scale",
-      "u_jitter",
-      "u_pointSize",
-      "u_color",
-      "u_colorHot",
-      "u_intensity",
-    ]);
+    this.avatarModel = options.avatarModel ?? "sphere";
+    // La sphère garde ses shaders d'origine ; le masque a les siens (maskShaders.ts).
+    const mask = this.avatarModel === "cyberMask";
+    this.points = link(
+      gl,
+      mask ? MASK_POINTS_VERTEX : POINTS_VERTEX,
+      mask ? MASK_POINTS_FRAGMENT : POINTS_FRAGMENT,
+      [
+        "u_proj",
+        "u_rot",
+        "u_camera",
+        "u_flowTime",
+        "u_time",
+        "u_amp",
+        "u_freq",
+        "u_audio",
+        "u_scale",
+        "u_jitter",
+        "u_pointSize",
+        "u_extent",
+        "u_color",
+        "u_colorHot",
+        "u_intensity",
+      ],
+    );
     this.rings = link(gl, RINGS_VERTEX, RINGS_FRAGMENT, [
       "u_proj",
       "u_rot",
@@ -155,10 +206,13 @@ export class SphereRenderer {
       "u_radius",
     ]);
 
-    const { positions, seeds } = fibonacciSphere(this.pointCount);
+    const { positions, seeds, kinds } = mask
+      ? generateCyberMaskPoints(this.pointCount)
+      : fibonacciSphere(this.pointCount);
     this.pointsVao = this.vao(this.points.program, [
       { name: "a_pos", data: positions, size: 3 },
       { name: "a_seed", data: seeds, size: 1 },
+      ...(mask ? [{ name: "a_kind", data: kinds, size: 1 }] : []),
     ]);
 
     const angles = new Float32Array(RING_POINTS * 2);
@@ -230,6 +284,8 @@ export class SphereRenderer {
       canvas.height = h;
     }
     this.dpr = dpr;
+    // Le masque, en plein écran, suit le ratio du canevas ; la sphère garde sa projection.
+    if (this.avatarModel === "cyberMask") this.setAspect(w / h);
     this.gl.viewport(0, 0, w, h);
   }
 
@@ -240,10 +296,30 @@ export class SphereRenderer {
     this.time += dt;
     this.flowTime += dt * v.flow;
     this.ringTime += dt * v.ringSpeed;
-    this.yaw += dt * v.spin;
-    const rot = rotation(this.yaw);
+    const mask = this.avatarModel === "cyberMask";
+    if (mask) {
+      this.yaw = Math.sin(this.time * 0.4) * 0.05; // léger balancement
+    } else {
+      this.yaw += dt * v.spin;
+    }
+    const rot = rotation(this.yaw, mask ? 0 : TILT_RAD);
+
+    let color: Float32List = frame.color;
+    let colorHot: Float32List = frame.colorHot;
+    if (mask) {
+      // Si la couleur est une couleur d'alerte (rouge danger ou ambre warning), on la laisse dominer
+      // En veille/écoute/réflexion, on garde l'ADN vert matrix subtilement mélangé au cyan
+      const isAlert = frame.color[0] > 0.6 && (frame.color[1] < 0.8 || frame.color[2] < 0.6);
+      const matrixWeight = isAlert ? 0.15 : 0.65;
+      tintInto(this.tint, frame.color, MASK_GREEN, matrixWeight);
+      tintInto(this.tintHot, frame.colorHot, MASK_GREEN_HOT, matrixWeight);
+      color = this.tint;
+      colorHot = this.tintHot;
+    }
+
     const canvas = gl.canvas as HTMLCanvasElement;
-    const sizeScale = canvas.width / (this.dpr * 440);
+    const sizeScale =
+      (mask ? Math.min(canvas.width, canvas.height) : canvas.width) / (this.dpr * 440);
     const pointPx = Math.max(
       1.5,
       2.6 * v.pointSize * this.dpr * Math.min(Math.max(sizeScale, 0.6), 1.4),
@@ -251,14 +327,17 @@ export class SphereRenderer {
 
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    gl.useProgram(this.glow.program);
-    gl.uniform2f(this.glow.uniforms.u_resolution ?? null, canvas.width, canvas.height);
-    gl.uniform3fv(this.glow.uniforms.u_color ?? null, frame.color);
-    gl.uniform1f(this.glow.uniforms.u_core ?? null, frame.coreNow);
-    gl.uniform1f(this.glow.uniforms.u_halo ?? null, v.halo);
-    gl.uniform1f(this.glow.uniforms.u_radius ?? null, SPHERE_RADIUS_NDC * frame.scale);
-    gl.bindVertexArray(this.glowVao);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    // Pour le masque cybernétique, on n'affiche pas la boule rougeoyante circulaire de fond
+    if (!mask) {
+      gl.useProgram(this.glow.program);
+      gl.uniform2f(this.glow.uniforms.u_resolution ?? null, canvas.width, canvas.height);
+      gl.uniform3fv(this.glow.uniforms.u_color ?? null, frame.color);
+      gl.uniform1f(this.glow.uniforms.u_core ?? null, frame.coreNow);
+      gl.uniform1f(this.glow.uniforms.u_halo ?? null, v.halo);
+      gl.uniform1f(this.glow.uniforms.u_radius ?? null, SPHERE_RADIUS_NDC * frame.scale);
+      gl.bindVertexArray(this.glowVao);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
 
     const p = this.points.uniforms;
     gl.useProgram(this.points.program);
@@ -273,13 +352,14 @@ export class SphereRenderer {
     gl.uniform1f(p.u_scale ?? null, frame.scale);
     gl.uniform1f(p.u_jitter ?? null, v.jitter);
     gl.uniform1f(p.u_pointSize ?? null, pointPx);
-    gl.uniform3fv(p.u_color ?? null, frame.color);
-    gl.uniform3fv(p.u_colorHot ?? null, frame.colorHot);
+    gl.uniform2f(p.u_extent ?? null, this.extentX, this.extentY);
+    gl.uniform3fv(p.u_color ?? null, color);
+    gl.uniform3fv(p.u_colorHot ?? null, colorHot);
     gl.uniform1f(p.u_intensity ?? null, 0.85);
     gl.bindVertexArray(this.pointsVao);
     gl.drawArrays(gl.POINTS, 0, this.pointCount);
 
-    if (v.rings > 0.01) {
+    if (!mask && v.rings > 0.01) {
       const r = this.rings.uniforms;
       gl.useProgram(this.rings.program);
       gl.uniformMatrix4fv(r.u_proj ?? null, false, this.projection);

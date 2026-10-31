@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { uiLog } from "../../lib/log";
 import { readPalette, SphereAnimator } from "./animator";
-import { SphereRenderer } from "./renderer";
+import { type AvatarModel, SphereRenderer } from "./renderer";
 import styles from "./Sphere.module.css";
 import { STATE_LABELS, type SphereState } from "./states";
 
@@ -10,6 +10,8 @@ export type SphereQuality = "auto" | "high" | "low";
 
 export interface SphereProps {
   state: SphereState;
+  /** Modèle visuel de l'avatar : sphère classique ou masque cybernétique. */
+  avatarModel?: AvatarModel;
   /** Niveau audio courant (0 à 1), lu à chaque image sans rendu React. */
   level?: () => number;
   quality?: SphereQuality;
@@ -18,11 +20,13 @@ export interface SphereProps {
   onFrame?: (intervalMs: number) => void;
 }
 
-const POINTS: Record<SphereQuality, number> = { auto: 3400, high: 5200, low: 1600 };
+const SPHERE_POINTS: Record<SphereQuality, number> = { auto: 3400, high: 5200, low: 1600 };
+const MASK_POINTS: Record<SphereQuality, number> = { auto: 8000, high: 14000, low: 3500 };
 const MAX_DPR: Record<SphereQuality, number> = { auto: 2, high: 2, low: 1 };
 
 export function Sphere({
   state,
+  avatarModel = "sphere",
   level,
   quality = "auto",
   reducedMotion = false,
@@ -53,13 +57,17 @@ export function Sphere({
     const wrapper = wrapperRef.current;
     if (!canvas || !wrapper) return;
 
-    const renderer = SphereRenderer.create(canvas, { pointCount: POINTS[quality] });
+    const pointCount = avatarModel === "cyberMask" ? MASK_POINTS[quality] : SPHERE_POINTS[quality];
+    const renderer = SphereRenderer.create(canvas, {
+      pointCount,
+      avatarModel,
+    });
     if (!renderer) {
       uiLog("warn", "sphère : WebGL2 indisponible, repli CSS");
       setWebgl(false);
       return;
     }
-    uiLog("info", `sphère : WebGL2 prêt (${POINTS[quality]} points)`);
+    uiLog("info", `sphère : WebGL2 prêt (${pointCount} points, modèle ${avatarModel})`);
     setWebgl(true);
     const animator = animatorRef.current ?? new SphereAnimator(readPalette());
     animator.setState(state);
@@ -112,7 +120,7 @@ export function Sphere({
     };
     // L'état et le mouvement réduit passent par l'animateur, sans recréer le rendu.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quality]);
+  }, [quality, avatarModel]);
 
   return (
     <div
@@ -121,6 +129,7 @@ export function Sphere({
       role="img"
       aria-label={`Sphère de Jarvis : ${STATE_LABELS[state]}`}
       data-state={state}
+      data-model={avatarModel}
     >
       <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />
       {!webgl && <div className={styles.fallback} data-state={state} />}

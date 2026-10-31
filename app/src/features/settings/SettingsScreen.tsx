@@ -1,9 +1,12 @@
+import { RadioGroup } from "radix-ui";
+
 import { PageHeader } from "../../components/PageHeader";
 import { ErrorState, LoadingState, OfflineState } from "../../components/States";
 import { describeError } from "../../lib/engine/client";
 import { useSecrets, useStatus } from "../../lib/engine/queries";
 import { useEngineOnline } from "../../lib/engine/store";
 import type { SecretGroup, SecretStatus } from "../../lib/engine/types";
+import { useAvatarStore } from "../sphere/avatarStore";
 import { BrowserSection } from "./BrowserSection";
 import { DesktopSection } from "./DesktopSection";
 import { IntegrationsSection } from "./IntegrationsSection";
@@ -170,7 +173,52 @@ export function SettingsScreen() {
             { value: "low", label: "Économe", hint: "Pour une machine chargée." },
           ]}
         />
+        <AvatarModelChoice />
       </section>
+    </div>
+  );
+}
+
+function AvatarModelChoice() {
+  const avatarModel = useAvatarStore((s) => s.avatarModel);
+  const setAvatarModel = useAvatarStore((s) => s.setAvatarModel);
+
+  return (
+    <div className={styles.choice}>
+      <p id="label-avatar-model" className={styles.choiceLabel}>
+        Modèle de l'avatar
+      </p>
+      <RadioGroup.Root
+        className={styles.radios}
+        aria-labelledby="label-avatar-model"
+        value={avatarModel}
+        onValueChange={(next) => {
+          if (next === "sphere" || next === "cyberMask") {
+            setAvatarModel(next);
+          }
+        }}
+      >
+        <RadioGroup.Item value="sphere" className={styles.radio}>
+          <span className={styles.radioDot} aria-hidden="true">
+            <RadioGroup.Indicator className={styles.radioIndicator} />
+          </span>
+          <span className={styles.radioText}>
+            <span>Sphère classique</span>
+            <span className={styles.radioHint}>Avatar d'origine en nuage de points dynamique.</span>
+          </span>
+        </RadioGroup.Item>
+        <RadioGroup.Item value="cyberMask" className={styles.radio}>
+          <span className={styles.radioDot} aria-hidden="true">
+            <RadioGroup.Indicator className={styles.radioIndicator} />
+          </span>
+          <span className={styles.radioText}>
+            <span>Masque cybernétique</span>
+            <span className={styles.radioHint}>
+              Masque facial stylisé avec pluie binaire Matrix.
+            </span>
+          </span>
+        </RadioGroup.Item>
+      </RadioGroup.Root>
     </div>
   );
 }

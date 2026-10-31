@@ -24,6 +24,7 @@ import { createDemoLevel } from "../sphere/demoLevel";
 import { Sphere } from "../sphere/Sphere";
 import { SPHERE_STATES, STATE_LABELS, type SphereState } from "../sphere/states";
 import { usePerfProbe } from "../sphere/usePerfProbe";
+import { useAvatarStore } from "../sphere/avatarStore";
 import home from "./HomeScreen.module.css";
 import { Suggestions } from "./Suggestions";
 
@@ -140,12 +141,15 @@ export function HomeScreen() {
     setParams({}, { replace: true });
   };
 
+  const avatarModel = useAvatarStore((s) => s.avatarModel);
+
   return (
     <div className={home.home} data-mode={conversing ? "conversation" : "accueil"}>
-      <section className={home.stage} aria-label="Jarvis">
-        <div className={home.sphere}>
+      <section className={home.stage} data-model={avatarModel} aria-label="Jarvis">
+        <div className={home.sphere} data-model={avatarModel}>
           <Sphere
             state={state}
+            avatarModel={avatarModel}
             {...(level ? { level } : {})}
             quality={preferences.data?.sphere_quality ?? "auto"}
             reducedMotion={reducedMotion}

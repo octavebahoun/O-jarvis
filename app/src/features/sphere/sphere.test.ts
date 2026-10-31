@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { parseCssColor, readPalette, SphereAnimator, type Palette } from "./animator";
 import { FrameRecorder, summarize } from "./perf";
 import { fibonacciSphere, rotation } from "./renderer";
+import { generateCyberMaskPoints, KIND } from "./cyberMask";
 import { reduceMotion, STATE_PARAMS, SPHERE_STATES, STATE_LABELS } from "./states";
 
 const palette: Palette = {
@@ -131,6 +132,37 @@ describe("géométrie", () => {
         expect(dot).toBeCloseTo(0, 6);
       }
     }
+  });
+
+  it("génère les points et les identifiants du cyberMask", () => {
+    const count = 1000;
+    const { positions, seeds, kinds } = generateCyberMaskPoints(count);
+    expect(positions.length).toBe(count * 3);
+    expect(seeds.length).toBe(count);
+    expect(kinds.length).toBe(count);
+
+    let hasFace = false;
+    let hasRim = false;
+    let hasRain = false;
+
+    for (let i = 0; i < count; i += 1) {
+      const x = positions[i * 3] ?? 0;
+      const y = positions[i * 3 + 1] ?? 0;
+      const z = positions[i * 3 + 2] ?? 0;
+      expect(Number.isFinite(x)).toBe(true);
+      expect(Number.isFinite(y)).toBe(true);
+      expect(Number.isFinite(z)).toBe(true);
+      expect(seeds[i]).toBeGreaterThanOrEqual(0);
+      expect(seeds[i]).toBeLessThan(1);
+
+      if (kinds[i] === KIND.face) hasFace = true;
+      if (kinds[i] === KIND.rim) hasRim = true;
+      if (kinds[i] === KIND.rain) hasRain = true;
+    }
+
+    expect(hasFace).toBe(true);
+    expect(hasRim).toBe(true);
+    expect(hasRain).toBe(true);
   });
 });
 

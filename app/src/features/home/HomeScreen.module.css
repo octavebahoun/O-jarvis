@@ -1,17 +1,20 @@
 .home {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
   padding: var(--space-6) var(--space-8) var(--space-6);
+  overflow: hidden;
 }
 
-/* Accueil vide : la sphère au centre, en grand. */
+/* Accueil vide : la sphère au centre par défaut, ou le masque en toile de fond */
 .stage {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
+  width: 100%;
 }
 
 .sphere {
@@ -20,9 +23,24 @@
   width: 100%;
 }
 
+.sphere[data-model="cyberMask"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .heading {
+  position: relative;
+  z-index: 1;
   margin-top: calc(var(--sphere-size, 32rem) * -0.08);
   text-align: center;
+}
+
+.stage[data-model="cyberMask"] .heading {
+  margin-top: var(--space-4);
 }
 
 .title {
@@ -47,6 +65,8 @@
 }
 
 .thread {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -54,6 +74,8 @@
 }
 
 .bottom {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);

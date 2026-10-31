@@ -1,5 +1,5 @@
 /** Bruit de valeur 3D, assez fin pour déformer la surface sans coûter cher au GPU. */
-const NOISE = /* glsl */ `
+export const NOISE = /* glsl */ `
 float hash3(vec3 p) {
   p = fract(p * vec3(0.1031, 0.1030, 0.0973));
   p += dot(p, p.yxz + 33.33);
