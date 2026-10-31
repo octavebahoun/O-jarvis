@@ -13,15 +13,9 @@ import pytest
 from ojarvis.settings_store import Preferences
 from ojarvis.voice.audio import OUTPUT_RATE
 from ojarvis.voice.service import META_MODEL_SETS, model_sets
-from ojarvis.voice.stt import MetaTranscriber
-from ojarvis.voice.tts import (
-    MMS_FILES,
-    MMS_PAUSE_S,
-    MMS_RATE,
-    EspeakTTS,
-    FallbackTTS,
-    MmsTTS,
-)
+from ojarvis.voice.stt_online import MetaTranscriber
+from ojarvis.voice.tts import FallbackTTS
+from ojarvis.voice.tts_meta import MMS_FILES, MMS_PAUSE_S, MMS_RATE, EspeakTTS, MmsTTS
 from ojarvis.voice.vad import EnergyVad
 from tests.voice.fakes import FakeTTS
 from tests.voice.test_service import FakeEcho, make_service

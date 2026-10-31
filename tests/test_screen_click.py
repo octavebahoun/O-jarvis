@@ -12,13 +12,8 @@ from fastapi.testclient import TestClient
 from PIL import Image, ImageDraw
 
 from ojarvis.core.errors import InvalidInputError, NotFoundError, UnavailableError
-from ojarvis.desktop.locate import (
-    AmbiguousTargetError,
-    Locator,
-    ScreenMarks,
-    reading_order,
-    unchanged,
-)
+from ojarvis.desktop.images import reading_order, unchanged
+from ojarvis.desktop.locate import AmbiguousTargetError, Locator, ScreenMarks
 from ojarvis.desktop.pointer import Stream, to_stream
 from ojarvis.desktop.sam import Box, Segmentation, parse_boxes
 from ojarvis.llm.catalog import Catalog
