@@ -10,9 +10,9 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Any
 
-from ojarvis.agent.loop import AgentTurn
 from ojarvis.agent.reports import PlanReport
 from ojarvis.agent.rules import PLAN_MISSING
+from ojarvis.agent.turn import AgentTurn
 from ojarvis.chrome.page import BrowserPage
 from ojarvis.context.engine import BuiltContext
 from ojarvis.conversations.store import MessageRecord

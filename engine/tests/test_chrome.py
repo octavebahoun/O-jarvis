@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from fastapi.testclient import TestClient
 
-from ojarvis.agent.loop import AgentTurn
+from ojarvis.agent.turn import AgentTurn
 from ojarvis.chrome.page import BrowserPage
 from ojarvis.llm.providers.fake import FakeProvider
 from tests.test_chat import read_sse, smart_script
@@ -19,7 +19,7 @@ PAGE = {
 
 def test_the_tab_is_framed_as_data_and_marks_the_turn() -> None:
     key = "sk-" + "a" * 40
-    page = BrowserPage(**{**PAGE, "text": f"{PAGE['text']} Clé : {key}"})
+    page = BrowserPage(PAGE["url"], PAGE["title"], f"{PAGE['text']} Clé : {key}", "12 €")
     block = page.block()
     assert '<donnees origine="https://exemple.fr/article">' in block
     assert "Texte sélectionné :\n12 €" in block

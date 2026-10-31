@@ -1,8 +1,12 @@
 // Le panneau de Jarvis dans Chrome : une conversation à côté de l'onglet ouvert. L'onglet n'est
-// lu que sur les sites que tu autorises, et chaque plan d'action attend ta validation.
+// lu que sur les sites que tu autorises ; chaque plan attend ta validation, sauf en mode « sans
+// demander » sur un site où tu l'as permis (actions d'onglet seulement, rien de sensible).
+import { perform } from "./actions.js";
+import { element } from "./dom.js";
 import { renderMarkdown } from "./markdown.js";
 import { Jarvis } from "./native.js";
 import { activeTab, allowSite, originOf, readTab } from "./page.js";
+import { planCard, runsAlone } from "./plans.js";
 
 const thread = document.querySelector("#thread");
 const form = document.querySelector("#composer");
@@ -11,21 +15,21 @@ const sendButton = document.querySelector("#send");
 const status = document.querySelector("#status");
 const tabLine = document.querySelector("#tab");
 const withPage = document.querySelector("#with-page");
+const yolo = document.querySelector("#yolo");
+const stopButton = document.querySelector("#stop");
 
-const FINISHED = new Set(["done", "failed", "refused", "interrupted", "stopped"]);
-const STATES = {
-  approved: "Validé, en attente",
-  running: "En cours…",
-  done: "Terminé",
-  failed: "Échec",
-  refused: "Refusé",
-  interrupted: "Interrompu",
-  stopped: "Arrêté",
-};
+/** Suites automatiques au plus après une demande (lire, agir, relire…), puis Jarvis s'arrête. */
+const MAX_FOLLOW_UPS = 8;
 
 let conversationId = null;
 let currentTab = null;
+/** L'onglet que Jarvis a lu en dernier : c'est là qu'il agit, même si tu regardes ailleurs. */
+let workTab = null;
+let workOrigin = null;
 let busy = false;
+/** La demande en cours et ses suites : arrêtée par le bouton Stop. */
+let run = { followUps: 0, stopped: true, plan: null };
+let aloneSites = new Set();
 
 function setStatus(tone, text) {
   status.dataset.tone = tone;
@@ -42,14 +46,17 @@ const jarvis = new Jarvis({
         ? "Hôte introuvable : lance scripts/install-chrome.sh, puis rouvre le panneau."
         : "Jarvis s'est arrêté : ferme et rouvre le panneau.",
     ),
+  onAction: async (action) => {
+    const tabId = workTab;
+    addNote(`… ${action.kind === "ouvrir" ? action.args.url : (action.args.cible ?? "")}`);
+    const result = run.stopped
+      ? { ok: false, text: "Arrêté par l'utilisateur." }
+      : await perform(tabId, action);
+    await jarvis
+      .ask({ type: "action_result", action_id: action.id, ok: result.ok, text: result.text })
+      .catch(() => undefined);
+  },
 });
-
-function element(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 function scrollDown() {
   thread.scrollTop = thread.scrollHeight;
@@ -60,91 +67,51 @@ function addNote(text, tone = "", before = null) {
   scrollDown();
 }
 
+function setRunning(running) {
+  stopButton.hidden = !running;
+}
+
+// --------------------------------------------------------------------------- onglet et mode
+
 async function refreshTab() {
   currentTab = await activeTab();
-  const readable = currentTab && originOf(currentTab.url ?? "");
-  tabLine.textContent = readable
-    ? `Onglet : ${currentTab.title}`
-    : "Onglet : page interne, non lue";
+  const origin = currentTab && originOf(currentTab.url ?? "");
+  tabLine.textContent = origin ? `Onglet : ${currentTab.title}` : "Onglet : page interne, non lue";
+  yolo.disabled = !origin;
+  yolo.checked = Boolean(origin && aloneSites.has(origin));
 }
 
 chrome.tabs.onActivated.addListener(refreshTab);
 chrome.tabs.onUpdated.addListener((tabId, change) => {
   if (tabId === currentTab?.id && (change.title || change.url)) refreshTab();
 });
-refreshTab();
+chrome.storage.local.get({ alone: [] }).then(({ alone }) => {
+  aloneSites = new Set(alone);
+  refreshTab();
+});
 
-// --------------------------------------------------------------------------- plans
+yolo.addEventListener("change", async () => {
+  const origin = originOf(currentTab?.url ?? "");
+  if (!origin) return;
+  // Agir sur un site suppose de pouvoir le lire : Chrome le demande pendant ce clic.
+  const granted = yolo.checked ? await allowSite(origin).catch(() => false) : true;
+  if (yolo.checked && granted) aloneSites.add(origin);
+  else aloneSites.delete(origin);
+  yolo.checked = aloneSites.has(origin);
+  await chrome.storage.local.set({ alone: [...aloneSites] });
+  addNote(
+    yolo.checked
+      ? `Mode sans demander sur ${origin} : clics et champs faits directement ; paiement, achat, suppression et mots de passe restent à valider.`
+      : `Mode sans demander coupé sur ${origin}.`,
+  );
+});
 
-function showPlanState(card, plan) {
-  const lines = [STATES[plan.status] ?? plan.status];
-  for (const step of plan.steps ?? []) {
-    if (step.error) lines.push(`${step.position}. ${step.error}`);
-  }
-  card.querySelector(".state").textContent = lines.join("\n");
-}
-
-async function follow(card, planId, stop) {
-  for (;;) {
-    const plan = await jarvis.ask({ type: "plan", plan_id: planId });
-    showPlanState(card, plan);
-    if (FINISHED.has(plan.status)) break;
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  }
-  stop.remove();
-}
-
-function addPlan(plan, before) {
-  const card = element("section", "plan");
-  card.append(element("h3", "", plan.title));
-  if (plan.tainted) {
-    card.append(element("p", "warning", "Proposé après la lecture d'une page : vérifie-le bien."));
-  }
-  const steps = element("ol");
-  for (const step of plan.steps ?? [])
-    steps.append(element("li", `level-${step.level}`, step.description));
-  card.append(steps);
-  const actions = element("div", "actions");
-  const approve = element("button", "primary", "Valider");
-  const refuse = element("button", "", "Refuser");
-  actions.append(approve, refuse);
-  card.append(actions, element("p", "state", "Attend ta validation"));
-  let confirming = false;
-
-  approve.addEventListener("click", async () => {
-    // Une action risquée (niveau 3) se confirme deux fois, comme dans l'app.
-    if (plan.max_level >= 3 && !confirming) {
-      confirming = true;
-      approve.textContent = "Confirmer : action risquée";
-      return;
-    }
-    approve.disabled = refuse.disabled = true;
-    try {
-      await jarvis.ask({
-        type: "approve",
-        plan_id: plan.id,
-        double: plan.max_level >= 3,
-      });
-      const stop = element("button", "", "Arrêter");
-      stop.addEventListener("click", () => jarvis.ask({ type: "stop", plan_id: plan.id }));
-      actions.replaceChildren(stop);
-      await follow(card, plan.id, stop);
-    } catch (error) {
-      card.querySelector(".state").textContent = error.message;
-    }
-  });
-  refuse.addEventListener("click", async () => {
-    approve.disabled = refuse.disabled = true;
-    try {
-      showPlanState(card, await jarvis.ask({ type: "refuse", plan_id: plan.id }));
-    } catch (error) {
-      card.querySelector(".state").textContent = error.message;
-    }
-    actions.remove();
-  });
-  thread.insertBefore(card, before);
-  scrollDown();
-}
+stopButton.addEventListener("click", () => {
+  run.stopped = true;
+  if (run.plan) jarvis.ask({ type: "stop", plan_id: run.plan }).catch(() => undefined);
+  addNote("Arrêté : Jarvis ne fait plus rien dans l'onglet.");
+  setRunning(false);
+});
 
 // --------------------------------------------------------------------------- conversation
 
@@ -153,18 +120,56 @@ function finish(reply) {
   if (!reply.textContent.trim()) reply.remove();
   busy = false;
   sendButton.disabled = false;
-  input.focus();
+  if (!run.plan) setRunning(false);
 }
 
-async function send(text, tab) {
-  thread.append(element("div", "message user", text));
+/** Après un plan fait dans l'onglet : Jarvis relit la page et continue, s'il le faut. */
+async function followUp(planId, outcome) {
+  run.plan = null;
+  if (run.stopped || ["refused", "stopped"].includes(outcome)) {
+    setRunning(false);
+    return;
+  }
+  if (run.followUps >= MAX_FOLLOW_UPS) {
+    addNote("J'ai assez enchaîné pour cette demande : dis-moi si je continue.");
+    setRunning(false);
+    return;
+  }
+  run.followUps += 1;
+  addNote("↻ Jarvis relit l'onglet et continue.");
+  await send("Continue.", workTab, { afterPlan: planId });
+}
+
+function onPlan(plan, before) {
+  const alone = runsAlone(plan, workOrigin !== null && aloneSites.has(workOrigin));
+  const card = planCard(plan, {
+    jarvis,
+    alone,
+    onRun: (planId) => {
+      run.plan = planId;
+      setRunning(true);
+    },
+    onFinished: (planId, outcome) => followUp(planId, outcome),
+  });
+  thread.insertBefore(card, before);
+  scrollDown();
+}
+
+async function send(text, tabId, { afterPlan = null } = {}) {
+  busy = true;
+  sendButton.disabled = true;
+  setRunning(true);
+  if (!afterPlan) thread.append(element("div", "message user", text));
   const reply = element("div", "message jarvis streaming");
   thread.append(reply);
   scrollDown();
   let page = null;
-  if (tab) {
-    page = await readTab(tab).catch(() => null);
-    if (!page) addNote("Je n'ai pas pu lire cet onglet : je réponds sans lui.", "", reply);
+  if (tabId !== null) {
+    page = await readTab(tabId).catch(() => null);
+    if (page) {
+      workTab = tabId;
+      workOrigin = originOf(page.url);
+    } else addNote("Je n'ai pas pu lire cet onglet : je réponds sans lui.", "", reply);
   }
   let said = "";
   jarvis.request(
@@ -173,6 +178,7 @@ async function send(text, tab) {
       text,
       ...(conversationId ? { conversation_id: conversationId } : {}),
       ...(page ? { page } : {}),
+      ...(afterPlan ? { after_plan: [afterPlan] } : {}),
     },
     {
       onEvent: (kind, data) => {
@@ -187,7 +193,7 @@ async function send(text, tab) {
             "",
             reply,
           );
-        } else if (kind === "plan") addPlan(data, reply);
+        } else if (kind === "plan") onPlan(data, reply);
         else if (kind === "error") addNote(data.message, "error", reply);
       },
       onEnd: () => finish(reply),
@@ -203,19 +209,19 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const text = input.value.trim();
   if (!text || busy) return;
-  busy = true;
-  sendButton.disabled = true;
   input.value = "";
+  run = { followUps: 0, stopped: false, plan: null };
   const tab = currentTab;
   const origin = withPage.checked ? originOf(tab?.url ?? "") : null;
   // Dans le clic même : Chrome ne demande l'accès à un site qu'à ce moment-là.
   const access = origin ? allowSite(origin) : Promise.resolve(false);
+  busy = true;
   access
     .catch(() => false)
     .then((granted) => {
       if (origin && !granted)
         addNote("Sans ton accord pour ce site, je réponds sans lire l'onglet.");
-      return send(text, granted ? tab : null);
+      return send(text, granted ? tab.id : null);
     });
 });
 
@@ -228,6 +234,10 @@ input.addEventListener("keydown", (event) => {
 
 document.querySelector("#new").addEventListener("click", () => {
   conversationId = null;
+  workTab = null;
+  workOrigin = null;
+  run = { followUps: 0, stopped: true, plan: null };
   thread.replaceChildren();
+  setRunning(false);
   input.focus();
 });

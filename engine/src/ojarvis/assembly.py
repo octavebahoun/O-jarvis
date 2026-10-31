@@ -31,6 +31,7 @@ from ojarvis.browser.proxy import GuardProxy
 from ojarvis.browser.service import BrowserAccess
 from ojarvis.browser.vault import CookieVault
 from ojarvis.chat.service import ChatService
+from ojarvis.chrome.bridge import ChromeBridge
 from ojarvis.config import EngineConfig
 from ojarvis.context.engine import RELEVANCE_FLOOR, ContextEngine
 from ojarvis.conversations.store import ConversationStore
@@ -88,6 +89,7 @@ from ojarvis.tools.screen import ScreenMode
 from ojarvis.tools.shell import RunCommand
 from ojarvis.tools.skills import skill_tools
 from ojarvis.tools.sudo import ProposeAdmin
+from ojarvis.tools.tab import tab_tools
 from ojarvis.tools.terminal import OpenShell
 from ojarvis.tracing.tracer import Tracer
 from ojarvis.voice.stt_online import GroqTranscriber
@@ -179,6 +181,7 @@ class _Actions:
     executor: PlanExecutor
     marks: ScreenMarks
     share: ScreenShare
+    chrome: ChromeBridge
 
 
 async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
@@ -241,6 +244,8 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
     # L'écran partagé en direct : les outils lisent sa dernière image au lieu d'une capture.
     share = ScreenShare(desktop / "partage-ecran.jeton", notify=share_event)
     screen = live_or_capture(share, capture)
+    # Ton onglet Chrome : le panneau de l'extension y fait les actions validées.
+    chrome = ChromeBridge()
     tools = build_registry(
         browser.session,
         [
@@ -270,6 +275,7 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
             ),
             OpenShell(user_home),  # « passe en mode shell » : ouvre un terminal
             ProposeAdmin(),  # sudo : proposé par Jarvis, lancé par toi
+            *tab_tools(chrome),  # proposés seulement dans le panneau de Chrome
         ],
     )
     # Jarvis s'étend : les skills actifs apportent leurs outils, testés en bac à sable.
@@ -321,6 +327,7 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
         executor=executor,
         marks=marks,
         share=share,
+        chrome=chrome,
     )
 
 

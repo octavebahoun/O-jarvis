@@ -1,12 +1,65 @@
-// L'onglet ouvert : son titre et son adresse, et, sur les sites que tu autorises, son texte.
+// L'onglet ouvert : son titre et son adresse, et, sur les sites que tu autorises, son texte
+// et ses éléments numérotés (liens, boutons, champs) pour que Jarvis puisse y agir.
 
-/** Exécuté dans la page : le texte visible, jamais les champs de saisie ni les cookies. */
+/** Exécuté dans la page : le texte visible et les éléments utiles, jamais le contenu des
+ *  champs, ni les mots de passe, ni les cookies. */
 function readPage() {
+  const labelOf = (node) => {
+    const aria = node.getAttribute("aria-label");
+    if (aria) return aria;
+    if (node.labels?.length) return [...node.labels].map((label) => label.innerText).join(" ");
+    if (node.tagName === "INPUT" && ["submit", "button", "reset"].includes(node.type)) {
+      return node.value;
+    }
+    if (node.innerText?.trim()) return node.innerText;
+    const image = node.querySelector?.("img[alt]");
+    return (
+      node.getAttribute("placeholder") ||
+      node.getAttribute("title") ||
+      image?.alt ||
+      node.getAttribute("name") ||
+      ""
+    );
+  };
+  for (const old of document.querySelectorAll("[data-ojarvis-ref]")) {
+    old.removeAttribute("data-ojarvis-ref");
+  }
+  const selector =
+    'a[href], button, input:not([type="hidden"]):not([type="password"]), textarea, select, ' +
+    '[role="button"], [role="link"], [role="checkbox"], [contenteditable="true"]';
+  const elements = [];
+  for (const node of document.querySelectorAll(selector)) {
+    if (elements.length >= 250) break;
+    const box = node.getBoundingClientRect();
+    const style = getComputedStyle(node);
+    if ((!box.width && !box.height) || style.visibility === "hidden") continue;
+    const tag = node.tagName.toLowerCase();
+    const type = (node.getAttribute("type") || "").toLowerCase();
+    const role = node.getAttribute("role");
+    let kind = "bouton";
+    if (tag === "a" || role === "link") kind = "lien";
+    else if (tag === "select") kind = "liste";
+    else if (["checkbox", "radio"].includes(type) || role === "checkbox") kind = "case";
+    else if (
+      tag === "textarea" ||
+      node.isContentEditable ||
+      (tag === "input" && !["submit", "button", "reset", "image"].includes(type))
+    ) {
+      kind = "champ";
+    }
+    const label = labelOf(node).replace(/\s+/g, " ").trim().slice(0, 120);
+    if (!label && kind !== "champ") continue;
+    const ref = elements.length + 1;
+    node.setAttribute("data-ojarvis-ref", String(ref));
+    const href = kind === "lien" && /^https?:/.test(node.href ?? "") ? node.href : "";
+    elements.push({ ref, kind, label: label || "(sans nom)", href: href.slice(0, 2000) });
+  }
   return {
     url: location.href,
     title: document.title,
     text: (document.body?.innerText ?? "").slice(0, 50000),
     selection: String(getSelection() ?? "").slice(0, 4000),
+    elements,
   };
 }
 
@@ -30,10 +83,7 @@ export function allowSite(origin) {
   return chrome.permissions.request({ origins: [`${origin}/*`] });
 }
 
-export async function readTab(tab) {
-  const [result] = await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: readPage,
-  });
+export async function readTab(tabId) {
+  const [result] = await chrome.scripting.executeScript({ target: { tabId }, func: readPage });
   return result?.result ?? null;
 }

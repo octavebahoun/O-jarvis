@@ -94,6 +94,10 @@ Au premier lancement, le moteur télécharge ses modèles locaux (environ 350 Mo
 
 Une extension ouvre Jarvis dans le panneau latéral de Chrome, à côté de la page que tu regardes. Sur les sites que tu autorises (Chrome te le demande une fois par site), Jarvis lit l'onglet ouvert : son titre, son adresse, son texte visible et ta sélection, jamais tes cookies ni tes champs de saisie. Pour lui, la page est une donnée, jamais une consigne : un plan proposé après sa lecture est signalé, et chaque action attend ta validation dans le panneau.
 
+Jarvis agit aussi dans ton onglet : cliquer sur un lien ou un bouton, remplir un champ, ouvrir une adresse. L'extension numérote les éléments de la page ; avant d'agir, elle vérifie que l'élément est bien celui du plan. Jarvis ne remplit jamais un mot de passe ni une carte bancaire, et un paiement, un achat ou une suppression est une action de niveau 3, à confirmer deux fois. Après un plan, il relit l'onglet et continue (huit fois au plus par demande).
+
+Le mode « Agir sans demander », par site et éteint par défaut, fait les plans qui restent dans l'onglet sans attendre ta validation ; tout le reste (fichiers, commandes, niveau 3) la demande toujours. Chaque action est écrite au journal, et le bouton Stop arrête tout.
+
 ```bash
 scripts/install-chrome.sh         # déclare à Chrome le pont vers le moteur (messagerie native)
 ```

@@ -238,3 +238,24 @@ button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
+
+button.danger {
+  border-color: transparent;
+  background: var(--danger);
+  color: #1a0505;
+  font-weight: 600;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.plan .alone {
+  margin: 0 0 6px;
+  color: var(--ok);
+  font-size: 12px;
+}
+
+.alone-switch input:checked + span {
+  color: var(--warn);
+}

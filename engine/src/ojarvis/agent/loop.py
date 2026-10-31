@@ -9,8 +9,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field, replace
-from typing import Any
+from dataclasses import replace
 
 import anyio.to_thread
 from pydantic import ValidationError
@@ -23,7 +22,6 @@ from ojarvis.agent.plans import (
     PLACEHOLDER,
     PLAN_TOOL,
     PlanIn,
-    PlanRecord,
     PlanStore,
     StepIn,
     plan_tool_spec,
@@ -40,6 +38,7 @@ from ojarvis.agent.reports import (
 from ojarvis.agent.review import CodeReviewer
 from ojarvis.agent.rules import (
     AGENT_RULES,
+    CHROME_ONLY,
     NO_TERMINAL,
     OS_CONTROL_OFF,
     OS_CONTROL_ON,
@@ -49,6 +48,7 @@ from ojarvis.agent.rules import (
     SHELL_ONLY,
     SHELL_RULES,
 )
+from ojarvis.agent.turn import AgentTurn, CallOutcome, ChromeOnlyError, ShellOnlyError
 from ojarvis.core.errors import ConflictError, EngineError, InvalidInputError, NotFoundError
 from ojarvis.core.logs import get_logger
 from ojarvis.events.bus import EventBus
@@ -66,39 +66,6 @@ OUTPUT_PREVIEW_CHARS = 2000
 #: Tours d'outils au plus dans une réponse (ensuite, le modèle doit conclure). Une PR
 #: GitHub en demande souvent 6 ou 7 : lister les outils, lire le dépôt, puis le plan.
 MAX_TOOL_ROUNDS = 8
-
-
-@dataclass
-class AgentTurn:
-    """Ce qui s'est passé pendant un tour : outils utilisés, plans proposés."""
-
-    #: Un contenu externe a été lu : un plan proposé ensuite est signalé à la validation.
-    tainted: bool = False
-    #: Tour du mode shell : seul à pouvoir lancer une commande (`executer_commande`).
-    shell: bool = False
-    #: Un contenu venu d'ailleurs a été lu (page, recherche, intégration, curl…) : « toujours »
-    #: ne s'applique pas.
-    web: bool = False
-    tools: list[dict[str, Any]] = field(default_factory=list)
-    plans: list[str] = field(default_factory=list)
-    #: Adresses connues pendant ce tour : celles de ta demande et celles lues (liens, résultats).
-    known_urls: set[str] = field(default_factory=set)
-
-    def knows(self, url: str) -> bool:
-        return url.strip().rstrip("/") in self.known_urls
-
-
-class ShellOnlyError(EngineError):
-    status_code = 403
-    code = "shell_only"
-
-
-@dataclass(frozen=True)
-class CallOutcome:
-    content: str
-    event: dict[str, Any]
-    is_error: bool = False
-    plan: PlanRecord | None = None
 
 
 class Agent:
@@ -219,9 +186,12 @@ class Agent:
         terminal = NO_TERMINAL if shell_folder is None else SHELL_RULES.format(folder=shell_folder)
         return f"{AGENT_RULES}\n\n{terminal}\n\n{os_control}"
 
-    def specs(self, *, shell_mode: bool = False) -> list[ToolSpec]:
+    def specs(self, *, shell_mode: bool = False, chrome_mode: bool = False) -> list[ToolSpec]:
         specs = self._gate.registry.specs(
-            max_level=Level.DETRUIRE, os_control=self._gate.os_control(), shell_mode=shell_mode
+            max_level=Level.DETRUIRE,
+            os_control=self._gate.os_control(),
+            shell_mode=shell_mode,
+            chrome_mode=chrome_mode,
         )
         return [*specs, plan_tool_spec()]
 
@@ -303,6 +273,9 @@ class Agent:
         registry = self._gate.registry
         if not turn.shell and name in registry and registry.get(name).shell_only:
             raise ShellOnlyError(SHELL_ONLY.format(tool=name))
+        # De même, ton onglet n'est manipulé que depuis le panneau de Chrome qui l'a lu.
+        if not turn.chrome and name in registry and registry.get(name).chrome_only:
+            raise ChromeOnlyError(CHROME_ONLY.format(tool=name))
 
     def describe(self, call: ToolCall) -> str:
         """Ce que fait l'appel, en clair (pour l'interface), sans rien exécuter."""
