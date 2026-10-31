@@ -77,6 +77,66 @@ function performInPage(action) {
   return { ok: true, text: `Écrit dans « ${label} »${args.envoyer ? ", puis validé" : ""}.` };
 }
 
+/** Exécuté dans la page : un clic à un point (en pixels CSS), pour un élément repéré sur une
+ *  capture (secours visuel). Refuse une cible sensible non validée au niveau 3. */
+function clickAtPoint(action) {
+  const risky =
+    /pa(?:y|yer|iement)|achet|achat|command|checkout|\bbuy|order|purchase|abonn|subscri|supprim|effac|delete|remove|résili|virement|transf|mot de passe|password|carte|card|cvv|cvc|iban|bancaire/i;
+  const { x, y, cible } = action.args;
+  const node = document.elementFromPoint(x, y);
+  if (!node) return { ok: false, text: "Rien à cet endroit de la page." };
+  const target =
+    node.closest("a, button, input, select, textarea, [role], [tabindex], [onclick]") ?? node;
+  const label = (
+    target.getAttribute("aria-label") ||
+    target.innerText ||
+    target.getAttribute("title") ||
+    target.querySelector?.("img[alt]")?.alt ||
+    ""
+  )
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 120);
+  if ((risky.test(label) || risky.test(cible ?? "")) && action.level < 3) {
+    return {
+      ok: false,
+      text: "Action sensible (paiement, achat, suppression) : elle doit être validée exprès.",
+    };
+  }
+  const base = { bubbles: true, cancelable: true, clientX: x, clientY: y, view: window };
+  for (const type of ["pointerdown", "mousedown", "pointerup", "mouseup", "click"]) {
+    const make = type.startsWith("pointer") ? PointerEvent : MouseEvent;
+    target.dispatchEvent(new make(type, { ...base, pointerType: "mouse", button: 0 }));
+  }
+  return { ok: true, text: `Cliqué au point repéré, sur « ${label || cible} ».` };
+}
+
+/** La capture de l'onglet (JPEG) et la taille de sa page, pour le secours visuel. */
+async function capture(tabId) {
+  const tab = await chrome.tabs.update(tabId, { active: true });
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  const [size] = await chrome.scripting.executeScript({
+    target: { tabId },
+    func: () => ({ width: innerWidth, height: innerHeight }),
+  });
+  let url;
+  try {
+    url = await chrome.tabs.captureVisibleTab(tab.windowId, { format: "jpeg", quality: 85 });
+  } catch {
+    // Chrome n'autorise la capture qu'après un clic sur l'icône de l'extension (activeTab).
+    return {
+      ok: false,
+      text: "Chrome refuse la capture : clique une fois sur l'icône d'O-jarvis, sur cet onglet, puis redemande.",
+    };
+  }
+  return {
+    ok: true,
+    text: "Capture de l'onglet faite.",
+    image: url.slice(url.indexOf(",") + 1),
+    ...size.result,
+  };
+}
+
 /** Attend que l'onglet ait fini de charger (après un clic qui change de page), 15 s au plus. */
 function settled(tabId) {
   return new Promise((resolve) => {
@@ -116,6 +176,16 @@ export async function perform(tabId, action) {
     if (action.kind === "ouvrir") {
       await chrome.tabs.update(tabId, { url: action.args.url });
       return { ok: true, text: await after(tabId, `Ouvert : ${action.args.url}.`) };
+    }
+    if (action.kind === "capturer") return await capture(tabId);
+    if (action.kind === "cliquer_point") {
+      const [result] = await chrome.scripting.executeScript({
+        target: { tabId },
+        func: clickAtPoint,
+        args: [action],
+      });
+      const outcome = result?.result ?? { ok: false, text: "L'onglet n'a rien répondu." };
+      return outcome.ok ? { ok: true, text: await after(tabId, outcome.text) } : outcome;
     }
     if (action.kind === "fermer") {
       const tab = await chrome.tabs.get(tabId);

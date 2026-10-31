@@ -58,7 +58,7 @@ const jarvis = new Jarvis({
       workOrigin = null;
     }
     await jarvis
-      .ask({ type: "action_result", action_id: action.id, ok: result.ok, text: result.text })
+      .ask({ type: "action_result", action_id: action.id, ...result })
       .catch(() => undefined);
   },
 });
