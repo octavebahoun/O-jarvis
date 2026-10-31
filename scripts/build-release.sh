@@ -35,6 +35,8 @@ trap 'rm -rf "$work"' EXIT
 dpkg-deb --raw-extract "$deb" "$work/deb"
 mkdir -p "$work/deb/usr/lib/O-jarvis"
 cp -a "$engine" "$work/deb/usr/lib/O-jarvis/engine"
+# La commande du mode shell, à côté de celle de l'app (o-jarvis).
+install -m 755 "$root/app/src-tauri/packaging/o-jarvis-shell" "$work/deb/usr/bin/o-jarvis-shell"
 chmod -R go-w "$work/deb"
 (cd "$work/deb" && find usr -type f -print0 | sort -z | xargs -0 md5sum > DEBIAN/md5sums)
 size="$(du -sk --apparent-size --exclude=DEBIAN "$work/deb" | cut -f1)"
