@@ -403,3 +403,20 @@ def test_colors_highlight_the_brand_the_reply_and_the_model() -> None:
     assert "Salut." in text
     assert "muse-spark-1.3" in text
     assert "\033[" in text  # codes ANSI émis dans un vrai terminal
+
+
+def test_the_diamond_opens_the_reply_even_after_a_command() -> None:
+    tool = {
+        "id": "t1",
+        "name": "executer_commande",
+        "description": "Lancer « ls »",
+        "status": "done",
+        "output": "$ ls\ndossier : ~\ncode de sortie 0 (0 s)\n--- sortie ---\na.txt",
+    }
+    deltas = [("delta", {"text": "\n"}), ("delta", {"text": "\nIl y a a.txt."})]
+    engine = FakeEngine([sse(START, ("tool", tool), *deltas, DONE)])
+    client, out = session(engine, [])
+    client.send("Liste.")
+    text = out.getvalue()
+    assert "\n◆ Il y a a.txt." in text
+    assert "◆ \n" not in text  # jamais seul sur sa ligne

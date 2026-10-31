@@ -243,14 +243,7 @@ class ShellClient(PlanDecisions):
                 )
                 self._spinner.start()
         elif kind == "delta":
-            self._spinner.stop()
-            text = str(data.get("text", ""))
-            if not self._line_open and text.startswith("\n"):
-                text = "\n" + text.lstrip("\n")  # une seule ligne vide après une commande
-            if not self._reply:
-                self._write(self._style("◆ ", BOLD, CYAN))
-            self._write(text)
-            self._reply.append(text)
+            self._on_delta(str(data.get("text", "")))
         elif kind == "tool":
             self._on_tool(data)
         elif kind == "notice":
@@ -264,6 +257,18 @@ class ShellClient(PlanDecisions):
             self.error(str(data.get("message", "erreur du moteur")))
         elif kind == "done":
             self._spent += float(data.get("cost_usd") or 0.0)
+
+    def _on_delta(self, text: str) -> None:
+        self._spinner.stop()
+        if not self._line_open and text.startswith("\n"):
+            text = "\n" + text.lstrip("\n")  # une seule ligne vide après une commande
+        body = text.lstrip("\n")
+        if body and not any(part.strip("\n") for part in self._reply):
+            # Le losange ouvre la réponse : après les lignes vides, devant le premier mot.
+            self._write(text[: len(text) - len(body)] + self._style("◆ ", BOLD, CYAN) + body)
+        else:
+            self._write(text)
+        self._reply.append(text)
 
     def _on_tool(self, data: dict[str, Any]) -> None:
         status = data.get("status")
