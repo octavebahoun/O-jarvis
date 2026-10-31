@@ -62,6 +62,8 @@ sudo apt install ./O-jarvis_1.1.0_amd64.deb      # paquet Debian/Ubuntu
 chmod +x O-jarvis_1.1.0_amd64.AppImage && ./O-jarvis_1.1.0_amd64.AppImage
 ```
 
+Le paquet `.deb` ajoute deux commandes : `o-jarvis` ouvre l'app, et `o-jarvis-shell` ouvre Jarvis dans le terminal, dans le dossier où tu es (mode shell). Celui-ci rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
+
 Au premier lancement : renseigne tes clés dans Réglages (ou dépose un `.env` dans `~/.config/o-jarvis/` : l'app importe ses clés dans le trousseau), puis attends la voix (modèles téléchargés une fois, ~350 Mo). Réglages → Démarrage : lancer O-jarvis à l'ouverture de session.
 
 ## Installer pour le développement
