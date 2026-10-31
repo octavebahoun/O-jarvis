@@ -69,12 +69,18 @@ class FakeEngine:
         return httpx.Response(404, json={"error": {"message": "inconnu"}})
 
 
-def session(engine: FakeEngine, answers: list[str]) -> tuple[ShellClient, io.StringIO]:
+def session(
+    engine: FakeEngine, answers: list[str], style: Style | None = None
+) -> tuple[ShellClient, io.StringIO]:
     out = io.StringIO()
     replies = iter(answers)
     http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(engine))
     client = ShellClient(
-        http, "/home/test/projet", out=out, ask=lambda _q: next(replies), style=Style(False)
+        http,
+        "/home/test/projet",
+        out=out,
+        ask=lambda _q: next(replies),
+        style=style or Style(False),
     )
     client._poll_s = 0.0
     return client, out
