@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -14,12 +15,23 @@ from ojarvis.core.errors import UnavailableError
 from ojarvis.llm.providers.fake import FakeProvider
 from ojarvis.llm.types import ToolCall
 from ojarvis.tools.base import Level
-from ojarvis.tools.tab import ElementArgs, FillTabArgs, TabClick, TabFill
+from ojarvis.tools.code import NoArgs
+from ojarvis.tools.tab import (
+    ElementArgs,
+    FillTabArgs,
+    NoTabArgs,
+    TabArgs,
+    TabClick,
+    TabFill,
+    TabList,
+    TabRead,
+)
 from tests.test_agent_chat import scripted, wait_plan
 from tests.test_chat import read_sse
 
 PAGE: dict[str, Any] = {
     "url": "https://boutique.exemple/the",
+    "tab_id": 7,
     "title": "Thés",
     "text": "Thé vert sencha : 4,50 €",
     "elements": [
@@ -29,24 +41,24 @@ PAGE: dict[str, Any] = {
 }
 CLICK = {
     "outil": "onglet_cliquer",
-    "arguments": {"ref": 1, "cible": "Ajouter au panier"},
+    "arguments": {"onglet": 7, "ref": 1, "cible": "Ajouter au panier"},
     "pourquoi": "ajouter le thé",
 }
 
 
 def test_sensitive_targets_are_level_three() -> None:
     click = TabClick(ChromeBridge())
-    assert click.level_for(ElementArgs(ref=1, cible="Ajouter au panier")) == Level.AGIR
-    assert click.level_for(ElementArgs(ref=2, cible="Payer 12 €")) == Level.DETRUIRE
-    assert click.level_for(ElementArgs(ref=3, cible="Supprimer le compte")) == Level.DETRUIRE
+    assert click.level_for(ElementArgs(onglet=1, ref=1, cible="Ajouter au panier")) == Level.AGIR
+    assert click.level_for(ElementArgs(onglet=1, ref=2, cible="Payer 12 €")) == 3
+    assert click.level_for(ElementArgs(onglet=1, ref=3, cible="Supprimer le compte")) == 3
     fill = TabFill(ChromeBridge())
-    assert fill.level_for(FillTabArgs(ref=4, cible="Recherche", valeur="thé")) == Level.AGIR
-    assert fill.level_for(FillTabArgs(ref=5, cible="Numéro de carte", valeur="4970")) == 3
+    assert fill.level_for(FillTabArgs(onglet=1, ref=4, cible="Recherche", valeur="thé")) == 2
+    assert fill.level_for(FillTabArgs(onglet=1, ref=5, cible="N° de carte", valeur="4970")) == 3
 
 
 async def test_the_bridge_needs_an_open_panel_and_returns_its_result() -> None:
     bridge = ChromeBridge()
-    with pytest.raises(UnavailableError, match="panneau de Jarvis est fermé"):
+    with pytest.raises(UnavailableError, match="extension Chrome d'O-jarvis n'est pas branchée"):
         await bridge.run(TabAction("cliquer", {"ref": 1}, 2))
     assert await bridge.next(0.01) is None  # le panneau passe : il est ouvert
 
@@ -70,6 +82,8 @@ def test_a_validated_plan_is_done_by_the_panel_in_the_tab(
         [[ToolCall("p", PLAN_TOOL, {"titre": "Ajouter le thé", "etapes": [CLICK]})]],
         "Je te propose de l'ajouter.",
     )
+    # Le fond de l'extension passe : elle est branchée, ses outils sont proposés.
+    assert client.get("/v1/chrome/actions/next", params={"wait": 0}).status_code == 204
     body = {"text": "Ajoute le thé au panier.", "channel": "chrome", "page": PAGE}
     events = read_sse(client.post("/v1/chat", json=body).text)
     plan = next(data for kind, data in events if kind == "plan")
@@ -77,11 +91,11 @@ def test_a_validated_plan_is_done_by_the_panel_in_the_tab(
     assert plan["tainted"]  # proposé après la lecture de la page
     sent = llm["deepseek"].requests[0][0].messages[-1].content
     assert "[1] bouton « Ajouter au panier »" in sent
-    assert client.get("/v1/chrome/actions/next", params={"wait": 0}).status_code == 204
+    assert "Onglet n° 7" in sent
     client.post(f"/v1/plans/{plan['id']}/approve", json={})
     action = client.get("/v1/chrome/actions/next", params={"wait": 5}).json()
     assert action["kind"] == "cliquer"
-    assert action["args"] == {"ref": 1, "cible": "Ajouter au panier"}
+    assert action["args"] == {"onglet": 7, "ref": 1, "cible": "Ajouter au panier"}
     result = {"ok": True, "text": "Cliqué sur « Ajouter au panier »."}
     assert client.post(f"/v1/chrome/actions/{action['id']}", json=result).status_code == 204
     done = wait_plan(client, plan["id"])
@@ -89,7 +103,7 @@ def test_a_validated_plan_is_done_by_the_panel_in_the_tab(
     assert client.post(f"/v1/chrome/actions/{action['id']}", json=result).status_code == 404
 
 
-def test_tab_tools_stay_in_the_chrome_panel(
+def test_tab_tools_exist_only_while_the_extension_is_plugged_in(
     client: TestClient, llm: dict[str, FakeProvider]
 ) -> None:
     llm["deepseek"]._script = scripted(
@@ -98,4 +112,50 @@ def test_tab_tools_stay_in_the_chrome_panel(
     events = read_sse(client.post("/v1/chat", json={"text": "Clique sur le bouton."}).text)
     offered = {tool.name for tool in llm["deepseek"].requests[0][0].tools}
     assert "onglet_cliquer" not in offered
-    assert not [data for kind, data in events if kind == "plan"]  # refusé hors du panneau
+    assert not [data for kind, data in events if kind == "plan"]  # refusé : rien n'est branché
+    # Branchée, ses outils sont proposés partout : l'app, le terminal, la voix.
+    assert client.get("/v1/chrome/actions/next", params={"wait": 0}).status_code == 204
+    read_sse(client.post("/v1/chat", json={"text": "Liste mes onglets."}).text)
+    requests = [
+        r for r, _ in llm["deepseek"].requests if r.messages[-1].content == "Liste mes onglets."
+    ]
+    offered = {tool.name for tool in requests[-1].tools or []}
+    assert {"chrome_onglets", "onglet_lire", "onglet_cliquer"} <= offered
+
+
+async def test_tabs_are_listed_and_read_through_the_extension() -> None:
+    bridge = ChromeBridge()
+    page: dict[str, Any] = {
+        "url": "https://discord.com/channels/1",
+        "title": "Discord",
+        "text": "#questions",
+    }
+    page["elements"] = [{"ref": 3, "kind": "bouton", "label": "Les IAstronautes ✨"}]
+    tabs = [{"id": 7, "title": "Discord", "url": "https://discord.com/channels/1", "active": True}]
+
+    async def extension() -> None:
+        for _ in range(2):
+            action = await bridge.next(1.0)
+            assert action is not None
+            data = {"tabs": tabs} if action.kind == "lister" else {"page": page}
+            bridge.resolve(action.id, TabResult(True, "ok", data=data))
+
+    serving = asyncio.create_task(extension())
+    await asyncio.sleep(0)
+    context: Any = SimpleNamespace()
+    listed = await TabList(bridge).run(NoTabArgs(), context)
+    read = await TabRead(bridge).run(TabArgs(onglet=7), context)
+    await serving
+    assert listed.text == "[7] Discord — https://discord.com/channels/1 (onglet regardé)"
+    assert listed.external  # des titres venus du web : une donnée
+    assert "Onglet n° 7" in read.text
+    assert "[3] bouton « Les IAstronautes ✨ »" in read.text
+    assert read.external
+    assert read.source == "https://discord.com/channels/1"
+
+
+def test_capabilities_do_not_claim_an_unplugged_extension(client: TestClient) -> None:
+    capabilities = client.app.state.services.tools.get("lister_capacites")  # type: ignore[attr-defined]
+    text = asyncio.run(capabilities.run(NoArgs(), SimpleNamespace())).text
+    assert "onglet_cliquer" not in text
+    assert "Extension Chrome :\nnon branchée" in text

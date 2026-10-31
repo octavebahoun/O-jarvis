@@ -16,10 +16,7 @@ import anyio.to_thread
 import httpx
 
 from ojarvis.agent.executor import PlanExecutor
-from ojarvis.agent.loop import Agent
 from ojarvis.agent.plans import PlanStore
-from ojarvis.agents.orchestrator import Orchestrator
-from ojarvis.agents.specialists import STARTERS
 from ojarvis.anticipation.predictor import Predictor
 from ojarvis.anticipation.repetition import RepetitionWatcher
 from ojarvis.anticipation.service import AnticipationService
@@ -46,9 +43,7 @@ from ojarvis.desktop.sam import SamClient
 from ojarvis.desktop.screen import capture
 from ojarvis.desktop.screencast import ScreenShare, live_or_capture
 from ojarvis.events.bus import EventBus
-from ojarvis.integrations.google import GoogleAccount, attach_agenda
 from ojarvis.integrations.manager import IntegrationManager
-from ojarvis.integrations.mcp_registry import McpRegistryService
 from ojarvis.llm.catalog import Catalog
 from ojarvis.llm.policy import Route
 from ojarvis.llm.providers.base import Provider
@@ -73,8 +68,6 @@ from ojarvis.shell.servers import BackgroundSessions
 from ojarvis.skills.runner import SkillRunner
 from ojarvis.skills.service import SkillService
 from ojarvis.skills.store import SkillStore
-from ojarvis.telegram.bot import TelegramService
-from ojarvis.tools.agents import agent_tools
 from ojarvis.tools.automations import automation_tools
 from ojarvis.tools.base import ToolContext, ToolRegistry
 from ojarvis.tools.catalog import build_registry
@@ -83,7 +76,6 @@ from ojarvis.tools.desktop import desktop_tools
 from ojarvis.tools.impasses import impasse_tools
 from ojarvis.tools.integrations import integration_tools
 from ojarvis.tools.machine import ReadMachineMap
-from ojarvis.tools.mcp import mcp_tools
 from ojarvis.tools.page_view import LookAtPage
 from ojarvis.tools.screen import ScreenMode
 from ojarvis.tools.shell import RunCommand
@@ -93,7 +85,6 @@ from ojarvis.tools.tab import tab_tools
 from ojarvis.tools.tab_sight import TabSight, sight_tools
 from ojarvis.tools.terminal import OpenShell
 from ojarvis.tracing.tracer import Tracer
-from ojarvis.voice.stt_online import GroqTranscriber
 from ojarvis.workflows.engine import WorkflowEngine
 
 log = get_logger(__name__)
@@ -288,6 +279,8 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
     capabilities = tools.get("lister_capacites")
     if isinstance(capabilities, ListCapabilities):
         capabilities.add_section("Skills", skills.capabilities)
+        capabilities.hide(lambda item: item["chrome_tab"] and not chrome.connected())
+        capabilities.add_section("Extension Chrome", lambda: [_chrome_state(chrome)])
     await skills.start()
 
     def tool_context() -> ToolContext:
@@ -301,7 +294,11 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
         )
 
     gate = PermissionGate(
-        tools, journal, tool_context, os_control=lambda: prefs().os_control_enabled
+        tools,
+        journal,
+        tool_context,
+        os_control=lambda: prefs().os_control_enabled,
+        chrome=chrome.connected,
     )
     plans = PlanStore(db, gate)
     executor = PlanExecutor(
@@ -383,6 +380,12 @@ def _memory_tools(
     return machine
 
 
+def _chrome_state(chrome: ChromeBridge) -> str:
+    if chrome.connected():
+        return "branchée : Jarvis voit tes onglets Chrome et y agit (avec ta validation)."
+    return "non branchée : Jarvis ne voit pas ton Chrome (ouvre-le, avec l'extension d'O-jarvis)."
+
+
 def relay_policy(prefs: Preferences) -> tuple[Route, int] | None:
     """Le relais du profil « Tout Meta » : (modèle de relais, échecs avant de l'appeler)."""
     if prefs.model_profile != "meta" or prefs.relay_after == 0:
@@ -413,82 +416,3 @@ def _build_router(
             functools.partial(ollama.refresh, http) if isinstance(ollama, OllamaProvider) else None
         ),
     )
-
-
-async def _assemble_agents(
-    acts: _Actions,
-    core: Agent,
-    *,
-    router: ModelRouter,
-    db: Database,
-    bus: EventBus,
-    tracer: Tracer,
-) -> Orchestrator:
-    """Les agents (dev, recherche, coach) passent par le même cœur : même porte, mêmes plans."""
-    orchestrator = Orchestrator(
-        {a.name: a(router=router, core=core) for a in STARTERS},
-        db=db,
-        bus=bus,
-        tracer=tracer,
-        notifier=acts.notifier,
-    )
-    for tool in agent_tools(orchestrator):
-        acts.tools.register(tool)
-    await orchestrator.recover()
-    return orchestrator
-
-
-async def _assemble_mcp(
-    acts: _Actions,
-    *,
-    http: httpx.AsyncClient,
-    db: Database,
-    backend: SecretBackend,
-    config: EngineConfig,
-    bus: EventBus,
-) -> McpRegistryService:
-    """Jarvis s'étend aussi par les serveurs MCP du registre officiel (installés isolés)."""
-    mcp = McpRegistryService(
-        http=http,
-        db=db,
-        manager=acts.integrations,
-        backend=backend,
-        data_dir=config.paths.data_dir,
-        bus=bus,
-    )
-    for tool in mcp_tools(mcp):
-        acts.tools.register(tool)
-    capabilities = acts.tools.get("lister_capacites")
-    if isinstance(capabilities, ListCapabilities):
-        capabilities.add_section("Serveurs MCP installés", mcp.capabilities)
-    await mcp.start()
-    return mcp
-
-
-async def _assemble_remote(  # noqa: PLR0917 - un assemblage, pas une logique
-    acts: _Actions,
-    http: httpx.AsyncClient,
-    secrets: SecretStore,
-    backend: SecretBackend,
-    bus: EventBus,
-    chat: ChatService,
-) -> tuple[GoogleAccount, TelegramService]:
-    """Ce qui relie Jarvis à tes comptes : Google (agenda) et Telegram (téléphone)."""
-    google = GoogleAccount(http=http, secret=secrets.get, backend=backend, bus=bus)
-    await anyio.to_thread.run_sync(google.load_into_redactor)
-
-    async def google_connected() -> None:
-        await attach_agenda(google, acts.integrations, http)
-
-    google.on_connected = google_connected
-    telegram = TelegramService(
-        http=http,
-        secret=secrets.get,
-        chat=chat,
-        plans=acts.plans,
-        executor=acts.executor,
-        notifier=acts.notifier,
-        bus=bus,
-        transcriber=GroqTranscriber(lambda: secrets.get("GROQ_API_KEY"), http),
-    )
-    return google, telegram

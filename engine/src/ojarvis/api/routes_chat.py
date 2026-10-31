@@ -15,7 +15,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 from ojarvis.agent.reports import RanCommand
 from ojarvis.api.deps import ServicesDep
 from ojarvis.chat.service import ChatEvent
-from ojarvis.chrome.page import BrowserPage, PageElement
+from ojarvis.chrome.page import PageIn
 from ojarvis.conversations.store import ConversationRecord, MessageRecord
 from ojarvis.core.errors import EngineError, NotFoundError
 from ojarvis.llm.providers.registry import OllamaProvider
@@ -36,29 +36,6 @@ class RanIn(BaseModel):
     command: str = Field(min_length=1, max_length=4000)
     code: int = Field(ge=-255, le=255)
     output: str = Field(default="", max_length=20_000)
-
-
-class ElementIn(BaseModel):
-    """Un élément de l'onglet sur lequel Jarvis peut agir, numéroté par l'extension."""
-
-    model_config = ConfigDict(extra="forbid")
-
-    ref: int = Field(ge=1, le=100_000)
-    kind: Literal["lien", "bouton", "champ", "liste", "case"]
-    label: str = Field(default="", max_length=200)
-    href: str = Field(default="", max_length=2000)
-
-
-class PageIn(BaseModel):
-    """Chrome : l'onglet ouvert, lu par l'extension (jamais ses cookies ni ses champs)."""
-
-    model_config = ConfigDict(extra="forbid")
-
-    url: str = Field(min_length=1, max_length=2000, pattern=r"^https?://")
-    title: str = Field(default="", max_length=500)
-    text: str = Field(default="", max_length=100_000)
-    selection: str = Field(default="", max_length=8000)
-    elements: list[ElementIn] = Field(default_factory=list, max_length=300)
 
 
 class ChatIn(BaseModel):
@@ -103,13 +80,6 @@ def sse(event: ChatEvent) -> str:
     return f"event: {event.type}\ndata: {data}\n\n"
 
 
-def _page(page: PageIn | None) -> BrowserPage | None:
-    if page is None:
-        return None
-    elements = tuple(PageElement(**e.model_dump()) for e in page.elements)
-    return BrowserPage(page.url, page.title, page.text, page.selection, elements)
-
-
 @router.post("/chat")
 async def chat(body: ChatIn, services: ServicesDep) -> StreamingResponse:
     """Réponse en flux : événements start, context, route, delta…, puis done ou error."""
@@ -129,7 +99,7 @@ async def chat(body: ChatIn, services: ServicesDep) -> StreamingResponse:
         shell_folder=folder,
         after_plan=body.after_plan,
         ran=RanCommand(body.ran.command, body.ran.code, body.ran.output) if body.ran else None,
-        page=_page(body.page),
+        page=body.page.page() if body.page else None,
     )
     # Les erreurs de validation (conversation inconnue, texte vide) arrivent avant le flux.
     first = await anext(stream)

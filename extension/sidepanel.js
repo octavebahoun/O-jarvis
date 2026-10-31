@@ -1,7 +1,7 @@
 // Le panneau de Jarvis dans Chrome : une conversation à côté de l'onglet ouvert. L'onglet n'est
 // lu que sur les sites que tu autorises ; chaque plan attend ta validation, sauf en mode « sans
 // demander » sur un site où tu l'as permis (actions d'onglet seulement, rien de sensible).
-import { perform } from "./actions.js";
+// Les actions elles-mêmes sont faites par le fond de l'extension (background.js).
 import { element } from "./dom.js";
 import { renderMarkdown } from "./markdown.js";
 import { Jarvis } from "./native.js";
@@ -46,21 +46,6 @@ const jarvis = new Jarvis({
         ? "Hôte introuvable : lance scripts/install-chrome.sh, puis rouvre le panneau."
         : "Jarvis s'est arrêté : ferme et rouvre le panneau.",
     ),
-  onAction: async (action) => {
-    const tabId = workTab;
-    const target = action.kind === "ouvrir" ? action.args.url : (action.args.cible ?? "l'onglet");
-    addNote(`… ${target}`);
-    const result = run.stopped
-      ? { ok: false, text: "Arrêté par l'utilisateur." }
-      : await perform(tabId, action);
-    if (action.kind === "fermer" && result.ok) {
-      workTab = null; // plus d'onglet où agir : la prochaine demande lira celui que tu regardes
-      workOrigin = null;
-    }
-    await jarvis
-      .ask({ type: "action_result", action_id: action.id, ...result })
-      .catch(() => undefined);
-  },
 });
 
 function scrollDown() {
@@ -171,6 +156,8 @@ async function send(text, tabId, { afterPlan = null } = {}) {
   let page = null;
   if (tabId !== null) {
     page = await readTab(tabId).catch(() => null);
+    // Son numéro : les actions validées y seront faites (par le fond de l'extension).
+    if (page) page.tab_id = tabId;
     if (page) {
       workTab = tabId;
       workOrigin = originOf(page.url);

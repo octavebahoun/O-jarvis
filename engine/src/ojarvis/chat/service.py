@@ -247,7 +247,7 @@ class ChatService(ChatLearning):
         if agent is not None:
             turn.agent.known_urls |= urls_in(user_text)
             turn.agent.shell = shell_folder is not None
-            request.tools = agent.specs(shell_mode=turn.agent.shell, chrome_mode=turn.agent.chrome)
+            request.tools = agent.specs(shell_mode=turn.agent.shell)
             system = request.messages[0]
             # Ce qui a vraiment été exécuté, refusé ou attend encore : Jarvis le lit, sans
             # se fier à sa mémoire de la conversation.

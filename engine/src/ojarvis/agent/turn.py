@@ -20,8 +20,6 @@ class AgentTurn:
     tainted: bool = False
     #: Tour du mode shell : seul à pouvoir lancer une commande (`executer_commande`).
     shell: bool = False
-    #: Tour du panneau de Chrome, avec l'onglet lu : seul à pouvoir agir dans cet onglet.
-    chrome: bool = False
     #: Un contenu venu d'ailleurs a été lu (page, recherche, intégration, curl…) : « toujours »
     #: ne s'applique pas.
     web: bool = False
@@ -37,11 +35,6 @@ class AgentTurn:
 class ShellOnlyError(EngineError):
     status_code = 403
     code = "shell_only"
-
-
-class ChromeOnlyError(EngineError):
-    status_code = 403
-    code = "chrome_only"
 
 
 @dataclass(frozen=True)

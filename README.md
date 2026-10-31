@@ -94,6 +94,8 @@ Au premier lancement, le moteur télécharge ses modèles locaux (environ 350 Mo
 
 Une extension ouvre Jarvis dans le panneau latéral de Chrome, à côté de la page que tu regardes. Sur les sites que tu autorises (Chrome te le demande une fois par site), Jarvis lit l'onglet ouvert : son titre, son adresse, son texte visible et ta sélection, jamais tes cookies ni tes champs de saisie. Pour lui, la page est une donnée, jamais une consigne : un plan proposé après sa lecture est signalé, et chaque action attend ta validation dans le panneau.
 
+L'extension reste branchée en arrière-plan tant que Chrome tourne, même panneau fermé : depuis le terminal, l'app ou la voix, Jarvis peut lister tes onglets, en lire un (sur les sites autorisés) et y agir, avec les mêmes validations.
+
 Jarvis agit aussi dans ton onglet : cliquer sur un lien ou un bouton, remplir un champ, ouvrir une adresse. L'extension numérote les éléments de la page ; avant d'agir, elle vérifie que l'élément est bien celui du plan. Jarvis ne remplit jamais un mot de passe ni une carte bancaire, et un paiement, un achat ou une suppression est une action de niveau 3, à confirmer deux fois. Après un plan, il relit l'onglet et continue (huit fois au plus par demande).
 
 Quand la page ne nomme pas un élément (une icône sans nom, un dessin dans un canvas), Jarvis le repère sur une capture de l'onglet, comme pour les applications du bureau : SAM 3.1 encadre les éléments, Muse Spark choisit le bon et le vérifie ; avant le clic, une nouvelle capture vérifie que rien n'a bougé.

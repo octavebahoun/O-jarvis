@@ -23,17 +23,15 @@ from ojarvis.agents.orchestrator import Orchestrator
 from ojarvis.anticipation.service import AnticipationService
 from ojarvis.assembly import (
     _assemble_actions,
-    _assemble_agents,
     _assemble_anticipation,
-    _assemble_mcp,
     _assemble_memory,
-    _assemble_remote,
     _build_router,
     _memory_tools,
     _open_secrets,
     _startup_preferences,
     relay_policy,
 )
+from ojarvis.assembly_extensions import _assemble_agents, _assemble_mcp, _assemble_remote
 from ojarvis.audit.journal import AuditJournal
 from ojarvis.automations.scheduler import AutomationScheduler
 from ojarvis.automations.steps import AutomationSteps

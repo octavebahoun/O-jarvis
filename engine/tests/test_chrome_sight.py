@@ -69,15 +69,17 @@ async def test_a_found_element_is_clicked_at_its_place_in_the_page(sight: TabSig
     serving = asyncio.create_task(panel.serve(3))
     await asyncio.sleep(0)
     context: Any = SimpleNamespace()
-    found = await TabFind(sight).run(FindTabArgs(element="l'icône LI à gauche"), context)
+    args = FindTabArgs(onglet=3, element="l'icône LI à gauche")
+    found = await TabFind(sight).run(args, context)
     mark_id = found.data["repere"]
     assert "une icône LI ronde" in found.text
     click = TabClickMark(sight)
-    assert click.level_for(MarkArgs(repere=mark_id)) == Level.AGIR
-    await click.run(MarkArgs(repere=mark_id), context)
+    assert click.level_for(MarkArgs(onglet=3, repere=mark_id)) == Level.AGIR
+    await click.run(MarkArgs(onglet=3, repere=mark_id), context)
     await serving
     # Centre (29, 59) sur la capture, page deux fois plus petite : (14, 30) en pixels CSS.
-    assert panel.clicks == [{"x": 14, "y": 30, "cible": "l'icône LI à gauche", "level": 2}]
+    want = {"x": 14, "y": 30, "cible": "l'icône LI à gauche", "onglet": 3, "level": 2}
+    assert panel.clicks == [want]
 
 
 async def test_nothing_is_clicked_if_the_tab_changed(sight: TabSight) -> None:
@@ -85,8 +87,8 @@ async def test_nothing_is_clicked_if_the_tab_changed(sight: TabSight) -> None:
     serving = asyncio.create_task(panel.serve(2))
     await asyncio.sleep(0)
     context: Any = SimpleNamespace()
-    found = await TabFind(sight).run(FindTabArgs(element="l'icône LI"), context)
+    found = await TabFind(sight).run(FindTabArgs(onglet=3, element="l'icône LI"), context)
     with pytest.raises(TabActionError, match="a changé"):
-        await TabClickMark(sight).run(MarkArgs(repere=found.data["repere"]), context)
+        await TabClickMark(sight).run(MarkArgs(onglet=3, repere=found.data["repere"]), context)
     await serving
     assert panel.clicks == []

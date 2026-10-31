@@ -1,6 +1,7 @@
 // Les actions validées, faites dans ton onglet : cliquer, remplir, ouvrir. Chacune vérifie
 // que l'élément est bien celui du plan, et refuse un mot de passe, une carte bancaire, ou une
 // action sensible (paiement, achat, suppression) qui n'a pas été validée au niveau 3.
+import { readTab } from "./page.js";
 
 /** Exécuté dans la page, avec l'action en argument (rien d'autre n'y est disponible). */
 function performInPage(action) {
@@ -164,29 +165,33 @@ async function after(tabId, text) {
   return tab ? `${text} L'onglet affiche « ${tab.title} » (${tab.url}).` : text;
 }
 
-/** Fait l'action dans l'onglet `tabId` ; rend { ok, text } pour Jarvis. */
-export async function perform(tabId, action) {
-  if (tabId === null) {
-    return {
-      ok: false,
-      text: "Je n'ai lu aucun onglet : demande-moi depuis l'onglet à manipuler.",
-    };
+/** Fait l'action dans l'onglet qu'elle désigne (`args.onglet`) ; rend { ok, text, data? }. */
+export async function perform(action) {
+  if (action.kind === "lister") {
+    const tabs = await chrome.tabs.query({});
+    const listed = tabs.map((tab) => ({
+      id: tab.id,
+      title: tab.title ?? "",
+      url: tab.url ?? "",
+      active: tab.active,
+    }));
+    return { ok: true, text: `${listed.length} onglets ouverts.`, data: { tabs: listed } };
   }
+  const tabId = Number.isInteger(action.args?.onglet) ? action.args.onglet : null;
+  if (tabId === null)
+    return { ok: false, text: "Quel onglet ? Liste-les d'abord (chrome_onglets)." };
   try {
+    if (action.kind === "lire") {
+      const page = await readTab(tabId);
+      return page
+        ? { ok: true, text: `Onglet « ${page.title} » lu.`, data: { page } }
+        : { ok: false, text: "Cet onglet n'a rien rendu." };
+    }
     if (action.kind === "ouvrir") {
       await chrome.tabs.update(tabId, { url: action.args.url });
       return { ok: true, text: await after(tabId, `Ouvert : ${action.args.url}.`) };
     }
     if (action.kind === "capturer") return await capture(tabId);
-    if (action.kind === "cliquer_point") {
-      const [result] = await chrome.scripting.executeScript({
-        target: { tabId },
-        func: clickAtPoint,
-        args: [action],
-      });
-      const outcome = result?.result ?? { ok: false, text: "L'onglet n'a rien répondu." };
-      return outcome.ok ? { ok: true, text: await after(tabId, outcome.text) } : outcome;
-    }
     if (action.kind === "fermer") {
       const tab = await chrome.tabs.get(tabId);
       await chrome.tabs.remove(tabId);
@@ -194,7 +199,7 @@ export async function perform(tabId, action) {
     }
     const [result] = await chrome.scripting.executeScript({
       target: { tabId },
-      func: performInPage,
+      func: action.kind === "cliquer_point" ? clickAtPoint : performInPage,
       args: [action],
     });
     const outcome = result?.result ?? { ok: false, text: "L'onglet n'a rien répondu." };
@@ -202,7 +207,9 @@ export async function perform(tabId, action) {
   } catch (error) {
     return {
       ok: false,
-      text: `Je ne peux pas agir dans cet onglet (${error.message}). Autorise ce site depuis le panneau.`,
+      text:
+        `Je n'ai pas accès à cet onglet (${error.message}). Ouvre le panneau d'O-jarvis sur ` +
+        "ce site et autorise-le une fois.",
     };
   }
 }

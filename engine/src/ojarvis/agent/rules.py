@@ -105,10 +105,6 @@ ROUNDS_EXHAUSTED = (
     "l'utilisateur pourra te dire de continuer."
 )
 
-CHROME_ONLY = (
-    "{tool} n'existe que dans le panneau de Jarvis dans Chrome, à côté de l'onglet "
-    "à manipuler. Dis à l'utilisateur de t'y demander cette action."
-)
 SHELL_ONLY = (
     "{tool} n'existe qu'en mode shell. Dis à l'utilisateur qu'il peut l'ouvrir (« passe en "
     "mode shell ») pour lancer des commandes."
