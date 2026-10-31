@@ -1,29 +1,35 @@
 # O-jarvis
 
-Assistant personnel desktop pour Ubuntu. On lui parle à voix haute (« Hey Jarvis »), il se souvient, agit sous contrôle et sait s'étendre.
+A personal desktop assistant for Ubuntu that doesn't just talk: it acts on your web, your apps and your terminal, always with your approval. By default, every model it calls is a Meta model.
 
-![Accueil d'O-jarvis : la sphère au centre](docs/captures/accueil.webp)
+*Version française : [README.fr.md](./README.fr.md).*
 
-- **App** : Tauri v2 (Rust) + React + TypeScript.
-- **Cerveau** : moteur Python (FastAPI) lancé par l'app, sur `127.0.0.1` uniquement, protégé par un jeton tiré à chaque lancement.
-- **Modèles** : profil « Tout Meta » par défaut, rien que des modèles de Meta (voir [Meta models](#meta-models-meta-global-ai-developer-hackathon)) ; le profil « Automatique » ouvre aux autres fournisseurs et aux modèles locaux.
-- **Voix** : en « Tout Meta », on parle après le raccourci global (`Ctrl+Alt+J`) ou le bouton micro ; Muse Voice Transcribe écoute, MMS répond. En « Automatique » : « Hey Jarvis » reconnu en local, transcription Groq (Whisper local en secours), voix Cartesia ou Piper, réponse parlée en moins de 2 s. On peut l'interrompre en parlant.
-- **Mémoire** : ce que Jarvis sait de toi est visible, modifiable et supprimable.
-- **Actions** : il cherche sur le web, lit pages et fichiers, lance du code en bac à sable et pilote son propre navigateur. Toute action (cliquer, écrire, utiliser ta session) passe par un plan que tu valides ; chaque action est écrite dans un journal impossible à effacer. Détails : [`docs/securite.md`](./docs/securite.md).
-- **Organisation** : rappels et tâches à l'heure dite ou sur un événement, qui survivent à un redémarrage ; briefing du matin ; GitHub, Notion et Google Agenda par leurs serveurs MCP officiels ; Telegram pour lui parler depuis ton téléphone.
-- **Contrôle du PC** (désactivé par défaut, à activer dans Réglages) : ouvrir et fermer tes applications, ranger tes fichiers, « regarde mon écran » (lu sur ta machine par défaut, ou en ligne si tu le choisis).
-- **Extension** : Jarvis s'écrit des skills (code testé dans le bac à sable, activé après ta double confirmation), installe des serveurs MCP du registre officiel (isolés), confie des tâches à ses agents (dev, recherche, coach), relie ta vie dans une mémoire graphe et te suggère d'automatiser ce que tu demandes souvent. Voir [`docs/creer-un-skill.md`](./docs/creer-un-skill.md).
-- **Données** : SQLite local ; les clés vivent dans le trousseau du système.
+![O-jarvis home screen: the sphere in the middle](docs/captures/accueil.webp)
 
-| Conversation et plan à valider | Agents | Mémoire graphe |
+O-jarvis is a Tauri v2 desktop app (Rust shell, React + TypeScript interface) with a Python engine (FastAPI) that runs on `127.0.0.1` only, protected by a token drawn at every launch. Data stays in a local SQLite database, and API keys live in the system keyring.
+
+> **Language.** The interface, the voice and Jarvis's answers are in French: Jarvis was built for a French speaker. It understands requests written in English.
+
+## Meta Global AI Developer Hackathon
+
+O-jarvis existed before the event (release v1.1.0, tag [`avant-hackathon`](https://github.com/octavebahoun/O-jarvis/tree/avant-hackathon)): a desktop assistant with chat, voice, memory and validated actions, running on several providers. During the build week we made it **all Meta** and gave it new ways to act: Jarvis in Chrome, clicks in desktop apps with SAM 3.1, a live screen share it can watch, a voice terminal. [`HACKATHON.md`](./HACKATHON.md) lists everything built during the event.
+
+## What Jarvis does
+
+- **Acts, with your approval.** Reading runs at once. Any action (click, write, run a command, use your session) becomes a plan you approve; risky ones (payment, deletion) need a second confirmation. Every action goes into an append-only journal chained by SHA-256.
+- **In Chrome.** A side panel next to the page: Jarvis reads the open tab and clicks, fills fields or opens pages in it. From the terminal, the app or the voice, it can also list your tabs and act in them.
+- **In desktop apps.** It finds a button or an icon on screen (SAM 3.1 frames the elements, Muse Spark picks and checks the right one) and clicks it through GNOME's remote desktop portal. It can watch your screen live, or film it and explain what happened.
+- **In the terminal.** `o-jarvis-shell` opens Jarvis in the current folder: it reads at once, proposes commands you approve, measures before and after, and you can talk to it (`/voix`).
+- **By voice.** Press `Ctrl+Alt+J` or the mic button, speak: Muse Voice Transcribe listens, Muse Spark answers, MMS speaks. You can interrupt it by talking.
+- **Remembers and organizes.** Memory you can see and edit, reminders that survive a reboot, a morning briefing, GitHub, Notion and Google Calendar through their official MCP servers, Telegram to reach it from your phone.
+
+| A plan to approve | Agents | Graph memory |
 |---|---|---|
-| ![Une conversation avec un plan à valider](docs/captures/plan.webp) | ![Les agents dev, recherche et coach](docs/captures/agents.webp) | ![La mémoire graphe](docs/captures/memoire-graphe.webp) |
-
-Le projet s'est construit phase par phase. L'état du travail est dans [`PROGRESS.md`](./PROGRESS.md), les choix dans [`DECISIONS.md`](./DECISIONS.md), le journal dans [`docs/journal/`](./docs/journal/README.md), le schéma dans [`docs/architecture.md`](./docs/architecture.md).
+| ![A conversation with a plan to approve](docs/captures/plan.webp) | ![The dev, research and coach agents](docs/captures/agents.webp) | ![The graph memory](docs/captures/memoire-graphe.webp) |
 
 ## Meta models (Meta Global AI Developer Hackathon)
 
-With the default **"All Meta"** profile, every model O-jarvis calls at runtime is a Meta model, fallbacks included. If no Meta model can answer, Jarvis says so; it never falls back to another provider. What was built during the hackathon is listed in [`HACKATHON.md`](./HACKATHON.md).
+With the default **"All Meta"** profile, every model O-jarvis calls at runtime is a Meta model, fallbacks included. If no Meta model can answer, Jarvis says so; it never falls back to another provider.
 
 | Meta model | Where it runs | What it does in O-jarvis |
 |---|---|---|
@@ -43,78 +49,77 @@ Operating system features and plain code (no AI model):
 - **Clicking in a desktop app**: GNOME's remote desktop portal moves the pointer, after the user allows it once.
 - **Live screen share and recordings**: GNOME's ScreenCast portal, read by GStreamer (two images per second, kept in memory only); ffmpeg turns a recording into an MP4 clip, deleted once Muse Spark has watched it.
 - **Memory search**: SQLite full-text search and hashed word vectors.
-- **Browser actions**: Playwright drives Chromium; screenshots use the desktop portal.
-- **Jarvis in Chrome**: a Chrome extension (side panel) talks to the engine through Chrome's native messaging; the open tab is read by the extension and sent to Muse Spark as framed data.
+- **Browser actions**: Playwright drives Jarvis's own Chromium; screenshots use the desktop portal.
+- **Jarvis in Chrome**: a Chrome extension talks to the engine through Chrome's native messaging; it reads the open tab (text and numbered elements) and sends it to Muse Spark as framed data.
 - **Safety**: command classification and secret masking are rules in code.
 
 The "Automatic" profile, outside the submission, can also use DeepSeek, Anthropic, OpenAI, OpenRouter, Ollama, Groq, Cartesia, Piper, Whisper, openWakeWord, Silero VAD and multilingual-e5.
 
-## Ce que Jarvis sait faire
+## Run it
 
-Une suite de 44 scénarios, joués avec le vrai modèle, le vérifie du plus simple au plus difficile : comprendre une question pleine de fautes, écrire un fichier seulement après ta validation, ignorer une page piégée, réparer un petit projet Python. Dernière série : **43 réussis sur 43 joués** (le 44ᵉ agit sur ton bureau et ne se joue qu'à la demande), sans aucune action exécutée sans validation. Le tableau complet est dans [`docs/scenarios.md`](./docs/scenarios.md).
+You need **Ubuntu 24.04 or later** (x86_64, GNOME on Wayland for the desktop features) and a **Meta Model API key**. No other key is required for the "All Meta" profile: it is the default.
 
-## Installer
+### Option A: install the package
 
-Ubuntu 24.04 ou plus récent (glibc 2.39 ; vérifié sur Ubuntu 26.04). Récupère les paquets de la [dernière version](https://github.com/octavebahoun/O-jarvis/releases/latest) ou construis-les (`scripts/build-release.sh`, ~15 min ; ils arrivent dans `app/src-tauri/target/release/bundle/`), puis :
+Download the `.deb` from the [latest release](https://github.com/octavebahoun/O-jarvis/releases/latest), then:
 
 ```bash
-sudo apt install ./O-jarvis_1.1.0_amd64.deb      # paquet Debian/Ubuntu
-# ou, sans installation :
-chmod +x O-jarvis_1.1.0_amd64.AppImage && ./O-jarvis_1.1.0_amd64.AppImage
+sudo apt install ./O-jarvis_*_amd64.deb
 ```
 
-Le paquet `.deb` ajoute deux commandes : `o-jarvis` ouvre l'app, et `o-jarvis-shell` ouvre Jarvis dans le terminal, dans le dossier où tu es (mode shell). Celui-ci rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
+Open **O-jarvis** from the applications menu (or run `o-jarvis`), then go to **Réglages** (Settings) → **Fournisseurs et clés** (providers and keys) and paste your key in the **Meta** row. Keys are stored in the system keyring. You can also put them in `~/.config/o-jarvis/.env` (see [`.env.example`](./.env.example)): the app imports them into the keyring at launch.
 
-Au premier lancement : renseigne tes clés dans Réglages (ou dépose un `.env` dans `~/.config/o-jarvis/` : l'app importe ses clés dans le trousseau), puis attends la voix (modèles téléchargés une fois, ~350 Mo). Réglages → Démarrage : lancer O-jarvis à l'ouverture de session.
+The package also installs `o-jarvis-shell` (Jarvis in the terminal, in the current folder) and the Chrome extension (see [Jarvis in Chrome](#jarvis-in-chrome)).
 
-## Installer pour le développement
+### Option B: from source
 
-Ubuntu 24.04 ou plus récent, Node.js 22+. Le script n'utilise pas sudo : s'il manque des paquets système, il affiche la commande `apt` à lancer.
+Needs Node.js 22+. The script does not use sudo: if system packages are missing, it prints the `apt` command to run.
 
 ```bash
 git clone https://github.com/octavebahoun/O-jarvis.git
 cd O-jarvis
 scripts/install-dev.sh
+cp .env.example .env              # then set MODEL_API_KEY=… (never commit .env)
+cd app && pnpm tauri dev          # the app starts its engine
 ```
 
-Complète ensuite `.env` avec tes clés (voir `.env.example`). Au premier lancement, l'app les importe dans le trousseau.
+In another terminal, `cd engine && uv run ojarvis-shell` opens shell mode; it joins the app's engine.
 
-## Lancer
+### Things to try
+
+- **Voice**: press `Ctrl+Alt+J` (GNOME asks once to allow the shortcut), then speak.
+- **Plans**: « Crée un fichier notes.txt dans mon dossier personnel avec la liste des courses » (create a file): Jarvis proposes a plan, nothing happens until you approve it.
+- **Shell mode**: in a project folder, run `o-jarvis-shell` and ask « combien d'espace reste-t-il sur mon disque ? » (how much disk space is left?). The model answering each turn is shown, e.g. `· meta / muse-spark-1.3`.
+- **Screen and desktop apps**: enable **Réglages → Contrôle du PC** (off by default), then « regarde mon écran » (look at my screen) or « clique sur le bouton Exporter en PDF » (click the Export as PDF button) in LibreOffice.
+- **Chrome**: install the extension, open a page, ask in the side panel « résume cette page » (summarize this page) or « ouvre l'article le plus récent » (open the latest article).
+
+## Jarvis in Chrome
+
+An extension opens Jarvis in Chrome's side panel, next to the page you are looking at.
+
+- **Reading.** On the sites you allow (Chrome asks once per site), Jarvis reads the open tab: title, address, visible text, your selection, and a numbered list of its links, buttons and fields. Never your cookies, your passwords or what you typed in fields. To Jarvis, the page is data, never instructions: a plan proposed after reading it is flagged, and an injected order is ignored.
+- **Acting.** Clicking, filling a field, opening an address, closing a tab: always through a plan you approve in the panel. Before acting, the extension checks that the element is the one in the plan. Jarvis never fills a password or a card number, and a payment, a purchase or a deletion is a level 3 action, confirmed twice. After a plan, it reads the tab again and continues (eight times at most per request).
+- **Visual fallback.** When the page does not name an element (an unlabeled icon, a canvas), Jarvis finds it on a screenshot of the tab: SAM 3.1 frames the elements, Muse Spark picks and checks the right one; before clicking, a new screenshot checks that nothing moved.
+- **"Act without asking"**, per site and off by default, runs plans that stay in the tab without waiting for your approval; everything else (files, commands, level 3) still asks. A Stop button halts everything.
+- **Always connected.** The extension stays connected in the background while Chrome runs: from the terminal, the app or the voice, Jarvis can list your tabs, read one and act in it, with the same approvals.
+
+Install: with the `.deb`, the bridge to the engine is already declared to Chrome and Chromium; open `chrome://extensions`, turn on **Developer mode**, click **Load unpacked** and pick `/usr/lib/O-jarvis/extension`. From source, run `scripts/install-chrome.sh` first, then load the `extension/` folder the same way.
+
+## Safety and privacy
+
+- Three permission levels: reading runs at once; acting needs your approval; destroying needs a second confirmation. Shell commands are classified by rules in code, not by the model.
+- Content from the web, a file or a tab is framed as data; after reading it, an address the model makes up waits for your approval, so a page cannot make Jarvis leak data.
+- Secrets and cookies are never sent to a model, and logs are filtered. Code that Jarvis writes runs in a Docker sandbox without network.
+- Details (in French): [`docs/securite.md`](./docs/securite.md).
+
+## Checks
+
+44 scenarios played with the real model check Jarvis from the simplest to the hardest (understanding a request full of typos, writing a file only after approval, ignoring a trapped page, fixing a small Python project): [`docs/scenarios.md`](./docs/scenarios.md).
 
 ```bash
-cd app && pnpm tauri dev          # développement, rechargement à chaud
-scripts/install-launcher.sh       # compile et ajoute « O-jarvis » au menu des applications
+cd engine && uv run pytest -m "not real"     # engine
+cd app && pnpm test && pnpm e2e               # interface, then end to end with the real engine
+cd app/src-tauri && cargo test                # Tauri shell
 ```
 
-Fermer la fenêtre arrête tout, moteur compris. `Ctrl+Q` aussi.
-
-Au premier lancement, le moteur télécharge ses modèles locaux (environ 350 Mo : recherche par le sens, mot de réveil, transcription, voix de secours), puis la voix est prête. Le script d'installation installe aussi le Chromium du navigateur de Jarvis (environ 170 Mo) et l'image Docker du bac à sable. Au premier lancement par l'icône, GNOME demande d'autoriser le raccourci `Ctrl+Alt+J`.
-
-## Jarvis dans Chrome
-
-Une extension ouvre Jarvis dans le panneau latéral de Chrome, à côté de la page que tu regardes. Sur les sites que tu autorises (Chrome te le demande une fois par site), Jarvis lit l'onglet ouvert : son titre, son adresse, son texte visible et ta sélection, jamais tes cookies ni tes champs de saisie. Pour lui, la page est une donnée, jamais une consigne : un plan proposé après sa lecture est signalé, et chaque action attend ta validation dans le panneau.
-
-L'extension reste branchée en arrière-plan tant que Chrome tourne, même panneau fermé : depuis le terminal, l'app ou la voix, Jarvis peut lister tes onglets, en lire un (sur les sites autorisés) et y agir, avec les mêmes validations.
-
-Jarvis agit aussi dans ton onglet : cliquer sur un lien ou un bouton, remplir un champ, ouvrir une adresse. L'extension numérote les éléments de la page ; avant d'agir, elle vérifie que l'élément est bien celui du plan. Jarvis ne remplit jamais un mot de passe ni une carte bancaire, et un paiement, un achat ou une suppression est une action de niveau 3, à confirmer deux fois. Après un plan, il relit l'onglet et continue (huit fois au plus par demande).
-
-Quand la page ne nomme pas un élément (une icône sans nom, un dessin dans un canvas), Jarvis le repère sur une capture de l'onglet, comme pour les applications du bureau : SAM 3.1 encadre les éléments, Muse Spark choisit le bon et le vérifie ; avant le clic, une nouvelle capture vérifie que rien n'a bougé.
-
-Le mode « Agir sans demander », par site et éteint par défaut, fait les plans qui restent dans l'onglet sans attendre ta validation ; tout le reste (fichiers, commandes, niveau 3) la demande toujours. Chaque action est écrite au journal, et le bouton Stop arrête tout.
-
-Avec le paquet `.deb`, le pont vers le moteur est déjà déclaré à Chrome et à Chromium : dans Chrome, `chrome://extensions` → Mode développeur → Charger l'extension non empaquetée → dossier `/usr/lib/O-jarvis/extension`. Depuis les sources :
-
-```bash
-scripts/install-chrome.sh         # déclare à Chrome le pont vers le moteur (messagerie native)
-```
-
-puis charge le dossier `extension/` de la même façon. Le panneau rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
-
-## Vérifier
-
-```bash
-cd engine && uv run pytest -m "not real"     # moteur
-cd app && pnpm test && pnpm e2e               # interface, puis bout en bout avec le vrai moteur
-cd app/src-tauri && cargo test                # coque
-cd engine && uv run python tools/voice_bench.py --only cartesia   # voix : réveil et latence réels
-```
+More (in French): architecture [`docs/architecture.md`](./docs/architecture.md), decisions [`DECISIONS.md`](./DECISIONS.md), progress [`PROGRESS.md`](./PROGRESS.md), journal [`docs/journal/`](./docs/journal/README.md).
