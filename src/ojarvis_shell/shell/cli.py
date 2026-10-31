@@ -24,11 +24,7 @@ import httpx
 
 from ojarvis import __version__
 from ojarvis.config import resolve_paths
-from ojarvis.shell.connection import (
-    EngineUnavailableError,
-    connect,
-    stop_engine,
-)
+from ojarvis.shell.connection import EngineLink, EngineUnavailableError
 from ojarvis.shell.decisions import PlanDecisions, Runner, run_yourself
 from ojarvis.shell.display import (
     BOLD,
@@ -388,15 +384,15 @@ def main(argv: list[str] | None = None) -> int:
     spinner = Spinner(out, style.enabled, style)
     spinner.start("Je rejoins Jarvis…")
     try:
-        info, process = connect(env)
+        link = EngineLink(env)
+        process = link.open()
     except EngineUnavailableError as exc:
         spinner.stop()
         out.write(style(f"✗ {exc}\n", RED))
         return 1
     spinner.stop()
     save_history = _setup_readline(_history(env))
-    headers = {"Authorization": f"Bearer {info.token}"}
-    with httpx.Client(base_url=info.url, headers=headers, timeout=30.0) as http:
+    with link.client(timeout=30.0) as http:
         client = ShellClient(
             http,
             str(folder),
@@ -415,7 +411,7 @@ def main(argv: list[str] | None = None) -> int:
             save_history()
             if process is not None:
                 _warn_app(client, style)
-            stop_engine(process)
+            link.close()
     return 0
 
 

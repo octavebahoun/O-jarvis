@@ -27,12 +27,11 @@ from ojarvis.chrome.native import NativeMessageError, encode, read_message
 from ojarvis.config import resolve_paths
 from ojarvis.shell.connection import (
     EngineInfo,
+    EngineLink,
     EngineUnavailableError,
-    connect,
     info_path,
     reachable,
     read_info,
-    stop_engine,
 )
 from ojarvis.shell.display import error_message, sse_events
 
@@ -209,18 +208,15 @@ def _background(channel_in: BinaryIO, channel_out: BinaryIO) -> int:
 
 def _panel(channel_in: BinaryIO, channel_out: BinaryIO, first: dict[str, Any]) -> int:
     """Le panneau : il rejoint le moteur de l'app, ou en lance un comme le terminal."""
+    link = EngineLink(os.environ)
     try:
-        info, process = connect(os.environ)
+        process = link.open()
     except EngineUnavailableError as error:
         channel_out.write(encode({"type": "error", "message": str(error)}))
         channel_out.flush()
         return 1
-    headers = {"Authorization": f"Bearer {info.token}"}
     try:
-        with (
-            httpx.Client(base_url=info.url, headers=headers, timeout=30.0) as http,
-            ThreadPoolExecutor(max_workers=4) as pool,
-        ):
+        with link.client(timeout=30.0) as http, ThreadPoolExecutor(max_workers=4) as pool:
             host = Host(http, channel_out)
             host.send({"type": "ready", "version": __version__, "own_engine": process is not None})
             if first.get("type") != "hello":
@@ -230,7 +226,7 @@ def _panel(channel_in: BinaryIO, channel_out: BinaryIO, first: dict[str, Any]) -
     except NativeMessageError:
         return 1
     finally:
-        stop_engine(process)
+        link.close()
     return 0
 
 
