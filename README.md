@@ -102,11 +102,13 @@ Quand la page ne nomme pas un élément (une icône sans nom, un dessin dans un 
 
 Le mode « Agir sans demander », par site et éteint par défaut, fait les plans qui restent dans l'onglet sans attendre ta validation ; tout le reste (fichiers, commandes, niveau 3) la demande toujours. Chaque action est écrite au journal, et le bouton Stop arrête tout.
 
+Avec le paquet `.deb`, le pont vers le moteur est déjà déclaré à Chrome et à Chromium : dans Chrome, `chrome://extensions` → Mode développeur → Charger l'extension non empaquetée → dossier `/usr/lib/O-jarvis/extension`. Depuis les sources :
+
 ```bash
 scripts/install-chrome.sh         # déclare à Chrome le pont vers le moteur (messagerie native)
 ```
 
-Puis, dans Chrome : `chrome://extensions` → Mode développeur → Charger l'extension non empaquetée → dossier `extension/`. Le panneau rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
+puis charge le dossier `extension/` de la même façon. Le panneau rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
 
 ## Vérifier
 
