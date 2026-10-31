@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import TYPE_CHECKING, ClassVar
+from typing import TYPE_CHECKING, Any, ClassVar
 
 from pydantic import Field
 
@@ -70,6 +70,12 @@ class ListCapabilities(Tool[NoArgs]):
         self._registry = registry
         #: Sections ajoutées par les registres (skills, serveurs MCP) : titre → lignes.
         self._sections: dict[str, Callable[[], list[str]]] = {}
+        self._hidden: Callable[[dict[str, Any]], bool] = lambda item: False
+
+    def hide(self, rule: Callable[[dict[str, Any]], bool]) -> None:
+        """Les outils indisponibles pour l'instant (l'extension Chrome débranchée) ne sont pas
+        annoncés : Jarvis ne dit pas voir ce qu'il ne voit pas."""
+        self._hidden = rule
 
     def add_section(self, title: str, lines: Callable[[], list[str]]) -> None:
         self._sections[title] = lines
@@ -82,6 +88,8 @@ class ListCapabilities(Tool[NoArgs]):
         del args, ctx
         lines = ["Outils :"]
         for item in self._registry.catalog():
+            if self._hidden(item):
+                continue
             level = Level(item["level"])
             lines.append(f"- {item['name']} : {item['description']} [{LEVEL_LABELS[level]}]")
         for title, section in self._sections.items():

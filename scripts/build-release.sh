@@ -37,8 +37,18 @@ mkdir -p "$work/deb/usr/lib/O-jarvis"
 cp -a "$engine" "$work/deb/usr/lib/O-jarvis/engine"
 # La commande du mode shell, à côté de celle de l'app (o-jarvis).
 install -m 755 "$root/app/src-tauri/packaging/o-jarvis-shell" "$work/deb/usr/bin/o-jarvis-shell"
+# L'extension Chrome (à charger depuis chrome://extensions), son hôte de messagerie native, et
+# sa déclaration à Chrome et à Chromium : seule notre extension peut lancer cet hôte.
+cp -r "$root/extension" "$work/deb/usr/lib/O-jarvis/extension"
+packaging="$root/app/src-tauri/packaging"
+install -m 755 "$packaging/o-jarvis-chrome-host" "$work/deb/usr/lib/O-jarvis/o-jarvis-chrome-host"
+host_json="io.github.octavebahoun.ojarvis.json"
+for hosts in etc/opt/chrome/native-messaging-hosts etc/chromium/native-messaging-hosts; do
+  install -D -m 644 "$packaging/$host_json" "$work/deb/$hosts/$host_json"
+  echo "/$hosts/$host_json" >> "$work/deb/DEBIAN/conffiles"
+done
 chmod -R go-w "$work/deb"
-(cd "$work/deb" && find usr -type f -print0 | sort -z | xargs -0 md5sum > DEBIAN/md5sums)
+(cd "$work/deb" && find usr etc -type f -print0 | sort -z | xargs -0 md5sum > DEBIAN/md5sums)
 size="$(du -sk --apparent-size --exclude=DEBIAN "$work/deb" | cut -f1)"
 sed -i "s/^Installed-Size: .*/Installed-Size: $size/" "$work/deb/DEBIAN/control"
 dpkg-deb --root-owner-group -Zxz --threads-max="$(nproc)" --build "$work/deb" "$deb"

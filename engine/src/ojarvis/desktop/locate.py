@@ -220,7 +220,10 @@ class Locator:
 
     async def find(self, target: str, kind: Kind) -> Mark:
         """L'élément désigné (« le bouton Exporter en PDF »), sur l'écran tel qu'il est."""
-        image = await self._grab()
+        return await self.find_in(await self._grab(), target, kind)
+
+    async def find_in(self, image: bytes, target: str, kind: Kind) -> Mark:
+        """Le même repérage sur une capture donnée (l'onglet de Chrome, par exemple)."""
         size = await asyncio.to_thread(image_size, image)
         concepts = CONCEPTS[kind]
         segmented, point = await asyncio.gather(

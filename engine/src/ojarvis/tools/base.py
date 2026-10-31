@@ -97,6 +97,8 @@ class Tool[A: ToolArgs](ABC):
     os_control: ClassVar[bool] = False
     #: Mode shell seulement (lancer une commande) : jamais proposé ni accepté ailleurs.
     shell_only: ClassVar[bool] = False
+    #: Voit et agit dans ton Chrome par l'extension d'O-jarvis : seulement quand elle est branchée.
+    chrome_tab: ClassVar[bool] = False
 
     def parse(self, raw: dict[str, Any]) -> A:
         try:
@@ -170,7 +172,12 @@ class ToolRegistry:
         return list(self._tools.values())
 
     def specs(
-        self, *, max_level: Level, os_control: bool = True, shell_mode: bool = False
+        self,
+        *,
+        max_level: Level,
+        os_control: bool = True,
+        shell_mode: bool = False,
+        chrome: bool = False,
     ) -> list[ToolSpec]:
         return [
             t.spec()
@@ -178,6 +185,7 @@ class ToolRegistry:
             if t.level <= max_level
             and (os_control or not t.os_control)
             and (shell_mode or not t.shell_only)
+            and (chrome or not t.chrome_tab)
         ]
 
     def catalog(self) -> list[dict[str, Any]]:
@@ -188,6 +196,7 @@ class ToolRegistry:
                 "level": int(t.level),
                 "level_label": LEVEL_LABELS[t.level],
                 "os_control": t.os_control,
+                "chrome_tab": t.chrome_tab,
             }
             for t in self._tools.values()
         ]

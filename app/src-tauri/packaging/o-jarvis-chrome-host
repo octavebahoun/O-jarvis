@@ -1,0 +1,4 @@
+#!/bin/sh
+# Le pont entre l'extension Chrome d'O-jarvis et le moteur (messagerie native) : lancé par
+# Chrome, qui le trouve par io.github.octavebahoun.ojarvis.json (installé par le .deb).
+exec /usr/lib/O-jarvis/engine/ojarvis-engine chrome-host "$@"

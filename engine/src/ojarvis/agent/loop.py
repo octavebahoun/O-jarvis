@@ -9,8 +9,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field, replace
-from typing import Any
+from dataclasses import replace
 
 import anyio.to_thread
 from pydantic import ValidationError
@@ -23,7 +22,6 @@ from ojarvis.agent.plans import (
     PLACEHOLDER,
     PLAN_TOOL,
     PlanIn,
-    PlanRecord,
     PlanStore,
     StepIn,
     plan_tool_spec,
@@ -49,6 +47,7 @@ from ojarvis.agent.rules import (
     SHELL_ONLY,
     SHELL_RULES,
 )
+from ojarvis.agent.turn import AgentTurn, CallOutcome, ShellOnlyError
 from ojarvis.core.errors import ConflictError, EngineError, InvalidInputError, NotFoundError
 from ojarvis.core.logs import get_logger
 from ojarvis.events.bus import EventBus
@@ -66,39 +65,6 @@ OUTPUT_PREVIEW_CHARS = 2000
 #: Tours d'outils au plus dans une réponse (ensuite, le modèle doit conclure). Une PR
 #: GitHub en demande souvent 6 ou 7 : lister les outils, lire le dépôt, puis le plan.
 MAX_TOOL_ROUNDS = 8
-
-
-@dataclass
-class AgentTurn:
-    """Ce qui s'est passé pendant un tour : outils utilisés, plans proposés."""
-
-    #: Un contenu externe a été lu : un plan proposé ensuite est signalé à la validation.
-    tainted: bool = False
-    #: Tour du mode shell : seul à pouvoir lancer une commande (`executer_commande`).
-    shell: bool = False
-    #: Un contenu venu d'ailleurs a été lu (page, recherche, intégration, curl…) : « toujours »
-    #: ne s'applique pas.
-    web: bool = False
-    tools: list[dict[str, Any]] = field(default_factory=list)
-    plans: list[str] = field(default_factory=list)
-    #: Adresses connues pendant ce tour : celles de ta demande et celles lues (liens, résultats).
-    known_urls: set[str] = field(default_factory=set)
-
-    def knows(self, url: str) -> bool:
-        return url.strip().rstrip("/") in self.known_urls
-
-
-class ShellOnlyError(EngineError):
-    status_code = 403
-    code = "shell_only"
-
-
-@dataclass(frozen=True)
-class CallOutcome:
-    content: str
-    event: dict[str, Any]
-    is_error: bool = False
-    plan: PlanRecord | None = None
 
 
 class Agent:
@@ -221,7 +187,10 @@ class Agent:
 
     def specs(self, *, shell_mode: bool = False) -> list[ToolSpec]:
         specs = self._gate.registry.specs(
-            max_level=Level.DETRUIRE, os_control=self._gate.os_control(), shell_mode=shell_mode
+            max_level=Level.DETRUIRE,
+            os_control=self._gate.os_control(),
+            shell_mode=shell_mode,
+            chrome=self._gate.chrome(),
         )
         return [*specs, plan_tool_spec()]
 

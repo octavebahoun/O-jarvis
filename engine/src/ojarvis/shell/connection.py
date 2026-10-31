@@ -210,3 +210,81 @@ def stop_engine(process: subprocess.Popen[bytes] | None) -> None:
         process.wait(15)
     except subprocess.TimeoutExpired:
         process.kill()
+
+
+class EngineLink:
+    """Le moteur qu'utilise ce client (terminal, panneau de Chrome), et de quoi en retrouver
+    un s'il s'arrête : le moteur rejoint appartient peut-être à l'app ou au panneau qu'on
+    vient de fermer. On rejoint alors celui qui tourne, sinon on en lance un."""
+
+    def __init__(self, env: Mapping[str, str]) -> None:
+        self._env = env
+        self._lock = threading.Lock()
+        #: Les moteurs lancés par ce client : arrêtés à sa fermeture.
+        self.started: list[subprocess.Popen[bytes]] = []
+        self.info: EngineInfo | None = None
+
+    def open(self) -> subprocess.Popen[bytes] | None:
+        """Rejoint ou lance un moteur ; rend le processus s'il a fallu le lancer."""
+        info, process = connect(self._env)
+        if process is not None:
+            self.started.append(process)
+        self.info = info
+        return process
+
+    def rejoin(self, gone: EngineInfo) -> EngineInfo:
+        with self._lock:  # plusieurs requêtes peuvent échouer en même temps : un seul relais
+            info = self.info
+            if info is None or info == gone:
+                self.open()
+                info = self.info
+            if info is None:
+                raise EngineUnavailableError("Aucun moteur à rejoindre.")
+            return info
+
+    def client(self, *, timeout: float) -> httpx.Client:
+        info = self.info
+        if info is None:
+            raise EngineUnavailableError("Aucun moteur rejoint.")
+        return httpx.Client(
+            base_url=info.url,
+            headers={"Authorization": f"Bearer {info.token}"},
+            timeout=timeout,
+            transport=_Rejoining(self),
+        )
+
+    def close(self) -> None:
+        for process in self.started:
+            stop_engine(process)
+
+
+class _Rejoining(httpx.BaseTransport):
+    """Une connexion refusée : la requête n'est jamais arrivée. Elle repart une fois, vers le
+    moteur qui tourne maintenant."""
+
+    def __init__(self, link: EngineLink) -> None:
+        self._link = link
+        self._inner = httpx.HTTPTransport()
+
+    def handle_request(self, request: httpx.Request) -> httpx.Response:
+        try:
+            return self._inner.handle_request(request)
+        except httpx.ConnectError:
+            gone = self._link.info
+            if gone is None or request.url.port != gone.port:
+                raise
+            info = self._link.rejoin(gone)
+            headers = httpx.Headers(request.headers)
+            headers["Authorization"] = f"Bearer {info.token}"
+            headers["Host"] = f"127.0.0.1:{info.port}"
+            retry = httpx.Request(
+                request.method,
+                request.url.copy_with(port=info.port),
+                headers=headers,
+                content=request.read(),
+                extensions=request.extensions,
+            )
+            return self._inner.handle_request(retry)
+
+    def close(self) -> None:
+        self._inner.close()

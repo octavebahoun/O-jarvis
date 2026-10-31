@@ -23,14 +23,17 @@ from ojarvis.chat.turns import (
     TASKS_BY_CHANNEL,
     TRACE_TITLES,
     RelayPolicy,
+    _add_page,
     _add_to_last_user_message,
     _context_event,
     _keep_marks,
+    _meta,
     _remind_plan,
     _Round,
     _sentences,
     _Turn,
 )
+from ojarvis.chrome.page import BrowserPage
 from ojarvis.context.engine import ContextEngine
 from ojarvis.conversations.store import DEFAULT_TITLE, ConversationStore, MessageRecord
 from ojarvis.core.errors import InvalidInputError
@@ -60,7 +63,7 @@ from ojarvis.tracing.tracer import Tracer
 log = get_logger(__name__)
 
 MAX_INPUT_CHARS = 8000
-Channel = Literal["app", "voice", "telegram", "automation", "shell"]
+Channel = Literal["app", "voice", "telegram", "automation", "shell", "chrome"]
 #: En mode shell, le modèle enchaîne plus de commandes dans une réponse (lire, corriger,
 #: relancer) ; les actions, elles, attendent toujours ta validation.
 SHELL_TOOL_ROUNDS = 16
@@ -113,6 +116,7 @@ class ChatService(ChatLearning):
         shell_folder: str | None = None,
         after_plan: list[str] | None = None,
         ran: RanCommand | None = None,
+        page: BrowserPage | None = None,
     ) -> AsyncGenerator[ChatEvent]:
         """Un tour de conversation, en flux. `learn=False` : rien n'est retenu de ce tour
         (par exemple une transcription vocale douteuse).
@@ -120,6 +124,7 @@ class ChatService(ChatLearning):
         Mode shell : `shell_folder` est le dossier de la session ; `after_plan`, les plans
         validés dans le terminal, dont les résultats reviennent au modèle pour qu'il continue ;
         `ran`, une commande sudo qu'il a proposée et que l'utilisateur a lancée lui-même.
+        Chrome : `page`, l'onglet ouvert, donné au modèle comme une donnée.
         """
         if (after_plan or ran is not None) and conversation_id is None:
             raise InvalidInputError("La suite d'un plan va avec sa conversation.")
@@ -183,6 +188,7 @@ class ChatService(ChatLearning):
                 )
                 if reports:
                     _add_to_last_user_message(request, "\n\n".join(r.text for r in reports))
+                _add_page(request, turn.agent, page)
                 # Mode shell : on y écrit du code, la réflexion paie (effort « high » chez
                 # Meta : environ 2 s de plus à l'essai, pour un raisonnement six fois plus long).
                 task: TaskType = TASKS_BY_CHANNEL.get(channel, "chat")
@@ -465,15 +471,8 @@ class ChatService(ChatLearning):
             cost_usd=self._router.cost(turn.state.route, turn.usage),
             latency_ms=round((time.perf_counter() - turn.start) * 1000, 1),
             trace_id=turn.trace_id or None,
-            meta=self._meta(turn),
+            meta=_meta(turn),
         )
-
-    @staticmethod
-    def _meta(turn: _Turn) -> dict[str, Any] | None:
-        """Outils utilisés et plans proposés : l'interface les affiche sous la réponse."""
-        if not turn.agent.tools and not turn.agent.plans:
-            return None
-        return {"tools": turn.agent.tools, "plans": turn.agent.plans}
 
     # ------------------------------------------------------------------ après la réponse
 

@@ -23,17 +23,15 @@ from ojarvis.agents.orchestrator import Orchestrator
 from ojarvis.anticipation.service import AnticipationService
 from ojarvis.assembly import (
     _assemble_actions,
-    _assemble_agents,
     _assemble_anticipation,
-    _assemble_mcp,
     _assemble_memory,
-    _assemble_remote,
     _build_router,
     _memory_tools,
     _open_secrets,
     _startup_preferences,
     relay_policy,
 )
+from ojarvis.assembly_extensions import _assemble_agents, _assemble_mcp, _assemble_remote
 from ojarvis.audit.journal import AuditJournal
 from ojarvis.automations.scheduler import AutomationScheduler
 from ojarvis.automations.steps import AutomationSteps
@@ -42,6 +40,7 @@ from ojarvis.briefing.service import BriefingService
 from ojarvis.browser.proxy import GuardProxy
 from ojarvis.browser.service import BrowserAccess
 from ojarvis.chat.service import ChatService
+from ojarvis.chrome.bridge import ChromeBridge
 from ojarvis.config import EngineConfig
 from ojarvis.context.engine import ContextEngine
 from ojarvis.conversations.store import ConversationStore
@@ -137,6 +136,8 @@ class Services:
     marks: ScreenMarks
     #: L'écran partagé en direct (portail ScreenCast).
     share: ScreenShare
+    #: Les actions dans ton onglet Chrome, faites par le panneau de l'extension.
+    chrome: ChromeBridge
     briefing: BriefingService = field(init=False)
     background: set[asyncio.Task[None]] = field(default_factory=set)
 
@@ -287,6 +288,7 @@ class Services:
             machine=machine,
             marks=acts.marks,
             share=acts.share,
+            chrome=acts.chrome,
         )
         services._holder = holder
         await acts.executor.recover()

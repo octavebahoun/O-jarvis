@@ -128,6 +128,11 @@ def main(argv: list[str] | None = None) -> int:
         from ojarvis.shell.cli import main as shell_main  # noqa: PLC0415
 
         return shell_main(argv[1:])
+    if argv[:1] == ["chrome-host"]:
+        # Chrome lance l'hôte de messagerie native de l'extension (voir ojarvis.chrome.host).
+        from ojarvis.chrome.host import main as host_main  # noqa: PLC0415
+
+        return host_main(argv[1:])
     args = parse_args(argv)
     config = load_config(dev_mode=args.dev)
     config.paths.ensure()
