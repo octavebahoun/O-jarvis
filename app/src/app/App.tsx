@@ -19,18 +19,25 @@ const queryClient = new QueryClient({
 
 export function App() {
   const [showSplash, setShowSplash] = useState(true);
+  const [splashLive, setSplashLive] = useState(true);
 
   return (
     <QueryClientProvider client={queryClient}>
       <EngineProvider>
         {showSplash && (
           <SplashScreen
+            onLeave={() => {
+              setSplashLive(false);
+            }}
             onComplete={() => {
               setShowSplash(false);
             }}
           />
         )}
-        <RouterProvider router={router} />
+        {/* Pendant le splash, le clavier et les lecteurs restent hors de l'app. */}
+        <div inert={splashLive} style={{ height: "100%" }}>
+          <RouterProvider router={router} />
+        </div>
       </EngineProvider>
     </QueryClientProvider>
   );

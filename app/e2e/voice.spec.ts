@@ -26,6 +26,9 @@ async function noSeriousA11yIssues(page: Page) {
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("Moteur connecté")).toBeVisible();
+  await expect(page.getByRole("status", { name: "Chargement d'O-jarvis" })).toBeHidden({
+    timeout: 20_000,
+  });
 });
 
 test("au bouton micro, Jarvis écoute, répond à voix haute puis montre la conversation", async ({

@@ -237,7 +237,7 @@ export function AgentsScreen() {
     <div className={styles.page}>
       <PageHeader
         title="Agents"
-        description="Des assistants spécialisés à qui Jarvis, ou toi, confiez une tâche. Chacun a son objectif et ses outils ; il lit seul, et toute action attend ta validation."
+        description="Des assistants spécialisés à qui Jarvis, ou toi, confies une tâche. Chacun a son objectif et ses outils ; il lit seul, et toute action attend ta validation."
       />
       {body}
     </div>

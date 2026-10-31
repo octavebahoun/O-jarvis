@@ -5,11 +5,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useEngineStore } from "../lib/engine/store";
 import { SplashScreen } from "./SplashScreen";
 
-function renderSplash(onComplete: () => void) {
+function renderSplash(onComplete: () => void, onLeave?: () => void) {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   render(
     <QueryClientProvider client={queryClient}>
-      <SplashScreen onComplete={onComplete} />
+      <SplashScreen onComplete={onComplete} onLeave={onLeave} />
     </QueryClientProvider>,
   );
 }
@@ -46,16 +46,19 @@ describe("Écran de démarrage", () => {
 
   it("reste affiché tant que le moteur démarre, puis s'efface", () => {
     const onComplete = vi.fn();
-    renderSplash(onComplete);
+    const onLeave = vi.fn();
+    renderSplash(onComplete, onLeave);
     advance(8000);
     expect(screen.getByText("[ Démarrage du moteur ]")).toBeInTheDocument();
     expect(onComplete).not.toHaveBeenCalled();
+    expect(onLeave).not.toHaveBeenCalled();
 
     act(() => {
       useEngineStore.setState({ phase: "ready" });
     });
     advance(2000);
     expect(screen.getByText("[ Moteur prêt ]")).toBeInTheDocument();
+    expect(onLeave).toHaveBeenCalledTimes(1);
     expect(onComplete).toHaveBeenCalledTimes(1);
   });
 

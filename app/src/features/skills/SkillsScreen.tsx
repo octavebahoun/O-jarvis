@@ -247,7 +247,7 @@ export function SkillsScreen() {
     <div className={styles.page}>
       <PageHeader
         title="Skills et plugins"
-        description="Ce qui étend Jarvis : les skills qu'il s'écrit (code testé dans le bac à sable) et les serveurs MCP du registre. Rien ne s'active sans ta double confirmation."
+        description="Ce qui étend Jarvis : les skills qu'il écrit (code testé dans le bac à sable) et les serveurs MCP du registre. Rien ne s'active sans ta double confirmation."
       />
       <section className={styles.section} aria-labelledby="skills-titre">
         <h2 id="skills-titre" className={styles.sectionTitle}>
@@ -260,8 +260,8 @@ export function SkillsScreen() {
           Serveurs MCP
         </h2>
         <p className={styles.meta}>
-          Des outils publiés par d&apos;autres, trouvés dans le registre officiel. Chacun est essayé
-          isolé avant d&apos;être installé, et chaque action qu&apos;il propose attend ta
+          Des outils publiés par d&apos;autres, trouvés dans le registre officiel. Chacun est testé
+          de façon isolée avant d&apos;être installé, et chaque action qu&apos;il propose attend ta
           validation.
         </p>
         <McpSection />
