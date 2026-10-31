@@ -1,0 +1,4 @@
+#!/bin/sh
+# O-jarvis dans le terminal, dans le dossier courant (mode shell) : il rejoint le Jarvis de
+# l'app s'il tourne, sinon il lance le moteur embarqué. Installé dans /usr/bin par le .deb.
+exec /usr/lib/O-jarvis/engine/ojarvis-engine shell "$@"
