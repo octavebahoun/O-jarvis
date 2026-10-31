@@ -69,8 +69,8 @@ EXTRACTION_PROMPT = (
 )
 
 TITLE_PROMPT = (
-    "Donne un titre de trois à six mots, en français, sans guillemets ni point final, "
-    "pour la conversation suivante."
+    "Donne un titre de trois à six mots, dans la langue de la conversation, sans guillemets "
+    "ni point final, pour la conversation suivante."
 )
 
 _TITLE_TRIM = " \t\n.!?:;«»\"'“”‘’"

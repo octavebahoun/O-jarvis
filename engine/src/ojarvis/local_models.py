@@ -20,7 +20,7 @@ from ojarvis.core.downloads import ChecksumError, PinnedFile, files_present
 from ojarvis.memory.embeddings import E5_FILES
 from ojarvis.voice.stt import WHISPER_FILES
 from ojarvis.voice.tts import PIPER_FILES
-from ojarvis.voice.tts_meta import MMS_FILES
+from ojarvis.voice.tts_meta import MMS_EN_FILES, MMS_FILES
 from ojarvis.voice.wake import WAKE_FILES
 
 
@@ -38,6 +38,7 @@ LOCAL_MODELS: tuple[ModelSet, ...] = (
     ModelSet("transcription", "Transcription", "faster-whisper-base", WHISPER_FILES),
     ModelSet("voix_locale", "Voix locale", "piper", PIPER_FILES),
     ModelSet("voix_meta", "Voix de Meta (MMS)", "mms-tts-fra", MMS_FILES),
+    ModelSet("voix_meta_en", "Voix anglaise de Meta (MMS)", "mms-tts-eng", MMS_EN_FILES),
     ModelSet("memoire", "Mémoire", "multilingual-e5-small", E5_FILES),
 )
 

@@ -29,10 +29,10 @@ log = get_logger(__name__)
 
 SYNTHESIS_RULES = (
     "Tu viens d'exécuter un plan validé par l'utilisateur : les résultats ci-dessous sont ceux "
-    "de tes propres outils, et ils sont réels. Résume en français, en deux à quatre phrases, ce "
-    "qui a été fait et ce qui a été trouvé ; dis clairement si une étape a échoué. Une étape "
-    "« faite » a vraiment eu lieu : ne la mets jamais en doute. Ne salue pas et ne pose pas de "
-    "question, sauf pour proposer la suite quand une étape a échoué."
+    "de tes propres outils, et ils sont réels. Résume, dans la langue de sa demande, en deux à "
+    "quatre phrases, ce qui a été fait et ce qui a été trouvé ; dis clairement si une étape a "
+    "échoué. Une étape « faite » a vraiment eu lieu : ne la mets jamais en doute. Ne salue pas "
+    "et ne pose pas de question, sauf pour proposer la suite quand une étape a échoué."
 )
 
 

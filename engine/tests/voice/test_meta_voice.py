@@ -13,9 +13,18 @@ import pytest
 from ojarvis.settings_store import Preferences
 from ojarvis.voice.audio import OUTPUT_RATE
 from ojarvis.voice.model_sets import META_MODEL_SETS, model_sets
+from ojarvis.voice.spoken_en import english, spoken_english
 from ojarvis.voice.stt_online import MetaTranscriber
 from ojarvis.voice.tts import FallbackTTS
-from ojarvis.voice.tts_meta import MMS_FILES, MMS_PAUSE_S, MMS_RATE, EspeakTTS, MmsTTS
+from ojarvis.voice.tts_meta import (
+    MMS_EN_FILES,
+    MMS_FILES,
+    MMS_PAUSE_S,
+    MMS_RATE,
+    EspeakTTS,
+    MmsTTS,
+    MmsVoices,
+)
 from ojarvis.voice.vad import EnergyVad
 from tests.voice.fakes import FakeTTS
 from tests.voice.test_service import FakeEcho, make_service
@@ -121,10 +130,41 @@ async def test_the_meta_kit_holds_no_model_from_another_publisher(
     assert parts["wake"] is None  # le raccourci, le bouton micro ou « /voix »
     assert isinstance(parts["vad"], EnergyVad)
     assert isinstance(parts["stt"], MetaTranscriber)
-    assert isinstance(parts["tts"].primary, MmsTTS)
+    assert isinstance(parts["tts"].primary, MmsVoices)  # française et anglaise
     assert isinstance(parts["tts"].secondary, EspeakTTS)
     assert set(parts) == {"wake", "vad", "stt", "tts"}  # ni Groq, ni Cartesia, ni Whisper
-    # Seule la voix de Meta se télécharge.
+    # Seules les voix de Meta se téléchargent.
     assert model_sets("meta") is META_MODEL_SETS
-    assert [folder for folder, _files in META_MODEL_SETS.values()] == ["mms-tts-fra"]
+    assert [folder for folder, _files in META_MODEL_SETS.values()] == ["mms-tts-fra", "mms-tts-eng"]
     assert {"reveil", "transcription", "voix_locale"} == set(model_sets("auto"))
+
+
+def test_english_sentences_are_recognized_and_spelled_out() -> None:
+    assert english("The capital of Benin is Porto-Novo.")
+    assert english("You have 2 tabs open.")
+    assert not english("La capitale du Bénin est Porto-Novo.")
+    assert not english("Tu as 3 onglets ouverts.")
+    said = spoken_english("Your disk has 457 GB free, 91% used, on USB since 2026.")
+    assert said == (
+        "Your disk has four hundred fifty seven gigabytes free, ninety one percent used, "
+        "on u s b since two thousand twenty six."
+    )
+    assert spoken_english("It costs $12.5.") == "It costs twelve point five dollars."
+
+
+async def test_each_sentence_is_said_by_the_voice_of_its_language(tmp_path: Path) -> None:
+    voices = MmsVoices(tmp_path)
+    voices.french._session, voices.english._session = FakeSession(), FakeSession()
+    voices.french._vocab = voices.english._vocab = {
+        c: i + 1 for i, c in enumerate("abcdefghijklmnopqrstuvwxyz' ")
+    }
+    # La voix anglaise n'est pas encore téléchargée : la française dit tout.
+    assert voices.voice_for("The capital is Porto-Novo.") is voices.french
+    for name in MMS_EN_FILES:
+        (tmp_path / "mms-tts-eng").mkdir(exist_ok=True)
+        (tmp_path / "mms-tts-eng" / name).write_bytes(b"x")
+    assert voices.voice_for("The capital is Porto-Novo.") is voices.english
+    chunks = [c async for c in voices.stream(sentences("Hello, how are you?", "Je vais bien."))]
+    assert len(chunks) == 2
+    assert len(voices.english._session.inputs) == 2  # « Hello » et « how are you » (virgule)
+    assert len(voices.french._session.inputs) == 1

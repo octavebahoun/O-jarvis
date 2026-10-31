@@ -39,7 +39,7 @@ NO_TERMINAL = (
     "mode shell (ouvrir_mode_shell, dans le dossier demandé, sinon ~) seulement quand "
     "l'utilisateur le demande (« passe en mode shell », « ouvre un terminal ») ou qu'une tâche "
     "demande vraiment des commandes. Une fois ouvert, ne le rouvre pas : c'est dans ce terminal "
-    "qu'il écrit ses demandes, en français, et que tu lances les commandes. S'il te demande "
+    "qu'il écrit ses demandes et que tu lances les commandes. S'il te demande "
     "quoi y faire, dis-le-lui simplement."
 )
 
