@@ -111,7 +111,17 @@ class Host:
         if not PLAN_ID.fullmatch(action_id):
             self.send({"id": ident, "type": "error", "message": "Action inconnue."})
             return
-        body = {"ok": bool(message.get("ok")), "text": str(message.get("text", ""))[:20_000]}
+        body: dict[str, Any] = {
+            "ok": bool(message.get("ok")),
+            "text": str(message.get("text", ""))[:20_000],
+        }
+        # Une capture de l'onglet (secours visuel) : l'image et la taille de la page.
+        if isinstance(message.get("image"), str):
+            body |= {
+                "image": message["image"],
+                "width": int(message.get("width") or 0),
+                "height": int(message.get("height") or 0),
+            }
         response = self.http.post(f"/v1/chrome/actions/{action_id}", json=body)
         if response.status_code >= 400:
             self.send({"id": ident, "type": "error", "message": error_message(response)})

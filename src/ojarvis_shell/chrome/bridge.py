@@ -33,6 +33,10 @@ class TabAction:
 class TabResult:
     ok: bool
     text: str
+    #: Une capture de l'onglet (JPEG), et la taille de la page en pixels CSS.
+    image: bytes = b""
+    width: int = 0
+    height: int = 0
 
 
 class ChromeBridge:

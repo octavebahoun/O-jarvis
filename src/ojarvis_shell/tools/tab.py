@@ -26,7 +26,7 @@ RISKY = re.compile(
 )
 
 
-def _level(*texts: str) -> Level:
+def risk_level(*texts: str) -> Level:
     return Level.DETRUIRE if any(RISKY.search(t) for t in texts) else Level.AGIR
 
 
@@ -72,7 +72,7 @@ class TabClick(TabTool[ElementArgs]):
     kind: ClassVar[str] = "cliquer"
 
     def level_for(self, args: ElementArgs) -> Level:
-        return _level(args.cible)
+        return risk_level(args.cible)
 
     def describe(self, args: ElementArgs) -> str:
         return f"Cliquer sur « {args.cible} » dans ton onglet"
@@ -96,7 +96,7 @@ class TabFill(TabTool[FillTabArgs]):
     kind: ClassVar[str] = "remplir"
 
     def level_for(self, args: FillTabArgs) -> Level:
-        return _level(args.cible, args.valeur)
+        return risk_level(args.cible, args.valeur)
 
     def describe(self, args: FillTabArgs) -> str:
         then = " puis valider" if args.envoyer else ""

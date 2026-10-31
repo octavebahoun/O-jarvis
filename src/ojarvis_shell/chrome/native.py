@@ -9,8 +9,8 @@ from typing import Any, BinaryIO
 
 #: Chrome refuse un message de plus de 1 Mo venant de l'hôte.
 MAX_TO_CHROME = 1024 * 1024
-#: Et l'hôte, un message de Chrome plus gros que ça (une page entière y tient largement).
-MAX_FROM_CHROME = 4 * 1024 * 1024
+#: Et l'hôte, un message de Chrome plus gros que ça (une page ou une capture y tient).
+MAX_FROM_CHROME = 16 * 1024 * 1024
 
 
 class NativeMessageError(Exception):
