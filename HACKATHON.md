@@ -103,6 +103,23 @@ The full list of Meta models and of OS features is in the [README](./README.md#m
 - **`filmer_ecran`** (on request only, 30 s at most): the images of the share (started and stopped for the occasion if it was off) become an MP4 clip (ffmpeg), sent to Muse Spark with the question through Meta's Responses API (`input_video`). The working file is deleted as soon as Muse Spark has answered.
 - Tests: on a fake window filmed for 6 s, Muse Spark told in order the menu opened then closed, and the error banner shown for barely 2 s. Real test on October 31: 10 s filmed (20 images, 236 KB), explained in 18 s, nothing left on disk.
 
+### Jarvis in Chrome, done
+
+- **Side panel**: a Chrome extension opens Jarvis next to the page. On the sites the user allows (Chrome asks once per site), it reads the open tab: title, address, visible text, selection, and a numbered list of links, buttons and fields, including the ones web apps declare by role (a Discord server icon). Never cookies, passwords or what was typed in fields. Muse Spark gets the tab as framed data, never as instructions.
+- **Acting in the tab**: click, fill a field, open an address, close a tab, always through a plan. Before acting, the extension checks the element is the one in the plan; it never fills a password or a card number, and a payment, a purchase or a deletion is level 3 (double confirmation). After a plan, Jarvis reads the tab again and continues (eight times at most).
+- **"Act without asking"**, per site and off by default: plans that only act in the tab run without waiting; everything else still asks. A Stop button halts everything.
+- **Visual fallback with SAM 3.1**: for an element the page does not name (an unlabeled icon, a canvas), Jarvis finds it on a screenshot of the tab, like in desktop apps; a new screenshot checks nothing moved before the click.
+- **Always connected**: the extension stays connected in the background while Chrome runs, so the terminal, the app and the voice can list the tabs, read one and act in it. The bridge is Chrome's native messaging; the `.deb` declares it to Chrome and Chromium.
+- Real tests: Muse Spark read a test tab and ignored the order hidden in it; "add the green tea to the basket" → a plan clicking the right button, not the black tea's nor "Pay"; on Discord, "click Les IAstronautes" from the panel; from the terminal, "which tabs are open?" then "close my Discord tab".
+
+### Answers in the user's language, done
+
+- Jarvis answers in the language of the question (judges write in English), and Meta's English MMS voice (`facebook/mms-tts-eng`, run on the PC) speaks English sentences; French ones keep the French MMS voice.
+
+### One engine for the app, the terminal and Chrome, done
+
+- Whichever starts second joins the engine already running; if it stops, the others join the one running then, or start their own. The `.deb` also installs `o-jarvis-shell`, to open Jarvis in any folder.
+
 ### Hardening after a code review (October 27)
 
 A review of the night's commits found 21 problems; each was checked in the code, fixed, and covered by tests. The most serious: `bash -c 'rm -rf ~/projet' --help` was classified as a read, so it would have run without asking, and `find … | xargs cat` could send secret files to the model. Also fixed: results lost when the budget stopped a request, "always" still active after reading GitHub or `curl` output, a non-UTF-8 file losing its accents on edit, and the terminal crashing on a U+2028 character.

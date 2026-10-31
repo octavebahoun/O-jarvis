@@ -4,6 +4,24 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 
 ## Non publié
 
+## 1.2.0 — 1er novembre 2026
+
+Le travail du Meta Global AI Developer Hackathon (détail dans [`HACKATHON.md`](./HACKATHON.md)).
+
+### Ajouté
+- Profil « Tout Meta », par défaut : rien que des modèles de Meta (Muse Spark, Muse Spark Open, Muse Wonder, Muse Voice Transcribe, voix MMS, SAM 3.1), secours compris.
+- Mode shell : Jarvis dans le terminal (`o-jarvis-shell`), avec la voix (`/voix`), les plans validés, les mesures avant/après et le partage d'écran (`/partage`).
+- Voir Jarvis agir : le navigateur de Jarvis filmé dans l'app, bouton « Arrêter ».
+- Clics dans les applications du bureau : SAM 3.1 encadre, Muse Spark choisit et vérifie, le portail de GNOME clique.
+- Partage d'écran en direct et extraits filmés, regardés par Muse Spark.
+- Jarvis dans Chrome : panneau latéral, lecture de l'onglet, actions validées ou « sans demander » par site, secours visuel avec SAM 3.1, extension branchée en arrière-plan pour le terminal, l'app et la voix.
+- Jarvis répond dans la langue de la question ; voix MMS anglaise de Meta.
+- Avatar « masque cybernétique » et écran de démarrage qui attend le moteur (merci Dxne-Dev).
+
+### Corrigé
+- Un message sans mot (« ok ») ne fait plus échouer la recherche par le sens : Jarvis ne répondait plus du tout.
+- L'app, le terminal et le panneau de Chrome se partagent un seul moteur, et rejoignent celui qui tourne quand le leur s'arrête.
+
 ## 1.1.0 — 24 octobre 2026
 
 ### Ajouté
