@@ -390,3 +390,16 @@ def test_the_terminal_shows_the_measure_before_and_after() -> None:
     assert "1. (mesure avant) Lancer « df -h / » dans ~" in text
     assert "· Avant : /dev/sda2 457G 392G 43G 91% /" in text
     assert "· Après : /dev/sda2 457G 377G 58G 87% /" in text
+
+
+def test_colors_highlight_the_brand_the_reply_and_the_model() -> None:
+    engine = FakeEngine([sse(START, ROUTE, ("delta", {"text": "Salut."}), DONE)])
+    client, out = session(engine, [], style=Style(True))
+    cli._banner(client, Style(True), "~", False)
+    client.send("Bonjour.")
+    text = out.getvalue()
+    assert "◉ O-jarvis" in text
+    assert "◆ " in text
+    assert "Salut." in text
+    assert "muse-spark-1.3" in text
+    assert "\033[" in text  # codes ANSI émis dans un vrai terminal

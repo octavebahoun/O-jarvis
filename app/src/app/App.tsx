@@ -30,7 +30,10 @@ export function App() {
             }}
           />
         )}
-        <RouterProvider router={router} />
+        {/* Pendant le splash, le clavier et les lecteurs restent hors de l'app. */}
+        <div inert={showSplash} style={{ height: "100%" }}>
+          <RouterProvider router={router} />
+        </div>
       </EngineProvider>
     </QueryClientProvider>
   );

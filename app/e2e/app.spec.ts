@@ -107,6 +107,16 @@ test("la navigation se fait entièrement au clavier", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Réglages", level: 1 })).toBeVisible();
 });
 
+test("pendant le splash, le clavier ne part pas dans l'app", async ({ page }) => {
+  await page.reload();
+  await expect(page.getByRole("status", { name: "Chargement d'O-jarvis" })).toBeVisible();
+  await page.keyboard.press("Tab");
+  const focused = await page.evaluate(
+    () => document.activeElement === null || document.activeElement === document.body,
+  );
+  expect(focused).toBe(true);
+});
+
 test("la fenêtre reste utilisable à 900 px de large", async ({ page }) => {
   await page.setViewportSize({ width: 900, height: 700 });
   await expect(page.getByRole("link", { name: "Réglages" })).toBeVisible();
