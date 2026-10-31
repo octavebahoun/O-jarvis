@@ -31,7 +31,6 @@ import httpx
 from ojarvis import __version__
 from ojarvis.agent.measures import MEASURE_AFTER, MEASURE_BEFORE
 from ojarvis.config import resolve_paths
-from ojarvis.shell.commands import signatures
 from ojarvis.shell.connection import (
     EXIT_LOCKED,
     READY_PREFIX,
@@ -40,6 +39,7 @@ from ojarvis.shell.connection import (
     python_module,
     read_info,
 )
+from ojarvis.shell.signatures import signatures
 from ojarvis.tools.base import Level
 from ojarvis.tools.guards import BlockedTargetError, resolve_user_path, shown
 

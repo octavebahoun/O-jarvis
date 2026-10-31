@@ -6,7 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from ojarvis.shell.commands import classify, signatures, talks_to_network
+from ojarvis.shell.commands import classify
+from ojarvis.shell.signatures import signatures, talks_to_network
 from ojarvis.tools.base import Level
 from ojarvis.tools.guards import BlockedTargetError
 
