@@ -22,6 +22,9 @@ async function noSeriousA11yIssues(page: Page) {
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("Moteur connecté")).toBeVisible();
+  await expect(page.getByRole("status", { name: "Chargement d'O-jarvis" })).toBeHidden({
+    timeout: 20_000,
+  });
 });
 
 test("une automatisation se crée, se lance, prévient, puis se supprime", async ({ page }) => {

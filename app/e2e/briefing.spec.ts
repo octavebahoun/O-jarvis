@@ -24,6 +24,9 @@ test("le briefing du jour se joue à la première session, puis se réécoute à
 }) => {
   await page.goto("/");
   await expect(page.getByText("Moteur connecté")).toBeVisible();
+  await expect(page.getByRole("status", { name: "Chargement d'O-jarvis" })).toBeHidden({
+    timeout: 20_000,
+  });
   // La première session du jour de ce moteur (quel que soit le test qui l'a ouverte) a
   // laissé son briefing dans l'historique.
   await page.getByRole("link", { name: "Historique" }).click();

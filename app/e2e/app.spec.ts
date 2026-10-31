@@ -26,6 +26,9 @@ async function expectNoSeriousA11yIssues(page: Page) {
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("Moteur connecté")).toBeVisible();
+  await expect(page.getByRole("status", { name: "Chargement d'O-jarvis" })).toBeHidden({
+    timeout: 20_000,
+  });
 });
 
 test("l'accueil montre la sphère et l'état du moteur", async ({ page }) => {

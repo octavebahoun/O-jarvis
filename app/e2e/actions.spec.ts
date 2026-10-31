@@ -57,6 +57,9 @@ async function noSeriousA11yIssues(page: Page) {
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("Moteur connecté")).toBeVisible();
+  await expect(page.getByRole("status", { name: "Chargement d'O-jarvis" })).toBeHidden({
+    timeout: 20_000,
+  });
 });
 
 test("un plan multi-étapes avec navigateur s'exécute après validation", async ({ page }) => {
