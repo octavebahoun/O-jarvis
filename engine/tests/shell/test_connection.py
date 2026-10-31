@@ -6,7 +6,10 @@ from __future__ import annotations
 import io
 import json
 import os
+import socket
 import sys
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
 
@@ -133,3 +136,36 @@ def test_the_terminal_engine_is_complete_and_announces_itself_to_the_app(
         "pid": os.getpid(),
         "token": "jeton",
     }
+
+
+def test_a_client_rejoins_the_engine_that_runs_now(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Le 31/10 : le panneau de Chrome, fermé, arrêtait le moteur que le terminal venait de
+    rejoindre (« ConnectError »). La requête repart vers le moteur qui tourne maintenant."""
+    seen: list[str] = []
+
+    class Engine(BaseHTTPRequestHandler):
+        def do_GET(self) -> None:
+            seen.append(self.headers["Authorization"])
+            self.send_response(200)
+            self.end_headers()
+
+        def log_message(self, *args: object) -> None:
+            del args
+
+    server = ThreadingHTTPServer(("127.0.0.1", 0), Engine)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    with socket.socket() as probe:  # un port où plus rien n'écoute : le moteur arrêté
+        probe.bind(("127.0.0.1", 0))
+        gone_port = probe.getsockname()[1]
+    now = EngineInfo(server.server_address[1], os.getpid(), "n" * 43, "1.1.0")
+    answers = iter([(EngineInfo(gone_port, 1, "g" * 43, "1.1.0"), None), (now, None)])
+    monkeypatch.setattr(connection, "connect", lambda env: next(answers))
+    link = connection.EngineLink({})
+    link.open()
+    try:
+        with link.client(timeout=5.0) as http:
+            assert http.get("/v1/status").status_code == 200
+    finally:
+        server.shutdown()
+    assert seen == [f"Bearer {'n' * 43}"]  # le jeton du moteur qui tourne
+    assert link.info == now
