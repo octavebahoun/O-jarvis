@@ -18,7 +18,9 @@ from ojarvis.core.errors import NotFoundError
 from ojarvis.shell import cli
 from ojarvis.tools.base import Level, ToolContext, ToolRegistry
 from ojarvis.tools.guards import BlockedTargetError
-from ojarvis.tools.shell import OpenShell, ProposeAdmin, RunCommand, admin_level, clean_environment
+from ojarvis.tools.shell import RunCommand, clean_environment
+from ojarvis.tools.sudo import ProposeAdmin, admin_level
+from ojarvis.tools.terminal import OpenShell
 
 
 @pytest.fixture

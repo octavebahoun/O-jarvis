@@ -23,7 +23,8 @@ from ojarvis.shell.pages import PageShot, blocked_request, capture_page, local_p
 from ojarvis.shell.servers import BackgroundSessions, session_of
 from ojarvis.tools.base import Level, ToolContext
 from ojarvis.tools.guards import BlockedTargetError
-from ojarvis.tools.shell import LookAtPage, start_background
+from ojarvis.tools.page_view import LookAtPage
+from ojarvis.tools.shell import start_background
 
 CHROMIUM = list(Path.home().glob(".cache/ms-playwright/chromium-*"))
 
