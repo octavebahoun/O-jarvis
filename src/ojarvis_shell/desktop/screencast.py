@@ -249,6 +249,8 @@ class ScreenShare:
         self.seq = 0
         self.since: float | None = None
         self._last_notice = float("-inf")
+        #: Les extraits filmés en cours (#50) : chaque image du flux y est ajoutée.
+        self._recordings: list[list[bytes]] = []
 
     @property
     def active(self) -> bool:
@@ -297,6 +299,8 @@ class ScreenShare:
                 if frames:
                     self._frame = (frames[-1], self._clock())
                     self.seq += len(frames)
+                    for recording in self._recordings:
+                        recording.extend(frames)
                     if self._clock() - self._last_notice >= NOTIFY_EVERY_S:
                         self._last_notice = self._clock()
                         await self._publish("screen.frame", {"seq": self.seq})
@@ -308,6 +312,17 @@ class ScreenShare:
             await process.wait()
             if self._process is process:
                 await self._end()
+
+    async def record(self, seconds: float) -> list[bytes]:
+        """Les images du flux pendant ce temps-là (un extrait, gardé en mémoire), dans
+        l'ordre ; le partage doit tourner."""
+        recording: list[bytes] = []
+        self._recordings.append(recording)
+        try:
+            await asyncio.sleep(seconds)
+        finally:
+            self._recordings.remove(recording)
+        return recording
 
     async def stop(self) -> None:
         async with self._lock:
