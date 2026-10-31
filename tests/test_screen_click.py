@@ -28,7 +28,7 @@ from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.services import Services
 from ojarvis.tools.base import Level, ToolContext
-from ojarvis.tools.desktop import ClickArgs, ClickOnScreen, FindArgs, FindOnScreen
+from ojarvis.tools.screen import ClickArgs, ClickOnScreen, FindArgs, FindOnScreen
 
 #: Deux boutons gris sur une fenêtre blanche de 400 × 200.
 BUTTONS = (Box(0, 20, 20, 119, 59), Box(1, 250, 140, 369, 179))

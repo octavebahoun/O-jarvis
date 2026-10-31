@@ -22,8 +22,8 @@ from ojarvis.llm.types import ImagePart, LLMRequest, Message
 from ojarvis.shell.pages import PageShot, capture_page, local_page
 from ojarvis.shell.servers import BackgroundSessions
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
-from ojarvis.tools.desktop import MAX_SIDE, ScreenMode
 from ojarvis.tools.guards import shown
+from ojarvis.tools.screen import MAX_SIDE, ScreenMode
 
 PAGE_RULES = (
     "Tu regardes la capture d'une page web en développement, servie sur la machine de "

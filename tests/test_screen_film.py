@@ -17,7 +17,7 @@ from PIL import Image
 from ojarvis.core.errors import InvalidInputError, UnavailableError
 from ojarvis.desktop.film import MODEL, Filmer, answer_text
 from ojarvis.tools.base import Level, ToolContext
-from ojarvis.tools.desktop import FilmArgs, FilmScreen
+from ojarvis.tools.screen import FilmArgs, FilmScreen
 
 
 def jpeg(color: str) -> bytes:
