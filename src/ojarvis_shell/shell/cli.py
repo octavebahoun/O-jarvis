@@ -232,11 +232,14 @@ class ShellClient:
         home: Path | None = None,
         run: Runner | None = None,
         own_engine: bool = False,
+        marks_dir: Path | None = None,
     ) -> None:
         self.http = http
         self.folder = folder
         #: Moteur lancé pour ce terminal (l'app est fermée) : il n'a ni micro ni voix.
         self.own_engine = own_engine
+        #: Les captures annotées des éléments trouvés à l'écran (#48), pour un clic à valider.
+        self.marks_dir = marks_dir
         self.conversation_id: str | None = None
         #: Plans finis dont le modèle n'a pas encore lu les résultats (arrêt sur le budget) :
         #: ils partent avec ton prochain message, comme une commande que tu as lancée.
@@ -457,6 +460,7 @@ class ShellClient:
             return self._wait(plan_id)  # une lecture : partie sans attendre
         color = LEVEL_COLORS.get(level, YELLOW)
         self.line(self._style(f"┌ À valider · niveau {level} ({LEVEL_NAMES.get(level)})", color))
+        clicks = False
         for step in plan.get("steps", []):
             measure = f"(mesure {step['measure']}) " if step.get("measure") else ""
             self.line(
@@ -464,6 +468,15 @@ class ShellClient:
             )
             if step.get("preview"):
                 self._diff(str(step["preview"]), color)
+            if step.get("repere"):
+                clicks = True
+                self._capture(str(step["repere"]), color)
+        if clicks:
+            self.line(
+                self._style("│ ", color)
+                + "Après ta validation, mets la fenêtre visée devant : Jarvis clique dès qu'il "
+                "revoit l'élément (15 s au plus)."
+            )
         if isinstance(plan.get("review"), dict):
             self._review(plan["review"], color)
         if plan.get("web"):
@@ -491,6 +504,42 @@ class ShellClient:
             self.error(error_message(response))
             return None
         return self._wait(plan_id)
+
+    def _capture(self, mark: str, frame: str) -> None:
+        """Où Jarvis va cliquer : la capture annotée, à ouvrir d'un Ctrl+clic."""
+        if self.marks_dir is None or not mark.isalnum():
+            return
+        path = self.marks_dir / f"{mark}.jpg"
+        if path.is_file():
+            self.line(
+                self._style("│   ", frame)
+                + self._style(f"où Jarvis va cliquer : {path.as_uri()} (Ctrl+clic)", DIM)
+            )
+
+    def share(self) -> None:
+        """« /partage » : partager l'écran en direct avec Jarvis, ou arrêter."""
+        try:
+            state = self.http.get("/v1/desktop/share").json()
+            if state.get("active"):
+                response = self.http.post("/v1/desktop/share/stop")
+                message = "Partage de l'écran arrêté."
+            else:
+                self._spinner.start("GNOME te demande ton accord (la première fois)…")
+                try:
+                    response = self.http.post("/v1/desktop/share/start", timeout=120)
+                finally:
+                    self._spinner.stop()
+                message = (
+                    "Écran partagé en direct : Jarvis le voit sans capture à chaque fois. GNOME "
+                    "affiche son indicateur ; « /partage » pour arrêter."
+                )
+        except httpx.HTTPError as exc:
+            self.error(f"Le moteur ne répond plus ({type(exc).__name__}).")
+            return
+        if response.status_code != 200:
+            self.error(error_message(response))
+            return
+        self.line(self._style(message, DIM))
 
     def _diff(self, diff: str, frame: str) -> None:
         """Le diff d'une étape, en couleurs : + ajouté, - retiré."""
@@ -775,8 +824,8 @@ def _banner(client: ShellClient, style: Style, where: str, own_engine: bool) -> 
     client.line(style(f"Dossier {where} · {origin}{profile}", DIM))
     client.line(
         style(
-            "« /voix » : parler · « /nouveau » : nouvelle conversation · « /toujours » : ce "
-            "qui est validé d'office · « exit » : quitter",
+            "« /voix » : parler · « /partage » : écran en direct · « /nouveau » : nouvelle "
+            "conversation · « /toujours » : ce qui est validé d'office · « exit » : quitter",
             DIM,
         )
     )
@@ -827,6 +876,7 @@ def main(argv: list[str] | None = None) -> int:
             style=style,
             home=home,
             own_engine=process is not None,
+            marks_dir=resolve_paths(env).state_dir / "desktop" / "reperes",
         )
         where = shown(folder, home)
         _banner(client, style, where, client.own_engine)
@@ -862,6 +912,8 @@ def _command(client: ShellClient, style: Style, text: str) -> bool:
         heard = client.dictate()
         if heard:
             _ask(client, style, heard, spoken=True)
+    elif text == "/partage":
+        client.share()
     elif text == "/nouveau":
         client.conversation_id = None
         client.pending.clear()
