@@ -9,6 +9,6 @@
   "action": { "default_title": "Ouvrir Jarvis" },
   "side_panel": { "default_path": "sidepanel.html" },
   "background": { "service_worker": "background.js" },
-  "permissions": ["sidePanel", "nativeMessaging", "tabs", "scripting"],
+  "permissions": ["sidePanel", "nativeMessaging", "tabs", "scripting", "storage"],
   "optional_host_permissions": ["http://*/*", "https://*/*"]
 }

@@ -5,6 +5,7 @@ from __future__ import annotations
 import io
 import json
 import struct
+import threading
 from typing import Any
 
 import httpx
@@ -84,3 +85,34 @@ def test_plans_and_errors_go_back_to_the_panel() -> None:
     assert sent[1] == {"id": 2, "type": "error", "message": "Plan inconnu."}
     assert sent[2] == {"id": 3, "type": "error", "message": "Demande inconnue."}
     assert sent[3] == {"id": 4, "type": "error", "message": "Texte refusé."}
+
+
+def test_actions_go_to_the_panel_and_their_results_back_to_the_engine() -> None:
+    seen: list[tuple[str, str, Any]] = []
+    stop = threading.Event()
+    action = {"id": "a1", "kind": "cliquer", "args": {"ref": 1, "cible": "OK"}, "level": 2}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        body = json.loads(request.content) if request.content else None
+        seen.append((request.method, request.url.path, body))
+        if request.url.path == "/v1/chrome/actions/next":
+            if len(seen) > 1:
+                stop.set()  # le panneau se ferme après la première action
+                return httpx.Response(204)
+            return httpx.Response(200, json=action)
+        if request.url.path == "/v1/chat":
+            return httpx.Response(200, text='event: done\ndata: {"conversation_id": "c1"}\n\n')
+        return httpx.Response(204)
+
+    out = io.BytesIO()
+    host = Host(httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(handler)), out)
+    host.poll_actions(stop)
+    result = {"id": 2, "type": "action_result", "action_id": "a1", "ok": True, "text": "Cliqué."}
+    host.handle(result)
+    host.handle({"id": 3, "type": "chat", "text": "Continue.", "after_plan": ["p1", "../x"]})
+    host.handle({"id": 4, "type": "chat", "text": "Continue.", "after_plan": ["p1"]})
+    assert messages(out)[0] == {"type": "action", "action": action}
+    assert ("POST", "/v1/chrome/actions/a1", {"ok": True, "text": "Cliqué."}) in seen
+    chats = [body for method, path, body in seen if path == "/v1/chat"]
+    assert "after_plan" not in chats[0]  # un faux identifiant n'est pas relayé
+    assert chats[1]["after_plan"] == ["p1"]

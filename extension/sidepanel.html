@@ -11,6 +11,7 @@
     <header class="top">
       <span class="brand">◉ O-jarvis</span>
       <span id="status" class="status" data-tone="wait" role="status">Connexion à Jarvis…</span>
+      <button id="stop" class="danger" type="button" hidden>Stop</button>
       <button id="new" class="ghost" type="button" title="Nouvelle conversation">Nouvelle</button>
     </header>
     <main id="thread" class="thread" aria-live="polite"></main>
@@ -18,6 +19,10 @@
       <label class="tab">
         <input id="with-page" type="checkbox" checked />
         <span id="tab">Onglet : —</span>
+      </label>
+      <label class="tab alone-switch">
+        <input id="yolo" type="checkbox" />
+        <span>Agir sans demander sur ce site</span>
       </label>
       <div class="row">
         <textarea
