@@ -111,11 +111,18 @@ function drawParticles(
  * Il s'efface quand le moteur a répondu (prêt ou en échec) et que l'animation est finie,
  * au plus tard après MAX_WAIT_MS.
  */
-export function SplashScreen({ onComplete }: { onComplete?: () => void }) {
+export function SplashScreen({
+  onComplete,
+  onLeave,
+}: {
+  onComplete?: () => void;
+  onLeave?: () => void;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const phase = useEngineStore((s) => s.phase);
   const phaseRef = useRef(phase);
   const onCompleteRef = useRef(onComplete);
+  const onLeaveRef = useRef(onLeave);
   const [animationDone, setAnimationDone] = useState(false);
   const [capped, setCapped] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -128,6 +135,10 @@ export function SplashScreen({ onComplete }: { onComplete?: () => void }) {
   useEffect(() => {
     onCompleteRef.current = onComplete;
   }, [onComplete]);
+
+  useEffect(() => {
+    onLeaveRef.current = onLeave;
+  }, [onLeave]);
 
   // La barre avance avec le temps jusqu'à 90 %, la fin attend le moteur.
   useEffect(() => {
@@ -145,6 +156,7 @@ export function SplashScreen({ onComplete }: { onComplete?: () => void }) {
 
   useEffect(() => {
     if (!closing) return;
+    onLeaveRef.current?.();
     const timer = window.setTimeout(() => onCompleteRef.current?.(), FADE_MS);
     return () => {
       window.clearTimeout(timer);
