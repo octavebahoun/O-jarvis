@@ -13,6 +13,7 @@ from typing import Any
 from ojarvis.agent.loop import AgentTurn
 from ojarvis.agent.reports import PlanReport
 from ojarvis.agent.rules import PLAN_MISSING
+from ojarvis.chrome.page import BrowserPage
 from ojarvis.context.engine import BuiltContext
 from ojarvis.conversations.store import MessageRecord
 from ojarvis.llm.policy import Relay, Route
@@ -89,7 +90,7 @@ class _Turn:
     relay: Relay | None = None
 
 
-TRACE_TITLES = {"voice": "Tour vocal", "shell": "Tour du mode shell"}
+TRACE_TITLES = {"voice": "Tour vocal", "shell": "Tour du mode shell", "chrome": "Tour dans Chrome"}
 
 #: Le relais réglé : (modèle de relais, échecs de la même commande avant de l'appeler), ou
 #: None quand il est coupé ou hors du profil « Tout Meta ».
@@ -134,3 +135,17 @@ def _context_event(context: BuiltContext) -> dict[str, Any]:
             if i.kind != "systeme"
         ],
     }
+
+
+def _add_page(request: LLMRequest, turn: AgentTurn, page: BrowserPage | None) -> None:
+    """Chrome : l'onglet ouvert rejoint la demande, comme une donnée lue à l'extérieur."""
+    if page is not None:
+        _add_to_last_user_message(request, page.block())
+        page.mark(turn)
+
+
+def _meta(turn: _Turn) -> dict[str, Any] | None:
+    """Outils utilisés et plans proposés : l'interface les affiche sous la réponse."""
+    if not turn.agent.tools and not turn.agent.plans:
+        return None
+    return {"tools": turn.agent.tools, "plans": turn.agent.plans}

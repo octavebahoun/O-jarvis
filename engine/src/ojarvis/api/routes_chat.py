@@ -10,11 +10,12 @@ from typing import Annotated, Any, Literal
 
 from fastapi import APIRouter, Query, Response
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from ojarvis.agent.reports import RanCommand
 from ojarvis.api.deps import ServicesDep
 from ojarvis.chat.service import ChatEvent
+from ojarvis.chrome.page import BrowserPage
 from ojarvis.conversations.store import ConversationRecord, MessageRecord
 from ojarvis.core.errors import EngineError, NotFoundError
 from ojarvis.llm.providers.registry import OllamaProvider
@@ -37,12 +38,23 @@ class RanIn(BaseModel):
     output: str = Field(default="", max_length=20_000)
 
 
+class PageIn(BaseModel):
+    """Chrome : l'onglet ouvert, lu par l'extension (jamais ses cookies ni ses champs)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    url: str = Field(min_length=1, max_length=2000, pattern=r"^https?://")
+    title: str = Field(default="", max_length=500)
+    text: str = Field(default="", max_length=100_000)
+    selection: str = Field(default="", max_length=8000)
+
+
 class ChatIn(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     text: str = Field(min_length=1, max_length=8000)
     conversation_id: str | None = Field(default=None, max_length=32)
-    channel: Literal["app", "voice", "shell"] = "app"
+    channel: Literal["app", "voice", "shell", "chrome"] = "app"
     #: Mode shell : le dossier de la session (~/… ou chemin absolu dans ton dossier).
     folder: str | None = Field(default=None, max_length=1000)
     #: Mode shell : les plans validés dans le terminal ; leurs résultats reviennent au modèle.
@@ -54,10 +66,19 @@ class ChatIn(BaseModel):
     #: Mode shell : une commande sudo que l'utilisateur a lancée lui-même ; sa sortie revient.
     ran: RanIn | None = None
 
+    #: Chrome : l'onglet ouvert à côté du panneau ; il va avec ce canal, et seulement lui.
+    page: PageIn | None = None
+
     @field_validator("after_plan", mode="before")
     @classmethod
     def _one_or_more(cls, value: Any) -> Any:
         return [value] if isinstance(value, str) else value
+
+    @model_validator(mode="after")
+    def _page_in_chrome(self) -> ChatIn:
+        if self.page is not None and self.channel != "chrome":
+            raise ValueError("L'onglet va avec le panneau de Chrome, et seulement lui.")
+        return self
 
 
 #: Fins de ligne pour httpx (qui coupe comme `str.splitlines`), permises telles quelles dans
@@ -89,6 +110,7 @@ async def chat(body: ChatIn, services: ServicesDep) -> StreamingResponse:
         shell_folder=folder,
         after_plan=body.after_plan,
         ran=RanCommand(body.ran.command, body.ran.code, body.ran.output) if body.ran else None,
+        page=BrowserPage(**body.page.model_dump()) if body.page else None,
     )
     # Les erreurs de validation (conversation inconnue, texte vide) arrivent avant le flux.
     first = await anext(stream)
