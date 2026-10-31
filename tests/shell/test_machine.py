@@ -5,7 +5,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 from pathlib import Path
 
-import pytest
 from fastapi.testclient import TestClient
 
 from ojarvis.llm.providers.fake import FakeProvider
@@ -14,15 +13,6 @@ from ojarvis.shell.machine import MachineMap, collect
 from tests.conftest import fake_machine
 from tests.shell.test_shell_chat import shell_chat, shell_script
 from tests.test_chat import read_sse
-
-
-@pytest.fixture
-def project(services: Services) -> Path:
-    assert services.config.user_home is not None
-    folder = services.config.user_home / "projet"
-    folder.mkdir(parents=True)
-    return folder
-
 
 OUTPUTS = {
     "docker": "Docker version 28.1.1, build 4eba377",

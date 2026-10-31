@@ -3,99 +3,19 @@
 from __future__ import annotations
 
 import io
-import json
-import os
-import sys
-from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
 import httpx
 import pytest
 
-from ojarvis.__main__ import announce_running
-from ojarvis.__main__ import main as engine_main
 from ojarvis.agent.measures import MEASURE_AFTER, MEASURE_BEFORE
 from ojarvis.api.routes_chat import sse as engine_sse
 from ojarvis.chat.service import ChatEvent
-from ojarvis.config import resolve_paths
-from ojarvis.shell import cli, connection
+from ojarvis.shell import cli
 from ojarvis.shell.cli import ShellClient
-from ojarvis.shell.connection import (
-    EngineInfo,
-    info_path,
-    python_module,
-    read_info,
-    remove_info,
-    write_info,
-)
 from ojarvis.shell.display import Style, preview, sse_events
-
-
-def sse(*events: tuple[str, dict[str, Any]]) -> str:
-    return "".join(f"event: {kind}\ndata: {json.dumps(data)}\n\n" for kind, data in events)
-
-
-START = ("start", {"conversation_id": "c1", "user_message_id": 1, "assistant_message_id": 2})
-ROUTE = ("route", {"provider": "meta", "model": "muse-spark-1.3", "fallback_from": None})
-DONE: tuple[str, dict[str, Any]] = ("done", {})
-
-
-def plan(level: int, status: str = "proposed") -> dict[str, Any]:
-    return {
-        "id": "p1",
-        "title": "Nettoyer",
-        "status": status,
-        "max_level": level,
-        "tainted": False,
-        "steps": [{"position": 1, "description": "Lancer « docker image prune -f »", "level": 3}],
-    }
-
-
-class FakeEngine:
-    """Rejoue des tours de chat et suit un plan ; garde chaque requête reçue."""
-
-    def __init__(self, turns: list[str]) -> None:
-        self.turns: Iterator[str] = iter(turns)
-        self.requests: list[tuple[str, str, dict[str, Any]]] = []
-        self.plan_polls = 0
-
-    def __call__(self, request: httpx.Request) -> httpx.Response:
-        body = json.loads(request.content) if request.content else {}
-        self.requests.append((request.method, request.url.path, body))
-        if request.url.path == "/v1/chat":
-            return httpx.Response(200, text=next(self.turns))
-        if request.url.path.endswith(("/approve", "/refuse")):
-            return httpx.Response(200, json={})
-        if request.url.path == "/v1/plans/p1":
-            self.plan_polls += 1
-            status = "running" if self.plan_polls == 1 else "done"
-            step = {
-                "position": 1,
-                "tool": "executer_commande",
-                "description": "Lancer « docker image prune -f »",
-                "status": "running" if status == "running" else "done",
-                "result": "$ docker image prune -f\ndossier : ~\ncode de sortie 0 (1 s)\n"
-                "--- sortie ---\nTotal reclaimed space: 25.4GB",
-                "error": None,
-            }
-            return httpx.Response(200, json={"status": status, "steps": [step]})
-        return httpx.Response(404, json={"error": {"message": "inconnu"}})
-
-
-def session(engine: FakeEngine, answers: list[str]) -> tuple[ShellClient, io.StringIO]:
-    out = io.StringIO()
-    replies = iter(answers)
-    http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(engine))
-    client = ShellClient(
-        http, "/home/test/projet", out=out, ask=lambda _q: next(replies), style=Style(False)
-    )
-    client._poll_s = 0.0
-    return client, out
-
-
-def chats(engine: FakeEngine) -> list[dict[str, Any]]:
-    return [body for method, path, body in engine.requests if path == "/v1/chat"]
+from tests.shell.fake_engine import DONE, ROUTE, START, FakeEngine, chats, plan, session, sse
 
 
 def test_a_read_shows_the_model_the_command_and_its_output() -> None:
@@ -214,68 +134,6 @@ def test_sse_and_preview_helpers() -> None:
     # Un échec garde son code : c'est l'information utile.
     failed = "$ make\ndossier : ~\ncode de sortie 2 (1 s)\n--- erreurs ---\nmake: *** Erreur 1"
     assert preview(failed) == "code de sortie 2 (1 s)\n--- erreurs ---\nmake: *** Erreur 1"
-
-
-# --------------------------------------------------------------------------- la connexion
-
-
-@pytest.fixture
-def runtime(tmp_path: Path) -> dict[str, str]:
-    return {"OJARVIS_HOME": str(tmp_path / "donnees"), "XDG_RUNTIME_DIR": str(tmp_path / "run")}
-
-
-def test_the_connection_is_read_only_when_private_and_alive(runtime: dict[str, str]) -> None:
-    path = info_path(resolve_paths(runtime), runtime)
-    assert path is not None
-    info = EngineInfo(port=4242, pid=os.getpid(), token="j" * 43, version="1.1.0")
-    write_info(path, info)
-    assert read_info(path) == info
-    path.chmod(0o644)  # lisible par d'autres : on n'y touche pas
-    assert read_info(path) is None
-    path.chmod(0o600)
-    write_info(path, EngineInfo(4242, 999_999_999, "j" * 43, "1.1.0"))  # processus disparu
-    assert read_info(path) is None
-
-
-def test_the_connection_is_removed_only_by_its_engine(runtime: dict[str, str]) -> None:
-    path = info_path(resolve_paths(runtime), runtime)
-    assert path is not None
-    write_info(path, EngineInfo(4242, os.getpid(), "j" * 43, "1.1.0"))
-    remove_info(path, pid=1)  # un autre moteur : il ne l'efface pas
-    assert path.exists()
-    remove_info(path, pid=os.getpid())
-    assert not path.exists()
-
-
-def test_two_data_folders_never_share_a_connection(tmp_path: Path) -> None:
-    first = {"OJARVIS_HOME": str(tmp_path / "a"), "XDG_RUNTIME_DIR": str(tmp_path / "run")}
-    second = {**first, "OJARVIS_HOME": str(tmp_path / "b")}
-    assert info_path(resolve_paths(first), first) != info_path(resolve_paths(second), second)
-    assert info_path(resolve_paths(first), {}) is None  # sans dossier d'exécution
-
-
-def test_connect_joins_the_app_engine_or_starts_its_own(
-    runtime: dict[str, str], monkeypatch: pytest.MonkeyPatch
-) -> None:
-    started: list[bool] = []
-    own = EngineInfo(5000, 1, "k" * 43, "1.1.0")
-
-    def fake_start(env: object) -> tuple[EngineInfo, None]:
-        del env
-        started.append(True)
-        return own, None
-
-    monkeypatch.setattr(connection, "start_engine", fake_start)
-    monkeypatch.setattr(connection, "reachable", lambda info: True)
-    assert connection.connect(runtime) == (own, None)  # rien de publié : il lance le sien
-    assert started == [True]
-
-    path = info_path(resolve_paths(runtime), runtime)
-    assert path is not None
-    app = EngineInfo(4242, os.getpid(), "j" * 43, "1.1.0")
-    write_info(path, app)
-    assert connection.connect(runtime) == (app, None)  # le moteur de l'app
-    assert started == [True]
 
 
 def test_a_code_plan_shows_its_diff_and_the_review() -> None:
@@ -434,26 +292,6 @@ def test_an_event_never_splits_on_unicode_line_breaks() -> None:
     assert list(sse_events(text.splitlines())) == [("delta", {"text": "a\u2028b\u2029c\x85d"})]
 
 
-def test_the_packaged_engine_opens_the_terminal_with_a_subcommand(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    # Revue du 27/10/2026 : le moteur empaqueté (PyInstaller) refusait « -m ».
-    monkeypatch.setattr("sys.frozen", True, raising=False)
-    assert python_module("ojarvis.shell.cli", frozen_as="shell")[1:] == ["shell"]
-    assert python_module("ojarvis")[1:] == []
-    monkeypatch.setattr("sys.frozen", False)
-    assert python_module("ojarvis")[1:] == ["-m", "ojarvis"]
-    seen: list[list[str]] = []
-
-    def fake_main(argv: list[str]) -> int:
-        seen.append(argv)
-        return 0
-
-    monkeypatch.setattr(cli, "main", fake_main)
-    assert engine_main(["shell", "--dossier", "~/projet"]) == 0
-    assert seen == [["--dossier", "~/projet"]]
-
-
 SUDO = {"command": "sudo apt install -y ncdu", "level": 2, "why": "Pour mesurer le disque."}
 
 
@@ -552,131 +390,3 @@ def test_the_terminal_shows_the_measure_before_and_after() -> None:
     assert "1. (mesure avant) Lancer « df -h / » dans ~" in text
     assert "· Avant : /dev/sda2 457G 392G 43G 91% /" in text
     assert "· Après : /dev/sda2 457G 377G 58G 87% /" in text
-
-
-class VoiceEngine(FakeEngine):
-    """Le moteur, avec la voix : une phrase entendue, une réponse dite."""
-
-    def __call__(self, request: httpx.Request) -> httpx.Response:
-        if request.url.path not in ("/v1/voice/dictate", "/v1/voice/say"):
-            return super().__call__(request)
-        body = json.loads(request.content) if request.content else {}
-        self.requests.append((request.method, request.url.path, body))
-        if request.url.path == "/v1/voice/dictate":
-            return httpx.Response(200, json={"text": "Liste les fichiers du dossier."})
-        return httpx.Response(200, json={"spoken": True})
-
-
-def test_a_voice_turned_off_is_said_in_the_terminal() -> None:
-    def no_voice(request: httpx.Request) -> httpx.Response:
-        assert request.url.path == "/v1/voice/dictate"
-        message = "La voix est éteinte : allume-la dans Réglages (Voix)."
-        return httpx.Response(409, json={"error": {"message": message}})
-
-    client, out = session(FakeEngine([]), [])
-    client.http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(no_voice))
-    assert client.dictate() is None
-    assert "La voix est éteinte : allume-la dans Réglages (Voix)." in out.getvalue()
-
-
-def test_the_terminal_engine_is_complete_and_announces_itself_to_the_app(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    """Le moteur lancé par le terminal a la voix et le préchauffage, comme celui de l'app ;
-    un second moteur sur les mêmes données donne sa connexion au lieu d'échouer."""
-    started: dict[str, Any] = {}
-
-    class Popen:
-        def __init__(self, _args: list[str], **kwargs: Any) -> None:
-            started.update(kwargs)
-            raise OSError("pas de vrai moteur dans les tests")
-
-    monkeypatch.setattr("ojarvis.shell.connection.subprocess.Popen", Popen)
-    with pytest.raises(OSError, match="pas de vrai moteur"):
-        connection.start_engine({"HOME": str(tmp_path)})
-    assert "OJARVIS_SKIP_WARMUP" not in started["env"]
-    published = tmp_path / "moteur.json"
-    write_info(published, EngineInfo(4242, os.getpid(), "jeton", "1.1.0"))
-    printed = io.StringIO()
-    monkeypatch.setattr(sys, "stdout", printed)
-    announce_running(published)
-    line = printed.getvalue()
-    assert line.startswith("OJARVIS_RUNNING ")
-    assert json.loads(line.removeprefix("OJARVIS_RUNNING ")) == {
-        "port": 4242,
-        "pid": os.getpid(),
-        "token": "jeton",
-    }
-
-
-def test_a_spoken_request_is_shown_then_handled_like_a_written_one() -> None:
-    reply = ("delta", {"text": "Il y a `a.txt` et **b.txt**."})
-    engine = VoiceEngine([sse(START, reply, DONE)])
-    client, out = session(engine, [])
-    heard = client.dictate()
-    assert heard == "Liste les fichiers du dossier."
-    client.send(heard, spoken=True)
-    assert chats(engine)[0]["text"] == "Liste les fichiers du dossier."  # comme écrite
-    said = [body for _method, path, body in engine.requests if path == "/v1/voice/say"]
-    assert said == [{"text": "Il y a a.txt et b.txt."}]  # sans les marques du terminal
-    assert "Tu as dit : « Liste les fichiers du dossier. »" in out.getvalue()
-
-
-def test_a_click_plan_shows_where_jarvis_will_click(tmp_path: Path) -> None:
-    """#48 au terminal : la capture annotée, et la fenêtre à remettre devant."""
-    (tmp_path / "rab12cd.jpg").write_bytes(b"\xff\xd8capture")
-    click = plan(2)
-    click["steps"] = [
-        {
-            "position": 1,
-            "description": "Cliquer sur le bouton Exporter en PDF (repère rab12cd)",
-            "level": 2,
-            "tool": "cliquer_ecran",
-            "repere": "rab12cd",
-        }
-    ]
-    engine = FakeEngine([sse(START, ("plan", click), DONE)])
-    client, out = session(engine, ["n"])
-    client.marks_dir = tmp_path
-    client.send("Clique sur Exporter en PDF.")
-    shown = out.getvalue()
-    assert f"où Jarvis va cliquer : {(tmp_path / 'rab12cd.jpg').as_uri()}" in shown
-    assert "mets la fenêtre visée devant" in shown
-
-
-class ShareEngine(FakeEngine):
-    """Le moteur, avec le partage d'écran : démarré puis arrêté."""
-
-    def __init__(self, *, pc_control: bool = True) -> None:
-        super().__init__([])
-        self.active = False
-        self.pc_control = pc_control
-
-    def __call__(self, request: httpx.Request) -> httpx.Response:
-        path = request.url.path
-        if not path.startswith("/v1/desktop/share"):
-            return super().__call__(request)
-        self.requests.append((request.method, path, {}))
-        if path.endswith("/start"):
-            if not self.pc_control:
-                message = "Le partage d'écran sert au Contrôle du PC : active-le d'abord."
-                return httpx.Response(409, json={"error": {"message": message}})
-            self.active = True
-        elif path.endswith("/stop"):
-            self.active = False
-        return httpx.Response(200, json={"active": self.active, "frames": 0, "since": None})
-
-
-def test_the_screen_is_shared_and_unshared_from_the_terminal() -> None:
-    engine = ShareEngine()
-    client, out = session(engine, [])
-    assert cli._command(client, Style(False), "/partage")
-    assert "Écran partagé en direct" in out.getvalue()
-    cli._command(client, Style(False), "/partage")
-    assert "Partage de l'écran arrêté." in out.getvalue()
-    starts = [path for _m, path, _b in engine.requests if path.endswith(("/start", "/stop"))]
-    assert starts == ["/v1/desktop/share/start", "/v1/desktop/share/stop"]
-    refused = ShareEngine(pc_control=False)
-    client, out = session(refused, [])
-    cli._command(client, Style(False), "/partage")
-    assert "active-le d'abord" in out.getvalue()
