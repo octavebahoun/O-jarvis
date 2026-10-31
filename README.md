@@ -8,7 +8,7 @@ A personal desktop assistant for Ubuntu that doesn't just talk: it acts on your 
 
 O-jarvis is a Tauri v2 desktop app (Rust shell, React + TypeScript interface) with a Python engine (FastAPI) that runs on `127.0.0.1` only, protected by a token drawn at every launch. Data stays in a local SQLite database, and API keys live in the system keyring.
 
-> **Language.** The interface, the voice and Jarvis's answers are in French: Jarvis was built for a French speaker. It understands requests written in English.
+> **Language.** Jarvis answers in the language you use: ask in English, it answers in English. The interface is in French, and so is its voice (MMS French).
 
 ## Meta Global AI Developer Hackathon
 

@@ -140,7 +140,7 @@ class OpenShell(Tool[OpenShellArgs]):
             since = round(now - opened)
             return ToolOutput(
                 f"Le terminal est déjà ouvert dans {where} (depuis {since} s) : ne le rouvre "
-                "pas. L'utilisateur y écrit ses demandes, en français, et tu y lances les "
+                "pas. L'utilisateur y écrit ses demandes, et tu y lances les "
                 "commandes. S'il dit l'avoir fermé, rouvre-le avec rouvrir=true.",
                 {"dossier": str(folder), "deja_ouvert": True},
             )

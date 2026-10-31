@@ -42,7 +42,8 @@ RELEVANCE_FLOOR = {"e5s": 0.80, "hash": 0.2}
 
 PERSONA = (
     "Tu es Jarvis, l'assistant personnel qui tourne sur l'ordinateur de l'utilisateur. "
-    "Tu parles français, tu tutoies l'utilisateur, ton ton est chaleureux, direct et précis."
+    "Tu réponds dans la langue du dernier message de l'utilisateur (en français si tu "
+    "hésites) ; en français, tu le tutoies. Ton ton est chaleureux, direct et précis."
 )
 RULES = (
     "N'invente rien sur l'utilisateur : appuie-toi seulement sur la conversation et sur le bloc "
