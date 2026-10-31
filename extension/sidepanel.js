@@ -48,10 +48,15 @@ const jarvis = new Jarvis({
     ),
   onAction: async (action) => {
     const tabId = workTab;
-    addNote(`… ${action.kind === "ouvrir" ? action.args.url : (action.args.cible ?? "")}`);
+    const target = action.kind === "ouvrir" ? action.args.url : (action.args.cible ?? "l'onglet");
+    addNote(`… ${target}`);
     const result = run.stopped
       ? { ok: false, text: "Arrêté par l'utilisateur." }
       : await perform(tabId, action);
+    if (action.kind === "fermer" && result.ok) {
+      workTab = null; // plus d'onglet où agir : la prochaine demande lira celui que tu regardes
+      workOrigin = null;
+    }
     await jarvis
       .ask({ type: "action_result", action_id: action.id, ok: result.ok, text: result.text })
       .catch(() => undefined);

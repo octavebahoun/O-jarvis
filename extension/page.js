@@ -24,12 +24,33 @@ function readPage() {
   for (const old of document.querySelectorAll("[data-ojarvis-ref]")) {
     old.removeAttribute("data-ojarvis-ref");
   }
-  const selector =
-    'a[href], button, input:not([type="hidden"]):not([type="password"]), textarea, select, ' +
-    '[role="button"], [role="link"], [role="checkbox"], [contenteditable="true"]';
+  // Les applications web (Discord, Gmail…) déclarent leurs éléments cliquables par un rôle :
+  // élément d'arbre, onglet, entrée de menu, option.
+  const roles = [
+    "button",
+    "link",
+    "checkbox",
+    "radio",
+    "switch",
+    "tab",
+    "treeitem",
+    "menuitem",
+    "menuitemcheckbox",
+    "menuitemradio",
+    "option",
+  ];
+  const selector = [
+    "a[href]",
+    "button",
+    'input:not([type="hidden"]):not([type="password"])',
+    "textarea",
+    "select",
+    '[contenteditable="true"]',
+    ...roles.map((role) => `[role="${role}"]`),
+  ].join(", ");
   const elements = [];
   for (const node of document.querySelectorAll(selector)) {
-    if (elements.length >= 250) break;
+    if (elements.length >= 300) break;
     const box = node.getBoundingClientRect();
     const style = getComputedStyle(node);
     if ((!box.width && !box.height) || style.visibility === "hidden") continue;
@@ -39,8 +60,12 @@ function readPage() {
     let kind = "bouton";
     if (tag === "a" || role === "link") kind = "lien";
     else if (tag === "select") kind = "liste";
-    else if (["checkbox", "radio"].includes(type) || role === "checkbox") kind = "case";
     else if (
+      ["checkbox", "radio"].includes(type) ||
+      ["checkbox", "radio", "switch"].includes(role)
+    ) {
+      kind = "case";
+    } else if (
       tag === "textarea" ||
       node.isContentEditable ||
       (tag === "input" && !["submit", "button", "reset", "image"].includes(type))
