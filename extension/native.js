@@ -3,13 +3,13 @@
 const HOST = "io.github.octavebahoun.ojarvis";
 
 export class Jarvis {
-  constructor({ onReady, onFatal, onClosed, onAction }) {
+  constructor({ onReady, onFatal, onClosed }) {
     this.next = 1;
     this.pending = new Map();
     this.port = chrome.runtime.connectNative(HOST);
+    this.port.postMessage({ type: "hello", role: "panel" });
     this.port.onMessage.addListener((message) => {
       if (message.type === "ready") onReady(message);
-      else if (message.type === "action") onAction(message.action);
       else if (message.id === undefined && message.type === "error") onFatal(message.message);
       else this.#receive(message);
     });

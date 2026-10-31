@@ -35,6 +35,8 @@ class ResultIn(BaseModel):
     image: str = Field(default="", max_length=12_000_000)
     width: int = Field(default=0, ge=0, le=20_000)
     height: int = Field(default=0, ge=0, le=20_000)
+    #: Ce que rend une lecture : la liste des onglets, ou la page lue.
+    data: dict[str, Any] = Field(default_factory=dict)
 
 
 @router.post("/actions/{action_id}", status_code=204)
@@ -43,7 +45,7 @@ async def action_result(action_id: str, body: ResultIn, services: ServicesDep) -
         image = base64.b64decode(body.image, validate=True)
     except ValueError as error:
         raise InvalidInputError("Capture illisible.") from error
-    result = TabResult(body.ok, body.text, image, body.width, body.height)
+    result = TabResult(body.ok, body.text, image, body.width, body.height, body.data)
     if not services.chrome.resolve(action_id, result):
         raise NotFoundError("Cette action n'attend plus de résultat.")
     return Response(status_code=204)

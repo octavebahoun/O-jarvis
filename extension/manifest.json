@@ -8,7 +8,7 @@
   "icons": { "32": "icons/32.png", "128": "icons/128.png" },
   "action": { "default_title": "Ouvrir Jarvis" },
   "side_panel": { "default_path": "sidepanel.html" },
-  "background": { "service_worker": "background.js" },
+  "background": { "service_worker": "background.js", "type": "module" },
   "permissions": ["sidePanel", "nativeMessaging", "tabs", "scripting", "storage", "activeTab"],
   "optional_host_permissions": ["http://*/*", "https://*/*"]
 }

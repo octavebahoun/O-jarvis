@@ -15,7 +15,7 @@ from typing import Any
 
 from ojarvis.core.errors import UnavailableError
 
-#: Un panneau qui n'est pas repassé chercher d'actions depuis ce temps est considéré fermé.
+#: Une extension qui n'est pas repassée chercher d'actions depuis ce temps est débranchée.
 PANEL_GONE_S = 45.0
 #: Temps laissé au panneau pour faire une action (un clic peut charger une page).
 ACTION_TIMEOUT_S = 60.0
@@ -37,6 +37,8 @@ class TabResult:
     image: bytes = b""
     width: int = 0
     height: int = 0
+    #: Ce que rend une lecture : la liste des onglets, ou la page lue.
+    data: dict[str, Any] = field(default_factory=dict)
 
 
 class ChromeBridge:
@@ -47,15 +49,16 @@ class ChromeBridge:
         self._pollers = 0
         self._seen = float("-inf")
 
-    def panel_open(self) -> bool:
+    def connected(self) -> bool:
+        """L'extension (son fond, ou un panneau) passe-t-elle chercher des actions ?"""
         return self._pollers > 0 or self._clock() - self._seen < PANEL_GONE_S
 
     async def run(self, action: TabAction, *, timeout_s: float = ACTION_TIMEOUT_S) -> TabResult:
         """Fait faire l'action par le panneau et attend son résultat."""
-        if not self.panel_open():
+        if not self.connected():
             raise UnavailableError(
-                "Le panneau de Jarvis est fermé dans Chrome : ouvre-le pour que j'agisse "
-                "dans ton onglet."
+                "L'extension Chrome d'O-jarvis n'est pas branchée : ouvre Chrome pour que "
+                "j'agisse dans tes onglets."
             )
         future: asyncio.Future[TabResult] = asyncio.get_running_loop().create_future()
         self._waiting[action.id] = future

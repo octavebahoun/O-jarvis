@@ -18,7 +18,7 @@ from ojarvis.core.errors import NotFoundError
 from ojarvis.desktop.images import unchanged
 from ojarvis.desktop.locate import Kind, Locator
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
-from ojarvis.tools.tab import TabActionError, risk_level
+from ojarvis.tools.tab import TabActionError, TabArgs, risk_level
 
 
 class TabSight:
@@ -30,14 +30,14 @@ class TabSight:
         self.locator = locator
         self.sizes: dict[str, tuple[int, int]] = {}
 
-    async def capture(self) -> tuple[bytes, int, int]:
-        result = await self.bridge.run(TabAction("capturer", {}, int(Level.LIRE)))
+    async def capture(self, tab: int) -> tuple[bytes, int, int]:
+        result = await self.bridge.run(TabAction("capturer", {"onglet": tab}, int(Level.LIRE)))
         if not result.ok or not result.image:
             raise TabActionError(result.text or "Capture de l'onglet impossible.")
         return result.image, result.width, result.height
 
 
-class FindTabArgs(ToolArgs):
+class FindTabArgs(TabArgs):
     element: str = Field(
         min_length=2,
         max_length=200,
@@ -58,7 +58,7 @@ class TabFind(Tool[FindTabArgs]):
     )
     Args: ClassVar[type[ToolArgs]] = FindTabArgs
     level: ClassVar[Level] = Level.LIRE
-    chrome_only: ClassVar[bool] = True
+    chrome_tab: ClassVar[bool] = True
 
     def __init__(self, sight: TabSight) -> None:
         self._sight = sight
@@ -68,7 +68,7 @@ class TabFind(Tool[FindTabArgs]):
 
     async def run(self, args: FindTabArgs, ctx: ToolContext) -> ToolOutput:
         del ctx
-        image, width, height = await self._sight.capture()
+        image, width, height = await self._sight.capture(args.onglet)
         mark = await self._sight.locator.find_in(image, args.element, args.sorte)
         self._sight.sizes[mark.id] = (width, height)
         return ToolOutput(
@@ -80,7 +80,7 @@ class TabFind(Tool[FindTabArgs]):
         )
 
 
-class MarkArgs(ToolArgs):
+class MarkArgs(TabArgs):
     repere: str = Field(
         pattern=r"^r[0-9a-f]{6}$", description="Le repère rendu par onglet_reperer."
     )
@@ -95,7 +95,7 @@ class TabClickMark(Tool[MarkArgs]):
     )
     Args: ClassVar[type[ToolArgs]] = MarkArgs
     level: ClassVar[Level] = Level.AGIR
-    chrome_only: ClassVar[bool] = True
+    chrome_tab: ClassVar[bool] = True
 
     def __init__(self, sight: TabSight) -> None:
         self._sight = sight
@@ -118,7 +118,7 @@ class TabClickMark(Tool[MarkArgs]):
         size = self._sight.sizes.get(mark.id)
         if size is None:
             raise NotFoundError("Ce repère ne vient pas de l'onglet : repère l'élément à nouveau.")
-        image, _, _ = await self._sight.capture()
+        image, _, _ = await self._sight.capture(args.onglet)
         if not await asyncio.to_thread(unchanged, mark, image):
             raise TabActionError(
                 f"L'onglet a changé depuis le repérage de « {mark.target} » : rien n'a été "
@@ -129,6 +129,7 @@ class TabClickMark(Tool[MarkArgs]):
             "x": round(cx * size[0] / mark.width),
             "y": round(cy * size[1] / mark.height),
             "cible": mark.target,
+            "onglet": args.onglet,
         }
         level = int(self.level_for(args))
         result = await self._sight.bridge.run(TabAction("cliquer_point", point, level))
