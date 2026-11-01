@@ -4,6 +4,16 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 
 ## Non publié
 
+## 1.2.1 — 1er novembre 2026
+
+### Modifié
+- Nouveau design du mode shell : un accueil (dossier et branche git, modèles Meta, commandes), l'invite « dossier branche ❯ », « ◆ Jarvis » et son modèle en tête de chaque demande, la réponse en retrait coupée aux mots (gras, code et blocs de code rendus), les plans en cartes avec un badge de niveau, la durée et le coût de chaque demande.
+
+### Sécurité
+- Le classement des commandes du mode shell ne prend plus pour des lectures des écritures ou du code lancé : `find -exec`, `ip netns exec`, `sort -o`, `uniq` ou `xxd` vers un fichier, les lanceurs (`setsid`, `flock`, `taskset`, `watch`, `script`…), les programmes du dossier courant, `git switch -f`, `git rm`, `git branch -D` ; une recherche récursive trop profonde pour être vérifiée demande ta validation.
+- « Toujours pour cette session » ne s'applique plus à une installation de paquets (`npm install`, `pip install`, `cargo install`…).
+- Depuis Telegram ou une automatisation, Jarvis ne lit plus tes onglets de Chrome et n'y agit plus.
+
 ## 1.2.0 — 1er novembre 2026
 
 Le travail du Meta Global AI Developer Hackathon (détail dans [`HACKATHON.md`](./HACKATHON.md)).
