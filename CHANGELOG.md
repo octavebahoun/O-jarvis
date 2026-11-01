@@ -4,6 +4,15 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 
 ## Non publié
 
+## 1.3.0 — 2 novembre 2026
+
+### Modifié
+- O-jarvis Shell, le travail du hackathon Meta (mode shell, Jarvis dans Chrome, clics et partage d'écran, voix et transcription de Meta, profil « Tout Meta », relecteur de code), vit désormais dans son propre dépôt : [octavebahoun/o-jarvis-shell](https://github.com/octavebahoun/o-jarvis-shell). Il se branche sur le moteur par `ojarvis.extension` ; O-jarvis marche sans lui, et le `.deb` embarque les deux.
+
+### Ajouté
+- `ojarvis.extension` : le point unique où une extension reçoit les services du moteur et y ajoute ses outils, ses routes et ses voix.
+- `ojarvis.testing` : le moteur simulé des tests (fixtures pytest, fournisseurs et pièces vocales factices), pour les extensions aussi.
+
 ## 1.2.1 — 1er novembre 2026
 
 ### Modifié

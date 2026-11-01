@@ -20,7 +20,7 @@ from ojarvis.events.bus import Event
 from ojarvis.llm.providers.fake import FakeProvider
 from ojarvis.memory.graph import EntityRecord, RelationRecord
 from ojarvis.services import Services
-from tests.test_chat import read_sse
+from ojarvis.testing.chat import read_sse
 
 PARIS = ZoneInfo("Europe/Paris")
 NOW = datetime(2026, 10, 15, 6, 10, tzinfo=UTC)  # 8 h 10 à Paris

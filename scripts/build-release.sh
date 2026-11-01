@@ -9,6 +9,8 @@ set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 bundle="$root/app/src-tauri/target/release/bundle"
 engine="$root/engine/dist/ojarvis-engine"
+# O-jarvis Shell, dans son propre dépôt : sa commande, l'extension Chrome et son hôte.
+shell="${OJARVIS_SHELL_DIR:-$root/../o-jarvis-shell}"
 
 # OJARVIS_MOTEUR_PRET=1 : réutilise le moteur déjà construit.
 if [[ "${OJARVIS_MOTEUR_PRET:-0}" != "1" ]]; then
@@ -36,11 +38,11 @@ dpkg-deb --raw-extract "$deb" "$work/deb"
 mkdir -p "$work/deb/usr/lib/O-jarvis"
 cp -a "$engine" "$work/deb/usr/lib/O-jarvis/engine"
 # La commande du mode shell, à côté de celle de l'app (o-jarvis).
-install -m 755 "$root/app/src-tauri/packaging/o-jarvis-shell" "$work/deb/usr/bin/o-jarvis-shell"
+install -m 755 "$shell/packaging/o-jarvis-shell" "$work/deb/usr/bin/o-jarvis-shell"
 # L'extension Chrome (à charger depuis chrome://extensions), son hôte de messagerie native, et
 # sa déclaration à Chrome et à Chromium : seule notre extension peut lancer cet hôte.
-cp -r "$root/extension" "$work/deb/usr/lib/O-jarvis/extension"
-packaging="$root/app/src-tauri/packaging"
+cp -r "$shell/extension" "$work/deb/usr/lib/O-jarvis/extension"
+packaging="$shell/packaging"
 install -m 755 "$packaging/o-jarvis-chrome-host" "$work/deb/usr/lib/O-jarvis/o-jarvis-chrome-host"
 host_json="io.github.octavebahoun.ojarvis.json"
 for hosts in etc/opt/chrome/native-messaging-hosts etc/chromium/native-messaging-hosts; do

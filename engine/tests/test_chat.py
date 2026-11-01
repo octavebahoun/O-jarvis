@@ -2,9 +2,6 @@
 
 from __future__ import annotations
 
-import json
-from typing import Any
-
 from fastapi.testclient import TestClient
 
 from ojarvis.chat.learning import clean_title
@@ -13,14 +10,7 @@ from ojarvis.llm.providers.fake import FakeProvider, FakeReply, e2e_script
 from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, Message, ToolCall, ToolSpec
 from ojarvis.services import Services
-
-
-def read_sse(text: str) -> list[tuple[str, dict[str, Any]]]:
-    events = []
-    for block in text.strip().split("\n\n"):
-        lines = dict(line.split(": ", 1) for line in block.splitlines())
-        events.append((lines["event"], json.loads(lines["data"])))
-    return events
+from ojarvis.testing.chat import read_sse
 
 
 def smart_script(request: LLMRequest) -> FakeReply:

@@ -25,7 +25,7 @@ Le projet s'est construit phase par phase. L'état du travail est dans [`PROGRES
 
 ## Meta models (Meta Global AI Developer Hackathon)
 
-With the default **"All Meta"** profile, every model O-jarvis calls at runtime is a Meta model, fallbacks included. If no Meta model can answer, Jarvis says so; it never falls back to another provider. What was built during the hackathon is listed in [`HACKATHON.md`](./HACKATHON.md).
+With the default **"All Meta"** profile, every model O-jarvis calls at runtime is a Meta model, fallbacks included. If no Meta model can answer, Jarvis says so; it never falls back to another provider. What was built during the hackathon is O-jarvis Shell, in its own repository: [octavebahoun/o-jarvis-shell](https://github.com/octavebahoun/o-jarvis-shell).
 
 | Meta model | Where it runs | What it does in O-jarvis |
 |---|---|---|
@@ -60,9 +60,9 @@ Une suite de 44 scénarios, joués avec le vrai modèle, le vérifie du plus sim
 Ubuntu 24.04 ou plus récent (glibc 2.39 ; vérifié sur Ubuntu 26.04). Récupère les paquets de la [dernière version](https://github.com/octavebahoun/O-jarvis/releases/latest) ou construis-les (`scripts/build-release.sh`, ~15 min ; ils arrivent dans `app/src-tauri/target/release/bundle/`), puis :
 
 ```bash
-sudo apt install ./O-jarvis_1.2.1_amd64.deb      # paquet Debian/Ubuntu
+sudo apt install ./O-jarvis_1.3.0_amd64.deb      # paquet Debian/Ubuntu
 # ou, sans installation :
-chmod +x O-jarvis_1.2.1_amd64.AppImage && ./O-jarvis_1.2.1_amd64.AppImage
+chmod +x O-jarvis_1.3.0_amd64.AppImage && ./O-jarvis_1.3.0_amd64.AppImage
 ```
 
 Le paquet `.deb` ajoute deux commandes : `o-jarvis` ouvre l'app, et `o-jarvis-shell` ouvre Jarvis dans le terminal, dans le dossier où tu es (mode shell). Celui-ci rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
@@ -94,6 +94,8 @@ Au premier lancement, le moteur télécharge ses modèles locaux (environ 350 Mo
 
 ## Jarvis dans Chrome
 
+*Construit pendant le hackathon Meta : le code est dans [O-jarvis Shell](https://github.com/octavebahoun/o-jarvis-shell).*
+
 Une extension ouvre Jarvis dans le panneau latéral de Chrome, à côté de la page que tu regardes. Sur les sites que tu autorises (Chrome te le demande une fois par site), Jarvis lit l'onglet ouvert : son titre, son adresse, son texte visible et ta sélection, jamais tes cookies ni tes champs de saisie. Pour lui, la page est une donnée, jamais une consigne : un plan proposé après sa lecture est signalé, et chaque action attend ta validation dans le panneau.
 
 L'extension reste branchée en arrière-plan tant que Chrome tourne, même panneau fermé : depuis le terminal, l'app ou la voix, Jarvis peut lister tes onglets, en lire un (sur les sites autorisés) et y agir, avec les mêmes validations.
@@ -106,11 +108,7 @@ Le mode « Agir sans demander », par site et éteint par défaut, fait les plan
 
 Avec le paquet `.deb`, le pont vers le moteur est déjà déclaré à Chrome et à Chromium : dans Chrome, `chrome://extensions` → Mode développeur → Charger l'extension non empaquetée → dossier `/usr/lib/O-jarvis/extension`. Depuis les sources :
 
-```bash
-scripts/install-chrome.sh         # déclare à Chrome le pont vers le moteur (messagerie native)
-```
-
-puis charge le dossier `extension/` de la même façon. Le panneau rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
+Depuis les sources, l'extension Chrome et son script d'installation sont dans [O-jarvis Shell](https://github.com/octavebahoun/o-jarvis-shell), le dépôt du hackathon Meta, qui se branche sur ce moteur.
 
 ## Vérifier
 

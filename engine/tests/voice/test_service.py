@@ -6,32 +6,20 @@ import json
 import shutil
 import subprocess
 import types
-from collections.abc import AsyncIterator
-from pathlib import Path
 from typing import Any
 
 import anyio
 import httpx
-import numpy as np
 import pytest
 from fastapi.testclient import TestClient
 
-from ojarvis.events.bus import EventBus
 from ojarvis.services import Services
 from ojarvis.settings_store import Preferences
-from ojarvis.voice.audio import FileSource, Frame, MemorySink, VirtualClock
+from ojarvis.testing.fixtures import Router
+from ojarvis.testing.voice import FakeEcho, make_service
 from ojarvis.voice.devices import EchoCancel, list_devices
 from ojarvis.voice.model_sets import SENSITIVITY
-from ojarvis.voice.service import VoiceService
-from tests.conftest import Router
 from tests.voice.fakes import (
-    FakeChat,
-    FakeSTT,
-    FakeTracer,
-    FakeTTS,
-    FakeVad,
-    FakeWake,
-    build_audio,
     wait_until,
 )
 
@@ -116,65 +104,6 @@ def test_echo_cancel_without_pactl_is_a_soft_failure(monkeypatch: pytest.MonkeyP
 
 
 # ---------------------------------------------------------------- cycle de vie (sans vrai micro)
-
-
-class FakeEcho:
-    def __init__(self, available: bool) -> None:
-        self.available = available
-        self.loads: list[tuple[str | None, str | None]] = []
-        self.unloads = 0
-
-    def load(self, source: str | None, sink: str | None) -> bool:
-        self.loads.append((source, sink))
-        return self.available
-
-    def unload(self) -> None:
-        self.unloads += 1
-
-
-class BrokenSource:
-    broken = True
-
-    async def frames(self) -> AsyncIterator[Frame]:
-        if self.broken:
-            raise RuntimeError("PortAudio : micro débranché")
-        yield Frame(np.zeros(1280, dtype=np.int16), 0.0)  # pragma: no cover
-
-    async def close(self) -> None:
-        return None
-
-
-def make_service(
-    prefs: dict[str, Preferences],
-    *,
-    echo: FakeEcho,
-    sources: list[str | None],
-    broken: bool = False,
-) -> tuple[VoiceService, EventBus, FakeChat]:
-    clock = VirtualClock()
-    bus = EventBus()
-    chat = FakeChat()
-    audio = build_audio(("silence", 0.5), ("wake", 0.8), ("speech", 1.0))
-
-    def source(device: str | None) -> Any:
-        sources.append(device)
-        return BrokenSource() if broken else FileSource(audio, clock=clock)
-
-    service = VoiceService(
-        models_dir=Path("/inexistant"),
-        http=httpx.AsyncClient(),
-        bus=bus,
-        tracer=FakeTracer(),  # type: ignore[arg-type]
-        chat=chat,  # type: ignore[arg-type]
-        secrets=None,  # type: ignore[arg-type]
-        preferences=lambda: prefs["value"],
-        parts={"wake": FakeWake(), "vad": FakeVad(), "stt": FakeSTT(), "tts": FakeTTS()},
-        source_factory=source,
-        sink_factory=lambda _device: MemorySink(clock=clock),
-        echo=echo,  # type: ignore[arg-type]
-        clock=clock,
-    )
-    return service, bus, chat
 
 
 async def test_service_runs_a_turn_and_follows_settings() -> None:

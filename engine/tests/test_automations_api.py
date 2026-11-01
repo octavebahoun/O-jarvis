@@ -22,8 +22,8 @@ from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.memory.embeddings import HashEmbedder
 from ojarvis.security.secrets import MemoryBackend
 from ojarvis.services import Services
-from tests.conftest import TOKEN
-from tests.test_chat import read_sse
+from ojarvis.testing.chat import read_sse
+from ojarvis.testing.fixtures import TOKEN
 
 DAILY = {"type": "horaire", "quand": {"type": "chaque_jour", "heure": "08:00"}}
 REMINDER = {"type": "rappel", "texte": "Boire un verre d'eau."}

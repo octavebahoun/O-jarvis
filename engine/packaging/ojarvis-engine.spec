@@ -37,6 +37,8 @@ datas += collect_data_files("mcp")
 # Les migrations Alembic sont lues comme des scripts : il faut les fichiers .py eux-mêmes.
 datas += collect_data_files("ojarvis", include_py_files=True, includes=["db/migrations/**"])
 hiddenimports += collect_all("ojarvis")[2]
+# O-jarvis Shell : chargé par ojarvis.extension, jamais importé en dur.
+hiddenimports += collect_all("ojarvis_shell")[2]
 
 a = Analysis(
     ["entry.py"],

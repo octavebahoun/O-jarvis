@@ -1,7 +1,0 @@
-{
-  "name": "io.github.octavebahoun.ojarvis",
-  "description": "O-jarvis : le pont entre l'extension et le moteur",
-  "path": "/usr/lib/O-jarvis/o-jarvis-chrome-host",
-  "type": "stdio",
-  "allowed_origins": ["chrome-extension://mjdiobmgjkghbmmbfnhifikcaehdndlc/"]
-}

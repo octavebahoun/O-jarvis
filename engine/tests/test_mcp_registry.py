@@ -25,7 +25,8 @@ from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.security.redaction import REDACTOR
 from ojarvis.security.secrets import MemoryBackend
 from ojarvis.services import Services
-from tests.test_agent_chat import chat, wait_plan
+from ojarvis.testing.chat import wait_plan
+from tests.test_agent_chat import chat
 
 WIKI = "io.github.cyanheads/wikipedia-mcp-server"
 # Forme réelle d'une fiche du registre (octobre 2026), raccourcie.

@@ -16,8 +16,8 @@ from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.permissions.gate import OsControlDisabledError
 from ojarvis.services import Services
+from ojarvis.testing.chat import read_sse
 from ojarvis.tools.base import Level
-from tests.test_chat import read_sse
 from tests.test_screen_capture import budget_capture
 
 

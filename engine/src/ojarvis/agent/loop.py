@@ -35,7 +35,6 @@ from ojarvis.agent.reports import (
     plan_summary,
     urls_in,
 )
-from ojarvis.agent.review import CodeReviewer
 from ojarvis.agent.rules import (
     AGENT_RULES,
     CHROME_AWAY,
@@ -52,10 +51,10 @@ from ojarvis.agent.turn import AgentTurn, CallOutcome, ChromeAwayError, ShellOnl
 from ojarvis.core.errors import ConflictError, EngineError, InvalidInputError, NotFoundError
 from ojarvis.core.logs import get_logger
 from ojarvis.events.bus import EventBus
+from ojarvis.extension import Reviewer, talks_to_network
 from ojarvis.llm.types import ToolCall, ToolSpec
 from ojarvis.permissions.gate import PermissionGate
 from ojarvis.security.redaction import REDACTOR
-from ojarvis.shell.signatures import talks_to_network
 from ojarvis.tools.base import LEVEL_LABELS, Level
 from ojarvis.tools.guards import as_data
 
@@ -76,7 +75,7 @@ class Agent:
         plans: PlanStore,
         bus: EventBus,
         executor: PlanExecutor | None = None,
-        reviewer: CodeReviewer | None = None,
+        reviewer: Reviewer | None = None,
     ) -> None:
         self._gate = gate
         self._plans = plans

@@ -16,9 +16,9 @@ from ojarvis.llm.providers.fake import FakeProvider, FakeReply
 from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.services import Services
+from ojarvis.testing.chat import read_sse
 from ojarvis.tools.base import InvalidToolArgumentsError, Level
 from ojarvis.tools.integrations import CallIntegration, ListIntegrationTools
-from tests.test_chat import read_sse
 
 
 def fake_github() -> MCPServer:

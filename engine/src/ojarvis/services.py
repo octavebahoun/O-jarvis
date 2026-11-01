@@ -18,7 +18,6 @@ from ojarvis import __version__
 from ojarvis.agent.executor import PlanExecutor
 from ojarvis.agent.loop import Agent
 from ojarvis.agent.plans import PlanStore
-from ojarvis.agent.review import CodeReviewer
 from ojarvis.agents.orchestrator import Orchestrator
 from ojarvis.anticipation.service import AnticipationService
 from ojarvis.assembly import (
@@ -26,7 +25,6 @@ from ojarvis.assembly import (
     _assemble_anticipation,
     _assemble_memory,
     _build_router,
-    _memory_tools,
     _open_secrets,
     _startup_preferences,
     relay_policy,
@@ -40,7 +38,6 @@ from ojarvis.briefing.service import BriefingService
 from ojarvis.browser.proxy import GuardProxy
 from ojarvis.browser.service import BrowserAccess
 from ojarvis.chat.service import ChatService
-from ojarvis.chrome.bridge import ChromeBridge
 from ojarvis.config import EngineConfig
 from ojarvis.context.engine import ContextEngine
 from ojarvis.conversations.store import ConversationStore
@@ -48,10 +45,9 @@ from ojarvis.core.clock import utc_now
 from ojarvis.core.logs import get_logger
 from ojarvis.db.engine import Database
 from ojarvis.db.migrate import upgrade_to_head
-from ojarvis.desktop.locate import ScreenMarks
-from ojarvis.desktop.screencast import ScreenShare
 from ojarvis.events.bus import Event, EventBus
 from ojarvis.events.store import EventStore
+from ojarvis.extension import Added
 from ojarvis.integrations.google import GoogleAccount, attach_agenda
 from ojarvis.integrations.manager import IntegrationManager
 from ojarvis.integrations.mcp_registry import McpRegistryService
@@ -71,7 +67,6 @@ from ojarvis.security.secrets import (
     SecretStore,
 )
 from ojarvis.settings_store import Preferences, SettingsStore
-from ojarvis.shell.machine import MachineCard
 from ojarvis.skills.service import SkillService
 from ojarvis.telegram.bot import TelegramService
 from ojarvis.tools.base import ToolRegistry
@@ -131,13 +126,9 @@ class Services:
     orchestrator: Orchestrator
     graph: GraphStore
     anticipation: AnticipationService
-    machine: MachineCard
-    #: Les éléments trouvés à l'écran (#48) et leurs captures annotées.
-    marks: ScreenMarks
-    #: L'écran partagé en direct (portail ScreenCast).
-    share: ScreenShare
-    #: Les actions dans ton onglet Chrome, faites par le panneau de l'extension.
-    chrome: ChromeBridge
+    #: L'extension O-jarvis Shell, si elle est installée : le mode shell, Chrome, l'écran
+    #: partagé, les voix de Meta (voir ojarvis.extension).
+    added: Added | None
     briefing: BriefingService = field(init=False)
     background: set[asyncio.Task[None]] = field(default_factory=set)
 
@@ -189,15 +180,16 @@ class Services:
             router,
             conversations,
             lambda: holder["value"],
+            memory=memory,
+            embedder=embedder,
             tracer=tracer,
         )
-        machine = _memory_tools(acts, memory, embedder, config.user_home or Path.home())
         core = Agent(
             gate=acts.gate,
             plans=acts.plans,
             bus=bus,
             executor=acts.executor,
-            reviewer=CodeReviewer(router),
+            reviewer=acts.added.reviewer if acts.added is not None else None,
         )
         chat = ChatService(
             conversations=conversations,
@@ -210,7 +202,7 @@ class Services:
             agent=core,
             graph=graph,
             relay=lambda: relay_policy(holder["value"]),
-            machine=machine,
+            machine=acts.added.machine if acts.added is not None else None,
         )
         orchestrator = await _assemble_agents(
             acts, core, router=router, db=db, bus=bus, tracer=tracer
@@ -285,10 +277,7 @@ class Services:
             orchestrator=orchestrator,
             graph=graph,
             anticipation=anticipation,
-            machine=machine,
-            marks=acts.marks,
-            share=acts.share,
-            chrome=acts.chrome,
+            added=acts.added,
         )
         services._holder = holder
         await acts.executor.recover()
@@ -435,7 +424,8 @@ class Services:
 
     async def stop(self) -> None:
         await self.bus.publish("engine.stopping", {})
-        await self.share.stop()
+        if self.added is not None:
+            await self.added.stop()  # l'écran partagé, s'il l'est encore
         await self.voice.close()
         await self.chat.close()
         await self.anticipation.close()

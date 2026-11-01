@@ -10,11 +10,11 @@ import os
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
 
 import anyio.to_thread
 import httpx
 
+from ojarvis import extension
 from ojarvis.agent.executor import PlanExecutor
 from ojarvis.agent.plans import PlanStore
 from ojarvis.anticipation.predictor import Predictor
@@ -28,21 +28,16 @@ from ojarvis.browser.proxy import GuardProxy
 from ojarvis.browser.service import BrowserAccess
 from ojarvis.browser.vault import CookieVault
 from ojarvis.chat.service import ChatService
-from ojarvis.chrome.bridge import ChromeBridge
 from ojarvis.config import EngineConfig
-from ojarvis.context.engine import RELEVANCE_FLOOR, ContextEngine
+from ojarvis.context.engine import ContextEngine
 from ojarvis.conversations.store import ConversationStore
 from ojarvis.core.clock import local_timezone
 from ojarvis.core.errors import UnavailableError
 from ojarvis.core.logs import get_logger
 from ojarvis.db.engine import Database
-from ojarvis.desktop.film import Filmer
-from ojarvis.desktop.locate import Locator, ScreenMarks
-from ojarvis.desktop.pointer import PortalPointer
-from ojarvis.desktop.sam import SamClient
 from ojarvis.desktop.screen import capture
-from ojarvis.desktop.screencast import ScreenShare, live_or_capture
 from ojarvis.events.bus import EventBus
+from ojarvis.extension import Added, Lent
 from ojarvis.integrations.manager import IntegrationManager
 from ojarvis.llm.catalog import Catalog
 from ojarvis.llm.policy import Route
@@ -63,8 +58,6 @@ from ojarvis.security.secrets import (
     SecretStore,
 )
 from ojarvis.settings_store import Preferences, SettingsStore
-from ojarvis.shell.machine import MachineCard
-from ojarvis.shell.servers import BackgroundSessions
 from ojarvis.skills.runner import SkillRunner
 from ojarvis.skills.service import SkillService
 from ojarvis.skills.store import SkillStore
@@ -73,17 +66,9 @@ from ojarvis.tools.base import ToolContext, ToolRegistry
 from ojarvis.tools.catalog import build_registry
 from ojarvis.tools.code import ListCapabilities
 from ojarvis.tools.desktop import desktop_tools
-from ojarvis.tools.impasses import impasse_tools
 from ojarvis.tools.integrations import integration_tools
-from ojarvis.tools.machine import ReadMachineMap
-from ojarvis.tools.page_view import LookAtPage
 from ojarvis.tools.screen import ScreenMode
-from ojarvis.tools.shell import RunCommand
 from ojarvis.tools.skills import skill_tools
-from ojarvis.tools.sudo import ProposeAdmin
-from ojarvis.tools.tab import tab_tools
-from ojarvis.tools.tab_sight import TabSight, sight_tools
-from ojarvis.tools.terminal import OpenShell
 from ojarvis.tracing.tracer import Tracer
 from ojarvis.workflows.engine import WorkflowEngine
 
@@ -171,9 +156,8 @@ class _Actions:
     gate: PermissionGate
     plans: PlanStore
     executor: PlanExecutor
-    marks: ScreenMarks
-    share: ScreenShare
-    chrome: ChromeBridge
+    #: L'extension O-jarvis Shell, si elle est installée (voir ojarvis.extension).
+    added: Added | None
 
 
 async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
@@ -186,6 +170,8 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
     conversations: ConversationStore,
     prefs: Callable[[], Preferences],
     *,
+    memory: MemoryStore,
+    embedder: Embedder,
     tracer: Tracer | None = None,
 ) -> _Actions:
     # Jarvis agit : journal immuable vérifié au démarrage, outils derrière une seule porte.
@@ -217,59 +203,18 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
     workflows = WorkflowEngine(db, bus)
     scheduler = AutomationScheduler(store=automations, workflows=workflows, bus=bus)
     integrations = IntegrationManager(secrets.get)
-    servers = BackgroundSessions()  # les serveurs lancés par le mode shell
 
     def screen_vision() -> ScreenMode:
         # « Tout Meta » n'a pas de modèle local : l'écran est lu par Muse Spark.
         current = prefs()
         return "en_ligne" if current.model_profile == "meta" else current.screen_vision
 
-    # Trouver puis cliquer un élément de l'écran (#48) : SAM 3.1 encadre, Muse Spark choisit,
-    # le portail de GNOME clique (avec ton accord).
-    desktop = config.paths.state_dir / "desktop"
-    marks = ScreenMarks(desktop / "reperes")
-    sam = SamClient(lambda: secrets.get("MODEL_API_KEY"), http, tracer)
-
-    async def share_event(event: str, payload: dict[str, Any]) -> None:
-        await bus.publish(event, payload, persist=False)
-
-    # L'écran partagé en direct : les outils lisent sa dernière image au lieu d'une capture.
-    share = ScreenShare(desktop / "partage-ecran.jeton", notify=share_event)
-    screen = live_or_capture(share, capture)
-    locator = Locator(sam, router, marks, screen)
-    # Ton onglet Chrome : le panneau de l'extension y fait les actions validées.
-    chrome = ChromeBridge()
     tools = build_registry(
         browser.session,
         [
             *automation_tools(automations, scheduler),
             *integration_tools(integrations),
-            *desktop_tools(
-                router,
-                screen_vision,
-                locator=locator,
-                pointer=PortalPointer(desktop / "controle-a-distance.jeton"),
-                grab=screen,
-                filmer=Filmer(
-                    share,
-                    lambda: secrets.get("MODEL_API_KEY"),
-                    http,
-                    desktop / "travail",
-                    tracer=tracer,
-                ),
-            ),
-            # Proposés seulement en mode shell ; journaux et captures dans l'état du moteur.
-            RunCommand(user_home, log_dir=config.paths.state_dir / "shell", sessions=servers),
-            LookAtPage(
-                router,
-                screen_vision,
-                servers,
-                capture_dir=config.paths.state_dir / "shell" / "captures",
-            ),
-            OpenShell(user_home),  # « passe en mode shell » : ouvre un terminal
-            ProposeAdmin(),  # sudo : proposé par Jarvis, lancé par toi
-            *tab_tools(chrome),  # proposés seulement dans le panneau de Chrome
-            *sight_tools(TabSight(chrome, locator)),  # et le secours visuel (SAM 3.1)
+            *desktop_tools(router, screen_vision),
         ],
     )
     # Jarvis s'étend : les skills actifs apportent leurs outils, testés en bac à sable.
@@ -279,9 +224,26 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
     capabilities = tools.get("lister_capacites")
     if isinstance(capabilities, ListCapabilities):
         capabilities.add_section("Skills", skills.capabilities)
-        capabilities.hide(lambda item: item["chrome_tab"] and not chrome.connected())
-        capabilities.add_section("Extension Chrome", lambda: [_chrome_state(chrome)])
     await skills.start()
+    # O-jarvis Shell, s'il est installé : le mode shell, Chrome, l'écran, les voix de Meta.
+    added = await extension.attach(
+        Lent(
+            config=config,
+            bus=bus,
+            secrets=secrets,
+            http=http,
+            router=router,
+            journal=journal,
+            memory=memory,
+            embedder=embedder,
+            tools=tools,
+            prefs=prefs,
+            screen_mode=screen_vision,
+            capture=capture,
+            home=user_home,
+            tracer=tracer,
+        )
+    )
 
     def tool_context() -> ToolContext:
         return ToolContext(
@@ -298,7 +260,7 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
         journal,
         tool_context,
         os_control=lambda: prefs().os_control_enabled,
-        chrome=chrome.connected,
+        chrome=added.chrome_connected if added is not None else lambda: False,
     )
     plans = PlanStore(db, gate)
     executor = PlanExecutor(
@@ -325,9 +287,7 @@ async def _assemble_actions(  # noqa: PLR0917 - un assemblage, pas une logique
         gate=gate,
         plans=plans,
         executor=executor,
-        marks=marks,
-        share=share,
-        chrome=chrome,
+        added=added,
     )
 
 
@@ -365,25 +325,6 @@ async def _assemble_memory(
     graph = GraphStore(db, bus)
     context = ContextEngine(memory, conversations, embedder_id=embedder.model_id, graph=graph)
     return memory, conversations, graph, context
-
-
-def _memory_tools(
-    acts: _Actions, memory: MemoryStore, embedder: Embedder, home: Path
-) -> MachineCard:
-    """Les outils qui ont besoin de la mémoire (elle n'existe qu'ici) : les impasses du mode
-    shell, et la carte de la machine, relevée en lecture seule."""
-    floor = RELEVANCE_FLOOR.get(embedder.model_id, 0.5)
-    for tool in impasse_tools(memory, floor=floor):
-        acts.tools.register(tool)
-    machine = MachineCard(memory, acts.journal, home)
-    acts.tools.register(ReadMachineMap(machine))
-    return machine
-
-
-def _chrome_state(chrome: ChromeBridge) -> str:
-    if chrome.connected():
-        return "branchée : Jarvis voit tes onglets Chrome et y agit (avec ta validation)."
-    return "non branchée : Jarvis ne voit pas ton Chrome (ouvre-le, avec l'extension d'O-jarvis)."
 
 
 def relay_policy(prefs: Preferences) -> tuple[Route, int] | None:

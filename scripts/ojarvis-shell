@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Jarvis dans le terminal, dans le dossier courant (mode shell, issue #7).
-# Il rejoint le Jarvis de l'app s'il tourne, sinon il lance son propre moteur.
-# Lien conseillé : ln -s "$PWD/scripts/ojarvis-shell" ~/.local/bin/ojarvis-shell
-set -euo pipefail
-
-root="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
-exec uv run --quiet --project "$root/engine" ojarvis-shell "$@"

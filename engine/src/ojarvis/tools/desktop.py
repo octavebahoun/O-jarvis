@@ -19,14 +19,11 @@ from pydantic import Field
 
 from ojarvis.core.errors import InvalidInputError, NotFoundError
 from ojarvis.desktop import apps as applications
-from ojarvis.desktop.film import Filmer
-from ojarvis.desktop.locate import Locator
-from ojarvis.desktop.pointer import Pointer
 from ojarvis.desktop.screen import capture
 from ojarvis.llm.router import ModelRouter
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
 from ojarvis.tools.guards import resolve_user_path, shown
-from ojarvis.tools.screen import ClickOnScreen, FilmScreen, FindOnScreen, LookAtScreen, ScreenMode
+from ojarvis.tools.screen import LookAtScreen, ScreenMode
 
 INDEX_TTL_S = 300.0
 
@@ -297,11 +294,10 @@ def desktop_tools(
     router: ModelRouter,
     screen_mode: Callable[[], ScreenMode],
     *,
-    locator: Locator | None = None,
-    pointer: Pointer | None = None,
     grab: Callable[[], Awaitable[bytes]] = capture,
-    filmer: Filmer | None = None,
 ) -> list[Tool[Any]]:
+    """Les outils du contrôle du PC. Trouver, cliquer et filmer à l'écran viennent de
+    l'extension O-jarvis Shell (`ojarvis_shell.tools.screen_actions`)."""
     catalog = AppCatalog()
     tools: list[Tool[Any]] = [
         ListApps(catalog),
@@ -314,8 +310,4 @@ def desktop_tools(
         CopyFile(),
         MakeDir(),
     ]
-    if locator is not None and pointer is not None:
-        tools += [FindOnScreen(locator, screen_mode), ClickOnScreen(locator.marks, pointer, grab)]
-    if filmer is not None:
-        tools.append(FilmScreen(filmer, screen_mode))
     return tools

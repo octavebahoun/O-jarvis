@@ -154,8 +154,10 @@ class ModelRouter:
             provider, model = override.split("/", 1)
             default_thinking = any(r.thinking for r in self.policy.get(task, ()))
             candidates.append(Route(provider, model, thinking=default_thinking))
-        meta_only = self._profile() == "meta"
-        candidates.extend(PROFILES.get(self._profile(), {}).get(task, ()))
+        # Un profil inconnu (« Tout Meta » sans O-jarvis Shell) vaut « Automatique ».
+        profile = self._profile() if self._profile() in PROFILES else "auto"
+        meta_only = profile == "meta"
+        candidates.extend(PROFILES.get(profile, {}).get(task, ()))
         if not meta_only:
             candidates.extend(self.policy.get(task, ()))
             if constraints.sensitive or constraints.offline:
