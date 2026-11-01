@@ -47,6 +47,7 @@ The full list of Meta models and of OS features is in the [README](./README.md#m
 - **Validate, then continue**: after you approve a plan, Jarvis reads the results and carries on until the task is done. In shell mode it can chain up to 16 steps per answer; actions still wait for you.
 - **Same Jarvis as the app**: the terminal joins the engine the app already runs (same memory, same audit log) through a private connection file (readable by your account only, removed when the engine stops). If the app is closed, the terminal starts its own engine and stops it on exit.
 - The command tool exists only in shell mode: the app chat can neither call it nor slip it into a plan.
+- **A terminal designed to be read** (November 1): a welcome card (folder and git branch, Meta models, commands), a `folder branch ❯` prompt, `◆ Jarvis` and its model at the head of each request, every read with its level and duration, the answer indented and wrapped between words (bold, code and code blocks rendered), plans as cards with a level badge, and the duration and cost under each request. Colors come from the terminal's own palette, so they stay readable on light and dark themes.
 - **"Passe en mode shell"**: said to the app (or by voice), it opens your own terminal (the system default first, Ptyxis on Ubuntu 26.04) on `ojarvis-shell`, in the folder you asked for, joined to the same Jarvis.
 - **No secret leaves through a command**: commands that print a token (`gcloud auth print-access-token`, `gh auth token`, `pass`…) are refused unless used inside a substitution such as `-H "Authorization: Bearer $(…)"`; and Google tokens (even truncated), JWTs, private keys and more are masked before anything reaches the model. Found during a real test on October 26, fixed the same night.
 
@@ -123,6 +124,10 @@ The full list of Meta models and of OS features is in the [README](./README.md#m
 ### Hardening after a code review (October 27)
 
 A review of the night's commits found 21 problems; each was checked in the code, fixed, and covered by tests. The most serious: `bash -c 'rm -rf ~/projet' --help` was classified as a read, so it would have run without asking, and `find … | xargs cat` could send secret files to the model. Also fixed: results lost when the budget stopped a request, "always" still active after reading GitHub or `curl` output, a non-UTF-8 file losing its accents on edit, and the terminal crashing on a U+2028 character.
+
+### Second code review (November 1)
+
+A review of the whole submission found ten ways a write or a launched program could pass for a read, all fixed and covered by 41 tests: `find -exec`, `ip netns exec`, `sort -o`, `uniq` or `xxd` writing a file, launchers (`setsid`, `flock`, `taskset`, `watch`, `script`…), a program from the current folder, `git switch -f`, `git rm` and `git branch -D`; a recursive search too deep to be checked now asks first. "Always for this session" no longer covers package installs (`npm install`, `pip install`…), and Chrome tabs are out of reach from Telegram and automations, where you are not in front of your PC.
 
 ## Already there before (not part of the submission)
 

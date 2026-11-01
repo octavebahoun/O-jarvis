@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "O-jarvis",
   "description": "Parle à Jarvis à côté de la page que tu regardes.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwUevPwuHDhnClOHRn7hEl9XB0OuCRWp5wHVaQQ4XJ8PeGw3v8yoRJaSyqHi++E4VNZVOooFbbOU8I8GtDbr5szU78gneDN/KRKi819vTRQJWZVi58UprE0JRjuRCcawNr9XEoIasHz7HmhQJrMRAgabSdFV8zdMU/kJbtkF7GXX38dEm/VE4TTuli2Iv7PDV8O/G1RS7Va8m1VL7aNlqcYrIpJU1k9vsHnUiVHVQKxnC5WFsdI99d95YcWhL5Cc8XTkpWve1oWPhqEaVB/pB2sFwh0cCnz2aZLDjwFoKThYOJ8LQah3PnOOL0ICGDaUMj1+tE4db5eXfJkzR55q+6wIDAQAB",
   "minimum_chrome_version": "116",
   "icons": { "32": "icons/32.png", "128": "icons/128.png" },

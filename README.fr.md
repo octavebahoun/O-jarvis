@@ -60,9 +60,9 @@ Une suite de 44 scénarios, joués avec le vrai modèle, le vérifie du plus sim
 Ubuntu 24.04 ou plus récent (glibc 2.39 ; vérifié sur Ubuntu 26.04). Récupère les paquets de la [dernière version](https://github.com/octavebahoun/O-jarvis/releases/latest) ou construis-les (`scripts/build-release.sh`, ~15 min ; ils arrivent dans `app/src-tauri/target/release/bundle/`), puis :
 
 ```bash
-sudo apt install ./O-jarvis_1.2.0_amd64.deb      # paquet Debian/Ubuntu
+sudo apt install ./O-jarvis_1.2.1_amd64.deb      # paquet Debian/Ubuntu
 # ou, sans installation :
-chmod +x O-jarvis_1.2.0_amd64.AppImage && ./O-jarvis_1.2.0_amd64.AppImage
+chmod +x O-jarvis_1.2.1_amd64.AppImage && ./O-jarvis_1.2.1_amd64.AppImage
 ```
 
 Le paquet `.deb` ajoute deux commandes : `o-jarvis` ouvre l'app, et `o-jarvis-shell` ouvre Jarvis dans le terminal, dans le dossier où tu es (mode shell). Celui-ci rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
