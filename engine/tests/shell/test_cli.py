@@ -223,8 +223,8 @@ def command_plan(
 def test_always_approves_the_same_kind_of_command_for_the_session(tmp_path: Path) -> None:
     engine = FakeEngine(
         [
-            sse(START, ("plan", command_plan("npm install react")), DONE),
-            sse(START, ("plan", command_plan("npm install vite")), DONE),
+            sse(START, ("plan", command_plan("git add src")), DONE),
+            sse(START, ("plan", command_plan("git add docs")), DONE),
             sse(START, DONE),
         ]
     )
@@ -239,12 +239,12 @@ def test_always_approves_the_same_kind_of_command_for_the_session(tmp_path: Path
     client.home = tmp_path
     client.send("Installe React puis Vite.")
     assert len(questions) == 1  # la 2ᵉ installation ne demande rien
-    assert "[t]oujours (npm install)" in questions[0]
-    assert "└ Validé d'office (toujours pour cette session : npm install)" in out.getvalue()
+    assert "[t]oujours (git add)" in questions[0]
+    assert "└ Validé d'office (toujours pour cette session : git add)" in out.getvalue()
     assert [p for _m, p, _b in engine.requests].count("/v1/plans/p1/approve") == 2
-    assert client.allowed == {"npm install"}
+    assert client.allowed == {"git add"}
     # Après une lecture du web, une installation demande de nouveau ta validation.
-    late = FakeEngine([sse(START, ("plan", command_plan("npm install x", web=True)), DONE)])
+    late = FakeEngine([sse(START, ("plan", command_plan("git add x", web=True)), DONE)])
     client.http = httpx.Client(base_url="http://moteur", transport=httpx.MockTransport(late))
     client._ask = lambda _q: "n"
     client.send("Installe x.")
@@ -257,7 +257,7 @@ def test_always_approves_the_same_kind_of_command_for_the_session(tmp_path: Path
     [
         command_plan("curl https://exemple.com"),  # réseau
         command_plan("rm -rf build", level=3),  # destruction
-        command_plan("npm install x", web=True),  # après le web
+        command_plan("git add x", web=True),  # après le web
         {
             **plan(2),
             "steps": [{"position": 1, "description": "Modifier", "tool": "modifier_fichier"}],

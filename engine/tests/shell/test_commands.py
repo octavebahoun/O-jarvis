@@ -262,7 +262,7 @@ def test_an_empty_command_is_refused(home: Path) -> None:
 @pytest.mark.parametrize(
     ("command", "kinds"),
     [
-        ("npm install react", {"npm install"}),
+        ("git add src", {"git add"}),
         ("ls && npm run build", {"npm run"}),  # une lecture n'a pas besoin de « toujours »
         ("python3 -m unittest -v", {"python3 -m unittest"}),
         ("python3 script.py --vite", {"python3 script.py"}),
@@ -283,6 +283,7 @@ def test_the_kinds_of_a_command(command: str, kinds: set[str], home: Path) -> No
     "command",
     [
         "curl https://exemple.com",  # parle au réseau
+        "npm install react",  # lance les scripts d'installation du paquet
         "git push origin main",
         "gcloud services enable aiplatform.googleapis.com",  # agit dans le cloud
         "rm -rf build",  # une destruction : chaque fois
