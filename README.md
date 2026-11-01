@@ -118,4 +118,8 @@ cd app && pnpm test && pnpm e2e               # interface, then end to end with 
 cd app/src-tauri && cargo test                # Tauri shell
 ```
 
+## License
+
+O-jarvis is open source under the [MIT license](./LICENSE). Bundled software and downloaded models keep their own licenses: see [`THIRD-PARTY.md`](./THIRD-PARTY.md).
+
 More (in French): architecture [`docs/architecture.md`](./docs/architecture.md), decisions [`DECISIONS.md`](./DECISIONS.md), progress [`PROGRESS.md`](./PROGRESS.md), journal [`docs/journal/`](./docs/journal/README.md).

@@ -120,3 +120,7 @@ cd app && pnpm test && pnpm e2e               # interface, puis bout en bout ave
 cd app/src-tauri && cargo test                # coque
 cd engine && uv run python tools/voice_bench.py --only cartesia   # voix : réveil et latence réels
 ```
+
+## Licence
+
+O-jarvis est open source, sous [licence MIT](./LICENSE). Les logiciels embarqués et les modèles téléchargés gardent leur propre licence : voir [`THIRD-PARTY.md`](./THIRD-PARTY.md).
