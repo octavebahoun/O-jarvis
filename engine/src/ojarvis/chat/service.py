@@ -18,6 +18,7 @@ from typing import Any, Literal
 from ojarvis.agent.loop import MAX_TOOL_ROUNDS, Agent
 from ojarvis.agent.reports import PlanReport, RanCommand, plan_summary, urls_in
 from ojarvis.agent.rules import ROUNDS_EXHAUSTED, claims_missing_plan
+from ojarvis.agent.turn import AgentTurn
 from ojarvis.chat.learning import ChatLearning
 from ojarvis.chat.turns import (
     TASKS_BY_CHANNEL,
@@ -67,6 +68,8 @@ Channel = Literal["app", "voice", "telegram", "automation", "shell", "chrome"]
 #: En mode shell, le modèle enchaîne plus de commandes dans une réponse (lire, corriger,
 #: relancer) ; les actions, elles, attendent toujours ta validation.
 SHELL_TOOL_ROUNDS = 16
+#: Canaux où tu n'es pas devant ton PC : les outils de Chrome n'y sont pas proposés.
+AWAY_CHANNELS = frozenset({"telegram", "automation"})
 
 
 @dataclass(frozen=True, slots=True)
@@ -151,7 +154,11 @@ class ChatService(ChatLearning):
         assistant = await self._conversations.add_message(
             conversation.id, "assistant", "", status="streaming"
         )
-        turn = _Turn(assistant=assistant, start=time.perf_counter())
+        turn = _Turn(
+            assistant=assistant,
+            start=time.perf_counter(),
+            agent=AgentTurn(away=channel in AWAY_CHANNELS),
+        )
         self._after_plans(turn, conversation.id, reports)
         # La suite d'un plan n'a pour texte que « Continue. » : le relecteur et les plans
         # gardent la demande d'origine.
@@ -247,7 +254,7 @@ class ChatService(ChatLearning):
         if agent is not None:
             turn.agent.known_urls |= urls_in(user_text)
             turn.agent.shell = shell_folder is not None
-            request.tools = agent.specs(shell_mode=turn.agent.shell)
+            request.tools = agent.specs(shell_mode=turn.agent.shell, away=turn.agent.away)
             system = request.messages[0]
             # Ce qui a vraiment été exécuté, refusé ou attend encore : Jarvis le lit, sans
             # se fier à sa mémoire de la conversation.

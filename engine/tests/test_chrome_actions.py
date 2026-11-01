@@ -10,10 +10,12 @@ import pytest
 from fastapi.testclient import TestClient
 
 from ojarvis.agent.plans import PLAN_TOOL
+from ojarvis.agent.turn import AgentTurn, ChromeAwayError
 from ojarvis.chrome.bridge import ChromeBridge, TabAction, TabResult
 from ojarvis.core.errors import UnavailableError
 from ojarvis.llm.providers.fake import FakeProvider
 from ojarvis.llm.types import ToolCall
+from ojarvis.services import Services
 from ojarvis.tools.base import Level
 from ojarvis.tools.code import NoArgs
 from ojarvis.tools.tab import (
@@ -159,3 +161,18 @@ def test_capabilities_do_not_claim_an_unplugged_extension(client: TestClient) ->
     text = asyncio.run(capabilities.run(NoArgs(), SimpleNamespace())).text
     assert "onglet_cliquer" not in text
     assert "Extension Chrome :\nnon branchée" in text
+
+
+def test_chrome_tools_stay_off_from_telegram_and_automations(
+    services: Services, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Revue du 1/11 : depuis Telegram ou une automatisation, tu n'es pas devant ton PC ; une
+    lecture d'onglet y partirait sans validation."""
+    monkeypatch.setattr(services.gate, "chrome", lambda: True)  # l'extension est branchée
+    agent = services.chat._agent
+    assert agent is not None
+    assert "onglet_lire" in {spec.name for spec in agent.specs()}
+    assert "onglet_lire" not in {spec.name for spec in agent.specs(away=True)}
+    with pytest.raises(ChromeAwayError, match="jamais depuis Telegram"):
+        agent._require_shell("onglet_cliquer", AgentTurn(away=True))
+    agent._require_shell("onglet_cliquer", AgentTurn())  # devant ton PC : permis

@@ -105,6 +105,11 @@ ROUNDS_EXHAUSTED = (
     "l'utilisateur pourra te dire de continuer."
 )
 
+CHROME_AWAY = (
+    "{tool} n'est pas disponible ici : tes onglets Chrome ne se lisent et ne se touchent "
+    "que quand tu es devant ton PC (terminal, app, voix, panneau de Chrome), jamais depuis "
+    "Telegram ni une automatisation."
+)
 SHELL_ONLY = (
     "{tool} n'existe qu'en mode shell. Dis à l'utilisateur qu'il peut l'ouvrir (« passe en "
     "mode shell ») pour lancer des commandes."

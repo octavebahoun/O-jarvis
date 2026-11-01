@@ -20,6 +20,9 @@ class AgentTurn:
     tainted: bool = False
     #: Tour du mode shell : seul à pouvoir lancer une commande (`executer_commande`).
     shell: bool = False
+    #: Tour venu de loin (Telegram) ou sans toi (automatisation) : tes onglets Chrome ne
+    #: s'y lisent ni ne s'y touchent.
+    away: bool = False
     #: Un contenu venu d'ailleurs a été lu (page, recherche, intégration, curl…) : « toujours »
     #: ne s'applique pas.
     web: bool = False
@@ -35,6 +38,11 @@ class AgentTurn:
 class ShellOnlyError(EngineError):
     status_code = 403
     code = "shell_only"
+
+
+class ChromeAwayError(EngineError):
+    status_code = 403
+    code = "chrome_away"
 
 
 @dataclass(frozen=True)

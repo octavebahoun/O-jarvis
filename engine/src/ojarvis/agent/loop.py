@@ -38,6 +38,7 @@ from ojarvis.agent.reports import (
 from ojarvis.agent.review import CodeReviewer
 from ojarvis.agent.rules import (
     AGENT_RULES,
+    CHROME_AWAY,
     NO_TERMINAL,
     OS_CONTROL_OFF,
     OS_CONTROL_ON,
@@ -47,7 +48,7 @@ from ojarvis.agent.rules import (
     SHELL_ONLY,
     SHELL_RULES,
 )
-from ojarvis.agent.turn import AgentTurn, CallOutcome, ShellOnlyError
+from ojarvis.agent.turn import AgentTurn, CallOutcome, ChromeAwayError, ShellOnlyError
 from ojarvis.core.errors import ConflictError, EngineError, InvalidInputError, NotFoundError
 from ojarvis.core.logs import get_logger
 from ojarvis.events.bus import EventBus
@@ -185,12 +186,12 @@ class Agent:
         terminal = NO_TERMINAL if shell_folder is None else SHELL_RULES.format(folder=shell_folder)
         return f"{AGENT_RULES}\n\n{terminal}\n\n{os_control}"
 
-    def specs(self, *, shell_mode: bool = False) -> list[ToolSpec]:
+    def specs(self, *, shell_mode: bool = False, away: bool = False) -> list[ToolSpec]:
         specs = self._gate.registry.specs(
             max_level=Level.DETRUIRE,
             os_control=self._gate.os_control(),
             shell_mode=shell_mode,
-            chrome=self._gate.chrome(),
+            chrome=self._gate.chrome() and not away,
         )
         return [*specs, plan_tool_spec()]
 
@@ -272,6 +273,8 @@ class Agent:
         registry = self._gate.registry
         if not turn.shell and name in registry and registry.get(name).shell_only:
             raise ShellOnlyError(SHELL_ONLY.format(tool=name))
+        if turn.away and name in registry and registry.get(name).chrome_tab:
+            raise ChromeAwayError(CHROME_AWAY.format(tool=name))
 
     def describe(self, call: ToolCall) -> str:
         """Ce que fait l'appel, en clair (pour l'interface), sans rien exécuter."""
