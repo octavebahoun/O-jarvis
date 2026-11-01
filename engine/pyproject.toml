@@ -3,6 +3,7 @@ name = "ojarvis-engine"
 version = "1.2.1"
 description = "Moteur d'O-jarvis : API locale, mémoire, voix et actions."
 authors = [{ name = "Octave BAHOUN-HOUTOUKPE", email = "octavebahoun@gmail.com" }]
+license = "MIT"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "alembic>=1.20.0",
