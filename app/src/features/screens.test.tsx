@@ -185,7 +185,7 @@ describe("Réglages", () => {
       if (path === "/v1/status") return [200, STATUS];
       return [200, []];
     });
-    renderScreen(<SettingsScreen />, { client });
+    renderScreen(<SettingsScreen />, { client, path: "/?section=demarrage" });
     const section = await screen.findByRole("region", { name: "Démarrage" });
     expect(within(section).getByText(/Réglable dans l'app installée/)).toBeInTheDocument();
   });
@@ -202,7 +202,7 @@ describe("Réglages", () => {
       if (path === "/v1/status") return [200, STATUS];
       return [200, []];
     });
-    renderScreen(<SettingsScreen />, { client });
+    renderScreen(<SettingsScreen />, { client, path: "/?section=apparence" });
     await user.click(await screen.findByRole("radio", { name: /Réduites/ }));
     await waitFor(() => {
       expect(calls.find((c) => c.method === "PATCH")?.body).toEqual({ reduced_motion: "reduce" });
@@ -221,7 +221,7 @@ describe("Réglages", () => {
       if (path === "/v1/status") return [200, STATUS];
       return [200, []];
     });
-    renderScreen(<SettingsScreen />, { client });
+    renderScreen(<SettingsScreen />, { client, path: "/?section=voix" });
     const voice = await screen.findByRole("region", { name: "Voix" });
     expect(await within(voice).findByText("À l'écoute de « Hey Jarvis »")).toBeInTheDocument();
     expect(within(voice).getByText(/Dernière réponse parlée en 1,8 s/)).toBeInTheDocument();
@@ -254,12 +254,12 @@ describe("Réglages", () => {
       if (path === "/v1/status") return [200, STATUS];
       return [200, []];
     });
-    const { unmount } = renderScreen(<SettingsScreen />, { client });
+    const { unmount } = renderScreen(<SettingsScreen />, { client, path: "/?section=modeles" });
     const models = await screen.findByRole("region", { name: "Modèles" });
     expect(await within(models).findByRole("radio", { name: /Tout Meta/ })).toBeDisabled();
     unmount();
     metaConfigured = true;
-    renderScreen(<SettingsScreen />, { client });
+    renderScreen(<SettingsScreen />, { client, path: "/?section=modeles" });
     const withKey = await screen.findByRole("region", { name: "Modèles" });
     await waitFor(() => {
       expect(within(withKey).getByRole("radio", { name: /Tout Meta/ })).toBeEnabled();
@@ -290,7 +290,7 @@ describe("Réglages", () => {
       if (path === "/v1/status") return [200, STATUS];
       return [200, []];
     });
-    renderScreen(<SettingsScreen />, { client });
+    renderScreen(<SettingsScreen />, { client, path: "/?section=modeles" });
     const models = await screen.findByRole("region", { name: "Modèles" });
     const relay = await within(models).findByLabelText(/^Relais/);
     expect(relay).toHaveDisplayValue("Après 2 échecs (recommandé)");
@@ -317,7 +317,7 @@ describe("Réglages", () => {
       if (path === "/v1/status") return [200, STATUS];
       return [200, []];
     });
-    renderScreen(<SettingsScreen />, { client });
+    renderScreen(<SettingsScreen />, { client, path: "/?section=controle-pc" });
     const section = await screen.findByRole("region", { name: "Contrôle du PC" });
     expect(await within(section).findByText(/Désactivé : Jarvis ne voit/)).toBeInTheDocument();
     // Tant qu'il est désactivé, le choix de lecture de l'écran est grisé.

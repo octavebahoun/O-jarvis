@@ -1,0 +1,117 @@
+/* Réglages : la barre des sections à gauche, une seule section affichée à droite. */
+
+.layout {
+  display: grid;
+  grid-template-columns: 12.5rem minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.list {
+  position: sticky;
+  top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 2.5rem;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-weight: var(--weight-medium);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.tab:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.tab:focus-visible {
+  outline: none;
+  box-shadow: var(--glow-focus);
+}
+
+.tab[data-state="active"] {
+  background: var(--color-accent-faint);
+  color: var(--color-text);
+}
+
+/* Le trait lumineux de la section ouverte, comme dans la barre latérale de l'app. */
+.tab[data-state="active"]::before {
+  position: absolute;
+  top: var(--space-2);
+  bottom: var(--space-2);
+  left: 0;
+  width: 2px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  box-shadow: var(--glow-accent);
+  content: "";
+}
+
+.icon {
+  flex: none;
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.tab[data-state="active"] .icon {
+  color: var(--color-accent);
+}
+
+.panel {
+  min-width: 0;
+  animation: appear var(--duration-slow) var(--ease-out);
+}
+
+.panel:focus-visible {
+  outline: none;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Fenêtre étroite : la barre passe en haut et défile de côté. */
+@media (width <= 52rem) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .list {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tab {
+    flex: none;
+    white-space: nowrap;
+  }
+
+  .tab[data-state="active"]::before {
+    inset: auto var(--space-3) 0;
+    width: auto;
+    height: 2px;
+  }
+}
