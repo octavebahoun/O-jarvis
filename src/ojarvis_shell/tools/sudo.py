@@ -5,6 +5,7 @@ et c'est toi qui la lances dans ton terminal, où `sudo` te demande ton mot de p
 from __future__ import annotations
 
 import re
+from fnmatch import fnmatch
 from pathlib import Path
 from typing import ClassVar
 
@@ -20,6 +21,22 @@ SYSTEM_SECRETS = ("/etc/shadow", "/etc/gshadow", "/etc/sudoers", "/root", "/etc/
 #: « sudo », ses options et leur valeur (« -u postgres »), au début de chaque morceau.
 SUDO_PREFIX = re.compile(r"(^|[;&|(]\s*)sudo(?:\s+(?:-[ughpUCDrtT]\s+\S+|-\S+))*\s+")
 
+#: Des chemins sous les secrets à préfixe : un motif (« /etc/ssh/* ») qui les couvre est refusé.
+SECRET_SAMPLES = ("/etc/shadow", "/etc/gshadow", "/etc/sudoers", "/root/x", "/etc/ssh/ssh_host_x")
+
+
+def _reads_system_secret(command: str) -> bool:
+    """« /etc//shadow », « /etc/shad* », « /etc/ssh/* » désignent aussi un fichier de secrets."""
+    for word in re.split(r"[\s;&|()<>=\"']+", command):
+        path = re.sub(r"/+", "/", word.replace("/./", "/"))
+        if not path.startswith("/"):
+            continue
+        if any(secret in path for secret in SYSTEM_SECRETS):
+            return True
+        if set(path) & set("*?[") and any(fnmatch(s, path) for s in SECRET_SAMPLES):
+            return True
+    return False
+
 
 def admin_level(command: str, *, home: Path) -> Level:
     """Le niveau de ce que fait la commande sous sudo. Refusée si elle ne commence pas par
@@ -29,7 +46,7 @@ def admin_level(command: str, *, home: Path) -> Level:
             "Une commande proposée ici commence par sudo ; les autres se lancent avec "
             "executer_commande."
         )
-    if any(secret in command for secret in SYSTEM_SECRETS):
+    if _reads_system_secret(command):
         raise BlockedTargetError(
             "Cette commande lit un fichier de secrets du système : sa sortie partirait vers le "
             "modèle. Refusée."
