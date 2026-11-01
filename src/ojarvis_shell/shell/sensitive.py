@@ -11,7 +11,8 @@ from collections.abc import Iterator
 from fnmatch import fnmatch
 from pathlib import Path
 
-from ojarvis.shell.verdict import _PLACES, _in_order
+from ojarvis.shell.verdict import _PLACES, Verdict, _in_order
+from ojarvis.tools.base import Level
 from ojarvis.tools.guards import (
     SENSITIVE_DIRS,
     SENSITIVE_NAMES,
@@ -114,9 +115,15 @@ def _holds_secrets(path: Path, home: Path) -> bool:
     return relative is not None and any(d.startswith(relative + "/") for d in SENSITIVE_DIRS)
 
 
-def _check_recursive_search(name: str, args: list[str], *, cwd: Path, home: Path) -> None:
+class ScanIncompleteError(Exception):
+    """Le dossier est trop grand ou trop profond pour vérifier qu'il n'a aucun secret."""
+
+
+def _check_recursive_search(name: str, args: list[str], *, cwd: Path, home: Path) -> Verdict | None:
+    """Refuse une recherche qui lirait un fichier de secrets ; si le dossier est trop grand
+    pour le vérifier en entier, la recherche n'est plus une simple lecture : tu valides."""
     if not _recursive(name, args):
-        return
+        return None
     bases = [cwd, *_PLACES.get()]
     folders = [
         base / text
@@ -133,13 +140,21 @@ def _check_recursive_search(name: str, args: list[str], *, cwd: Path, home: Path
     hidden = name in ("rg", "ag") and not SEARCH_HIDDEN & set(args)
     excluded = _excluded(args)
     for root in roots:
-        for found in _secret_files(root, home, skip_hidden=hidden):
-            if not any(fnmatch(found.name, pattern) for pattern in excluded):
-                raise BlockedTargetError(
-                    f"{name} lirait aussi « {found.name} », un fichier de secrets : son contenu "
-                    "partirait vers le modèle. Cherche dans un sous-dossier précis, ou exclus-le "
-                    f"(--exclude='{found.name}' pour grep, -g '!{found.name}' pour rg)."
-                )
+        try:
+            for found in _secret_files(root, home, skip_hidden=hidden):
+                if not any(fnmatch(found.name, pattern) for pattern in excluded):
+                    raise BlockedTargetError(
+                        f"{name} lirait aussi « {found.name} », un fichier de secrets : son "
+                        "contenu partirait vers le modèle. Cherche dans un sous-dossier précis, "
+                        f"ou exclus-le (--exclude='{found.name}' pour grep, -g '!{found.name}' "
+                        "pour rg)."
+                    )
+        except ScanIncompleteError:
+            return Verdict(
+                Level.AGIR,
+                f"{name} fouille un dossier trop grand pour vérifier qu'il n'a aucun secret",
+            )
+    return None
 
 
 def _recursive(name: str, args: list[str]) -> bool:
@@ -177,16 +192,16 @@ def _secret_files(root: Path, home: Path, *, skip_hidden: bool) -> Iterator[Path
     seen = 0
     for folder, dirs, files in os.walk(root):
         here = Path(folder)
-        deep = len(here.relative_to(root).parts) >= SCAN_DEPTH
         dirs[:] = [
-            d
-            for d in dirs
-            if not deep and d not in SCAN_SKIPPED and not (skip_hidden and d.startswith("."))
+            d for d in dirs if d not in SCAN_SKIPPED and not (skip_hidden and d.startswith("."))
         ]
+        if dirs and len(here.relative_to(root).parts) >= SCAN_DEPTH:
+            # Plus profond que ce qu'on vérifie : un secret pourrait s'y cacher.
+            raise ScanIncompleteError
         for name in files:
             seen += 1
             if seen > SCAN_LIMIT:
-                return
+                raise ScanIncompleteError
             if not (skip_hidden and name.startswith(".")) and _is_sensitive(here / name, home):
                 yield here / name
 

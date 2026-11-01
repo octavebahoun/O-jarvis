@@ -29,7 +29,13 @@ NEVER_ALWAYS = frozenset(
      "git push", "git remote", "git clone", "git fetch", "git pull", "git ls-remote",
      "git submodule", "npm publish", "pnpm publish", "yarn publish", "docker push",
      "docker login", "podman push", "twine", "bash", "sh", "zsh", "eval", "source", ".",
-     "xargs", *NETWORK_LOOKUPS}
+     "xargs", *NETWORK_LOOKUPS,
+     # Installer un paquet lance son code (scripts d'installation) : « toujours » pour un
+     # paquet ne doit pas valider le suivant, peut-être piégé.
+     "npm install", "npm i", "npm add", "npm ci", "npx", "pnpm install", "pnpm i", "pnpm add",
+     "pnpm dlx", "pnpx", "yarn add", "yarn install", "yarn dlx", "bunx", "bun add", "bun install",
+     "pip install", "pip3 install", "pipx", "uv add", "uv pip", "uvx", "cargo install",
+     "cargo add", "gem install", "go install", "go get", "composer require", "composer install"}
 )  # fmt: skip
 
 #: Options suivies d'une valeur avant la sous-commande : « git -C ~/projet push » est un push.

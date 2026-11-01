@@ -55,8 +55,40 @@ WRAPPERS: dict[str, frozenset[str]] = {
     "timeout": frozenset({"-s", "-k", "--signal", "--kill-after"}),
     "stdbuf": frozenset({"-i", "-o", "-e"}),
     "env": frozenset({"-u", "-C", "--unset", "--chdir"}),
-    "watch": frozenset({"-n", "-d", "--interval"}),
+    "setsid": frozenset(),
+    "flock": frozenset({"-w", "--timeout", "-E", "--conflict-exit-code"}),
+    "taskset": frozenset(),
+    "chrt": frozenset(),
+    "unshare": frozenset({"-S", "-G", "-R", "-w", "--setuid", "--setgid", "--root", "--wd"}),
+    "strace": frozenset({"-o", "-e", "-s", "-p", "-u", "-E", "-P", "-a", "-b", "-I", "-O", "-S"}),
+    "ltrace": frozenset({"-o", "-e", "-s", "-p", "-u", "-n", "-a", "-A", "-D", "-L", "-x"}),
+    "systemd-run": frozenset(
+        {
+            "-u",
+            "--unit",
+            "-p",
+            "--property",
+            "--description",
+            "-E",
+            "--setenv",
+            "--slice",
+            "--uid",
+            "--gid",
+            "-M",
+            "--machine",
+        }
+    ),
 }
+#: Enveloppes dont le premier mot après les options n'est pas la commande : le fichier de
+#: verrou de flock, le masque de taskset, la priorité de chrt.
+WRAPPER_VALUE = frozenset({"flock", "taskset", "chrt"})
+#: Lancent un texte comme une ligne de commande : « watch 'rm -rf x' », « script -c '…' ».
+TEXT_RUNNERS: dict[str, frozenset[str]] = {
+    "watch": frozenset({"-n", "--interval", "-d"}),
+    "script": frozenset({"-E", "--echo", "-I", "--log-in", "-O", "--log-out", "-T", "-B"}),
+}
+#: Dossiers des programmes du système : « /usr/bin/ls » est ls ; « ./ls », un programme à soi.
+SYSTEM_BIN = frozenset({"/usr/bin", "/bin", "/usr/sbin", "/sbin", "/usr/local/bin"})
 SHELLS = frozenset({"bash", "sh", "zsh", "dash", "fish", "ksh"})
 
 # fmt: off
@@ -65,10 +97,10 @@ READ_ONLY = frozenset({
     "grep", "egrep", "fgrep", "rg", "ag", "du", "df", "free", "ps", "pstree", "pgrep",
     "uptime", "w", "who", "whoami", "id", "groups", "uname", "date", "cal", "pwd", "echo",
     "printf", "true", "false", "test", "[", "which", "whereis", "type", "file", "stat",
-    "tree", "sort", "uniq", "cut", "paste", "column", "tr", "diff", "cmp", "comm", "md5sum",
+    "tree", "cut", "paste", "column", "tr", "diff", "cmp", "comm", "md5sum",
     "sha1sum", "sha256sum", "basename", "dirname", "realpath", "readlink", "seq", "sleep",
     "lsblk", "lscpu", "lspci", "lsusb", "lsmod", "lshw", "dmesg", "nproc", "getconf",
-    "locale", "printenv", "ss", "netstat", "jq", "xxd",
+    "locale", "printenv", "ss", "netstat", "jq",
     "hexdump", "od", "strings", "zcat", "zgrep", "bzcat", "xzcat", "locate", "top",
     "vmstat", "iostat", "mpstat", "sensors", "acpi", "upower", "lsof", "history", "man",
     "help", "whatis", "apropos", "tldr", "neofetch", "fastfetch", "cd", "export", "alias",
@@ -167,29 +199,66 @@ def _segment(tokens: list[str], *, piped: bool, cwd: Path, home: Path, depth: in
             "Utilise-le seulement dans une sous-commande, par exemple "
             '-H "Authorization: Bearer $(gcloud auth print-access-token)".'
         )
-    if name in WRAPPERS:
-        rest = _skip_options(words[1:], WRAPPERS[name])
-        if name == "timeout" and rest and re.fullmatch(r"[0-9.]+[smhd]?", rest[0]):
-            rest = rest[1:]
-        if name == "env":
-            split = [w.split("=", 1)[1] for w in words[1:] if w.startswith("--split-string=")]
-            if split or {"-S", "--split-string"} & set(words[1:]):
-                # « env -S 'rm -rf x' » : le texte devient une commande.
-                inner = _classify(" ".join([*split, *rest]), cwd=cwd, home=home, depth=depth + 1)
-                return _highest([floor, Verdict(Level.AGIR, "env -S lance un texte"), inner])
-            floor = _highest([floor, *(_assignment(w) for w in rest if ASSIGNMENT.fullmatch(w))])
-            rest = [w for w in rest if not ASSIGNMENT.fullmatch(w)]
-        if not rest:
-            return _highest([floor, Verdict(Level.LIRE, f"{name} seul")])
-        inner = _segment(rest, piped=piped, cwd=cwd, home=home, depth=depth)
-        return _highest([floor, inner])
+    launched = _launcher(name, words, piped=piped, cwd=cwd, home=home, depth=depth)
+    if launched is not None:
+        return _highest([floor, launched])
     if name not in METADATA:
         for word in words[1:]:
             _check_sensitive(word, cwd=cwd, home=home)
     if name in SEARCHERS:
-        _check_recursive_search(name, words[1:], cwd=cwd, home=home)
+        too_large = _check_recursive_search(name, words[1:], cwd=cwd, home=home)
+        floor = _highest([floor, too_large]) if too_large else floor
     verdict = _command(name, words[1:], piped=piped, cwd=cwd, home=home, depth=depth)
     return _highest([floor, verdict])
+
+
+def _launcher(  # noqa: PLR0911 - une table de décision, lue de haut en bas
+    name: str, words: list[str], *, piped: bool, cwd: Path, home: Path, depth: int
+) -> Verdict | None:
+    """Ce qui lance une autre commande ou un programme à soi : la commande lancée est classée.
+    None : un programme ordinaire, classé par `_command`."""
+    if "/" in words[0] and str(Path(words[0]).parent) not in SYSTEM_BIN:
+        # « ./deploy.sh --help », « ./ls » : un programme à soi, quel que soit son nom.
+        for word in words[1:]:
+            _check_sensitive(word, cwd=cwd, home=home)
+        return Verdict(Level.AGIR, f"{words[0]} : un programme du dossier")
+    if name in TEXT_RUNNERS or (name == "flock" and {"-c", "--command"} & set(words[1:])):
+        return _text_runner(name, words[1:], cwd=cwd, home=home, depth=depth)
+    if name not in WRAPPERS:
+        return None
+    rest = _skip_options(words[1:], WRAPPERS[name])
+    floor = Verdict(Level.LIRE, f"{name} seul")
+    if name == "timeout" and rest and re.fullmatch(r"[0-9.]+[smhd]?", rest[0]):
+        rest = rest[1:]
+    if name in WRAPPER_VALUE:
+        if "-p" in words[1:] or "--pid" in words[1:]:
+            return Verdict(Level.AGIR, f"{name} change un processus")
+        rest = rest[1:]
+    if name == "env":
+        split = [w.split("=", 1)[1] for w in words[1:] if w.startswith("--split-string=")]
+        if split or {"-S", "--split-string"} & set(words[1:]):
+            # « env -S 'rm -rf x' » : le texte devient une commande.
+            inner = _classify(" ".join([*split, *rest]), cwd=cwd, home=home, depth=depth + 1)
+            return _highest([Verdict(Level.AGIR, "env -S lance un texte"), inner])
+        floor = _highest([floor, *(_assignment(w) for w in rest if ASSIGNMENT.fullmatch(w))])
+        rest = [w for w in rest if not ASSIGNMENT.fullmatch(w)]
+    if not rest:
+        return floor
+    return _highest([floor, _segment(rest, piped=piped, cwd=cwd, home=home, depth=depth)])
+
+
+def _text_runner(name: str, args: list[str], *, cwd: Path, home: Path, depth: int) -> Verdict:
+    """« watch 'rm -rf x' », « script -c '…' », « flock f -c '…' » : le texte est une ligne
+    de commande, classée comme telle."""
+    if "-c" in args or "--command" in args:
+        index = args.index("-c" if "-c" in args else "--command") + 1
+        text = args[index] if index < len(args) else ""
+    elif name == "watch":
+        text = " ".join(_skip_options(args, TEXT_RUNNERS[name]))
+    else:
+        return Verdict(Level.AGIR, f"{name} ouvre un shell")
+    inner = _classify(text, cwd=cwd, home=home, depth=depth + 1) if text.strip() else None
+    return _highest([Verdict(Level.AGIR, f"{name} lance un texte"), *([inner] if inner else [])])
 
 
 def _moved(segment: list[str], *, cwd: Path, home: Path) -> Path | Verdict | None:

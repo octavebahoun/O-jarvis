@@ -58,13 +58,20 @@ def _git(  # noqa: PLR0911, PLR0912 - une table de décision, lue de haut en bas
         or any(a.startswith(("+", ":")) for a in rest)
     ):
         return Verdict(Level.DETRUIRE, "git push forcé ou suppression distante")
-    if sub in ("checkout", "restore") and (
-        "--" in rest or "." in rest or (sub == "restore" and "--staged" not in flags)
+    if sub in ("checkout", "restore", "switch") and (
+        (sub != "switch" and ("--" in rest or "." in rest))
+        or (sub == "restore" and "--staged" not in flags)
+        or flags & {"-f", "--force", "--discard-changes"}
     ):
         return Verdict(Level.DETRUIRE, f"git {sub} efface des changements locaux")
+    if sub == "rm" and "--cached" not in flags:
+        return Verdict(Level.DETRUIRE, "git rm supprime des fichiers")
     if sub == "branch":
-        if "-D" in flags:
-            return Verdict(Level.DETRUIRE, "git branch -D supprime une branche")
+        letters = {c for a in rest if a.startswith("-") and not a.startswith("--") for c in a[1:]}
+        forced = "f" in letters or "--force" in flags
+        deletes = "D" in letters or (("d" in letters or "--delete" in flags) and forced)
+        if deletes:
+            return Verdict(Level.DETRUIRE, "git branch supprime une branche de force")
         if not rest or flags <= GIT_BRANCH_LIST:
             return Verdict(Level.LIRE, "git branch liste")
     if sub == "stash" and rest[:1] in (["list"], ["show"]):
@@ -153,26 +160,31 @@ def _find(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verd
         if arg.startswith(("-", "(", "!", ",")):
             break
         starts.append(arg)
-    for action in ("-exec", "-execdir", "-ok", "-okdir"):
-        if action in args:
-            # find seul ne montre que des noms ; avec -exec, il ouvre aussi les fichiers.
-            for origin in starts:
-                _check_sensitive(origin, cwd=cwd, home=home)
-                text = _expand(origin, home)
-                if _holds_secrets(Path(text) if text.startswith("/") else cwd / text, home):
-                    raise BlockedTargetError(
-                        f"find {origin} {action} ouvrirait aussi tes dossiers de secrets. "
-                        "Pars d'un dossier de projet précis."
-                    )
-            start = args.index(action) + 1
-            end = next(
-                (i for i in range(start, len(args)) if args[i] in ("\\;", ";", "+")), len(args)
-            )
-            # Le classement général, importé ici : commands.py importe ces règles.
-            from ojarvis.shell.commands import _segment  # noqa: PLC0415
+    actions = [i for i, a in enumerate(args) if a in ("-exec", "-execdir", "-ok", "-okdir")]
+    if actions:
+        # find seul ne montre que des noms ; avec -exec, il ouvre aussi les fichiers.
+        for origin in starts:
+            _check_sensitive(origin, cwd=cwd, home=home)
+            text = _expand(origin, home)
+            if _holds_secrets(Path(text) if text.startswith("/") else cwd / text, home):
+                raise BlockedTargetError(
+                    f"find {origin} {args[actions[0]]} ouvrirait aussi tes dossiers de secrets. "
+                    "Pars d'un dossier de projet précis."
+                )
+        # Le classement général, importé ici : commands.py importe ces règles.
+        from ojarvis.shell.commands import _segment  # noqa: PLC0415
 
-            inner = _segment(args[start:end], piped=False, cwd=cwd, home=home, depth=depth)
-            return _highest([Verdict(Level.AGIR, f"find {action}"), inner])
+        # Chaque clause compte : « -exec echo {} \; -exec rm -rf {} \; » supprime.
+        verdicts = [Verdict(Level.AGIR, f"find {args[actions[0]]}")]
+        for index in actions:
+            end = next(
+                (i for i in range(index + 1, len(args)) if args[i] in ("\\;", ";", "+")),
+                len(args),
+            )
+            verdicts.append(
+                _segment(args[index + 1 : end], piped=False, cwd=cwd, home=home, depth=depth)
+            )
+        return _highest(verdicts)
     if set(args) & {"-fprint", "-fprint0", "-fprintf", "-fls"}:
         return Verdict(Level.AGIR, "find écrit dans un fichier")
     return Verdict(Level.LIRE, "find cherche")
@@ -207,7 +219,15 @@ def _crontab(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> V
 
 
 def _ip(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verdict:
-    del cwd, home, depth
+    if "exec" in args:
+        # « ip netns exec ns cmd », « ip vrf exec vrf cmd » : cmd est lancée, on la classe.
+        from ojarvis.shell.commands import _segment  # noqa: PLC0415
+
+        inner = args[args.index("exec") + 2 :]
+        verdicts = [Verdict(Level.AGIR, f"{name} exec lance une commande")]
+        if inner:
+            verdicts.append(_segment(inner, piped=False, cwd=cwd, home=home, depth=depth))
+        return _highest(verdicts)
     if set(args) & {"add", "del", "delete", "set", "flush", "change", "replace", "append"}:
         return Verdict(Level.AGIR, f"{name} change le réseau")
     return Verdict(Level.LIRE, f"{name} lit")
@@ -270,12 +290,37 @@ def _man(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verdi
     return Verdict(Level.LIRE, f"{name} lit")
 
 
+
+def _sort(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verdict:
+    """sort lit, sauf « -o fichier » (il l'écrit) et « --compress-program » (il le lance)."""
+    del cwd, home, depth
+    for arg in args:
+        short = arg.startswith("-") and not arg.startswith("--")
+        if arg.startswith(("--output", "--compress-program")) or (short and "o" in arg[1:]):
+            return Verdict(Level.AGIR, f"{name} {arg} écrit un fichier ou lance un programme")
+    return Verdict(Level.LIRE, f"{name} lit")
+
+
+def _output_file(values: frozenset[str]) -> Special:
+    """uniq, xxd : un second fichier nommé est leur sortie, qu'ils écrasent."""
+
+    def check(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verdict:
+        del cwd, home, depth
+        files = [a for a in _skip_options(args, values) if not a.startswith("-")]
+        if len(files) >= 2:
+            return Verdict(Level.AGIR, f"{name} écrit dans {files[1]}")
+        return Verdict(Level.LIRE, f"{name} lit")
+
+    return check
+
 # fmt: off
 PACKAGE_READ = frozenset({
     "list", "ls", "show", "info", "search", "find", "outdated", "view", "why", "freeze",
-    "check", "policy", "depends", "rdepends", "changelog", "connections", "services",
-    "changes", "history", "remotes", "ps", "tree", "metadata", "--version", "-v", "version",
+    "policy", "depends", "rdepends", "changelog", "connections", "services",
+    "changes", "history", "remotes", "ps", "tree", "metadata", "--version", "-v",
 })
+# « npm version patch » change la version et lance les scripts du projet ; « cargo check »
+# lance build.rs : pas des lectures. « pip check » et « cargo version », si.
 
 # fmt: on
 PACKAGE_REMOVE = frozenset({"remove", "purge", "autoremove", "uninstall"})
@@ -290,6 +335,11 @@ SPECIAL: dict[str, Special] = {
     "find": _find,
     "crontab": _crontab,
     "ip": _ip,
+    "sort": _sort,
+    "uniq": _output_file(
+        frozenset({"-f", "-s", "-w", "--skip-fields", "--skip-chars", "--check-chars"})
+    ),
+    "xxd": _output_file(frozenset({"-c", "-g", "-l", "-s", "-o", "-n", "-cols", "-len", "-seek"})),
     "tar": _tar,
     "man": _man,
     "chmod": _with_flag(frozenset({"-R", "--recursive"}), Level.DETRUIRE, Level.AGIR),
@@ -309,13 +359,13 @@ SPECIAL: dict[str, Special] = {
     "apt-cache": _by_subcommand(PACKAGE_READ | {"stats", "pkgnames", "madison"}),
     "snap": _by_subcommand(PACKAGE_READ, PACKAGE_REMOVE),
     "flatpak": _by_subcommand(PACKAGE_READ, PACKAGE_REMOVE),
-    "pip": _by_subcommand(PACKAGE_READ),
-    "pip3": _by_subcommand(PACKAGE_READ),
+    "pip": _by_subcommand(PACKAGE_READ | {"check"}),
+    "pip3": _by_subcommand(PACKAGE_READ | {"check"}),
     "npm": _by_subcommand(PACKAGE_READ | {"audit", "doctor"}),
     "pnpm": _by_subcommand(PACKAGE_READ | {"audit"}),
     "yarn": _by_subcommand(PACKAGE_READ),
-    "cargo": _by_subcommand(PACKAGE_READ),
-    "uv": _by_subcommand(frozenset({"--version", "version", "tree"})),
+    "cargo": _by_subcommand(PACKAGE_READ | {"version"}),
+    "uv": _by_subcommand(frozenset({"--version", "tree"})),
     "hostnamectl": _by_subcommand(frozenset({"", "status"})),
     "timedatectl": _by_subcommand(frozenset({"", "status", "show", "list-timezones"})),
     "localectl": _by_subcommand(frozenset({"", "status", "list-locales", "list-keymaps"})),
