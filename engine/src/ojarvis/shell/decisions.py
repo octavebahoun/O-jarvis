@@ -91,6 +91,25 @@ class PlanDecisions(Terminal):
     _spinner: Spinner
     _poll_s: float
     _wait_s: float
+    #: Le temps passé à décider, dans cette demande : il ne compte pas dans sa durée.
+    _waited: float = 0.0
+
+    def _question(self, prompt: str) -> str:
+        """Ta réponse à une question ; une entrée fermée (Ctrl+D) vaut un refus."""
+        asked = time.monotonic()
+        try:
+            return self._ask(prompt).strip().lower()
+        except EOFError:
+            return ""
+        finally:
+            self._waited += time.monotonic() - asked
+
+    def _bottom(self, color: str, *parts: tuple[str, ...]) -> str:
+        """« ╰─ Valider ?  o oui · n non  › » : le bas d'une carte, la question (sûre pour
+        readline : les couleurs n'y comptent pas dans la largeur)."""
+        return self._style.prompt("  ╰─ ", color) + "".join(
+            self._style.prompt(text, *codes) for text, *codes in parts
+        )
 
     def _decide(self, plan: dict[str, Any]) -> str | None:
         """Montre le plan et ta décision ; rend son id s'il a tourné jusqu'au bout."""
@@ -99,35 +118,35 @@ class PlanDecisions(Terminal):
         if plan.get("status") != "proposed":
             return self._wait(plan_id)  # une lecture : partie sans attendre
         color = LEVEL_COLORS.get(level, YELLOW)
-        self.line(self._style(f"┌ À valider · niveau {level} ({LEVEL_NAMES.get(level)})", color))
+        self.gap()
+        name = LEVEL_NAMES.get(level, "action").upper()
+        self._card_top(f"À VALIDER · NIVEAU {level} · {name}", level)
         clicks = False
         for step in plan.get("steps", []):
-            measure = f"(mesure {step['measure']}) " if step.get("measure") else ""
-            self.line(
-                self._style("│ ", color) + f"{step['position']}. {measure}{step['description']}"
-            )
+            self._step_line(step, color)
             if step.get("preview"):
                 self._diff(str(step["preview"]), color)
             if step.get("repere"):
                 clicks = True
                 self._capture(str(step["repere"]), color)
         if clicks:
-            self.line(
-                self._style("│ ", color)
-                + "Après ta validation, mets la fenêtre visée devant : Jarvis clique dès qu'il "
-                "revoit l'élément (15 s au plus)."
+            self._card(
+                "Après ta validation, mets la fenêtre visée devant : Jarvis clique dès qu'il "
+                "revoit l'élément (15 s au plus).",
+                color,
             )
         if isinstance(plan.get("review"), dict):
             self._review(plan["review"], color)
         if plan.get("web"):
             # Ici presque tout suit une lecture de ta machine ; seul le web mérite l'alerte.
-            warning = "│ ⚠ l'idée vient d'un contenu lu sur le web : vérifie bien."
-            self.line(self._style(warning, color))
+            warning = "⚠ L'idée vient d'un contenu lu sur le web : vérifie bien."
+            self._card(self._style(warning, YELLOW), color)
         always = self._always(plan)
         if always and always <= self.allowed:
             kinds = ", ".join(sorted(always))
             self.line(
-                self._style(f"└ Validé d'office (toujours pour cette session : {kinds})", color)
+                self._style("  ╰─ ", color)
+                + self._style(f"Validé d'office (toujours pour cette session : {kinds})", color)
             )
             approved = True
         else:
@@ -135,7 +154,7 @@ class PlanDecisions(Terminal):
         self._line_open = False
         if not approved:
             self.http.post(f"/v1/plans/{plan_id}/refuse")
-            self.line(self._style("Refusé : rien n'a été lancé.", DIM))
+            self.line(self._style("  Refusé : rien n'a été lancé.", DIM))
             return None
         response = self.http.post(
             f"/v1/plans/{plan_id}/approve", json={"double_confirm": level >= 3}
@@ -145,16 +164,28 @@ class PlanDecisions(Terminal):
             return None
         return self._wait(plan_id)
 
+    def _step_line(self, step: dict[str, Any], color: str) -> None:
+        """« │ 1  pytest -q                    mesure avant » : une étape du plan."""
+        number = str(step["position"])
+        description = str(step["description"])
+        left = (
+            f"  │ {number}  {description}",
+            self._style("  │ ", color) + self._style(number, BOLD) + f"  {description}",
+        )
+        if not step.get("measure"):
+            self.line(left[1])
+            return
+        tag = f"mesure {step['measure']}"
+        self.line(self._aligned(left, (tag, self._style(tag, DIM))))
+
     def _capture(self, mark: str, frame: str) -> None:
         """Où Jarvis va cliquer : la capture annotée, à ouvrir d'un Ctrl+clic."""
         if self.marks_dir is None or not mark.isalnum():
             return
         path = self.marks_dir / f"{mark}.jpg"
         if path.is_file():
-            self.line(
-                self._style("│   ", frame)
-                + self._style(f"où Jarvis va cliquer : {path.as_uri()} (Ctrl+clic)", DIM)
-            )
+            where = f"   où Jarvis va cliquer : {path.as_uri()} (Ctrl+clic)"
+            self._card(self._style(where, DIM), frame)
 
     def _diff(self, diff: str, frame: str) -> None:
         """Le diff d'une étape, en couleurs : + ajouté, - retiré."""
@@ -171,10 +202,10 @@ class PlanDecisions(Terminal):
                 color = CYAN
             else:
                 color = DIM
-            self.line(self._style("│   ", frame) + self._style(line, color))
+            self._card("   " + self._style(line, color), frame)
         if len(lines) > len(shown_lines):
-            more = f"│   [… {len(lines) - len(shown_lines)} lignes de plus]"
-            self.line(self._style(more, DIM))
+            more = f"   [… {len(lines) - len(shown_lines)} lignes de plus]"
+            self._card(self._style(more, DIM), frame)
 
     def _review(self, review: dict[str, Any], frame: str) -> None:
         """L'avis du relecteur (un autre modèle) sur les modifications proposées."""
@@ -187,8 +218,7 @@ class PlanDecisions(Terminal):
             mark, color = "?", YELLOW
         notes = str(review.get("notes") or ("rien à signaler" if ok else ""))
         who = f"{review.get('provider')} / {review.get('model')}"
-        verdict = self._style(f"Relecture · {who} : {mark} {notes}", color)
-        self.line(self._style("│ ", frame) + verdict)
+        self._card(self._style(f"{mark} Relecture · {who} : {notes}", color), frame)
 
     def _always(self, plan: dict[str, Any]) -> frozenset[str] | None:
         """Les types de commande du plan si « toujours » peut s'y appliquer : seulement des
@@ -216,47 +246,58 @@ class PlanDecisions(Terminal):
         level = int(proposal.get("level", Level.AGIR))
         color = RED if level >= Level.DETRUIRE else YELLOW
         self._spinner.stop()
-        self.line(self._style("┌ Commande d'administrateur : c'est toi qui la lances", color))
-        self.line(self._style("│ ", color) + command)
+        self.gap()
+        self._card_top("COMMANDE D'ADMINISTRATEUR · C'EST TOI QUI LA LANCES", level)
+        self._card(self._style(command, BOLD), color)
         if proposal.get("why"):
-            self.line(self._style("│ ", color) + self._style(str(proposal["why"]), DIM))
+            self._card(self._style(str(proposal["why"]), DIM), color)
         if level >= Level.DETRUIRE:
-            question = (
-                "└ Destruction : tape « oui » pour la lancer toi-même, autre chose pour refuser › "
+            question = self._bottom(
+                color,
+                ("Tape « oui » pour la lancer toi-même", BOLD),
+                (", autre chose pour refuser  › ", DIM),
             )
         else:
-            question = "└ [e]xécuter moi-même / [n]on › "
-        try:
-            answer = self._ask(self._style.prompt(question, color)).strip().lower()
-        except EOFError:
-            answer = ""  # entrée fermée (Ctrl+D) : un refus
+            question = self._bottom(
+                color,
+                ("Lancer ?", BOLD),
+                ("  ",),
+                ("e", BOLD),
+                (" exécuter moi-même · ", DIM),
+                ("n", BOLD),
+                (" non  › ", DIM),
+            )
+        answer = self._question(question)
         accepted = answer == "oui" if level >= Level.DETRUIRE else answer in RUN_MYSELF
         if not accepted:
-            self.line(self._style("Pas lancée.", DIM))
+            self.line(self._style("  Pas lancée.", DIM))
             return None
         self.line(
             self._style(
-                "↳ sudo te demande ton mot de passe ici : il va directement à sudo, Jarvis ne "
+                "  ↳ sudo te demande ton mot de passe ici : il va directement à sudo, Jarvis ne "
                 "le voit pas.",
                 DIM,
             )
         )
         code, output = self._run(command, self.folder)
-        self.line(self._style(f"· code de sortie {code}", DIM))
+        self.line(self._style(f"  · code de sortie {code}", DIM))
         return {"command": command, "code": code, "output": output}
 
     def _ask_approval(self, level: int, always: frozenset[str] | None, color: str) -> bool:
         if level >= Level.DETRUIRE:
-            question = "└ Destruction : tape « oui » pour confirmer, autre chose pour refuser › "
-        elif always:
-            kinds = ", ".join(sorted(always))
-            question = f"└ Valider ? [o]ui / [n]on / [t]oujours ({kinds}) › "
+            question = self._bottom(
+                color,
+                ("Tape « oui » en entier pour confirmer", BOLD),
+                (", autre chose pour refuser  › ", DIM),
+            )
         else:
-            question = "└ Valider ? [o]ui / [n]on › "
-        try:
-            answer = self._ask(self._style.prompt(question, color)).strip().lower()
-        except EOFError:
-            answer = ""  # entrée fermée (Ctrl+D) : un refus, rien n'est lancé
+            choices: list[tuple[str, ...]] = [("o", BOLD), (" oui · ", DIM), ("n", BOLD)]
+            choices.append((" non", DIM) if not always else (" non · ", DIM))
+            if always:
+                kinds = ", ".join(sorted(always))
+                choices += [("t", BOLD), (f" toujours ({kinds})", DIM)]
+            question = self._bottom(color, ("Valider ?", BOLD), ("  ",), *choices, ("  › ", DIM))
+        answer = self._question(question)
         if level >= Level.DETRUIRE:
             return answer == "oui"
         if always and answer in ALWAYS:
@@ -268,6 +309,7 @@ class PlanDecisions(Terminal):
         """Suit le plan étape par étape, jusqu'à sa fin."""
         shown_steps: set[int] = set()
         deadline = time.monotonic() + self._wait_s
+        self.gap()
         self._spinner.start("Jarvis exécute…")
         try:
             while time.monotonic() < deadline:
@@ -299,14 +341,14 @@ class PlanDecisions(Terminal):
         }
         before, after = found.get(MEASURE_BEFORE), found.get(MEASURE_AFTER)
         if before is not None and after is not None:
-            self.line(self._style(f"· Avant : {before}", DIM))
-            self.line(self._style(f"· Après : {after}", DIM))
+            self.line(self._style("  mesure avant  ", DIM) + before)
+            self.line(self._style("  mesure après  ", DIM) + self._style(after, GREEN))
 
     def _show_step(self, step: dict[str, Any]) -> None:
         if step["status"] == "done":
-            self.line(self._style(f"  ✓ {step['description']}", GREEN))
+            self.line(self._style("  ✓ ", GREEN) + str(step["description"]))
             if step.get("tool") == "executer_commande" and step.get("result"):
-                self._indented(preview(str(step["result"])), DIM)
+                self._rail(preview(str(step["result"])), DIM, DIM)
         elif step["status"] == "failed":
             self.line(self._style(f"  ✗ {step['description']} : {step.get('error')}", RED))
         else:
