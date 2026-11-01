@@ -1,6 +1,6 @@
 [package]
 name = "o-jarvis"
-version = "1.1.0"
+version = "1.2.0"
 description = "O-jarvis, assistant personnel desktop"
 authors = ["Octave BAHOUN-HOUTOUKPE <octavebahoun@gmail.com>"]
 edition = "2024"
