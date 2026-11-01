@@ -22,25 +22,23 @@ from typing import Any, TextIO
 
 import httpx
 
-from ojarvis import __version__
 from ojarvis.config import resolve_paths
+from ojarvis.shell.banner import banner, prompt
 from ojarvis.shell.connection import EngineLink, EngineUnavailableError
 from ojarvis.shell.decisions import PlanDecisions, Runner, run_yourself
 from ojarvis.shell.display import (
     BOLD,
     CYAN,
     DIM,
-    GREEN,
     RED,
-    WHITE,
     YELLOW,
     Spinner,
     Style,
     error_message,
-    preview,
     sse_events,
 )
-from ojarvis.tools.guards import BlockedTargetError, resolve_user_path, shown
+from ojarvis.shell.view import TurnView
+from ojarvis.tools.guards import BlockedTargetError, resolve_user_path
 
 #: Ce que Jarvis dit après une validation : la suite part avec les résultats du plan.
 CONTINUE = "Continue."
@@ -61,7 +59,7 @@ class Budget:
 DICTATION_S = 30
 
 
-class ShellClient(PlanDecisions):
+class ShellClient(TurnView, PlanDecisions):
     """Une session : la conversation, et la boucle « proposer, valider, continuer »."""
 
     def __init__(
@@ -101,8 +99,10 @@ class ShellClient(PlanDecisions):
         self._wait_s = wait_s
         self._spinner = Spinner(out, style.enabled, style)
         self._line_open = False
-        #: Le modèle déjà annoncé pendant ce tour (il ne change qu'en cas de relais).
+        #: Le modèle déjà annoncé pendant cette demande (il ne change qu'en cas de relais).
         self._route: str | None = None
+        #: Quand chaque lecture a commencé : sa durée s'affiche à côté d'elle.
+        self._started: dict[str, float] = {}
         self.budget = budget or Budget()
         self._spent = 0.0
         self.home = home or Path.home()
@@ -117,8 +117,13 @@ class ShellClient(PlanDecisions):
         """« /voix » (#10) : une phrase dite, transcrite par le Jarvis de l'app, montrée ici,
         puis traitée comme si tu l'avais écrite. Comme le bouton micro : rien ne quitte la
         machine avant que tu parles."""
-        self.line(self._style("◉ Je t'écoute : parle, puis marque une pause.", CYAN))
-        self._spinner.start("J'écoute…")
+        self.line("")
+        self.line(
+            self._style("  ◉ ", CYAN)
+            + self._style("Je t'écoute", BOLD)
+            + self._style("  parle, puis marque une pause", DIM)
+        )
+        self._spinner.start("J'écoute…", Spinner.WAVE)
         try:
             response = self.http.post(
                 "/v1/voice/dictate", json={"timeout_s": DICTATION_S}, timeout=DICTATION_S + 15
@@ -133,9 +138,9 @@ class ShellClient(PlanDecisions):
             return None
         heard = str(response.json().get("text") or "").strip()
         if not heard:
-            self.line(self._style("Je n'ai rien entendu.", DIM))
+            self.line(self._style("  Je n'ai rien entendu.", DIM))
             return None
-        self.line(self._style("Tu as dit : ", DIM) + f"« {heard} »")
+        self.line(self._style("  Tu as dit : ", DIM) + f"« {heard} »")
         return heard
 
     def send(self, text: str, *, spoken: bool = False) -> None:
@@ -143,6 +148,8 @@ class ShellClient(PlanDecisions):
         budget de la demande. Au-delà, il s'arrête proprement et attend ton « continue ».
         `spoken` : la demande a été dite, la dernière réponse l'est aussi."""
         self._spent = 0.0
+        self._waited = 0.0
+        self._route = None  # « ◆ Jarvis » et son modèle : une fois par demande
         started = time.monotonic()
         follow_ups = 0
         try:
@@ -160,14 +167,13 @@ class ShellClient(PlanDecisions):
                         f"Budget de cette demande atteint ({reason}) : je m'arrête ici. "
                         "Écris « continue » pour reprendre."
                     )
-                    self.line(self._style(message, YELLOW))
+                    self.line(self._style(f"  {message}", YELLOW))
                     self.pending, self.pending_ran = finished, ran
                     return
                 follow_ups += 1
                 plans = self._turn(CONTINUE, after_plan=finished, ran=ran)
         finally:
-            if self._spent > 0:
-                self.line(self._style(f"· coût de cette demande : {self._spent:.3f} $", DIM))
+            self._footer(time.monotonic() - started - self._waited)
             if spoken:
                 self._speak("".join(self._reply))
 
@@ -202,7 +208,6 @@ class ShellClient(PlanDecisions):
         if ran is not None:
             body["ran"] = ran
         plans: list[dict[str, Any]] = []
-        self._route = None
         self._reply: list[str] = []
         self._spinner.start()
         try:
@@ -217,6 +222,7 @@ class ShellClient(PlanDecisions):
                     self._on_event(kind, data, plans)
         finally:
             self._spinner.stop()
+        self._end_prose()
         if self._line_open:
             self._write("\n")
         return plans
@@ -227,16 +233,9 @@ class ShellClient(PlanDecisions):
         elif kind == "route":
             route = f"{data.get('provider')} / {data.get('model')}"
             if route != self._route:
-                self._route = route
-                relay = f", relais de {data['fallback_from']}" if data.get("fallback_from") else ""
                 self._spinner.stop()
-                if data.get("relay"):
-                    self.line(self._style(f"↑ {data['relay']}", YELLOW))
-                self.line(
-                    self._style(f"· {data.get('provider')} / ", DIM)
-                    + self._style(str(data.get("model")), CYAN)
-                    + (self._style(relay, DIM) if relay else "")
-                )
+                self._announce(data, first=self._route is None)
+                self._route = route
                 self._spinner.start()
         elif kind == "delta":
             self._on_delta(str(data.get("text", "")))
@@ -253,35 +252,6 @@ class ShellClient(PlanDecisions):
             self.error(str(data.get("message", "erreur du moteur")))
         elif kind == "done":
             self._spent += float(data.get("cost_usd") or 0.0)
-
-    def _on_delta(self, text: str) -> None:
-        self._spinner.stop()
-        if not self._line_open and text.startswith("\n"):
-            text = "\n" + text.lstrip("\n")  # une seule ligne vide après une commande
-        body = text.lstrip("\n")
-        if body and not any(part.strip("\n") for part in self._reply):
-            # Le losange ouvre la réponse : après les lignes vides, devant le premier mot.
-            self._write(text[: len(text) - len(body)] + self._style("◆ ", BOLD, CYAN) + body)
-        else:
-            self._write(text)
-        self._reply.append(text)
-
-    def _on_tool(self, data: dict[str, Any]) -> None:
-        status = data.get("status")
-        if status == "running" or data.get("name") == "proposer_un_plan":
-            return  # le plan s'affiche à part, avec la question
-        self._spinner.stop()
-        description = str(data.get("description") or data.get("name"))
-        if status == "failed":
-            self.line(self._style(f"  ✗ {description} : {data.get('error')}", RED))
-        elif status == "done":
-            if data.get("sudo"):
-                self._proposals.append(dict(data["sudo"]))  # montrée à la fin du tour
-            else:
-                self.line(self._style("  ✓ ", GREEN) + description)
-            if data.get("output") and not data.get("sudo"):
-                self._indented(preview(str(data["output"])), DIM)
-        self._spinner.start()
 
     # ------------------------------------------------------------------ un plan
 
@@ -308,7 +278,7 @@ class ShellClient(PlanDecisions):
         if response.status_code != 200:
             self.error(error_message(response))
             return
-        self.line(self._style(message, DIM))
+        self.line(self._style(f"  {message}", DIM))
 
 
 # --------------------------------------------------------------------------- le moteur
@@ -337,23 +307,6 @@ def _setup_readline(path: Path) -> Callable[[], None]:
             path.chmod(0o600)
 
     return save
-
-
-def _banner(client: ShellClient, style: Style, where: str, own_engine: bool) -> None:
-    profile = ""
-    with contextlib.suppress(httpx.HTTPError, ValueError):
-        if client.http.get("/v1/settings").json().get("model_profile") == "meta":
-            profile = " · profil Tout Meta"
-    origin = "moteur lancé pour ce terminal" if own_engine else "le Jarvis de ton app"
-    client.line(style("◉ O-jarvis", BOLD, WHITE) + style(f" · mode shell (v{__version__})", CYAN))
-    client.line(style(f"Dossier {where} · {origin}{profile}", DIM))
-    client.line(
-        style(
-            "« /voix » : parler · « /partage » : écran en direct · « /nouveau » : nouvelle "
-            "conversation · « /toujours » : ce qui est validé d'office · « exit » : quitter",
-            DIM,
-        )
-    )
 
 
 def parse_args(argv: list[str] | None) -> argparse.Namespace:
@@ -403,10 +356,9 @@ def main(argv: list[str] | None = None) -> int:
             own_engine=process is not None,
             marks_dir=resolve_paths(env).state_dir / "desktop" / "reperes",
         )
-        where = shown(folder, home)
-        _banner(client, style, where, client.own_engine)
+        banner(client, http, style, folder, home, own_engine=client.own_engine)
         try:
-            _loop(client, style, where)
+            _loop(client, style, folder, home)
         finally:
             save_history()
             if process is not None:
@@ -420,16 +372,16 @@ def _warn_app(client: ShellClient, style: Style) -> None:
     with contextlib.suppress(httpx.HTTPError, ValueError):
         if client.http.get("/v1/status").json().get("stream_clients", 0) > 0:
             client.line(
-                style("L'app utilisait ce moteur : elle relance le sien (quelques secondes).", DIM)
+                style(
+                    "  L'app utilisait ce moteur : elle relance le sien (quelques secondes).", DIM
+                )
             )
 
 
-def _loop(client: ShellClient, style: Style, where: str) -> None:
+def _loop(client: ShellClient, style: Style, folder: Path, home: Path) -> None:
     while True:
         try:
-            text = input(
-                "\n" + style.prompt(f"{where} ", DIM) + style.prompt("❯ ", BOLD, CYAN)
-            ).strip()
+            text = input(prompt(style, folder, home)).strip()
         except EOFError:
             client.line("")
             return
@@ -455,13 +407,13 @@ def _command(client: ShellClient, style: Style, text: str) -> bool:
     elif text == "/nouveau":
         client.conversation_id = None
         client.pending.clear()
-        client.line(style("Nouvelle conversation.", DIM))
+        client.line(style("  Nouvelle conversation.", DIM))
     elif text == "/toujours":
         kinds = ", ".join(sorted(client.allowed)) or "rien pour l'instant"
-        client.line(style(f"Validé d'office dans cette session : {kinds}", DIM))
+        client.line(style(f"  Validé d'office dans cette session : {kinds}", DIM))
     elif text == "/oublier":
         client.allowed.clear()
-        client.line(style("Chaque commande demandera de nouveau ta validation.", DIM))
+        client.line(style("  Chaque commande demandera de nouveau ta validation.", DIM))
     else:
         return False
     return True
@@ -471,7 +423,7 @@ def _ask(client: ShellClient, style: Style, text: str, *, spoken: bool = False) 
     try:
         client.send(text, spoken=spoken)
     except KeyboardInterrupt:
-        client.line(style("(interrompu)", DIM))
+        client.line(style("  (interrompu)", DIM))
     except httpx.HTTPError as exc:
         client.error(f"Le moteur ne répond plus ({type(exc).__name__}).")
 

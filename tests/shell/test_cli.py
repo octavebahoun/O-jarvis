@@ -13,6 +13,7 @@ from ojarvis.agent.measures import MEASURE_AFTER, MEASURE_BEFORE
 from ojarvis.api.routes_chat import sse as engine_sse
 from ojarvis.chat.service import ChatEvent
 from ojarvis.shell import cli
+from ojarvis.shell.banner import banner
 from ojarvis.shell.cli import ShellClient
 from ojarvis.shell.display import Style, preview, sse_events
 from tests.shell.fake_engine import DONE, ROUTE, START, FakeEngine, chats, plan, session, sse
@@ -43,11 +44,12 @@ def test_a_read_shows_the_model_the_command_and_its_output() -> None:
     client, out = session(engine, [])
     client.send("Pourquoi mon disque est plein ?")
     text = out.getvalue()
-    assert text.count("· meta / muse-spark-1.3") == 1  # annoncé une fois par tour
+    assert text.count("◆ Jarvis   meta / muse-spark-1.3") == 1  # annoncé une fois par demande
+    assert text.count("muse-spark-1.3") == 1
     assert "  ✓ Lancer « df -h » dans ~/projet" in text
     assert "/dev/sda2  457G  386G  48G  90% /" in text
     assert "$ df -h" not in text  # l'en-tête est déjà dans la ligne ✓
-    assert "Ton disque est plein à 90 %." in text
+    assert "\n\n  Ton disque est plein à 90 %.\n" in text  # en retrait, après une ligne vide
     assert client.conversation_id == "c1"
     assert chats(engine)[0] == {
         "text": "Pourquoi mon disque est plein ?",
@@ -66,8 +68,8 @@ def test_an_approved_action_runs_then_jarvis_continues_with_its_results() -> Non
     client, out = session(engine, ["o"])
     client.send("Libère de la place.")
     text = out.getvalue()
-    assert "┌ À valider · niveau 2 (action)" in text
-    assert "│ 1. Lancer « docker image prune -f »" in text
+    assert "╭─  À VALIDER · NIVEAU 2 · ACTION  ──" in text
+    assert "  │ 1  Lancer « docker image prune -f »" in text
     assert "  ✓ Lancer « docker image prune -f »" in text
     assert "Total reclaimed space: 25.4GB" in text
     assert "25,4 Go libérés" in text
@@ -101,7 +103,7 @@ def test_a_destruction_needs_the_whole_word_yes() -> None:
     client.send("Supprime les images.")
     approve = next(b for m, p, b in engine.requests if p.endswith("/approve"))
     assert approve == {"double_confirm": True}
-    assert "┌ À valider · niveau 3 (destruction)" in out.getvalue()
+    assert "╭─  À VALIDER · NIVEAU 3 · DESTRUCTION  ──" in out.getvalue()
 
 
 def test_a_reading_plan_is_followed_without_a_question() -> None:
@@ -147,10 +149,10 @@ def test_a_code_plan_shows_its_diff_and_the_review() -> None:
     client, out = session(engine, ["n"])
     client.send("Corrige.")
     text = out.getvalue()
-    assert "│   -ancien" in text
-    assert "│   +nouveau" in text
-    assert "│   [… 25 lignes de plus]" in text  # un long diff est coupé à 80 lignes
-    assert "│ Relecture · meta / muse-wonder-1.0 : ✓ rien à signaler" in text
+    assert "  │    -ancien" in text
+    assert "  │    +nouveau" in text
+    assert "  │    [… 25 lignes de plus]" in text  # un long diff est coupé à 80 lignes
+    assert "  │ ✓ Relecture · meta / muse-wonder-1.0 : rien à signaler" in text
 
 
 def test_closing_the_input_during_a_question_refuses_the_plan() -> None:
@@ -183,7 +185,7 @@ def test_the_follow_ups_stop_cleanly_at_the_budget() -> None:
     assert len(chats(engine)) == 2  # la demande, puis une seule suite
     assert "Budget de cette demande atteint (1 suites)" in text
     assert "Écris « continue » pour reprendre." in text
-    assert "· coût de cette demande : 0.020 $" in text
+    assert "  0,0 s · 0,020 $" in text  # sa durée, sans tes temps de décision, et son coût
     # Les résultats du dernier plan partent avec le message suivant : rien n'est perdu.
     client.send("continue")
     assert chats(engine)[2]["after_plan"] == ["p1"]
@@ -239,8 +241,8 @@ def test_always_approves_the_same_kind_of_command_for_the_session(tmp_path: Path
     client.home = tmp_path
     client.send("Installe React puis Vite.")
     assert len(questions) == 1  # la 2ᵉ installation ne demande rien
-    assert "[t]oujours (git add)" in questions[0]
-    assert "└ Validé d'office (toujours pour cette session : git add)" in out.getvalue()
+    assert "╰─ Valider ?  o oui · n non · t toujours (git add)  › " in questions[0]
+    assert "  ╰─ Validé d'office (toujours pour cette session : git add)" in out.getvalue()
     assert [p for _m, p, _b in engine.requests].count("/v1/plans/p1/approve") == 2
     assert client.allowed == {"git add"}
     # Après une lecture du web, une installation demande de nouveau ta validation.
@@ -249,7 +251,7 @@ def test_always_approves_the_same_kind_of_command_for_the_session(tmp_path: Path
     client._ask = lambda _q: "n"
     client.send("Installe x.")
     assert "/v1/plans/p1/refuse" in [p for _m, p, _b in late.requests]
-    assert "l'idée vient d'un contenu lu sur le web" in out.getvalue()
+    assert "⚠ L'idée vient d'un contenu lu sur le web" in out.getvalue()
 
 
 @pytest.mark.parametrize(
@@ -327,7 +329,8 @@ def test_a_proposed_sudo_command_runs_in_your_terminal_and_its_output_returns() 
         "output": "ncdu installé",
     }
     text = out.getvalue()
-    assert "Commande d'administrateur : c'est toi qui la lances" in text
+    assert "COMMANDE D'ADMINISTRATEUR · C'EST TOI QUI LA LANCES" in text
+    assert "  │ sudo apt install -y ncdu" in text
     assert "il va directement à sudo, Jarvis ne le voit pas" in text
 
 
@@ -387,25 +390,26 @@ def test_the_terminal_shows_the_measure_before_and_after() -> None:
     client, out = session(engine, ["o"])
     client.send("Libère de la place.")
     text = out.getvalue()
-    assert "1. (mesure avant) Lancer « df -h / » dans ~" in text
-    assert "· Avant : /dev/sda2 457G 392G 43G 91% /" in text
-    assert "· Après : /dev/sda2 457G 377G 58G 87% /" in text
+    assert "  │ 1  Lancer « df -h / » dans ~" in text
+    assert "mesure avant\n" in text  # au bord droit de la carte
+    assert "  mesure avant  /dev/sda2 457G 392G 43G 91% /" in text
+    assert "  mesure après  /dev/sda2 457G 377G 58G 87% /" in text
 
 
-def test_colors_highlight_the_brand_the_reply_and_the_model() -> None:
+def test_colors_highlight_the_brand_the_reply_and_the_model(tmp_path: Path) -> None:
     engine = FakeEngine([sse(START, ROUTE, ("delta", {"text": "Salut."}), DONE)])
     client, out = session(engine, [], style=Style(True))
-    cli._banner(client, Style(True), "~", False)
+    banner(client, client.http, Style(True), tmp_path, tmp_path, own_engine=False)
     client.send("Bonjour.")
     text = out.getvalue()
     assert "◉ O-jarvis" in text
-    assert "◆ " in text
+    assert "◆ Jarvis" in text
     assert "Salut." in text
     assert "muse-spark-1.3" in text
     assert "\033[" in text  # codes ANSI émis dans un vrai terminal
 
 
-def test_the_diamond_opens_the_reply_even_after_a_command() -> None:
+def test_the_reply_follows_a_command_after_one_blank_line() -> None:
     tool = {
         "id": "t1",
         "name": "executer_commande",
@@ -418,5 +422,4 @@ def test_the_diamond_opens_the_reply_even_after_a_command() -> None:
     client, out = session(engine, [])
     client.send("Liste.")
     text = out.getvalue()
-    assert "\n◆ Il y a a.txt." in text
-    assert "◆ \n" not in text  # jamais seul sur sa ligne
+    assert "    │ a.txt\n\n  Il y a a.txt.\n" in text  # une seule ligne vide, puis le retrait
