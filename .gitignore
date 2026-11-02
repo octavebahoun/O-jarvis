@@ -5,3 +5,6 @@ __pycache__/
 .ruff_cache/
 .pytest_cache/
 dist/
+
+# Les clés, jamais versionnées (.env.example, lui, l’est).
+.env
