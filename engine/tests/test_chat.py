@@ -233,3 +233,18 @@ def test_a_pasted_key_is_neither_stored_nor_sent(
     assert key not in sent
     memory = client.post("/v1/memory", json={"kind": "fait", "content": f"Clé : {key}"}).json()
     assert key not in memory["content"]
+
+
+def test_a_chosen_model_answers_first(client: TestClient) -> None:
+    """« /modele » du terminal : le modèle choisi est essayé d'abord, sans message de relais."""
+    response = client.post(
+        "/v1/chat", json={"text": "Bonjour", "model": "deepseek/deepseek-v4-pro"}
+    )
+    route = next(data for kind, data in read_sse(response.text) if kind == "route")
+    assert (route["provider"], route["model"]) == ("deepseek", "deepseek-v4-pro")
+    assert route["relay"] is None
+    default = client.post("/v1/chat", json={"text": "Bonjour"})
+    route = next(data for kind, data in read_sse(default.text) if kind == "route")
+    assert route["model"] != "deepseek-v4-pro"
+    refused = client.post("/v1/chat", json={"text": "Bonjour", "model": "pas un modèle"})
+    assert refused.status_code == 422

@@ -18,6 +18,7 @@ from ojarvis.chat.service import ChatEvent
 from ojarvis.chrome.page import PageIn
 from ojarvis.conversations.store import ConversationRecord, MessageRecord
 from ojarvis.core.errors import EngineError, NotFoundError
+from ojarvis.llm.policy import Route
 from ojarvis.llm.providers.registry import OllamaProvider
 from ojarvis.memory.store import MemoryKind, MemoryRecord
 from ojarvis.tools.guards import resolve_user_path, shown
@@ -58,6 +59,12 @@ class ChatIn(BaseModel):
     #: Chrome : l'onglet ouvert à côté du panneau ; il va avec ce canal, et seulement lui.
     page: PageIn | None = None
 
+    #: Le modèle choisi (« fournisseur/modèle », « /modele » du terminal), essayé d'abord. Le
+    #: profil « Tout Meta » n'en accepte que de Meta.
+    model: str | None = Field(
+        default=None, max_length=120, pattern=r"^[a-z0-9_-]+/[A-Za-z0-9._:/-]+$"
+    )
+
     @field_validator("after_plan", mode="before")
     @classmethod
     def _one_or_more(cls, value: Any) -> Any:
@@ -73,6 +80,14 @@ class ChatIn(BaseModel):
 #: Fins de ligne pour httpx (qui coupe comme `str.splitlines`), permises telles quelles dans
 #: une chaîne JSON : échappées, une ligne de données ne se coupe jamais en deux.
 LINE_BREAKS = str.maketrans({"\u2028": "\\u2028", "\u2029": "\\u2029", "\x85": "\\u0085"})
+
+
+def _chosen(body: ChatIn) -> Route | None:
+    """Le modèle choisi pour ce message ; en mode shell, avec sa réflexion (tâche « reasoning »)."""
+    if body.model is None:
+        return None
+    provider, model = body.model.split("/", 1)
+    return Route(provider, model, thinking=body.channel == "shell")
 
 
 def sse(event: ChatEvent) -> str:
@@ -100,6 +115,7 @@ async def chat(body: ChatIn, services: ServicesDep) -> StreamingResponse:
         after_plan=body.after_plan,
         ran=RanCommand(body.ran.command, body.ran.code, body.ran.output) if body.ran else None,
         page=body.page.page() if body.page else None,
+        model=_chosen(body),
     )
     # Les erreurs de validation (conversation inconnue, texte vide) arrivent avant le flux.
     first = await anext(stream)
