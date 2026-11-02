@@ -4,30 +4,24 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 
 ## Non publié
 
-### Modifié
-- Une réponse peut écrire jusqu'à 262 144 jetons avec Meta et Baseten (4 000 avant) : Meta n'impose que sa fenêtre de 1 048 576 jetons, et l'on ne paie que ce qui est écrit. Les autres fournisseurs gardent leur maximum ; une réponse dite à voix haute, 1 000 jetons.
-- Avant sa validation, Jarvis parle d'un plan au conditionnel, jamais d'une action comme faite ; pour une tâche en plusieurs gestes, il propose tout le plan d'un coup, plutôt qu'un plan par geste.
-- La brièveté demandée aux réponses ne vaut plus pour les fichiers : une page ou du code écrit par Jarvis est complet et soigné. Un site demandé à Muse Wonder sortait tassé en 4 Ko.
-
-### Corrigé
-- Une demande en anglais reçoit une réponse en anglais : le moteur le dit au modèle (Muse Wonder répondait en français, le reste du contexte l'étant) ; une relance courte (« Continue. ») garde la langue de la demande.
-
-### Ajouté
-- Un élément de page qui porte le même nom qu'un autre (« Commenter » sous chaque post) dit dans quel bloc il est (`zone`) : Jarvis vise le bon.
-- L'événement `writing` du chat : le modèle commence un appel d'outil, dont les arguments (un fichier entier, parfois) suivent. O-jarvis Shell s'en sert pour ne plus sembler figé.
-
 ## 1.4.0 — 2 novembre 2026
 
 ### Ajouté
 - L'accueil du premier lancement : tout ce que Jarvis demandera, demandé d'un coup, étape par étape (clés de Meta et de Baseten, profil « Tout Meta », contrôle du PC et accords de GNOME pour l'écran et le pointeur, voix de Meta, extension Chrome, terminal). On peut le passer et le revoir (Réglages › Démarrage).
 - Un modèle choisi pour un message (`model` dans `/v1/chat`), essayé avant les autres : c'est la commande « /modele » d'O-jarvis Shell.
+- Un élément de page qui porte le même nom qu'un autre (« Commenter » sous chaque post) dit dans quel bloc il est (`zone`) : Jarvis vise le bon.
+- L'événement `writing` du chat : le modèle commence un appel d'outil, dont les arguments (un fichier entier, parfois) suivent. O-jarvis Shell s'en sert pour ne plus sembler figé.
 
 ### Modifié
 - En « Tout Meta », Réglages › Contrôle du PC dit que l'écran est lu en ligne, par Muse Spark, au lieu de proposer un choix sans effet.
+- Une réponse peut écrire jusqu'à 262 144 jetons avec Meta et Baseten (4 000 avant) : Meta n'impose que sa fenêtre de 1 048 576 jetons, et l'on ne paie que ce qui est écrit. Les autres fournisseurs gardent leur maximum ; une réponse dite à voix haute, 1 000 jetons.
+- Avant sa validation, Jarvis parle d'un plan au conditionnel, jamais d'une action comme faite ; pour une tâche en plusieurs gestes, il propose tout le plan d'un coup, plutôt qu'un plan par geste.
+- La brièveté demandée aux réponses ne vaut plus pour les fichiers : une page ou du code écrit par Jarvis est complet et soigné. Un site demandé à Muse Wonder sortait tassé en 4 Ko.
 
 ### Corrigé
 - `/v1/status` ne compte plus les abonnés internes du moteur dans `stream_clients` : en quittant, O-jarvis Shell disait toujours « L'app utilisait ce moteur », même app fermée.
 - Le `.deb` recommande GStreamer (`gstreamer1.0-tools`, `-pipewire`, `-plugins-good`) et `ffmpeg` : sans eux, sur un Ubuntu neuf, le partage d'écran et les extraits filmés échouaient.
+- Une demande en anglais reçoit une réponse en anglais : le moteur le dit au modèle (Muse Wonder répondait en français, le reste du contexte l'étant) ; une relance courte (« Continue. ») garde la langue de la demande.
 
 ## 1.3.0 — 2 novembre 2026
 
