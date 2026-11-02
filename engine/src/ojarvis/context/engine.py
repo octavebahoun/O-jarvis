@@ -13,6 +13,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime, tzinfo
 
+from ojarvis.context.language import ENGLISH_HINT, english_requested
 from ojarvis.conversations.store import ConversationStore, MessageRecord
 from ojarvis.core.clock import local_timezone, utc_now
 from ojarvis.llm.types import Message
@@ -208,6 +209,9 @@ class ContextEngine:
     ) -> BuiltContext:
         total = budget or BUDGETS.get(channel, BUDGETS["app"])
         system = self.system_text(channel)
+        asked = [user_text, *(r.content for r in reversed(history) if r.role == "user")]
+        if english_requested(asked):
+            system = f"{system}\n\n{ENGLISH_HINT}"
         base = ContextItem("systeme", None, system, 10.0, estimate_tokens(system), True, "toujours")
         question_tokens = estimate_tokens(user_text)
         remaining = max(total - base.tokens - question_tokens, 0)

@@ -9,6 +9,9 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 - Avant sa validation, Jarvis parle d'un plan au conditionnel, jamais d'une action comme faite ; pour une tâche en plusieurs gestes, il propose tout le plan d'un coup, plutôt qu'un plan par geste.
 - La brièveté demandée aux réponses ne vaut plus pour les fichiers : une page ou du code écrit par Jarvis est complet et soigné. Un site demandé à Muse Wonder sortait tassé en 4 Ko.
 
+### Corrigé
+- Une demande en anglais reçoit une réponse en anglais : le moteur le dit au modèle (Muse Wonder répondait en français, le reste du contexte l'étant) ; une relance courte (« Continue. ») garde la langue de la demande.
+
 ### Ajouté
 - Un élément de page qui porte le même nom qu'un autre (« Commenter » sous chaque post) dit dans quel bloc il est (`zone`) : Jarvis vise le bon.
 - L'événement `writing` du chat : le modèle commence un appel d'outil, dont les arguments (un fichier entier, parfois) suivent. O-jarvis Shell s'en sert pour ne plus sembler figé.
