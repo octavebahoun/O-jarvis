@@ -139,20 +139,24 @@ test("refuser un plan est aussi simple que l'accepter", async ({ page }) => {
 
 test("les réglages montrent le navigateur et les niveaux de permission", async ({ page }) => {
   await page.getByRole("link", { name: "Réglages" }).click();
+  // Une section à la fois : la barre des réglages ouvre celle qu'on vérifie.
+  await page.getByRole("tab", { name: "Navigateur" }).click();
+  await expect(page.getByRole("tabpanel")).toHaveCSS("opacity", "1"); // fin du fondu
   await page.getByRole("heading", { name: "Navigateur et cookies" }).scrollIntoViewIfNeeded();
   await expect(page.getByText("Aucun : Jarvis navigue sans aucune de tes sessions.")).toBeVisible();
   // Dossier personnel jetable : aucun profil de navigateur à importer.
   await expect(page.getByText("Aucun profil Chrome, Chromium ou Brave trouvé.")).toBeVisible();
+  await page
+    .getByRole("region", { name: "Navigateur et cookies" })
+    .screenshot({ path: `${CAPTURES}/reglages-navigateur.png` });
+  await page.getByRole("tab", { name: "Permissions" }).click();
+  await expect(page.getByRole("tabpanel")).toHaveCSS("opacity", "1"); // fin du fondu
   const writeTools = page.getByRole("list", { name: "Outils de niveau 2" });
   await expect(writeTools.getByText("navigateur_cliquer")).toBeVisible();
   await expect(page.getByRole("list", { name: "Outils de niveau 3" })).toContainText(
     "supprimer_fichier",
   );
   await noSeriousA11yIssues(page);
-  // La page défile dans son propre conteneur : on capture chaque section.
-  await page
-    .getByRole("region", { name: "Navigateur et cookies" })
-    .screenshot({ path: `${CAPTURES}/reglages-navigateur.png` });
   await page
     .getByRole("region", { name: "Permissions" })
     .screenshot({ path: `${CAPTURES}/reglages-permissions.png` });
