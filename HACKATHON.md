@@ -122,6 +122,8 @@ The full list of Meta models and of OS features is in the [README](./README.md#m
 - **Always connected**: the extension stays connected in the background while Chrome runs, so the terminal, the app and the voice can list the tabs, read one and act in it. The bridge is Chrome's native messaging; the `.deb` declares it to Chrome and Chromium.
 - Real tests: Muse Spark read a test tab and ignored the order hidden in it; "add the green tea to the basket" → a plan clicking the right button, not the black tea's nor "Pay"; on Discord, "click Les IAstronautes" from the panel; from the terminal, "which tabs are open?" then "close my Discord tab".
 
+- **See what Jarvis does** (November 2): before each approved gesture, the O-jarvis cursor glides to the element in the page, a halo frames it with a label ("Clic sur « Commenter »"), and text is typed letter by letter. Purely visual: the checks run first, and the gesture is the one approved.
+
 ### Answers in the user's language, done
 
 - Jarvis answers in the language of the question (judges write in English), and Meta's English MMS voice (`facebook/mms-tts-eng`, run on the PC) speaks English sentences; French ones keep the French MMS voice.
