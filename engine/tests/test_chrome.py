@@ -5,7 +5,7 @@ from __future__ import annotations
 from fastapi.testclient import TestClient
 
 from ojarvis.agent.turn import AgentTurn
-from ojarvis.chrome.page import BrowserPage
+from ojarvis.chrome.page import BrowserPage, PageIn
 from ojarvis.llm.providers.fake import FakeProvider
 from ojarvis.testing.chat import read_sse
 from tests.test_chat import smart_script
@@ -31,6 +31,25 @@ def test_the_tab_is_framed_as_data_and_marks_the_turn() -> None:
     assert turn.web
     assert turn.knows("https://exemple.fr/article")
     assert turn.knows("https://pirate.example")  # lue dans la page : connue, mais signalée
+
+
+def test_buttons_with_the_same_name_say_where_they_are() -> None:
+    """LinkedIn : un « Commenter » sous chaque post. Sans leur bloc, le modèle ne sait pas
+    lequel est sous quel post."""
+    page = PageIn.model_validate(
+        {
+            "url": "https://www.linkedin.com/feed/",
+            "elements": [
+                {"ref": 4, "kind": "bouton", "label": "Commenter", "zone": "Post de Ada"},
+                {"ref": 9, "kind": "bouton", "label": "Commenter", "zone": "Post de Linus"},
+                {"ref": 12, "kind": "lien", "label": "Accueil"},
+            ],
+        }
+    ).page()
+    body = page.body()
+    assert "[4] bouton « Commenter » (dans « Post de Ada »)" in body
+    assert "[9] bouton « Commenter » (dans « Post de Linus »)" in body
+    assert "[12] lien « Accueil »\n" in body + "\n"
 
 
 def test_a_chrome_turn_gives_the_tab_to_the_model(

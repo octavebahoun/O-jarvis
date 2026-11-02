@@ -27,6 +27,9 @@ class ElementIn(BaseModel):
     kind: Literal["lien", "bouton", "champ", "liste", "case"]
     label: str = Field(default="", max_length=200)
     href: str = Field(default="", max_length=2000)
+    #: Où il se trouve, quand plusieurs éléments portent le même nom (« Commenter » sous
+    #: chaque post) : le début du bloc qui le contient.
+    zone: str = Field(default="", max_length=200)
 
 
 class PageIn(BaseModel):
@@ -57,10 +60,12 @@ class PageElement:
     kind: str  # lien | bouton | champ | liste | case
     label: str
     href: str = ""
+    zone: str = ""
 
     def line(self) -> str:
         target = f" → {self.href}" if self.href else ""
-        return f"[{self.ref}] {self.kind} « {self.label} »{target}"
+        where = f" (dans « {self.zone} »)" if self.zone else ""
+        return f"[{self.ref}] {self.kind} « {self.label} »{where}{target}"
 
 
 @dataclass(frozen=True, slots=True)
