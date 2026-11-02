@@ -263,7 +263,10 @@ function TerminalStep() {
       </p>
       <ul className={styles.list}>
         <li>« How much disk space is left? » : il lit tout de suite.</li>
-        <li>« Create notes.txt here with a shopping list. » : il attend ton « o ».</li>
+        <li>
+          « Create notes.txt here with a shopping list: milk, eggs, rice, tea. » : il attend ton « o
+          ».
+        </li>
         <li>« /modele wonder », puis « Build a one-page site for a tea shop. »</li>
       </ul>
     </Step>
