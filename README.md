@@ -50,11 +50,39 @@ You need **Ubuntu 24.04 or later** (x86_64, GNOME on Wayland for the desktop fea
    cd ~/some-project && o-jarvis-shell
    ```
 
+### On a real Ubuntu 24.04 (GNOME on Wayland)
+
+O-jarvis Shell drives the real desktop: GNOME's portals for screen share and clicks, Chrome through its extension, your microphone. It needs a real Ubuntu install, not a container. Built for Ubuntu 24.04 and later (x86_64, glibc 2.39); tested on Ubuntu 26.04 with 8 GB of RAM.
+
+1. **Check the session.** Desktop clicks and screen share were only tested on Wayland:
+
+   ```bash
+   echo $XDG_SESSION_TYPE    # should print: wayland
+   gnome-shell --version     # GNOME Shell 46 or later
+   ```
+
+   If it prints `x11`, log out, click the gear at the bottom right of the login screen, choose **Ubuntu** (not "Ubuntu on Xorg") and log in again. The terminal and Chrome work in either session.
+
+2. **Install the package** (Quickstart, step 2). apt also installs the recommended packages: GStreamer for the live screen share, ffmpeg for screen recordings. To check them:
+
+   ```bash
+   gst-inspect-1.0 pipewiresrc > /dev/null && command -v ffmpeg && echo ready
+   ```
+
+3. **Open the O-jarvis app once** (`o-jarvis`, or from the app grid). Its welcome screen asks for everything at once: your keys, the "All Meta" profile, PC control and GNOME's two permissions (screen and pointer), Meta's voices, the Chrome extension. Then `o-jarvis-shell` works in any folder.
+
+4. **Browser.** Use Google Chrome (tested). Ubuntu's Chromium is a snap, whose confinement may block the extension's bridge to the engine.
+
+To uninstall: `sudo apt remove o-jarvis`. Your keys stay in the system keyring until you remove them in **Réglages → Clés**.
+
 ### From source
 
-Needs [uv](https://docs.astral.sh/uv/) and your keys (step 1 above). `uv sync` installs O-jarvis from its repository as a dependency.
+Needs [uv](https://docs.astral.sh/uv/), your keys (step 1 above) and the system packages the `.deb` would bring. `uv sync` installs O-jarvis from its repository as a dependency.
 
 ```bash
+sudo apt install git curl libportaudio2 pulseaudio-utils libgtk-3-bin xdg-desktop-portal-gnome \
+  gstreamer1.0-tools gstreamer1.0-pipewire gstreamer1.0-plugins-good ffmpeg
+curl -LsSf https://astral.sh/uv/install.sh | sh
 git clone https://github.com/octavebahoun/o-jarvis-shell.git
 cd o-jarvis-shell
 uv sync
@@ -69,7 +97,7 @@ With the `.deb`, the bridge to the engine is already declared to Chrome and Chro
 
 ### PC control
 
-Clicking in desktop apps and looking at the screen are off by default. Turn them on once in the O-jarvis app (`o-jarvis` → **Réglages → Contrôle du PC**). The first click and the first screen share each ask for GNOME's permission once.
+Clicking in desktop apps and looking at the screen are off by default. Turn them on once in the O-jarvis app: its welcome screen on first launch, or later **Réglages → Contrôle du PC**. The welcome screen also asks GNOME's two permissions (screen and pointer) right away, so that none pops up in the middle of a task.
 
 ### Before you try: permissions and first downloads
 
