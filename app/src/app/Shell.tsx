@@ -17,6 +17,7 @@ import { usePlans } from "../lib/engine/queries";
 import { useEngineStore } from "../lib/engine/store";
 import { useReducedMotion } from "../lib/motion";
 import { ShareBanner } from "../features/desktop/ShareBanner";
+import { Onboarding } from "../features/onboarding/Onboarding";
 import { Notices } from "./Notices";
 import styles from "./Shell.module.css";
 
@@ -144,6 +145,7 @@ export function Shell() {
           <Outlet />
         </main>
         <Notices />
+        <Onboarding />
       </div>
     </div>
   );
