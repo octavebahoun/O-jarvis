@@ -46,7 +46,7 @@ from ojarvis_shell.tools.edit import EditFile
 from ojarvis_shell.tools.impasses import impasse_tools
 from ojarvis_shell.tools.machine import ReadMachineMap
 from ojarvis_shell.tools.page_view import LookAtPage
-from ojarvis_shell.tools.screen_actions import ClickOnScreen, FilmScreen, FindOnScreen
+from ojarvis_shell.tools.screen_actions import BringWindow, ClickOnScreen, FilmScreen, FindOnScreen
 from ojarvis_shell.tools.shell import RunCommand
 from ojarvis_shell.tools.sudo import ProposeAdmin
 from ojarvis_shell.tools.tab import tab_tools
@@ -109,6 +109,7 @@ async def attach(lent: Lent) -> Added:
         LookAtScreen(lent.router, lent.screen_mode, screen),
         FindOnScreen(locator, lent.screen_mode),
         ClickOnScreen(marks, pointer, screen),
+        BringWindow(lent.router, pointer, lent.screen_mode, screen),
         FilmScreen(filmer, lent.screen_mode),
         EditFile(),
         # Proposés seulement en mode shell ; journaux et captures dans l'état du moteur.
