@@ -241,7 +241,7 @@ describe("Réglages du navigateur", () => {
       return [200, []];
     });
     const user = userEvent.setup();
-    renderScreen(<SettingsScreen />, { client });
+    renderScreen(<SettingsScreen />, { client, path: "/?section=navigateur" });
     const domain = await screen.findByLabelText("Domaine");
     await user.type(domain, "notion.so");
     const submit = screen.getByRole("button", { name: "Importer" });
@@ -264,7 +264,7 @@ describe("Réglages du navigateur", () => {
       return [200, []];
     });
     const user = userEvent.setup();
-    renderScreen(<SettingsScreen />, { client });
+    renderScreen(<SettingsScreen />, { client, path: "/?section=navigateur" });
     const list = await screen.findByRole("list", { name: "Domaines autorisés" });
     expect(list).toHaveTextContent("github.com");
     expect(list).toHaveTextContent("connexion dans sa fenêtre · 4 cookies");
