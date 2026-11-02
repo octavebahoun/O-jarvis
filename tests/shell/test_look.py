@@ -2,15 +2,17 @@
 
 from __future__ import annotations
 
+import io
 import shutil
 import subprocess
+from collections.abc import Sequence
 from pathlib import Path
 
 import httpx
 import pytest
 
 from ojarvis_shell.shell.banner import banner, prompt
-from ojarvis_shell.shell.display import Style
+from ojarvis_shell.shell.display import Spinner, Style
 from ojarvis_shell.shell.prose import Prose
 from tests.shell.fake_engine import DONE, ROUTE, START, FakeEngine, plan, session, sse
 
@@ -64,6 +66,37 @@ def test_the_header_comes_once_per_request_even_after_a_plan() -> None:
     assert text.startswith("\n◆ Jarvis   meta / muse-spark-1.3\n  Je nettoie.\n")
     assert "\n  ╰─" not in text  # la question part avec ta réponse, pas dans la sortie
     assert text.endswith("\n\n  C'est fait.\n  0,0 s\n")
+
+
+class SpinnerSpy(Spinner):
+    """Garde ce que l'animation aurait dit."""
+
+    def __init__(self) -> None:
+        super().__init__(io.StringIO(), enabled=False)
+        self.labels: list[str] = []
+
+    def start(self, label: str = "Jarvis réfléchit…", frames: Sequence[str] | None = None) -> None:
+        del frames
+        self.labels.append(label)
+
+
+def test_the_animation_comes_back_while_jarvis_writes_a_file() -> None:
+    """Le 2/11, Muse Wonder écrivait un site pendant une minute sans que rien ne bouge."""
+    turn = sse(
+        START,
+        ROUTE,
+        ("delta", {"text": "Je crée la page."}),
+        ("writing", {"tool": "proposer_un_plan"}),
+        ("plan", plan(2)),
+        DONE,
+    )
+    client, out = session(FakeEngine([turn]), ["n"])
+    spy = SpinnerSpy()
+    client._spinner = spy
+    client.send("Fais un site.")
+    assert "Jarvis prépare le plan…" in spy.labels
+    # La phrase est refermée avant que l'animation ne reprenne en dessous.
+    assert "  Je crée la page.\n" in out.getvalue()
 
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="git absent")

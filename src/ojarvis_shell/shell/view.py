@@ -21,6 +21,13 @@ from ojarvis_shell.shell.display import (
 )
 from ojarvis_shell.shell.prose import Prose, prose_width
 
+#: Ce que dit l'animation pendant que le modèle écrit les arguments d'un outil.
+WRITING = {
+    "proposer_un_plan": "Jarvis prépare le plan…",
+    "ecrire_fichier": "Jarvis écrit le fichier…",
+    "modifier_fichier": "Jarvis modifie le fichier…",
+}
+
 
 class TurnView(Terminal):
     """Ce que le moteur raconte pendant un tour, mis en page (mélangé à `ShellClient`)."""
@@ -66,6 +73,15 @@ class TurnView(Terminal):
                 self.gap()  # une ligne vide après une commande ou un plan
             self._prose = Prose(self._write, self._style, prose_width(self._style))
         self._prose.feed(text)
+
+    def _on_writing(self, data: dict[str, Any]) -> None:
+        """Le modèle écrit les arguments d'un outil (un fichier entier, parfois, pendant une
+        minute) : l'animation reprend sous la réponse, pour qu'on ne le croie pas figé."""
+        self._spinner.stop()
+        self._end_prose()
+        if self._line_open:
+            self._write("\n")
+        self._spinner.start(WRITING.get(str(data.get("tool")), "Jarvis réfléchit…"))
 
     def _on_tool(self, data: dict[str, Any]) -> None:
         status = data.get("status")

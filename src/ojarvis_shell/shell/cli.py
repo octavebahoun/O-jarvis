@@ -244,6 +244,8 @@ class ShellClient(TurnView, PlanDecisions):
                 self._spinner.start()
         elif kind == "delta":
             self._on_delta(str(data.get("text", "")))
+        elif kind == "writing":
+            self._on_writing(data)
         elif kind == "tool":
             self._on_tool(data)
         elif kind == "notice":
