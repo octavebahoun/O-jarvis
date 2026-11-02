@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import time
 from typing import Any
 
 import pytest
@@ -14,8 +13,8 @@ from ojarvis.llm.providers.fake import FakeProvider, FakeReply, Script
 from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.services import Services
+from ojarvis.testing.chat import read_sse, scripted, tool_messages, wait_plan
 from tests.fake_tools import Act, Destroy, Echo, Visit, install
-from tests.test_chat import read_sse
 
 
 @pytest.fixture
@@ -23,45 +22,10 @@ def tools(services: Services) -> tuple[Echo, Act, Destroy]:
     return install(services.tools)
 
 
-def scripted(rounds: list[list[ToolCall]], final: str = "C'est fait.") -> Script:
-    """Le modèle appelle des outils tour après tour, puis conclut."""
-
-    def script(request: LLMRequest) -> FakeReply:
-        system = request.messages[0].content if request.messages else ""
-        if request.tools and request.tools[0].name == TOOL_NAME:
-            return FakeReply(tool_calls=[ToolCall("m", TOOL_NAME, {"faits": []})])
-        if "titre" in system:
-            return FakeReply(text="Conversation outillée")
-        if "Tu viens d'exécuter un plan" in system:
-            return FakeReply(text="Synthèse : le plan s'est déroulé.")
-        done = sum(1 for m in request.messages if m.role == "assistant" and m.tool_calls)
-        if done < len(rounds):
-            return FakeReply(text="Je regarde.", tool_calls=rounds[done])
-        return FakeReply(text=final)
-
-    return script
-
-
 def chat(client: TestClient, text: str) -> list[tuple[str, dict[str, Any]]]:
     response = client.post("/v1/chat", json={"text": text})
     assert response.status_code == 200
     return read_sse(response.text)
-
-
-def wait_plan(client: TestClient, plan_id: str, timeout_s: float = 10.0) -> dict[str, Any]:
-    deadline = time.monotonic() + timeout_s
-    while time.monotonic() < deadline:
-        plan: dict[str, Any] = client.get(f"/v1/plans/{plan_id}").json()
-        if plan["status"] in ("done", "failed"):
-            return plan
-        time.sleep(0.05)
-    raise AssertionError(f"plan toujours {plan['status']}")
-
-
-def tool_messages(provider: FakeProvider) -> list[str]:
-    return [
-        m.content for request, _ in provider.requests for m in request.messages if m.role == "tool"
-    ]
 
 
 def test_reading_tools_run_directly_and_their_output_is_data(
@@ -383,27 +347,6 @@ def test_an_invalid_plan_is_sent_back_to_the_model(
     assert "Outil inconnu" in failed[0]["error"]
     assert not [e for e, _ in events if e == "plan"]
     assert tool_messages(llm["deepseek"])[0].startswith("Échec : Plan refusé")
-
-
-def test_outside_shell_mode_a_command_is_neither_offered_nor_run(
-    client: TestClient, llm: dict[str, FakeProvider], tools: tuple[Echo, Act, Destroy]
-) -> None:
-    del tools
-    command = {"commande": "ls", "dossier": "~"}
-    step = {"outil": "executer_commande", "arguments": command, "pourquoi": "x"}
-    llm["deepseek"]._script = scripted(
-        [
-            [ToolCall("c", "executer_commande", command)],
-            [ToolCall("p", PLAN_TOOL, {"titre": "Lister", "etapes": [step]})],
-        ]
-    )
-    events = chat(client, "Liste mes fichiers avec ls.")
-    offered = {t.name for request, _ in llm["deepseek"].requests for t in request.tools or []}
-    assert "executer_commande" not in offered
-    failed = [d for e, d in events if e == "tool" and d["status"] == "failed"]
-    assert len(failed) == 2  # l'appel direct, puis le plan
-    assert all("mode shell" in d["error"] for d in failed)
-    assert not [e for e, _ in events if e == "plan"]
 
 
 def test_secrets_in_tool_output_never_reach_the_model(

@@ -20,7 +20,6 @@ from ojarvis.core.downloads import ChecksumError, PinnedFile, files_present
 from ojarvis.memory.embeddings import E5_FILES
 from ojarvis.voice.stt import WHISPER_FILES
 from ojarvis.voice.tts import PIPER_FILES
-from ojarvis.voice.tts_meta import MMS_EN_FILES, MMS_FILES
 from ojarvis.voice.wake import WAKE_FILES
 
 
@@ -33,14 +32,13 @@ class ModelSet:
 
 
 #: Les clés des modèles vocaux sont celles de `VoiceService.status.models`.
-LOCAL_MODELS: tuple[ModelSet, ...] = (
+#: Les voix de Meta (MMS) s'y ajoutent avec O-jarvis Shell.
+LOCAL_MODELS: list[ModelSet] = [
     ModelSet("reveil", "Mot de réveil", "openwakeword", WAKE_FILES),
     ModelSet("transcription", "Transcription", "faster-whisper-base", WHISPER_FILES),
     ModelSet("voix_locale", "Voix locale", "piper", PIPER_FILES),
-    ModelSet("voix_meta", "Voix de Meta (MMS)", "mms-tts-fra", MMS_FILES),
-    ModelSet("voix_meta_en", "Voix anglaise de Meta (MMS)", "mms-tts-eng", MMS_EN_FILES),
     ModelSet("memoire", "Mémoire", "multilingual-e5-small", E5_FILES),
-)
+]
 
 #: Au-delà, l'import est refusé : aucun modèle épinglé n'est aussi gros.
 MAX_IMPORT_BYTES = 1 << 30

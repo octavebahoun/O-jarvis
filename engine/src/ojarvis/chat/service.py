@@ -40,6 +40,7 @@ from ojarvis.conversations.store import DEFAULT_TITLE, ConversationStore, Messag
 from ojarvis.core.errors import InvalidInputError
 from ojarvis.core.logs import get_logger
 from ojarvis.events.bus import EventBus
+from ojarvis.extension import MachineMap
 from ojarvis.llm.errors import LLMError
 from ojarvis.llm.policy import Relay
 from ojarvis.llm.router import ModelRouter
@@ -58,7 +59,6 @@ from ojarvis.llm.types import (
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryStore
 from ojarvis.security.redaction import REDACTOR
-from ojarvis.shell.machine import MachineCard
 from ojarvis.tracing.tracer import Tracer
 
 log = get_logger(__name__)
@@ -92,7 +92,7 @@ class ChatService(ChatLearning):
         agent: Agent | None = None,
         graph: GraphStore | None = None,
         relay: RelayPolicy | None = None,
-        machine: MachineCard | None = None,
+        machine: MachineMap | None = None,
     ) -> None:
         self._conversations = conversations
         self._memory = memory

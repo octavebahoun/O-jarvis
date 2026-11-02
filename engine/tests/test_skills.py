@@ -19,8 +19,9 @@ from ojarvis.skills.models import SkillDefinition
 from ojarvis.skills.runner import SkillCallError, SkillRunner, TestCase, TestReport
 from ojarvis.skills.service import SkillService
 from ojarvis.skills.store import SkillStore
+from ojarvis.testing.chat import wait_plan
 from ojarvis.tools.base import InvalidToolArgumentsError, ToolRegistry
-from tests.test_agent_chat import chat, wait_plan
+from tests.test_agent_chat import chat
 
 DAYS_CODE = '''
 from datetime import date

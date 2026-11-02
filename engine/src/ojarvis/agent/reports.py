@@ -15,8 +15,7 @@ from ojarvis.agent.plans import (
     PlanRecord,
     StepRecord,
 )
-from ojarvis.agent.review import Review
-from ojarvis.shell.signatures import talks_to_network
+from ojarvis.extension import Review, talks_to_network
 
 _URL = re.compile(r"https?://[^\s<>\"'()\[\]{}«»]+")
 
@@ -32,7 +31,7 @@ def urls_in(value: Any) -> set[str]:
     return set()
 
 
-#: L'outil des commandes du mode shell (`ojarvis.tools.shell.RunCommand`).
+#: L'outil des commandes du mode shell (`ojarvis_shell.tools.shell.RunCommand`).
 SHELL_TOOL = "executer_commande"
 
 

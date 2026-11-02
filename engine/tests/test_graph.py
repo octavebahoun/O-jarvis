@@ -12,7 +12,7 @@ from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.memory.graph import name_key
 from ojarvis.services import Services
-from tests.test_chat import read_sse
+from ojarvis.testing.chat import read_sse
 
 LEARNED: dict[str, Any] = {
     "faits": [{"type": "fait", "contenu": "L'utilisateur construit O-jarvis.", "confiance": 0.9}],

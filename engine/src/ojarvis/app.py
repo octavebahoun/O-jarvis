@@ -10,13 +10,12 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
-from ojarvis import __version__
+from ojarvis import __version__, extension
 from ojarvis.api import (
     routes_agent,
     routes_agents,
     routes_automations,
     routes_chat,
-    routes_chrome,
     routes_core,
     routes_graph,
     routes_integrations,
@@ -89,7 +88,6 @@ def create_app(
     app.include_router(routes_stream.router)
     app.include_router(routes_graph.router)
     app.include_router(routes_chat.router)
-    app.include_router(routes_chrome.router)
     app.include_router(routes_voice.router)
     app.include_router(routes_local_models.router)
     app.include_router(routes_agent.router)
@@ -100,6 +98,9 @@ def create_app(
     app.include_router(routes_skills.router)
     app.include_router(routes_mcp.router)
     app.include_router(routes_suggestions.router)
+    # O-jarvis Shell, s'il est installé : le pont Chrome, l'écran partagé.
+    for extra in extension.routers():
+        app.include_router(extra)
 
     # Ordre : le dernier ajouté est le plus externe.
     app.add_middleware(TokenAuthMiddleware, token=token, public_paths=PUBLIC_PATHS)

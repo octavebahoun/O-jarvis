@@ -22,6 +22,7 @@ from typing import Any
 import anyio.to_thread
 import httpx
 
+from ojarvis import extension
 from ojarvis.chat.service import ChatService
 from ojarvis.core.downloads import fetch_pinned, files_present
 from ojarvis.core.logs import get_logger
@@ -51,13 +52,11 @@ from ojarvis.voice.stt import CloudTranscriber, WhisperTranscriber
 from ojarvis.voice.stt_online import (
     CartesiaSTT,
     GroqTranscriber,
-    MetaTranscriber,
     StreamingTranscriber,
 )
 from ojarvis.voice.tts import CARTESIA_VERSION, CartesiaTTS, FallbackTTS, PiperTTS
-from ojarvis.voice.tts_meta import EspeakTTS, MmsVoices
 from ojarvis.voice.turn import TurnReport
-from ojarvis.voice.vad import EndpointConfig, EnergyVad, SileroVad
+from ojarvis.voice.vad import EndpointConfig, SileroVad
 from ojarvis.voice.wake import OpenWakeWord
 
 log = get_logger(__name__)
@@ -221,14 +220,18 @@ class VoiceService:
         self._parts_profile = profile
 
     async def _meta_parts(self) -> dict[str, Any]:
-        mms = MmsVoices(self._models)
-        await mms.warm_up()
-        return {
-            "wake": None,
-            "vad": EnergyVad(),
-            "stt": MetaTranscriber(lambda: self._secrets.get("MODEL_API_KEY"), self._http),
-            "tts": FallbackTTS(mms, EspeakTTS(), on_fallback=self._on_tts_fallback),
-        }
+        """« Tout Meta » : la voix et l'écoute de Meta, apportées par O-jarvis Shell ; sans lui,
+        les modèles du profil « Automatique »."""
+        module = extension.load()
+        if module is None:
+            return await self._auto_parts()
+        parts: dict[str, Any] = await module.meta_voice_parts(
+            self._models,
+            lambda: self._secrets.get("MODEL_API_KEY"),
+            self._http,
+            self._on_tts_fallback,
+        )
+        return parts
 
     async def _auto_parts(self) -> dict[str, Any]:
         wake = await anyio.to_thread.run_sync(OpenWakeWord, self._models / "openwakeword")

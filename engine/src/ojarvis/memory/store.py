@@ -27,7 +27,8 @@ from ojarvis.security.redaction import REDACTOR
 
 log = get_logger(__name__)
 
-#: « impasse » : un correctif qui a échoué, noté par le mode shell (`ojarvis.tools.impasses`) ;
+#: « impasse » : un correctif qui a échoué, noté par le mode shell
+#: (`ojarvis_shell.tools.impasses`) ;
 #: jamais injecté d'office dans le contexte.
 MemoryKind = Literal["fait", "preference", "profil", "impasse", "machine"]
 MEMORY_KINDS: tuple[MemoryKind, ...] = ("fait", "preference", "profil", "impasse", "machine")

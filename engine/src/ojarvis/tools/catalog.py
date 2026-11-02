@@ -9,7 +9,7 @@ from ojarvis.browser.session import BrowserSession
 from ojarvis.tools.base import Tool, ToolRegistry
 from ojarvis.tools.browser import BrowserClick, BrowserFill, BrowserOpen, BrowserRead
 from ojarvis.tools.code import ListCapabilities, RunCode
-from ojarvis.tools.files import DeleteFile, EditFile, ListDirectory, ReadFile, WriteFile
+from ojarvis.tools.files import DeleteFile, ListDirectory, ReadFile, WriteFile
 from ojarvis.tools.web import ReadPage, WebSearch
 
 
@@ -25,7 +25,6 @@ def build_registry(browser: BrowserSession, extra: Sequence[Tool[Any]] = ()) -> 
             ReadFile(),
             ListDirectory(),
             WriteFile(),
-            EditFile(),
             DeleteFile(),
             RunCode(),
             *extra,

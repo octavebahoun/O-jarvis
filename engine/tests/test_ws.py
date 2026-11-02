@@ -4,7 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 from starlette.websockets import WebSocketDisconnect
 
-from tests.conftest import DEV_ORIGIN, TOKEN
+from ojarvis.testing.fixtures import DEV_ORIGIN, TOKEN
 
 
 def test_stream_requires_auth_message(client: TestClient) -> None:

@@ -25,7 +25,7 @@ from typing import IO
 
 import uvicorn
 
-from ojarvis import __version__
+from ojarvis import __version__, extension
 from ojarvis.app import create_app
 from ojarvis.config import load_config
 from ojarvis.core.logs import configure_logging, get_logger
@@ -122,17 +122,15 @@ def announce_running(connection: Path | None) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     argv = sys.argv[1:] if argv is None else argv
-    if argv[:1] == ["shell"]:
+    if argv[:1] in (["shell"], ["chrome-host"]):
         # Le moteur empaqueté n'a pas de « python -m » : « ojarvis-engine shell » ouvre le
-        # terminal de Jarvis.
-        from ojarvis.shell.cli import main as shell_main  # noqa: PLC0415
-
-        return shell_main(argv[1:])
-    if argv[:1] == ["chrome-host"]:
-        # Chrome lance l'hôte de messagerie native de l'extension (voir ojarvis.chrome.host).
-        from ojarvis.chrome.host import main as host_main  # noqa: PLC0415
-
-        return host_main(argv[1:])
+        # terminal de Jarvis, et Chrome lance « chrome-host », l'hôte de son extension. Les
+        # deux viennent d'O-jarvis Shell.
+        run = extension.command(argv[0])
+        if run is None:
+            sys.stderr.write("O-jarvis Shell n'est pas installé : ni mode shell, ni Chrome.\n")
+            return 2
+        return run(argv[1:])
     args = parse_args(argv)
     config = load_config(dev_mode=args.dev)
     config.paths.ensure()

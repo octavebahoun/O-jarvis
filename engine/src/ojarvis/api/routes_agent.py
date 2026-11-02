@@ -5,14 +5,13 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Annotated, Any, Literal
 
-import anyio
 from fastapi import APIRouter, Query, Response
 from pydantic import BaseModel, ConfigDict, Field
 
 from ojarvis.agent.plans import PlanRecord
 from ojarvis.api.deps import ServicesDep
 from ojarvis.audit.journal import AuditRecord
-from ojarvis.core.errors import ConflictError, NotFoundError
+from ojarvis.core.errors import NotFoundError
 
 router = APIRouter(prefix="/v1")
 
@@ -215,55 +214,6 @@ async def browser_state(services: ServicesDep) -> BrowserOut:
         ],
         login_domain=access.login_domain,
     )
-
-
-@router.get("/desktop/marks/{mark_id}")
-async def desktop_mark(mark_id: str, services: ServicesDep) -> Response:
-    """La capture annotée d'un élément trouvé à l'écran (#48) : la carte du plan la montre."""
-    path = services.marks.image(mark_id)
-    return Response(
-        content=await anyio.Path(path).read_bytes(),
-        media_type="image/jpeg",
-        headers={"Cache-Control": "no-store"},
-    )
-
-
-class ShareOut(BaseModel):
-    active: bool
-    frames: int
-    since: float | None
-
-
-@router.get("/desktop/share")
-async def share_state(services: ServicesDep) -> ShareOut:
-    return ShareOut(**services.share.state())
-
-
-@router.post("/desktop/share/start")
-async def share_start(services: ServicesDep) -> ShareOut:
-    """Partager l'écran en direct : GNOME demande ton accord la première fois."""
-    if not services.preferences.os_control_enabled:
-        raise ConflictError(
-            "Le partage d'écran sert au Contrôle du PC : active-le d'abord dans Réglages.",
-            code="os_control_disabled",
-        )
-    await services.share.start()
-    return ShareOut(**services.share.state())
-
-
-@router.post("/desktop/share/stop")
-async def share_stop(services: ServicesDep) -> ShareOut:
-    await services.share.stop()
-    return ShareOut(**services.share.state())
-
-
-@router.get("/desktop/share/frame")
-async def share_frame(services: ServicesDep) -> Response:
-    """La dernière image de l'écran partagé, pour l'aperçu de l'app (sur cette machine)."""
-    frame = services.share.frame()
-    if frame is None:
-        raise NotFoundError("L'écran n'est pas partagé.")
-    return Response(content=frame, media_type="image/jpeg", headers={"Cache-Control": "no-store"})
 
 
 @router.get("/browser/live")

@@ -7,7 +7,8 @@ from fastapi.testclient import TestClient
 from ojarvis.agent.turn import AgentTurn
 from ojarvis.chrome.page import BrowserPage
 from ojarvis.llm.providers.fake import FakeProvider
-from tests.test_chat import read_sse, smart_script
+from ojarvis.testing.chat import read_sse
+from tests.test_chat import smart_script
 
 PAGE = {
     "url": "https://exemple.fr/article",

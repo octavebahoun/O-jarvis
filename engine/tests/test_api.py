@@ -15,7 +15,7 @@ from ojarvis.config import EngineConfig
 from ojarvis.security.redaction import REDACTOR
 from ojarvis.security.secrets import MemoryBackend
 from ojarvis.services import Services
-from tests.conftest import DEV_ORIGIN, TOKEN, Router
+from ojarvis.testing.fixtures import DEV_ORIGIN, TOKEN, Router
 
 
 def test_health_is_public(client: TestClient) -> None:
