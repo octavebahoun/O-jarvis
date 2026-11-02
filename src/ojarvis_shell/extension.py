@@ -70,10 +70,13 @@ LOCAL_MODELS[-1:-1] = [m for m in _MMS_SETS if m not in LOCAL_MODELS]  # avant l
 class ShellState:
     """Les objets de l'extension que ses routes retrouvent (`services.added.state`)."""
 
-    def __init__(self, chrome: ChromeBridge, marks: ScreenMarks, share: ScreenShare) -> None:
+    def __init__(
+        self, chrome: ChromeBridge, marks: ScreenMarks, share: ScreenShare, pointer: PortalPointer
+    ) -> None:
         self.chrome = chrome
         self.marks = marks
         self.share = share
+        self.pointer = pointer
 
 
 async def attach(lent: Lent) -> Added:
@@ -138,7 +141,7 @@ async def attach(lent: Lent) -> Added:
         reviewer=CodeReviewer(lent.router),
         machine=machine,
         routers=routers(),
-        state=ShellState(chrome, marks, share),
+        state=ShellState(chrome, marks, share, pointer),
         stop=share.stop,
     )
 

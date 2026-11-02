@@ -69,3 +69,12 @@ async def share_frame(services: ServicesDep) -> Response:
     if frame is None:
         raise NotFoundError("L'écran n'est pas partagé.")
     return Response(content=frame, media_type="image/jpeg", headers={"Cache-Control": "no-store"})
+
+
+@router.post("/desktop/pointer/authorize")
+async def pointer_authorize(services: ServicesDep) -> dict[str, bool]:
+    """L'accueil de l'app : demander tout de suite à GNOME l'accord de contrôler le pointeur
+    et le clavier (une session ouverte puis refermée, sans aucun geste), pour qu'il ne
+    surgisse pas au premier clic."""
+    await shell_state(services).pointer.keys([])
+    return {"authorized": True}
