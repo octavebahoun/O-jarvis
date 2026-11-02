@@ -42,6 +42,7 @@ from ojarvis_shell.llm import meta_profile  # noqa: F401 - le profil « Tout Met
 from ojarvis_shell.shell.machine import MachineCard
 from ojarvis_shell.shell.servers import BackgroundSessions
 from ojarvis_shell.shell.signatures import talks_to_network as _talks_to_network
+from ojarvis_shell.tools.app_click import ClickInApp
 from ojarvis_shell.tools.edit import EditFile
 from ojarvis_shell.tools.impasses import impasse_tools
 from ojarvis_shell.tools.machine import ReadMachineMap
@@ -114,6 +115,7 @@ async def attach(lent: Lent) -> Added:
         FindOnScreen(locator, lent.screen_mode),
         ClickOnScreen(marks, pointer, screen),
         BringWindow(lent.router, pointer, lent.screen_mode, screen),
+        ClickInApp(lent.router, pointer, locator, pointer, lent.screen_mode, grab=screen),
         FilmScreen(filmer, lent.screen_mode),
         EditFile(),
         # Proposés seulement en mode shell ; journaux et captures dans l'état du moteur.

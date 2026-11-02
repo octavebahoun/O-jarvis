@@ -233,8 +233,8 @@ class Locator:
         if point is None:
             raise AmbiguousTargetError(
                 f"Je ne vois pas « {target} » à l'écran. Si sa fenêtre est cachée, propose "
-                "ramener_fenetre pour son application ; sinon, demande à l'utilisateur où il "
-                "se trouve."
+                "cliquer_dans_application avec son application (un seul plan) ; sinon, "
+                "demande à l'utilisateur où il se trouve."
             )
         every = reading_order([box for result in segmented for box in result.boxes])
         zone = area(point, size)
