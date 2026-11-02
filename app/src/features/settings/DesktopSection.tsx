@@ -119,23 +119,38 @@ export function DesktopSection() {
         </li>
         <ScreenShareRow enabled={enabled} online={online} />
       </ul>
-      <Choice
-        name="screen_vision"
-        label="Lecture de l'écran"
-        disabled={!enabled}
-        options={[
-          {
-            value: "local",
-            label: "Sur ce PC",
-            hint: "Rien ne sort de ta machine. Lent : 30 s à 2 min selon l'écran.",
-          },
-          {
-            value: "en_ligne",
-            label: "En ligne",
-            hint: "Rapide. La capture part chez OpenRouter ; s'il est saturé, lecture sur ce PC.",
-          },
-        ]}
-      />
+      {preferences.data?.model_profile === "meta" ? (
+        // « Tout Meta » n'a pas de modèle local de vision : Muse Spark lit toujours l'écran.
+        <p className={styles.note}>
+          Lecture de l'écran : en ligne, par Muse Spark (profil « Tout Meta »). La capture part chez
+          Meta seulement quand tu demandes à Jarvis de regarder ou de cliquer.
+        </p>
+      ) : (
+        <ScreenVisionChoice enabled={enabled} />
+      )}
     </>
+  );
+}
+
+/** « Automatique » : lire l'écran sur ce PC (lent) ou en ligne (rapide). */
+function ScreenVisionChoice({ enabled }: { enabled: boolean }) {
+  return (
+    <Choice
+      name="screen_vision"
+      label="Lecture de l'écran"
+      disabled={!enabled}
+      options={[
+        {
+          value: "local",
+          label: "Sur ce PC",
+          hint: "Rien ne sort de ta machine. Lent : 30 s à 2 min selon l'écran.",
+        },
+        {
+          value: "en_ligne",
+          label: "En ligne",
+          hint: "Rapide. La capture part chez OpenRouter ; s'il est saturé, lecture sur ce PC.",
+        },
+      ]}
+    />
   );
 }

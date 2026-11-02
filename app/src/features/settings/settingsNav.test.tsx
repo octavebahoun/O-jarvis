@@ -2,7 +2,7 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { renderScreen } from "../../test/render";
+import { fakeEngine, renderScreen } from "../../test/render";
 import { SettingsScreen } from "./SettingsScreen";
 
 describe("Réglages : la barre des sections", () => {
@@ -36,5 +36,18 @@ describe("Réglages : la barre des sections", () => {
       path: "/?section=inconnue",
     });
     expect(screen.getByRole("region", { name: "Fournisseurs et clés" })).toBeInTheDocument();
+  });
+});
+
+describe("Réglages : la lecture de l'écran en « Tout Meta »", () => {
+  it("dit que Muse Spark lit l'écran en ligne, sans choix à faire", async () => {
+    const { client } = fakeEngine((_method, path) => {
+      if (path === "/v1/settings")
+        return [200, { os_control_enabled: true, screen_vision: "local", model_profile: "meta" }];
+      return [200, []];
+    });
+    renderScreen(<SettingsScreen />, { client, path: "/?section=controle-pc" });
+    expect(await screen.findByText(/en ligne, par Muse Spark/)).toBeInTheDocument();
+    expect(screen.queryByRole("radio", { name: /Sur ce PC/ })).not.toBeInTheDocument();
   });
 });
