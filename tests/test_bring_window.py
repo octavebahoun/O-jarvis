@@ -19,6 +19,8 @@ import ojarvis_shell.llm.meta_profile  # noqa: F401 - « Tout Meta »
 from ojarvis_shell.desktop.pointer import (
     ESCAPE,
     GLIDE_STEPS,
+    KEYBOARD,
+    POINTER,
     RETURN,
     SUPER,
     Check,
@@ -29,6 +31,7 @@ from ojarvis_shell.desktop.pointer import (
     Stream,
     Text,
     keysym,
+    stale_grant,
 )
 from ojarvis_shell.tools.screen_actions import BringWindow, WindowArgs
 from tests.test_screen_click import context, window
@@ -156,3 +159,11 @@ async def test_bringing_a_window_needs_the_screen_read_online(tmp_path: Path) ->
     tool = BringWindow(router, FakeKeyboard(), lambda: "local", screen)
     with pytest.raises(InvalidInputError):
         await tool.run(WindowArgs(application="Fichiers"), context(tmp_path))
+
+
+def test_a_grant_saved_before_the_keyboard_is_asked_again() -> None:
+    """GNOME restaure en silence un accord d'avant le clavier, avec le pointeur seul."""
+    assert stale_grant(True, {"devices": ("u", POINTER)})
+    assert not stale_grant(True, {"devices": ("u", KEYBOARD | POINTER)})
+    assert not stale_grant(False, {"devices": ("u", POINTER)})  # déjà une nouvelle demande
+    assert not stale_grant(True, {})  # un portail qui ne le dit pas : on fait confiance
