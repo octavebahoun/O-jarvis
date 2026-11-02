@@ -13,6 +13,9 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 ### Modifié
 - En « Tout Meta », Réglages › Contrôle du PC dit que l'écran est lu en ligne, par Muse Spark, au lieu de proposer un choix sans effet.
 
+### Corrigé
+- Le `.deb` recommande GStreamer (`gstreamer1.0-tools`, `-pipewire`, `-plugins-good`) et `ffmpeg` : sans eux, sur un Ubuntu neuf, le partage d'écran et les extraits filmés échouaient.
+
 ## 1.3.0 — 2 novembre 2026
 
 ### Modifié
