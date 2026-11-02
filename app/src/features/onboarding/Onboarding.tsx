@@ -86,14 +86,20 @@ function Step({ title, done, children }: { title: string; done: boolean; childre
 
 function KeyStep() {
   const secrets = useSecrets();
-  const key = secrets.data?.find((s) => s.name === "MODEL_API_KEY");
+  const meta = secrets.data?.find((s) => s.name === "MODEL_API_KEY");
+  const baseten = secrets.data?.find((s) => s.name === "BASETEN_API_KEY");
   return (
-    <Step title="Ta clé Meta" done={key?.configured ?? false}>
-      <p>Elle reste dans le trousseau du système et n'est jamais réaffichée.</p>
-      {key && (
-        <ul className={styles.secret}>
-          <SecretRow secret={key} disabled={false} />
-        </ul>
+    <Step title="Tes clés" done={meta?.configured ?? false}>
+      <p>Elles restent dans le trousseau du système et ne sont jamais réaffichées.</p>
+      <ul className={styles.secret}>
+        {meta && <SecretRow secret={meta} disabled={false} />}
+        {baseten && <SecretRow secret={baseten} disabled={false} />}
+      </ul>
+      {baseten && (
+        <p className={styles.muted}>
+          La clé Baseten est facultative : elle fait répondre Muse Spark Open, le modèle ouvert de
+          Meta, en secours ou avec « /modele open ». Sans elle, Muse Spark répond à sa place.
+        </p>
       )}
     </Step>
   );
@@ -184,8 +190,12 @@ function PcStep() {
 function VoiceStep() {
   const models = useLocalModels();
   const retry = useRetryLocalModels();
+  const preferences = usePreferences();
+  const update = useUpdatePreferences();
   const voices = (models.data ?? []).filter((m) => m.key.startsWith("voix_meta"));
   const ready = voices.length > 0 && voices.every((m) => m.ready);
+  // La voix coupée ne télécharge rien : la rallumer lance le téléchargement.
+  const voiceOff = preferences.data?.voice_enabled === false;
   return (
     <Step title="La voix de Meta" done={ready}>
       <p>
@@ -206,9 +216,10 @@ function VoiceStep() {
       {voices.length > 0 && !ready && (
         <Button
           size="sm"
-          disabled={retry.isPending}
+          disabled={retry.isPending || update.isPending || preferences.data === undefined}
           onClick={() => {
-            retry.mutate();
+            if (voiceOff) update.mutate({ voice_enabled: true });
+            else retry.mutate();
           }}
         >
           Télécharger les voix
