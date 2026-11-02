@@ -1,6 +1,6 @@
 [project]
 name = "ojarvis-engine"
-version = "1.3.0"
+version = "1.4.0"
 description = "Moteur d'O-jarvis : API locale, mémoire, voix et actions."
 authors = [{ name = "Octave BAHOUN-HOUTOUKPE", email = "octavebahoun@gmail.com" }]
 license = "MIT"
