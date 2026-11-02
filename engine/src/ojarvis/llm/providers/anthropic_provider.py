@@ -41,6 +41,8 @@ FALLBACK_BETA = "server-side-fallback-2026-07-01"
 #: Modèles qui acceptent le repli côté serveur sous sa forme « default ».
 FALLBACK_MODELS = ("claude-opus-5-5", "claude-sonnet-5-5")
 JSON_INSTRUCTION = "Réponds uniquement par un objet JSON valide, sans texte autour."
+#: Le plus long qu'une réponse de ce fournisseur peut écrire.
+MAX_OUTPUT_TOKENS = 64_000
 
 
 def thinking_config(model: str, thinking: bool) -> tuple[str, dict[str, str] | None]:
@@ -157,7 +159,7 @@ class AnthropicProvider:
         effort, thinking = thinking_config(model, request.thinking)
         params: dict[str, Any] = {
             "model": model,
-            "max_tokens": request.max_tokens or 16_000,
+            "max_tokens": min(request.max_tokens or 16_000, MAX_OUTPUT_TOKENS),
             "messages": messages,
             "output_config": {"effort": effort},
         }

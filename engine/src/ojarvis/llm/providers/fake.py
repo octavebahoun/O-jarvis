@@ -16,6 +16,7 @@ from ojarvis.llm.types import (
     TextDelta,
     ToolCall,
     ToolCallReady,
+    ToolCallStarted,
     Usage,
 )
 
@@ -78,6 +79,7 @@ class FakeProvider:
         if reply.error is not None:
             raise reply.error
         for call in reply.tool_calls:
+            yield ToolCallStarted(call.name)  # comme un vrai flux : le nom, puis l'appel
             yield ToolCallReady(call)
         words = sum(len(m.content.split()) for m in request.messages)
         yield StreamEnd(

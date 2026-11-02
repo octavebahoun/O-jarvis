@@ -84,6 +84,8 @@ export type ChatStreamEvent =
   | { type: "context"; budget: number; used: number; items: ContextItemSummary[] }
   | { type: "route"; provider: string; model: string; fallback_from: string | null }
   | { type: "delta"; text: string }
+  /** Le modèle commence un appel d'outil (ses arguments, parfois un fichier entier, suivent). */
+  | { type: "writing"; tool: string }
   | ({ type: "tool" } & ToolActivity)
   | ({ type: "plan" } & PlanSummary)
   | {

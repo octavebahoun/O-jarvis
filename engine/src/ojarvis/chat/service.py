@@ -54,6 +54,7 @@ from ojarvis.llm.types import (
     TextDelta,
     ToolCall,
     ToolCallReady,
+    ToolCallStarted,
     Usage,
 )
 from ojarvis.memory.graph import GraphStore
@@ -64,6 +65,11 @@ from ojarvis.tracing.tracer import Tracer
 log = get_logger(__name__)
 
 MAX_INPUT_CHARS = 8000
+#: Plafond de sortie d'une réponse (réflexion comprise) : Meta n'en impose pas d'autre que
+#: la fenêtre de 1 048 576 jetons. On ne paie que ce qui est écrit : un site entier y tient.
+MAX_TOKENS = 262_144
+#: Une réponse dite à voix haute reste courte.
+VOICE_TOKENS = 1000
 Channel = Literal["app", "voice", "telegram", "automation", "shell", "chrome"]
 #: En mode shell, le modèle enchaîne plus de commandes dans une réponse (lire, corriger,
 #: relancer) ; les actions, elles, attendent toujours ta validation.
@@ -192,7 +198,8 @@ class ChatService(ChatLearning):
                     span.set(**context.summary())
                 yield ChatEvent("context", _context_event(context))
                 request = LLMRequest(
-                    messages=context.messages, max_tokens=500 if channel == "voice" else 4000
+                    messages=context.messages,
+                    max_tokens=VOICE_TOKENS if channel == "voice" else MAX_TOKENS,
                 )
                 if reports:
                     _add_to_last_user_message(request, "\n\n".join(r.text for r in reports))
@@ -393,9 +400,11 @@ class ChatService(ChatLearning):
                 else:
                     text = event.text
                 if text:
-                    yield self._said(turn, step, text)
+                    yield ChatEvent("delta", {"text": turn.say(step, text)})
             elif isinstance(event, ReasoningDelta):
                 step.reasoning.append(event.text)
+            elif isinstance(event, ToolCallStarted):
+                yield ChatEvent("writing", {"tool": event.name})  # le terminal patiente
             elif isinstance(event, ToolCallReady):
                 step.calls.append(event.call)
             elif isinstance(event, StreamEnd):
@@ -406,18 +415,7 @@ class ChatService(ChatLearning):
                     + event.usage.cached_input_tokens,
                 )
         if step.checking and (text := step.unrepeated(final=True)).strip():
-            yield self._said(turn, step, text)
-
-    @staticmethod
-    def _said(turn: _Turn, step: _Round, text: str) -> ChatEvent:
-        if not step.said and turn.parts:
-            # Texte d'un nouveau tour, après des outils : un paragraphe à part.
-            text = text.lstrip()
-            if not turn.parts[-1].endswith(("\n", " ")):
-                text = "\n\n" + text
-        step.said.append(text)
-        turn.parts.append(text)
-        return ChatEvent("delta", {"text": text})
+            yield ChatEvent("delta", {"text": turn.say(step, text)})
 
     async def _run_tool(
         self,
