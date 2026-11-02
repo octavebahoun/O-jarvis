@@ -56,7 +56,14 @@
     "linux": {
       "deb": {
         "depends": ["libportaudio2", "pulseaudio-utils", "libgtk-3-bin"],
-        "recommends": ["bubblewrap", "xdg-desktop-portal-gnome"],
+        "recommends": [
+          "bubblewrap",
+          "xdg-desktop-portal-gnome",
+          "gstreamer1.0-tools",
+          "gstreamer1.0-pipewire",
+          "gstreamer1.0-plugins-good",
+          "ffmpeg"
+        ],
         "files": {
           "/usr/share/applications/io.github.octavebahoun.ojarvis.desktop": "packaging/io.github.octavebahoun.ojarvis.desktop"
         },
