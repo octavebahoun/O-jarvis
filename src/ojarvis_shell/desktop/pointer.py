@@ -5,15 +5,18 @@ Sous Wayland, une application ne pilote pas la souris : elle passe par le portai
 l'autorisation ; elle est retenue (jeton de reprise, lisible par toi seul) jusqu'à ce que tu
 la retires dans les Paramètres. Sans ton accord, aucun clic n'est possible.
 
-Chaque clic ouvre une session, déplace le pointeur au centre de l'élément (coordonnées
-absolues du flux de l'écran), clique, puis ferme la session : l'indicateur de partage de
-GNOME ne reste pas allumé. Ni `ydotool`, ni démon lancé en root.
+Chaque geste ouvre une session, puis la ferme : l'indicateur de partage de GNOME ne reste pas
+allumé. Le pointeur glisse jusqu'à sa cible (on le voit arriver) avant de cliquer ; le clavier
+sert à ramener une fenêtre devant (la vue des activités, le nom de l'application, Entrée). Ni
+`ydotool`, ni démon lancé en root.
 """
 
 from __future__ import annotations
 
+import asyncio
+import contextlib
 import secrets
-from collections.abc import Callable
+from collections.abc import AsyncIterator, Awaitable, Callable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Protocol
@@ -25,10 +28,22 @@ log = get_logger(__name__)
 
 PORTAL = "org.freedesktop.portal.Desktop"
 PORTAL_PATH = "/org/freedesktop/portal/desktop"
-POINTER = 2  # type de périphérique du portail
+KEYBOARD = 1  # types de périphérique du portail
+POINTER = 2
 MONITOR = 1  # type de source du portail
 PERSIST_UNTIL_REVOKED = 2
 BTN_LEFT = 272  # code evdev du bouton gauche
+
+#: Le pointeur glisse jusqu'à sa cible : assez lent pour qu'on le voie, assez vif pour la démo.
+GLIDE_S = 0.5
+GLIDE_STEPS = 15
+
+#: Touches (keysyms X11) : la vue des activités, valider, annuler.
+SUPER = 0xFFEB
+RETURN = 0xFF0D
+ESCAPE = 0xFF1B
+#: Le temps entre deux lettres tapées dans la recherche de GNOME.
+TYPE_PAUSE_S = 0.03
 #: Le temps laissé pour répondre à la fenêtre d'autorisation de GNOME.
 ANSWER_TIMEOUT_S = 90.0
 REQUEST_TIMEOUT_S = 15.0
@@ -45,6 +60,43 @@ class Stream:
 
 class Pointer(Protocol):
     async def click(self, x: int, y: int, image_size: tuple[int, int]) -> None: ...
+
+
+@dataclass(frozen=True, slots=True)
+class Key:
+    keysym: int
+
+
+@dataclass(frozen=True, slots=True)
+class Text:
+    text: str
+
+
+@dataclass(frozen=True, slots=True)
+class Pause:
+    seconds: float
+
+
+@dataclass(frozen=True, slots=True)
+class Check:
+    """Une vérification en cours de route (une capture lue par Muse Spark) : fausse, la suite
+    n'est pas tapée, la vue est refermée (Échap) et l'erreur dit pourquoi."""
+
+    passed: Callable[[], Awaitable[bool]]
+    failure: str
+
+
+KeyStep = Key | Text | Pause | Check
+
+
+class Keyboard(Protocol):
+    async def keys(self, steps: Sequence[KeyStep]) -> None: ...
+
+
+def keysym(char: str) -> int:
+    """La touche d'un caractère : son code (ASCII et Latin-1), sinon le keysym Unicode."""
+    code = ord(char)
+    return code if 0x20 <= code <= 0x7E or 0xA0 <= code <= 0xFF else 0x01000000 + code
 
 
 def to_stream(x: int, y: int, image_size: tuple[int, int], stream: Stream) -> tuple[float, float]:
@@ -66,10 +118,13 @@ def _variant(results: dict[str, Any], key: str, default: Any = None) -> Any:
 
 
 class PortalPointer:
-    """Le clic par le portail, avec `jeepney` (déjà utilisé pour les captures d'écran)."""
+    """Le pointeur et le clavier par le portail, avec `jeepney` (déjà utilisé pour les
+    captures d'écran)."""
 
     def __init__(self, token_file: Path) -> None:
         self._token_file = token_file
+        #: Où le pointeur s'est arrêté (coordonnées du flux) : le geste suivant part de là.
+        self._last: tuple[float, float] | None = None
 
     def _restore_token(self) -> str | None:
         try:
@@ -83,20 +138,55 @@ class PortalPointer:
         self._token_file.chmod(0o600)
 
     async def click(self, x: int, y: int, image_size: tuple[int, int]) -> None:
+        """Glisse jusqu'au point de la capture, puis clique (bouton gauche)."""
+        async with self._remote("Clic") as remote:
+            sx, sy = to_stream(x, y, image_size, remote.stream)
+            start = self._last or (remote.stream.width / 2, remote.stream.height / 2)
+            for step in range(1, GLIDE_STEPS + 1):
+                ease = 1 - (1 - step / GLIDE_STEPS) ** 3  # vif au départ, posé à l'arrivée
+                await remote.move(
+                    start[0] + (sx - start[0]) * ease, start[1] + (sy - start[1]) * ease
+                )
+                await asyncio.sleep(GLIDE_S / GLIDE_STEPS)
+            await remote.button(pressed=True)
+            await remote.button(pressed=False)
+            self._last = (sx, sy)
+            log.info("portal_clicked")
+
+    async def keys(self, steps: Sequence[KeyStep]) -> None:
+        """Des touches, du texte, des pauses et des vérifications, dans une seule session."""
+        async with self._remote("Saisie") as remote:
+            for step in steps:
+                if isinstance(step, Key):
+                    await remote.tap(step.keysym)
+                elif isinstance(step, Text):
+                    for char in step.text:
+                        await remote.tap(keysym(char))
+                        await asyncio.sleep(TYPE_PAUSE_S)
+                elif isinstance(step, Pause):
+                    await asyncio.sleep(step.seconds)
+                elif not await step.passed():
+                    await remote.tap(ESCAPE)
+                    raise UnavailableError(step.failure)
+            log.info("portal_typed")
+
+    @contextlib.asynccontextmanager
+    async def _remote(self, what: str) -> AsyncIterator[_Remote]:
         from jeepney.io.asyncio import open_dbus_router  # noqa: PLC0415
 
         try:
-            async with open_dbus_router(bus="SESSION") as router:
-                await self._click(router, x, y, image_size)
+            async with open_dbus_router(bus="SESSION") as router, self._session(router) as remote:
+                yield remote
         except UnavailableError:
             raise
         except Exception as exc:
-            log.warning("portal_click_failed", error=type(exc).__name__)
+            log.warning("portal_input_failed", error=type(exc).__name__)
             raise UnavailableError(
-                f"Clic impossible par le portail de GNOME ({type(exc).__name__})."
+                f"{what} impossible par le portail de GNOME ({type(exc).__name__})."
             ) from exc
 
-    async def _click(self, router: Any, x: int, y: int, image_size: tuple[int, int]) -> None:
+    @contextlib.asynccontextmanager
+    async def _session(self, router: Any) -> AsyncIterator[_Remote]:
         from jeepney import DBusAddress, new_method_call  # noqa: PLC0415
 
         remote = DBusAddress(PORTAL_PATH, PORTAL, "org.freedesktop.portal.RemoteDesktop")
@@ -115,7 +205,7 @@ class PortalPointer:
             raise UnavailableError("GNOME n'a pas ouvert de session de contrôle.")
         try:
             devices: dict[str, Any] = {
-                "types": ("u", POINTER),
+                "types": ("u", KEYBOARD | POINTER),
                 "persist_mode": ("u", PERSIST_UNTIL_REVOKED),
             }
             token = self._restore_token()
@@ -154,8 +244,8 @@ class PortalPointer:
                 ),
                 wait_s=ANSWER_TIMEOUT_S,
                 refused=(
-                    "Clic refusé : GNOME n'a pas reçu ton autorisation de contrôler le "
-                    "pointeur. Rien n'a été cliqué."
+                    "Refusé : GNOME n'a pas reçu ton autorisation de contrôler le pointeur et "
+                    "le clavier. Rien n'a été fait."
                 ),
             )
             new_token = _variant(started, "restore_token")
@@ -167,29 +257,39 @@ class PortalPointer:
             node, properties = streams[0]
             width, height = _variant(properties, "size", (0, 0))
             stream = Stream(int(node), int(width), int(height))
-            sx, sy = to_stream(x, y, image_size, stream)
-            for message in (
-                new_method_call(
-                    remote,
-                    "NotifyPointerMotionAbsolute",
-                    "oa{sv}udd",
-                    (session, {}, stream.node, sx, sy),
-                ),
-                new_method_call(
-                    remote, "NotifyPointerButton", "oa{sv}iu", (session, {}, BTN_LEFT, 1)
-                ),
-                new_method_call(
-                    remote, "NotifyPointerButton", "oa{sv}iu", (session, {}, BTN_LEFT, 0)
-                ),
-            ):
-                await _send(router, message)
-            log.info("portal_clicked")
+            yield _Remote(router, remote, session, stream)
         finally:
             closing = DBusAddress(session, PORTAL, "org.freedesktop.portal.Session")
             try:
                 await _send(router, new_method_call(closing, "Close"))
             except Exception:
                 log.warning("portal_session_not_closed")
+
+
+@dataclass(frozen=True, slots=True)
+class _Remote:
+    """Une session ouverte du portail : le pointeur et le clavier."""
+
+    router: Any
+    remote: Any
+    session: str
+    stream: Stream
+
+    async def _notify(self, member: str, signature: str, *args: Any) -> None:
+        from jeepney import new_method_call  # noqa: PLC0415
+
+        message = new_method_call(self.remote, member, signature, (self.session, {}, *args))
+        await _send(self.router, message)
+
+    async def move(self, sx: float, sy: float) -> None:
+        await self._notify("NotifyPointerMotionAbsolute", "oa{sv}udd", self.stream.node, sx, sy)
+
+    async def button(self, *, pressed: bool) -> None:
+        await self._notify("NotifyPointerButton", "oa{sv}iu", BTN_LEFT, 1 if pressed else 0)
+
+    async def tap(self, key: int) -> None:
+        await self._notify("NotifyKeyboardKeysym", "oa{sv}iu", key, 1)
+        await self._notify("NotifyKeyboardKeysym", "oa{sv}iu", key, 0)
 
 
 async def _send(router: Any, message: Any) -> Any:
