@@ -85,6 +85,14 @@ class ReasoningDelta:
 
 
 @dataclass(frozen=True, slots=True)
+class ToolCallStarted:
+    """Le modèle commence un appel d'outil : ses arguments (un fichier entier, parfois)
+    arrivent ensuite, sans rien d'autre à montrer pendant ce temps."""
+
+    name: str
+
+
+@dataclass(frozen=True, slots=True)
 class ToolCallReady:
     call: ToolCall
 
@@ -96,7 +104,7 @@ class StreamEnd:
     provider_blocks: tuple[Any, ...] = ()
 
 
-StreamEvent = TextDelta | ReasoningDelta | ToolCallReady | StreamEnd
+StreamEvent = TextDelta | ReasoningDelta | ToolCallStarted | ToolCallReady | StreamEnd
 
 
 @dataclass(frozen=True, slots=True)

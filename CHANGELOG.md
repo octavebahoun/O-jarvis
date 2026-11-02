@@ -4,6 +4,13 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 
 ## Non publié
 
+### Modifié
+- Une réponse peut écrire jusqu'à 262 144 jetons avec Meta et Baseten (4 000 avant) : Meta n'impose que sa fenêtre de 1 048 576 jetons, et l'on ne paie que ce qui est écrit. Les autres fournisseurs gardent leur maximum ; une réponse dite à voix haute, 1 000 jetons.
+- La brièveté demandée aux réponses ne vaut plus pour les fichiers : une page ou du code écrit par Jarvis est complet et soigné. Un site demandé à Muse Wonder sortait tassé en 4 Ko.
+
+### Ajouté
+- L'événement `writing` du chat : le modèle commence un appel d'outil, dont les arguments (un fichier entier, parfois) suivent. O-jarvis Shell s'en sert pour ne plus sembler figé.
+
 ## 1.4.0 — 2 novembre 2026
 
 ### Ajouté

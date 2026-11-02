@@ -39,6 +39,9 @@ def test_reading_tools_run_directly_and_their_output_is_data(
     kinds = [e for e, _ in events]
     assert kinds.count("tool") == 2
     assert kinds[-1] == "done"
+    # Le terminal patiente pendant que le modèle écrit les arguments de l'outil.
+    assert kinds.index("writing") < kinds.index("tool")
+    assert next(d for e, d in events if e == "writing") == {"tool": "echo"}
     running, finished = [d for e, d in events if e == "tool"]
     assert running["status"] == "running"
     assert finished["status"] == "done"

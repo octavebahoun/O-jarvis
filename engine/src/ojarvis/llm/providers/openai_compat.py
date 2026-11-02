@@ -31,6 +31,7 @@ from ojarvis.llm.types import (
     TextDelta,
     ToolCall,
     ToolCallReady,
+    ToolCallStarted,
     Usage,
 )
 
@@ -55,6 +56,9 @@ class CompatConfig:
     #: Meta : en mode Contributor (`-contributor`), les requêtes servent à entraîner ses
     #: modèles. Ces identifiants sont refusés.
     refused_model_suffix: str | None = None
+    #: Le plus long que ce fournisseur accepte d'écrire (réflexion comprise) ; None : aucune
+    #: autre limite que la fenêtre du modèle (Meta, Baseten, vérifié le 2/11/2026).
+    max_output_tokens: int | None = 8192
     #: Ollama n'a pas de clé : une valeur factice suffit.
     needs_key: bool = True
     timeout_s: float = 45.0
@@ -65,13 +69,16 @@ DEEPSEEK = CompatConfig("deepseek", "https://api.deepseek.com", thinking_switch=
 OPENROUTER = CompatConfig(
     "openrouter", "https://openrouter.ai/api/v1", headers={"X-Title": "O-jarvis"}
 )
-OPENAI = CompatConfig("openai", None, max_tokens_param="max_completion_tokens")
+OPENAI = CompatConfig(
+    "openai", None, max_tokens_param="max_completion_tokens", max_output_tokens=128_000
+)
 # Effort « minimal » : premier mot en 0,8 s au lieu de 1,6 s à l'essai (26/10/2026).
 META = CompatConfig(
     "meta",
     "https://api.meta.ai/v1",
     reasoning_effort=("minimal", "high"),
     reasoning_headroom=2048,
+    max_output_tokens=None,
     refused_model_suffix="-contributor",
 )
 #: Muse Spark Open, le modèle ouvert de Meta, servi par Baseten (hackathon) : la réflexion se
@@ -81,9 +88,15 @@ BASETEN = CompatConfig(
     "https://inference.baseten.co/v1",
     reasoning_effort=("minimal", "high"),
     reasoning_headroom=2048,
+    max_output_tokens=None,
 )
 OLLAMA = CompatConfig(
-    "ollama", "http://127.0.0.1:11434/v1", local=True, needs_key=False, timeout_s=180.0
+    "ollama",
+    "http://127.0.0.1:11434/v1",
+    local=True,
+    needs_key=False,
+    timeout_s=180.0,
+    max_output_tokens=None,
 )
 
 
@@ -215,6 +228,8 @@ class OpenAICompatibleProvider:
             params["response_format"] = {"type": "json_object"}
         if request.max_tokens:
             limit = request.max_tokens + self.config.reasoning_headroom
+            if self.config.max_output_tokens is not None:
+                limit = min(limit, self.config.max_output_tokens)
             params[self.config.max_tokens_param] = limit
         if request.temperature is not None and not request.thinking:
             params["temperature"] = request.temperature
@@ -266,6 +281,8 @@ class OpenAICompatibleProvider:
             if part.id:
                 slot["id"] = part.id
             if part.function is not None:
+                if part.function.name and not slot["name"]:
+                    events.append(ToolCallStarted(part.function.name))
                 slot["name"] += part.function.name or ""
                 slot["args"] += part.function.arguments or ""
         return events

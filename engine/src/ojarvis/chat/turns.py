@@ -89,6 +89,16 @@ class _Turn:
     #: Un modèle plus fort pour ce tour, après des échecs répétés (profil « Tout Meta »).
     relay: Relay | None = None
 
+    def say(self, step: _Round, text: str) -> str:
+        """Le texte d'un morceau de réponse, gardé ; après des outils, un paragraphe à part."""
+        if not step.said and self.parts:
+            text = text.lstrip()
+            if not self.parts[-1].endswith(("\n", " ")):
+                text = "\n\n" + text
+        step.said.append(text)
+        self.parts.append(text)
+        return text
+
 
 TRACE_TITLES = {"voice": "Tour vocal", "shell": "Tour du mode shell", "chrome": "Tour dans Chrome"}
 

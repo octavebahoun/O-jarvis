@@ -47,6 +47,7 @@ from ojarvis.llm.types import (
     TextDelta,
     ToolCall,
     ToolCallReady,
+    ToolCallStarted,
     ToolSpec,
     Usage,
 )
@@ -120,6 +121,17 @@ def test_meta_sets_the_effort_and_leaves_room_for_hidden_reasoning() -> None:
     assert "max_tokens" not in deep
 
 
+def test_only_meta_and_baseten_write_without_an_output_cap() -> None:
+    """Meta n'impose que sa fenêtre (vérifié le 2/11/2026) ; les autres ont leur maximum."""
+    big = LLMRequest([Message("user", "x")], max_tokens=262_144)
+    meta = compat(META, FakeOpenAIClient()).build_params(big, "muse-spark-1.3")
+    assert meta["max_tokens"] == 262_144 + META.reasoning_headroom
+    openai_params = compat(OPENAI, FakeOpenAIClient()).build_params(big, "gpt-5")
+    assert openai_params["max_completion_tokens"] == 128_000
+    deepseek = compat(DEEPSEEK, FakeOpenAIClient()).build_params(big, "deepseek-flash")
+    assert deepseek["max_tokens"] == 8192
+
+
 def test_meta_refuses_contributor_models() -> None:
     provider = compat(META, FakeOpenAIClient())
     with pytest.raises(InvalidRequestError, match="entraîner"):
@@ -184,6 +196,8 @@ async def test_stream_text_reasoning_tools_and_usage() -> None:
     )
     assert events[0] == ReasoningDelta("hmm ")
     assert [e.text for e in events if isinstance(e, TextDelta)] == ["Bon", "jour"]
+    # Le début de l'appel est annoncé une fois, dès son nom, avant ses arguments.
+    assert [e for e in events if isinstance(e, ToolCallStarted)] == [ToolCallStarted("meteo")]
     call = next(e.call for e in events if isinstance(e, ToolCallReady))
     assert call.arguments == {"ville": "Paris"}
     assert call.id == "c1"

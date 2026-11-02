@@ -52,12 +52,19 @@ RULES = (
     "dis que tu ne le sais pas encore et propose de le retenir : ne devine jamais."
 )
 EMPTY_MEMORY = "Rien de connu sur l'utilisateur pour cette question."
+#: La brièveté des réponses ne doit pas déteindre sur les fichiers (essai du 2/11 : un site
+#: tassé en 4 Ko, CSS sur une ligne, pour ne pas dépasser).
+FILES = (
+    "Cette brièveté vaut pour tes réponses, pas pour ce que tu écris dans un fichier : un "
+    "fichier, une page web ou du code est complet et soigné, comme le livrerait un "
+    "professionnel, lisible et jamais tassé sur une ligne."
+)
 STYLE = {
     "voice": (
         "Tu réponds à voix haute : une à trois phrases courtes, sans markdown, sans liste, "
         "sans emoji. Écris les nombres et les heures comme on les dit."
     ),
-    "app": "Réponds de façon concise. Utilise le markdown quand il aide (listes, code).",
+    "app": "Réponds de façon concise. Utilise le markdown quand il aide (listes, code). " + FILES,
     "telegram": "Réponds de façon concise, en texte simple, adapté à un téléphone.",
     "chrome": (
         "Tu réponds dans le panneau latéral de Chrome, à côté de la page que l'utilisateur "
@@ -66,8 +73,9 @@ STYLE = {
     ),
     "shell": (
         "Tu réponds dans un terminal : phrases courtes, texte simple, sans tableau ; les "
-        "commandes et les chemins entre accents graves."
-    ),
+        "commandes et les chemins entre accents graves. "
+    )
+    + FILES,
     "automation": (
         "Tu travailles seul, pour une automatisation que l'utilisateur a créée : fais la "
         "tâche avec tes outils de lecture, puis résume en quelques phrases ce que tu as fait "
