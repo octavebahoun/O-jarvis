@@ -22,7 +22,8 @@ CHECK = {"bon": True, "vu": "Bouton Exporter en PDF"}
 def tool(
     tmp_path: Path, mode: ScreenMode = "en_ligne"
 ) -> tuple[ClickInApp, FakeKeyboard, FakePointer]:
-    router, _ = seeing("OUI", "OUI")  # la vue des activités s'ouvre, puis Writer est devant
+    # Writer n'est pas devant ; la vue des activités s'ouvre ; puis Writer est devant.
+    router, _ = seeing("NON", "OUI", "OUI")
     keyboard = FakeKeyboard()
     pointer = FakePointer()
     found = locator(tmp_path, FakeSam({"button": BUTTONS}), POINTED, PICK, CHECK)
@@ -67,3 +68,14 @@ def test_one_step_in_the_plan_reads_in_words(tmp_path: Path) -> None:
     )
     assert click.level_for(args) == Level.AGIR
     assert click.level_for(AppClickArgs(element="le bouton Supprimer")) == Level.DETRUIRE
+
+
+async def test_a_window_already_in_front_is_not_brought_back_again(tmp_path: Path) -> None:
+    """Le 2/11 : le second clic du plan (Exporter, dans la fenêtre d'export) rouvrait la vue
+    des activités."""
+    click, keyboard, pointer = tool(tmp_path)
+    click._bring._router, _ = seeing("OUI")  # déjà devant
+    args = AppClickArgs(application="LibreOffice Writer", element="le bouton Exporter en PDF")
+    await click.run(args, context(tmp_path))
+    assert keyboard.steps == []
+    assert len(pointer.clicks) == 1
