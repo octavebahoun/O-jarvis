@@ -22,31 +22,37 @@ Jarvis in your terminal, in your Chrome and on your desktop, for Ubuntu. It does
 - The O-jarvis engine has a single extension point, `ojarvis.extension`. At start it loads [`ojarvis_shell/extension.py`](src/ojarvis_shell/extension.py), lends it its services (model router, memory, audit journal, tool registry, keyring) and lets it add its tools, API routes and voices.
 - O-jarvis runs without this repository; the `.deb` ships both in one engine.
 
-## Run it
+## Quickstart
 
-You need **Ubuntu 24.04 or later** (x86_64, GNOME on Wayland for the desktop features) and a **Meta Model API key**. No other key is required.
+You need **Ubuntu 24.04 or later** (x86_64, GNOME on Wayland for the desktop features) and a **Meta Model API key**. A **Baseten API key** is optional: it lets Muse Spark Open, Meta's open-weight model, answer (as the fallback, or after `/modele open`). Without it, Muse Spark answers instead and `/modele open` says so.
 
-Put your key where the engine reads it (never commit it):
+1. **Your keys.** Copy [`.env.example`](.env.example) to where the engine reads it, then fill in your Meta key (and your Baseten key if you have one). Never commit the filled file.
 
-```bash
-mkdir -p ~/.config/o-jarvis
-printf 'MODEL_API_KEY=%s\n' 'your-meta-key' > ~/.config/o-jarvis/.env && chmod 600 ~/.config/o-jarvis/.env
-```
+   ```bash
+   mkdir -p ~/.config/o-jarvis && cd ~/.config/o-jarvis
+   [ -e .env ] || curl -fsSL https://raw.githubusercontent.com/octavebahoun/o-jarvis-shell/main/.env.example -o .env
+   chmod 600 .env && nano .env
+   ```
 
-### Option A: the package
+   The O-jarvis app also asks for both keys on its first launch and stores them in the system keyring.
 
-Download the `.deb` from the [latest release](https://github.com/octavebahoun/o-jarvis-shell/releases/latest), then open Jarvis in any folder:
+2. **Install.** Download the `.deb` from the [latest release](https://github.com/octavebahoun/o-jarvis-shell/releases/latest):
 
-```bash
-sudo apt install ./O-jarvis_*_amd64.deb
-cd ~/some-project && o-jarvis-shell
-```
+   ```bash
+   sudo apt install ./O-jarvis_*_amd64.deb
+   ```
 
-The package also installs the O-jarvis desktop app (`o-jarvis`), which O-jarvis Shell plugs into.
+   The package installs O-jarvis Shell (`o-jarvis-shell`), the Chrome extension and the O-jarvis desktop app (`o-jarvis`), which O-jarvis Shell plugs into.
 
-### Option B: from source
+3. **Run.** Open Jarvis in any folder, then ask `How much disk space is left?`
 
-Needs [uv](https://docs.astral.sh/uv/). `uv sync` installs O-jarvis from its repository as a dependency.
+   ```bash
+   cd ~/some-project && o-jarvis-shell
+   ```
+
+### From source
+
+Needs [uv](https://docs.astral.sh/uv/) and your keys (step 1 above). `uv sync` installs O-jarvis from its repository as a dependency.
 
 ```bash
 git clone https://github.com/octavebahoun/o-jarvis-shell.git
@@ -103,7 +109,7 @@ Everything else runs through Meta's API with your key.
 | Meta model | Where it runs | What it does |
 |---|---|---|
 | **Muse Spark 1.3** | Meta Model API | Every answer: shell mode and its plans, reading the screen and web pages (vision), picking what to click, watching a short screen recording |
-| **Muse Spark Open** (`muse-spark-open-1026`, open weights) | Baseten (partner inference) | Takes over every task when Muse Spark does not answer |
+| **Muse Spark Open** (`muse-spark-open-1026`, open weights) | Baseten (partner inference) | Takes over every task when Muse Spark does not answer; answers every request after `/modele open` |
 | **Muse Wonder 1.0** | Meta Model API | Reviews each code edit before you approve it; takes over when the same command fails twice |
 | **Muse Voice Transcribe 1.0** | Meta Model API | Speech to text, after the shortcut, the mic button or `/voix` |
 | **MMS TTS**, French and English (`facebook/mms-tts-fra`, `facebook/mms-tts-eng`, open weights) | On your PC (ONNX Runtime, CPU) | Jarvis's voice: each sentence is spoken by the voice of its language |
@@ -132,6 +138,7 @@ Plain code and OS features, no AI model: the command classifier, secret masking,
 | [`src/ojarvis_shell/desktop/`](src/ojarvis_shell/desktop) | SAM 3.1 client, clicks, live share, recordings |
 | [`src/ojarvis_shell/voice/`](src/ojarvis_shell/voice), [`llm/`](src/ojarvis_shell/llm) | Meta's voices and transcription, the "All Meta" profile |
 | [`packaging/`](packaging), [`scripts/`](scripts) | The `o-jarvis-shell` command, the Chrome native host, dev scripts |
+| [`.env.example`](.env.example) | The keys the engine reads: Meta (required), Baseten (optional) |
 
 ## Checks
 

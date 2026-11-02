@@ -45,10 +45,15 @@ class FakeEngine:
         self.turns: Iterator[str] = iter(turns)
         self.requests: list[tuple[str, str, dict[str, Any]]] = []
         self.plan_polls = 0
+        #: Les clés que le moteur dit configurées (nom → oui ou non), sans leur valeur.
+        self.secrets: dict[str, bool] = {}
 
     def __call__(self, request: httpx.Request) -> httpx.Response:
         body = json.loads(request.content) if request.content else {}
         self.requests.append((request.method, request.url.path, body))
+        if request.url.path == "/v1/secrets":
+            listed = [{"name": name, "configured": on} for name, on in self.secrets.items()]
+            return httpx.Response(200, json=listed)
         if request.url.path == "/v1/chat":
             return httpx.Response(200, text=next(self.turns))
         if request.url.path.endswith(("/approve", "/refuse")):

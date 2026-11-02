@@ -436,6 +436,14 @@ def _choose_model(client: ShellClient, style: Style, name: str) -> None:
             client.line(style(f"  Modèle inconnu : {name}.", YELLOW))
         else:
             client.model = choice.route
+            if models.missing_key(client.http, choice):
+                client.line(
+                    style(
+                        f"  Sans la clé {choice.secret}, ce modèle ne répondra pas : un autre "
+                        f"modèle de Meta prendra sa place. Ajoute-la dans {models.WHERE_KEYS}.",
+                        YELLOW,
+                    )
+                )
     client.line(style("  Modèle : ", DIM) + style(models.label(client.model), BOLD, CYAN))
     if name:
         return
