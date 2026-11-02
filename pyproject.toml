@@ -1,6 +1,6 @@
 [project]
 name = "o-jarvis-shell"
-version = "1.3.0"
+version = "1.4.0"
 description = "O-jarvis Shell: Jarvis in your terminal, your Chrome and your desktop, on Meta models."
 readme = "README.md"
 authors = [{ name = "Octave BAHOUN-HOUTOUKPE", email = "octavebahoun@gmail.com" }]
@@ -8,7 +8,7 @@ license = "MIT"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     # O-jarvis, le projet d'avant le hackathon : le moteur sur lequel tout se branche.
-    "ojarvis-engine>=1.3.0",
+    "ojarvis-engine>=1.4.0",
 ]
 
 [project.urls]
@@ -21,8 +21,8 @@ ojarvis-shell = "ojarvis_shell.shell.cli:main"
 ojarvis-chrome-host = "ojarvis_shell.chrome.host:main"
 
 [tool.uv.sources]
-# O-jarvis, figé sur un commit de son main : celui où il accepte le modèle choisi par « /modele ».
-ojarvis-engine = { git = "https://github.com/octavebahoun/O-jarvis", subdirectory = "engine", rev = "36ccbe7072dc10006b1943f2e3668574056c7c7d" }
+# O-jarvis 1.4.0, figé sur un commit : il accepte le modèle choisi par « /modele ».
+ojarvis-engine = { git = "https://github.com/octavebahoun/O-jarvis", subdirectory = "engine", rev = "f2895fc130190f4705b13b2f9b540eae3bcf133d" }
 
 # Comme dans O-jarvis : openWakeWord tourne en ONNX, son moteur TFLite (sans paquet pour
 # Python 3.12) est retiré de ses dépendances déclarées.
