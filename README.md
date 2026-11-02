@@ -5,7 +5,7 @@
 [![Built on O-jarvis](https://img.shields.io/badge/built%20on-O--jarvis-4fe3ff)](https://github.com/octavebahoun/O-jarvis)
 [![Meta models only](https://img.shields.io/badge/models-Meta%20only-0866ff)](#meta-models-and-where-they-run)
 
-<p align="center"><a href="https://youtu.be/a3-_38qB3gs"><img src="https://img.youtube.com/vi/a3-_38qB3gs/hqdefault.jpg" alt="O-jarvis Shell demo video" width="560"></a><br><b><a href="https://youtu.be/a3-_38qB3gs">▶ Demo video (2:53)</a></b>: filmed on a real Ubuntu with the real Meta models. Recorded runs and transcripts: <a href="docs/evidence">docs/evidence</a>.</p>
+<p align="center"><a href="https://www.youtube.com/watch?v=U_sVJ2BQKUo"><img src="https://img.youtube.com/vi/U_sVJ2BQKUo/hqdefault.jpg" alt="O-jarvis Shell demo video" width="560"></a><br><b><a href="https://www.youtube.com/watch?v=U_sVJ2BQKUo">▶ Demo video (2:56)</a></b>: filmed on a real Ubuntu with the real Meta models. Recorded runs and transcripts: <a href="docs/evidence">docs/evidence</a>.</p>
 
 Jarvis in your terminal, in your Chrome and on your desktop, for Ubuntu. It doesn't just talk: it acts on your web, your apps and your terminal, always with your approval, and every model it calls is a Meta model.
 
