@@ -42,7 +42,7 @@ from ojarvis.core.logs import get_logger
 from ojarvis.events.bus import EventBus
 from ojarvis.extension import MachineMap
 from ojarvis.llm.errors import LLMError
-from ojarvis.llm.policy import Relay
+from ojarvis.llm.policy import Relay, Route
 from ojarvis.llm.router import ModelRouter
 from ojarvis.llm.types import (
     LLMRequest,
@@ -120,6 +120,7 @@ class ChatService(ChatLearning):
         after_plan: list[str] | None = None,
         ran: RanCommand | None = None,
         page: BrowserPage | None = None,
+        model: Route | None = None,
     ) -> AsyncGenerator[ChatEvent]:
         """Un tour de conversation, en flux. `learn=False` : rien n'est retenu de ce tour
         (par exemple une transcription vocale douteuse).
@@ -159,7 +160,7 @@ class ChatService(ChatLearning):
             start=time.perf_counter(),
             agent=AgentTurn(away=channel in AWAY_CHANNELS),
         )
-        self._after_plans(turn, conversation.id, reports)
+        self._after_plans(turn, conversation.id, reports, model)
         # La suite d'un plan n'a pour texte que « Continue. » : le relecteur et les plans
         # gardent la demande d'origine.
         request_text = next((r.request for r in reports if r.request), cleaned)
@@ -330,11 +331,15 @@ class ChatService(ChatLearning):
             reports.append(await self._agent.user_ran(ran))
         return reports
 
-    def _after_plans(self, turn: _Turn, conversation_id: str, reports: list[PlanReport]) -> None:
+    def _after_plans(
+        self, turn: _Turn, conversation_id: str, reports: list[PlanReport], model: Route | None
+    ) -> None:
         """Ce que les plans finis changent pour la suite : leurs sorties restent des données,
-        et une commande qui échoue encore peut passer la main au modèle de relais."""
+        et une commande qui échoue encore peut passer la main au modèle de relais. Sinon, le
+        modèle que tu as choisi (« /modele ») est essayé d'abord."""
         _keep_marks(turn.agent, reports)
-        turn.relay = self._relay_for(conversation_id, reports)
+        chosen = Relay(model, "") if model is not None else None
+        turn.relay = self._relay_for(conversation_id, reports) or chosen
 
     def _relay_for(self, conversation_id: str, reports: list[PlanReport]) -> Relay | None:
         """Profil « Tout Meta » : après N échecs de la même commande (un test toujours rouge),
@@ -376,7 +381,7 @@ class ChatService(ChatLearning):
                         "provider": event.provider,
                         "model": event.model,
                         "fallback_from": event.fallback_from,
-                        "relay": relay.reason if relay is not None and relayed else None,
+                        "relay": (relay.reason or None) if relay is not None and relayed else None,
                     },
                 )
             elif isinstance(event, TextDelta):
