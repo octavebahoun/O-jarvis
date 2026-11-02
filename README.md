@@ -24,7 +24,7 @@ Jarvis in your terminal, in your Chrome and on your desktop, for Ubuntu. It does
 
 ## Run it
 
-You need **Ubuntu 24.04 or later** (x86_64, GNOME on Wayland for the desktop features) and a **Meta Model API key**. No other key is required.
+You need **Ubuntu 24.04 or later** (x86_64, GNOME on Wayland for the desktop features) and a **Meta Model API key**. A **Baseten API key** is optional: it lets Muse Spark Open, Meta's open-weight model, answer (as the fallback, or after `/modele open`). Without it, Muse Spark answers instead and `/modele open` says so.
 
 Put your key where the engine reads it (never commit it):
 
@@ -32,6 +32,8 @@ Put your key where the engine reads it (never commit it):
 mkdir -p ~/.config/o-jarvis
 printf 'MODEL_API_KEY=%s\n' 'your-meta-key' > ~/.config/o-jarvis/.env && chmod 600 ~/.config/o-jarvis/.env
 ```
+
+Optional, for Muse Spark Open: `printf 'BASETEN_API_KEY=%s\n' 'your-baseten-key' >> ~/.config/o-jarvis/.env`. The O-jarvis app also asks for both keys on its first launch and stores them in the system keyring.
 
 ### Option A: the package
 
@@ -103,7 +105,7 @@ Everything else runs through Meta's API with your key.
 | Meta model | Where it runs | What it does |
 |---|---|---|
 | **Muse Spark 1.3** | Meta Model API | Every answer: shell mode and its plans, reading the screen and web pages (vision), picking what to click, watching a short screen recording |
-| **Muse Spark Open** (`muse-spark-open-1026`, open weights) | Baseten (partner inference) | Takes over every task when Muse Spark does not answer |
+| **Muse Spark Open** (`muse-spark-open-1026`, open weights) | Baseten (partner inference) | Takes over every task when Muse Spark does not answer; answers every request after `/modele open` |
 | **Muse Wonder 1.0** | Meta Model API | Reviews each code edit before you approve it; takes over when the same command fails twice |
 | **Muse Voice Transcribe 1.0** | Meta Model API | Speech to text, after the shortcut, the mic button or `/voix` |
 | **MMS TTS**, French and English (`facebook/mms-tts-fra`, `facebook/mms-tts-eng`, open weights) | On your PC (ONNX Runtime, CPU) | Jarvis's voice: each sentence is spoken by the voice of its language |

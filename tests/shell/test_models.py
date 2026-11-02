@@ -43,3 +43,24 @@ def test_modele_alone_lists_the_meta_models_and_an_unknown_name_changes_nothing(
     assert "/modele spark · wonder · open · auto" in text
     assert "Modèle inconnu : gpt." in text
     assert client.model is None
+
+
+def test_a_model_without_its_key_is_said_before_the_next_request() -> None:
+    engine = FakeEngine([])
+    engine.secrets = {"MODEL_API_KEY": True, "BASETEN_API_KEY": False}
+    client, out = session(engine, [])
+    style = Style(False)
+    assert cli._command(client, style, "/modele open")
+    assert cli._command(client, style, "/modele wonder")
+    text = out.getvalue()
+    assert text.count("Sans la clé") == 1
+    assert "Sans la clé BASETEN_API_KEY, ce modèle ne répondra pas" in text
+    assert "o-jarvis › Réglages › Clés" in text
+    assert client.model == "meta/muse-wonder-1.0"
+
+
+def test_no_warning_when_the_engine_does_not_say() -> None:
+    client, out = session(FakeEngine([]), [])
+    assert cli._command(client, Style(False), "/modele open")
+    assert "Sans la clé" not in out.getvalue()
+    assert client.model == "baseten/meta-models/muse-spark-open-1026"
