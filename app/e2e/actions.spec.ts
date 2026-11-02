@@ -141,6 +141,7 @@ test("les réglages montrent le navigateur et les niveaux de permission", async 
   await page.getByRole("link", { name: "Réglages" }).click();
   // Une section à la fois : la barre des réglages ouvre celle qu'on vérifie.
   await page.getByRole("tab", { name: "Navigateur" }).click();
+  await expect(page.getByRole("tabpanel")).toHaveCSS("opacity", "1"); // fin du fondu
   await page.getByRole("heading", { name: "Navigateur et cookies" }).scrollIntoViewIfNeeded();
   await expect(page.getByText("Aucun : Jarvis navigue sans aucune de tes sessions.")).toBeVisible();
   // Dossier personnel jetable : aucun profil de navigateur à importer.
@@ -149,6 +150,7 @@ test("les réglages montrent le navigateur et les niveaux de permission", async 
     .getByRole("region", { name: "Navigateur et cookies" })
     .screenshot({ path: `${CAPTURES}/reglages-navigateur.png` });
   await page.getByRole("tab", { name: "Permissions" }).click();
+  await expect(page.getByRole("tabpanel")).toHaveCSS("opacity", "1"); // fin du fondu
   const writeTools = page.getByRole("list", { name: "Outils de niveau 2" });
   await expect(writeTools.getByText("navigateur_cliquer")).toBeVisible();
   await expect(page.getByRole("list", { name: "Outils de niveau 3" })).toContainText(

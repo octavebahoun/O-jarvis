@@ -127,7 +127,8 @@ test("la mémoire se consulte, s'enrichit, se corrige et oublie", async ({ page 
 
 test("les réglages montrent les modèles et le choix par tâche", async ({ page }) => {
   await page.getByRole("link", { name: "Réglages" }).click();
-  await page.getByRole("tab", { name: "Modèles" }).click();
+  await page.getByRole("tab", { name: "Modèles", exact: true }).click();
+  await expect(page.getByRole("tabpanel")).toHaveCSS("opacity", "1"); // fin du fondu
   const providers = page.getByRole("list", { name: "Fournisseurs de modèles" });
   await expect(providers.getByText("DeepSeek")).toBeVisible();
   await expect(providers.getByText("Prêt")).toBeVisible();
