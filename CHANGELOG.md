@@ -14,6 +14,7 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 - En « Tout Meta », Réglages › Contrôle du PC dit que l'écran est lu en ligne, par Muse Spark, au lieu de proposer un choix sans effet.
 
 ### Corrigé
+- `/v1/status` ne compte plus les abonnés internes du moteur dans `stream_clients` : en quittant, O-jarvis Shell disait toujours « L'app utilisait ce moteur », même app fermée.
 - Le `.deb` recommande GStreamer (`gstreamer1.0-tools`, `-pipewire`, `-plugins-good`) et `ffmpeg` : sans eux, sur un Ubuntu neuf, le partage d'écran et les extraits filmés échouaient.
 
 ## 1.3.0 — 2 novembre 2026

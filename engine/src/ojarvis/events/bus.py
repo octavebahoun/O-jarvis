@@ -62,6 +62,8 @@ class BusStats:
     dropped: int = 0
     handler_errors: int = 0
     subscribers: int = 0
+    #: Les flux ouverts (l'app, un client SSE), sans les abonnés internes du moteur.
+    streams: int = 0
     by_type: dict[str, int] = field(default_factory=dict)
 
 
@@ -134,7 +136,7 @@ class EventBus:
     def subscribe(self, pattern: str, handler: Handler) -> Subscription:
         subscriber = _Subscriber(pattern=pattern, handler=handler)
         self._subscribers.append(subscriber)
-        self.stats.subscribers = len(self._subscribers)
+        self._count()
         return Subscription(self, subscriber)
 
     @contextlib.asynccontextmanager
@@ -142,16 +144,20 @@ class EventBus:
         queue: asyncio.Queue[Event] = asyncio.Queue(self._queue_size)
         subscriber = _Subscriber(pattern=pattern, queue=queue)
         self._subscribers.append(subscriber)
-        self.stats.subscribers = len(self._subscribers)
+        self._count()
         try:
             yield queue
         finally:
             self._remove(subscriber)
 
+    def _count(self) -> None:
+        self.stats.subscribers = len(self._subscribers)
+        self.stats.streams = sum(1 for sub in self._subscribers if sub.queue is not None)
+
     def _remove(self, subscriber: _Subscriber) -> None:
         if subscriber in self._subscribers:
             self._subscribers.remove(subscriber)
-        self.stats.subscribers = len(self._subscribers)
+        self._count()
 
     async def drain(self) -> None:
         """Attend la fin des gestionnaires en cours (arrêt propre, tests).
