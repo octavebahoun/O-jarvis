@@ -105,6 +105,7 @@ The full list of Meta models and of OS features is in the [README](./README.md#m
 - First real test (October 30): Muse Spark picked the printer next to the PDF icon among 54 numbered icons. That led to the zoom check and the pointed area.
 
 - **Bringing a hidden window back** (November 2, `ramener_fenetre`, approval needed): when the target app is behind the terminal, Jarvis presses Super, checks with Muse Spark on a screenshot that GNOME's Activities view is open (otherwise nothing is typed and the view is closed), types the app's name, presses Enter, then checks the window is in front. The pointer now glides to its target over half a second, so you see where it goes.
+- **One step, one approval** (November 2, `cliquer_dans_application`): filming showed that bringing the window back, then clicking, took two approvals in a terminal that the window had just covered, and Jarvis kept taking screenshots while waiting for the button. Now one plan step brings the window back, finds the element on a fresh screenshot (SAM 3.1 frames, Muse Spark picks and checks it on a zoom) and clicks; you approve once, before anything moves.
 
 ### Live screen share and screen recordings ([#50](https://github.com/octavebahoun/O-jarvis/issues/50)), done
 

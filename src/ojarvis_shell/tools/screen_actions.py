@@ -158,7 +158,7 @@ class ClickOnScreen(Tool[ClickArgs]):
             raise InvalidInputError(
                 f"« {mark.target} » n'est pas revenu à l'écran en {self._wait_s:.0f} s (une "
                 "fenêtre est devant, ou l'écran a changé) : rien n'a été cliqué. Propose "
-                "ramener_fenetre pour l'application visée, puis retrouve l'élément.",
+                "cliquer_dans_application avec l'application visée : un seul plan.",
                 code="screen_changed",
             )
         x, y = mark.center
@@ -248,9 +248,9 @@ class BringWindow(Tool[WindowArgs]):
     description: ClassVar[str] = (
         "Ramène devant la fenêtre d'une application de bureau (cachée, par exemple, derrière "
         "le terminal) par la vue des activités de GNOME : Super, le nom de l'application, "
-        "Entrée. Quand la fenêtre visée n'est pas devant, mets-le dans un plan avant "
-        "trouver_a_l_ecran et cliquer_ecran, au lieu de demander à l'utilisateur de la "
-        "ramener. Si l'application n'est pas ouverte, GNOME la lance."
+        "Entrée. Pour cliquer dans une application dont la fenêtre n'est pas devant, utilise "
+        "plutôt cliquer_dans_application (un seul plan) ; cet outil sert à seulement "
+        "ramener une fenêtre. Si l'application n'est pas ouverte, GNOME la lance."
     )
     Args: ClassVar[type[ToolArgs]] = WindowArgs
     level: ClassVar[Level] = Level.AGIR
