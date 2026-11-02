@@ -293,6 +293,13 @@ class BringWindow(Tool[WindowArgs]):
             return False
         return result.text.strip().upper().startswith(("OUI", "YES"))
 
+    async def in_front(self, application: str) -> bool:
+        """Une fenêtre de l'application (ou l'une de ses boîtes de dialogue) est-elle devant ?"""
+        return await self._sees(
+            f"Une fenêtre de l'application « {application} », ou l'une de ses boîtes de "
+            "dialogue, est-elle au premier plan ?"
+        )
+
     async def run(self, args: WindowArgs, ctx: ToolContext) -> ToolOutput:
         del ctx
         if self._mode() == "local":

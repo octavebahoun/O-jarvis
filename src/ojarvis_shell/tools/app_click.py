@@ -101,7 +101,8 @@ class ClickInApp(Tool[AppClickArgs]):
         if self._mode() == "local":
             raise InvalidInputError(LOCAL_SCREEN_ONLY, code="screen_local_only")
         brought = ""
-        if args.application:
+        # Déjà devant (le clic précédent du plan l'y a mise) : pas de vue des activités.
+        if args.application and not await self._bring.in_front(args.application):
             out = await self._bring.run(WindowArgs(application=args.application), ctx)
             brought = f"{out.text} "
         mark = await self._found(args)
