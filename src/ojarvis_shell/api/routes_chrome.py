@@ -17,6 +17,12 @@ from ojarvis_shell.chrome.bridge import TabResult
 router = APIRouter(prefix="/v1/chrome", tags=["chrome"])
 
 
+@router.get("/status")
+async def chrome_status(services: ServicesDep) -> dict[str, bool]:
+    """L'extension Chrome est-elle branchée sur ce moteur (l'accueil de l'app le montre) ?"""
+    return {"connected": shell_state(services).chrome.connected()}
+
+
 @router.get("/actions/next", response_model=None)
 async def next_action(
     services: ServicesDep, wait: float = Query(default=20.0, ge=0.0, le=30.0)
