@@ -55,7 +55,7 @@ uv sync
 cd ~/some-project && ~/o-jarvis-shell/scripts/o-jarvis-shell
 ```
 
-If the O-jarvis app is running, the terminal joins its engine; otherwise it starts its own, which stops with it. The first `/voix` downloads Meta's MMS voices, French and English, once (about 230 MB).
+If the O-jarvis app is running, the terminal joins its engine; otherwise it starts its own, which stops with it. The first start of the engine can take up to a minute on a slow machine.
 
 ### Jarvis in Chrome
 
@@ -64,6 +64,25 @@ With the `.deb`, the bridge to the engine is already declared to Chrome and Chro
 ### PC control
 
 Clicking in desktop apps and looking at the screen are off by default. Turn them on once in the O-jarvis app (`o-jarvis` → **Réglages → Contrôle du PC**). The first click and the first screen share each ask for GNOME's permission once.
+
+### Before you try: permissions and first downloads
+
+Jarvis never acts without asking, and neither does your system. Expect these prompts, each once:
+
+| When | What asks | What to answer |
+|---|---|---|
+| Before any click or screen reading | O-jarvis: PC control is off by default | Turn it on in `o-jarvis` → **Réglages → Contrôle du PC** |
+| First `/partage` or first screen recording | GNOME: share your screen | Pick the screen, then **Share** |
+| First click in a desktop app | GNOME: allow remote control | **Allow** (the pointer moves only after you approve a plan) |
+| First tab Jarvis reads in Chrome | Chrome: access to this site | **Allow** in the side panel |
+| First `/voix` | The microphone | Allow it if your system asks |
+
+What downloads the first time, with the default "All Meta" profile:
+
+- **Meta's MMS voices**, French and English (about 230 MB), at the first `/voix` or spoken answer. Nothing else is downloaded for voice: no Whisper, no wake word.
+- **Playwright's Chromium** (one download, into `~/.cache/ms-playwright`), the first time Jarvis browses the web with its own browser, if it is not there yet.
+
+Everything else runs through Meta's API with your key.
 
 ## Things to try
 
