@@ -5,6 +5,8 @@
 [![Built on O-jarvis](https://img.shields.io/badge/built%20on-O--jarvis-4fe3ff)](https://github.com/octavebahoun/O-jarvis)
 [![Meta models only](https://img.shields.io/badge/models-Meta%20only-0866ff)](#meta-models-and-where-they-run)
 
+<p align="center"><a href="https://youtu.be/a3-_38qB3gs"><img src="https://img.youtube.com/vi/a3-_38qB3gs/hqdefault.jpg" alt="O-jarvis Shell demo video" width="560"></a><br><b><a href="https://youtu.be/a3-_38qB3gs">▶ Demo video (2:53)</a></b>: filmed on a real Ubuntu with the real Meta models. Recorded runs and transcripts: <a href="docs/evidence">docs/evidence</a>.</p>
+
 Jarvis in your terminal, in your Chrome and on your desktop, for Ubuntu. It doesn't just talk: it acts on your web, your apps and your terminal, always with your approval, and every model it calls is a Meta model.
 
 - **What it does.** `o-jarvis-shell` opens Jarvis in any folder: it reads at once (files, `git`, `df`…), proposes the commands that change something and runs them once you approve. A Chrome extension puts Jarvis next to the page you are reading and lets it click or fill fields in your tab. On the desktop, SAM 3.1 frames the buttons of any app and Jarvis clicks the right one through GNOME's portal; if the window is hidden (behind the terminal, say), it brings it back first through GNOME's Activities view, and you see the pointer glide to its target.

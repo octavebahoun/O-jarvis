@@ -1,5 +1,7 @@
 # O-jarvis Shell: Meta Global AI Developer Hackathon
 
+Demo video (2:53): [https://youtu.be/a3-_38qB3gs](https://youtu.be/a3-_38qB3gs).
+
 O-jarvis existed before the hackathon. **This repository, created on November 1, 2026, holds only what was built during the event** (from October 26, 12:24 ET, to November 4, 2026): the code, its tests, the Chrome extension and the packaging of the `o-jarvis-shell` command. It uses O-jarvis as an open source dependency and copies none of its code or history.
 
 ## Starting point

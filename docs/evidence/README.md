@@ -4,6 +4,12 @@ Recorded runs of O-jarvis Shell on a real machine, kept as produced, for judges 
 
 Machine: HP laptop, Intel i5-4200M, 8 GB of RAM (7.2 GB usable), Ubuntu 26.04.1 LTS, GNOME Shell 50.1 on Wayland.
 
+## Demo video
+
+[https://youtu.be/a3-_38qB3gs](https://youtu.be/a3-_38qB3gs) (2:53), November 2, 2026, real Meta models, on the machine above. What it shows, in order: the O-jarvis v1.1.0 release (before the event), then O-jarvis Shell: reading at once and a plan reviewed by Muse Wonder; Muse Wonder building a website; one approved plan that brings LibreOffice back and exports the letter as a PDF (SAM 3.1 finds each button); one approved plan that comments on a LinkedIn post in Chrome, with the O-jarvis cursor showing each gesture; voice, then a `sudo` install whose password the user types; Muse Spark Open answering from Baseten.
+
+Editing, so you know what you did not see: waits for the model are sped up (2× to 15×), never the gestures; two short cuts remove GNOME search results that showed personal file names; another browser extension's toolbar icon and a terminal's tab bar are masked. Voice-over and subtitles were added; the screen recordings have no sound.
+
 ## Terminal sessions
 
 November 2, 2026, O-jarvis Shell 1.4.0, real Meta models. Recorded with [`record_session.py`](record_session.py) in an empty git repository (`~/demo-jarvis`). The only change is the removal of the terminal's control codes (`sed 's/\x1b\[[0-9;?]*[a-zA-Z]//g' | tr -d '\r'`).
