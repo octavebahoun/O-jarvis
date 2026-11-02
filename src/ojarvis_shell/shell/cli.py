@@ -39,6 +39,7 @@ from ojarvis_shell.shell.display import (
     error_message,
     sse_events,
 )
+from ojarvis_shell.shell.notify import Notice, NoticeFactory, ask_or_notice, desktop_notices
 from ojarvis_shell.shell.view import TurnView
 
 #: Ce que Jarvis dit après une validation : la suite part avec les résultats du plan.
@@ -78,6 +79,8 @@ class ShellClient(TurnView, PlanDecisions):
         run: Runner | None = None,
         own_engine: bool = False,
         marks_dir: Path | None = None,
+        notice: NoticeFactory | None = None,
+        race: Callable[[str, Notice], str] = ask_or_notice,
     ) -> None:
         self.http = http
         self.folder = folder
@@ -93,6 +96,8 @@ class ShellClient(TurnView, PlanDecisions):
         #: Commandes sudo proposées pendant le tour : c'est toi qui les lances.
         self._proposals: list[dict[str, Any]] = []
         self._run: Runner = run or (lambda command, where: run_yourself(command, where, out))
+        self._notice = notice
+        self._race = race
         self._out = out
         self._ask = ask
         self._style = style
@@ -362,6 +367,7 @@ def main(argv: list[str] | None = None) -> int:
             home=home,
             own_engine=process is not None,
             marks_dir=resolve_paths(env).state_dir / "desktop" / "reperes",
+            notice=desktop_notices(),
         )
         banner(client, http, style, folder, home, own_engine=client.own_engine)
         try:

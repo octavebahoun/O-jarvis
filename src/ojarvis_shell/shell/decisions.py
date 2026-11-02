@@ -31,6 +31,7 @@ from ojarvis_shell.shell.display import (
     error_message,
     preview,
 )
+from ojarvis_shell.shell.notify import Notice, NoticeFactory
 from ojarvis_shell.shell.signatures import signatures
 
 YES = frozenset({"o", "oui", "y", "yes"})
@@ -86,6 +87,9 @@ class PlanDecisions(Terminal):
     allowed: set[str]
     marks_dir: Path | None
     _ask: Callable[[str], str]
+    #: Une notification « Valider · Refuser » pendant la question (None : le clavier seul).
+    _notice: NoticeFactory | None
+    _race: Callable[[str, Notice], str]
     _run: Runner
     _proposals: list[dict[str, Any]]
     _spinner: Spinner
@@ -94,11 +98,13 @@ class PlanDecisions(Terminal):
     #: Le temps passé à décider, dans cette demande : il ne compte pas dans sa durée.
     _waited: float = 0.0
 
-    def _question(self, prompt: str) -> str:
-        """Ta réponse à une question ; une entrée fermée (Ctrl+D) vaut un refus."""
+    def _question(self, prompt: str, notice: Notice | None = None) -> str:
+        """Ta réponse à une question, au clavier ou dans la notification ; une entrée fermée
+        (Ctrl+D) vaut un refus."""
         asked = time.monotonic()
         try:
-            return self._ask(prompt).strip().lower()
+            answer = self._race(prompt, notice) if notice is not None else self._ask(prompt)
+            return answer.strip().lower()
         except EOFError:
             return ""
         finally:
@@ -150,7 +156,7 @@ class PlanDecisions(Terminal):
             )
             approved = True
         else:
-            approved = self._ask_approval(level, always, color)
+            approved = self._ask_approval(level, always, color, plan)
         self._line_open = False
         if not approved:
             self.http.post(f"/v1/plans/{plan_id}/refuse")
@@ -283,7 +289,21 @@ class PlanDecisions(Terminal):
         self.line(self._style(f"  · code de sortie {code}", DIM))
         return {"command": command, "code": code, "output": output}
 
-    def _ask_approval(self, level: int, always: frozenset[str] | None, color: str) -> bool:
+    def _notify(self, plan: dict[str, Any], level: int) -> Notice | None:
+        """La notification du plan qui attend : ses boutons, sauf au niveau 3."""
+        if self._notice is None:
+            return None
+        steps = plan.get("steps") or [{}]
+        first = str(steps[0].get("description") or "")[:140]
+        more = f" (+{len(steps) - 1} étape(s))" if len(steps) > 1 else ""
+        body = f"{plan.get('title', 'Plan')} : {first}{more}"
+        if level >= Level.DETRUIRE:
+            body += "\nNiveau 3 : confirme dans le terminal, en tapant « oui »."
+        return self._notice("Jarvis attend ta validation", body, level < Level.DETRUIRE)
+
+    def _ask_approval(
+        self, level: int, always: frozenset[str] | None, color: str, plan: dict[str, Any]
+    ) -> bool:
         if level >= Level.DETRUIRE:
             question = self._bottom(
                 color,
@@ -297,7 +317,7 @@ class PlanDecisions(Terminal):
                 kinds = ", ".join(sorted(always))
                 choices += [("t", BOLD), (f" toujours ({kinds})", DIM)]
             question = self._bottom(color, ("Valider ?", BOLD), ("  ",), *choices, ("  › ", DIM))
-        answer = self._question(question)
+        answer = self._question(question, self._notify(plan, level))
         if level >= Level.DETRUIRE:
             return answer == "oui"
         if always and answer in ALWAYS:
