@@ -873,7 +873,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "ojarvis-engine", git = "https://github.com/octavebahoun/O-jarvis?subdirectory=engine&rev=f2895fc130190f4705b13b2f9b540eae3bcf133d" }]
+requires-dist = [{ name = "ojarvis-engine", git = "https://github.com/octavebahoun/O-jarvis?subdirectory=engine&rev=24b08f9671892d07e81cd89cf791357900e97bf5" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -886,7 +886,7 @@ dev = [
 [[package]]
 name = "ojarvis-engine"
 version = "1.4.0"
-source = { git = "https://github.com/octavebahoun/O-jarvis?subdirectory=engine&rev=f2895fc130190f4705b13b2f9b540eae3bcf133d#f2895fc130190f4705b13b2f9b540eae3bcf133d" }
+source = { git = "https://github.com/octavebahoun/O-jarvis?subdirectory=engine&rev=24b08f9671892d07e81cd89cf791357900e97bf5#24b08f9671892d07e81cd89cf791357900e97bf5" }
 dependencies = [
     { name = "alembic" },
     { name = "anthropic" },
