@@ -15,12 +15,14 @@ import { RadioGroup, Tabs } from "radix-ui";
 import { type ReactNode, useRef } from "react";
 import { useSearchParams } from "react-router";
 
+import { Button } from "../../components/Button";
 import { PageHeader } from "../../components/PageHeader";
 import { ErrorState, LoadingState, OfflineState } from "../../components/States";
 import { describeError } from "../../lib/engine/client";
 import { useSecrets, useStatus } from "../../lib/engine/queries";
 import { useEngineOnline } from "../../lib/engine/store";
 import type { SecretGroup, SecretStatus } from "../../lib/engine/types";
+import { useOnboarding } from "../onboarding/store";
 import { useAvatarStore } from "../sphere/avatarStore";
 import { BrowserSection } from "./BrowserSection";
 import { DesktopSection } from "./DesktopSection";
@@ -162,7 +164,12 @@ const SECTIONS: {
     label: "Démarrage",
     title: "Démarrage",
     icon: Power,
-    body: () => <StartupSection />,
+    body: () => (
+      <>
+        <StartupSection />
+        <ReplayOnboarding />
+      </>
+    ),
   },
   {
     id: "apparence",
@@ -223,6 +230,18 @@ export function SettingsScreen() {
           </Tabs.Content>
         ))}
       </Tabs.Root>
+    </div>
+  );
+}
+
+/** Rouvrir l'accueil du premier lancement (les autorisations, la clé, Chrome). */
+function ReplayOnboarding() {
+  const show = useOnboarding((s) => s.show);
+  return (
+    <div>
+      <Button size="sm" onClick={show}>
+        Revoir l'accueil
+      </Button>
     </div>
   );
 }

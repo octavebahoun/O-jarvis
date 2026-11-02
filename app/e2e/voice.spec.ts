@@ -66,6 +66,8 @@ test("au bouton micro, Jarvis écoute, répond à voix haute puis montre la conv
 
 test("les réglages de la voix montrent l'état et changent la sensibilité", async ({ page }) => {
   await page.getByRole("link", { name: "Réglages" }).click();
+  await page.getByRole("tab", { name: "Voix", exact: true }).click();
+  await expect(page.getByRole("tabpanel")).toHaveCSS("opacity", "1"); // fin du fondu
   const voice = page.getByRole("region", { name: "Voix", exact: true });
   await expect(voice.getByText("À l'écoute de « Hey Jarvis »")).toBeVisible();
   await expect(voice.getByText(/Mot de réveil : simulé/)).toBeVisible();
