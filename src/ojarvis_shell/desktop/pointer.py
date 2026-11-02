@@ -117,6 +117,13 @@ def _variant(results: dict[str, Any], key: str, default: Any = None) -> Any:
     return value[1] if isinstance(value, tuple) and len(value) == 2 else default
 
 
+def stale_grant(token_used: bool, started: dict[str, Any]) -> bool:
+    """Un accord retenu d'avant le clavier : GNOME le restaure en silence avec le pointeur
+    seul, et chaque touche tapée serait perdue. Il faut le redemander (2/11/2026)."""
+    granted = int(_variant(started, "devices", KEYBOARD | POINTER))
+    return token_used and not granted & KEYBOARD
+
+
 class PortalPointer:
     """Le pointeur et le clavier par le portail, avec `jeepney` (déjà utilisé pour les
     captures d'écran)."""
@@ -248,6 +255,12 @@ class PortalPointer:
                     "le clavier. Rien n'a été fait."
                 ),
             )
+            if stale_grant(bool(token), started):
+                log.info("portal_grant_without_keyboard")
+                self._token_file.unlink(missing_ok=True)
+                async with self._session(router) as fresh:  # GNOME redemande, clavier compris
+                    yield fresh
+                return
             new_token = _variant(started, "restore_token")
             if new_token:
                 self._save_token(str(new_token))
