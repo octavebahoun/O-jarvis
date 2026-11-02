@@ -58,7 +58,10 @@ class ClickInApp(Tool[AppClickArgs]):
         "et Muse Spark trouvent l'élément sur une capture prise à ce moment-là, le vérifient, "
         "et le clic part. À préférer à trouver_a_l_ecran puis cliquer_ecran dès que la "
         "fenêtre n'est pas devant (cachée par le terminal, par exemple) : un seul plan, sans "
-        "autre validation. Rien de trouvé, ou deux éléments possibles : rien n'est cliqué."
+        "autre validation. Pour un résultat en plusieurs clics (le bouton, puis celui de la "
+        "fenêtre qui s'ouvre : « exporte en PDF » = Exporter en PDF, puis Exporter), mets "
+        "chaque clic dans le MÊME plan : chacun est trouvé au moment où il se fait. Rien de "
+        "trouvé, ou deux éléments possibles : rien n'est cliqué."
     )
     Args: ClassVar[type[ToolArgs]] = AppClickArgs
     level: ClassVar[Level] = Level.AGIR
