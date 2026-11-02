@@ -72,6 +72,7 @@ Clicking in desktop apps and looking at the screen are off by default. Turn them
 | Terminal | `How much disk space is left?` | Jarvis runs `df` at once and answers; the header shows `◆ Jarvis   meta / muse-spark-1.3` |
 | Terminal | `Create notes.txt here with a shopping list.` | A plan card; nothing happens until you answer `o` |
 | Terminal | `Add a total() function to cart.py, then run the tests.` | The diff, reviewed by Muse Wonder, then the tests after your `o` |
+| Terminal | `/modele wonder`, then `Build a one-page site for a tea shop in this folder.` | Muse Wonder writes the site; the header shows `meta / muse-wonder-1.0`; `/modele auto` goes back |
 | Terminal | `/voix`, then speak | Muse Voice Transcribe listens, Muse Spark answers, MMS speaks in your language |
 | Terminal | `Click the Export as PDF button in LibreOffice.` | SAM 3.1 frames the buttons, Muse Spark picks one, you approve, GNOME clicks |
 | Terminal | `/partage`, then `What's on my screen?` | Live screen share, read by Muse Spark |

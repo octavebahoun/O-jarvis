@@ -22,6 +22,7 @@ COMMANDS = (
     ("/voix", "parler"),
     ("/partage", "écran en direct"),
     ("/nouveau", "conversation"),
+    ("/modele", "choisir le modèle"),
     ("/toujours", "validé d'office"),
     ("exit", ""),
 )
