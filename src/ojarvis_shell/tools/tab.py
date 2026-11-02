@@ -129,7 +129,8 @@ class TabClick(TabTool[ElementArgs]):
     name: ClassVar[str] = "onglet_cliquer"
     description: ClassVar[str] = (
         "Clique sur un lien ou un bouton d'un onglet Chrome de l'utilisateur, désigné par son "
-        "numéro et son texte dans la liste des éléments de la page lue."
+        "numéro et son texte dans la liste des éléments de la page lue. Pour plusieurs gestes "
+        "de suite sur une page qui change, onglet_geste."
     )
     Args: ClassVar[type[ToolArgs]] = ElementArgs
     level: ClassVar[Level] = Level.AGIR
@@ -153,7 +154,8 @@ class TabFill(TabTool[FillTabArgs]):
     name: ClassVar[str] = "onglet_remplir"
     description: ClassVar[str] = (
         "Écrit dans un champ d'un onglet Chrome de l'utilisateur, désigné par son numéro et "
-        "son texte dans la liste des éléments ; jamais un mot de passe ni une carte bancaire."
+        "son texte dans la liste des éléments ; jamais un mot de passe ni une carte bancaire. "
+        "Pour un champ qui n'apparaît qu'après un clic, onglet_geste."
     )
     Args: ClassVar[type[ToolArgs]] = FillTabArgs
     level: ClassVar[Level] = Level.AGIR

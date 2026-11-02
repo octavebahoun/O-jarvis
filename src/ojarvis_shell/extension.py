@@ -51,6 +51,7 @@ from ojarvis_shell.tools.shell import RunCommand
 from ojarvis_shell.tools.sudo import ProposeAdmin
 from ojarvis_shell.tools.tab import tab_tools
 from ojarvis_shell.tools.tab_sight import TabSight, sight_tools
+from ojarvis_shell.tools.tab_step import TabStep
 from ojarvis_shell.tools.terminal import OpenShell
 from ojarvis_shell.voice.stt_meta import MetaTranscriber
 from ojarvis_shell.voice.tts_meta import MMS_EN_FILES, MMS_FILES, EspeakTTS, MmsVoices
@@ -126,6 +127,7 @@ async def attach(lent: Lent) -> Added:
         OpenShell(lent.home),  # « passe en mode shell » : ouvre un terminal
         ProposeAdmin(),  # sudo : proposé par Jarvis, lancé par toi
         *tab_tools(chrome),  # proposés seulement dans le panneau de Chrome
+        TabStep(chrome, lent.router),  # plusieurs gestes, un seul plan
         *sight_tools(TabSight(chrome, locator)),  # et le secours visuel (SAM 3.1)
         *impasse_tools(lent.memory, floor=floor),
         ReadMachineMap(machine),

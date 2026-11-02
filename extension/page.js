@@ -77,7 +77,21 @@ function readPage() {
     const ref = elements.length + 1;
     node.setAttribute("data-ojarvis-ref", String(ref));
     const href = kind === "lien" && /^https?:/.test(node.href ?? "") ? node.href : "";
-    elements.push({ ref, kind, label: label || "(sans nom)", href: href.slice(0, 2000) });
+    elements.push({ ref, kind, label: label || "(sans nom)", href: href.slice(0, 2000), node });
+  }
+  // Plusieurs éléments au même nom (« Commenter » sous chaque post) : chacun dit dans quel
+  // bloc il est (le début de ce bloc), pour que Jarvis vise le bon.
+  const count = new Map();
+  for (const element of elements) count.set(element.label, (count.get(element.label) ?? 0) + 1);
+  const blocks = 'article, [role="article"], [data-urn], [role="dialog"], form, li, section';
+  for (const element of elements) {
+    const { node } = element;
+    delete element.node;
+    if (count.get(element.label) < 2) continue;
+    const block = node.parentElement?.closest(blocks);
+    const head = block?.getAttribute("aria-label") || block?.innerText || "";
+    const zone = head.replace(/\s+/g, " ").trim().slice(0, 120);
+    if (zone) element.zone = zone;
   }
   return {
     url: location.href,
