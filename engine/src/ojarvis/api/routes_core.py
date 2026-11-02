@@ -49,7 +49,7 @@ async def status(services: ServicesDep) -> StatusOut:
         secrets_total=len(secrets),
         events_published=stats.published,
         events_dropped=stats.dropped,
-        stream_clients=stats.subscribers,
+        stream_clients=stats.streams,
         timezone=system_timezone_name(),
     )
 

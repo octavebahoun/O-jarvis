@@ -83,6 +83,21 @@ async def test_stream_drops_oldest_when_full() -> None:
     assert bus.stats.subscribers == 0
 
 
+async def test_only_open_streams_count_as_clients() -> None:
+    """Le terminal se fie à ce nombre pour savoir si l'app suit le moteur : les abonnés
+    internes (planificateur, anticipation) n'en sont pas."""
+    bus = EventBus()
+
+    async def handler(event: Event) -> None:
+        del event
+
+    bus.subscribe("*", handler)
+    assert (bus.stats.subscribers, bus.stats.streams) == (1, 0)
+    async with bus.stream("*"):
+        assert (bus.stats.subscribers, bus.stats.streams) == (2, 1)
+    assert (bus.stats.subscribers, bus.stats.streams) == (1, 0)
+
+
 async def test_payload_is_redacted() -> None:
     bus = EventBus()
     async with bus.stream("*") as queue:
