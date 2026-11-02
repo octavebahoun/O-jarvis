@@ -55,7 +55,7 @@ uv sync
 cd ~/some-project && ~/o-jarvis-shell/scripts/o-jarvis-shell
 ```
 
-If the O-jarvis app is running, the terminal joins its engine; otherwise it starts its own, which stops with it. The first `/voix` downloads Meta's MMS voices, French and English, once (about 230 MB).
+If the O-jarvis app is running, the terminal joins its engine; otherwise it starts its own, which stops with it. The first start of the engine can take up to a minute on a slow machine.
 
 ### Jarvis in Chrome
 
@@ -65,6 +65,25 @@ With the `.deb`, the bridge to the engine is already declared to Chrome and Chro
 
 Clicking in desktop apps and looking at the screen are off by default. Turn them on once in the O-jarvis app (`o-jarvis` → **Réglages → Contrôle du PC**). The first click and the first screen share each ask for GNOME's permission once.
 
+### Before you try: permissions and first downloads
+
+Jarvis never acts without asking, and neither does your system. Expect these prompts, each once:
+
+| When | What asks | What to answer |
+|---|---|---|
+| Before any click or screen reading | O-jarvis: PC control is off by default | Turn it on in `o-jarvis` → **Réglages → Contrôle du PC** |
+| First `/partage` or first screen recording | GNOME: share your screen | Pick the screen, then **Share** |
+| First click in a desktop app | GNOME: allow remote control | **Allow** (the pointer moves only after you approve a plan) |
+| First tab Jarvis reads in Chrome | Chrome: access to this site | **Allow** in the side panel |
+| First `/voix` | The microphone | Allow it if your system asks |
+
+What downloads the first time, with the default "All Meta" profile:
+
+- **Meta's MMS voices**, French and English (about 230 MB), at the first `/voix` or spoken answer. Nothing else is downloaded for voice: no Whisper, no wake word.
+- **Playwright's Chromium** (one download, into `~/.cache/ms-playwright`), the first time Jarvis browses the web with its own browser, if it is not there yet.
+
+Everything else runs through Meta's API with your key.
+
 ## Things to try
 
 | Where | Type or say | What happens |
@@ -72,6 +91,7 @@ Clicking in desktop apps and looking at the screen are off by default. Turn them
 | Terminal | `How much disk space is left?` | Jarvis runs `df` at once and answers; the header shows `◆ Jarvis   meta / muse-spark-1.3` |
 | Terminal | `Create notes.txt here with a shopping list.` | A plan card; nothing happens until you answer `o` |
 | Terminal | `Add a total() function to cart.py, then run the tests.` | The diff, reviewed by Muse Wonder, then the tests after your `o` |
+| Terminal | `/modele wonder`, then `Build a one-page site for a tea shop in this folder.` | Muse Wonder writes the site; the header shows `meta / muse-wonder-1.0`; `/modele auto` goes back |
 | Terminal | `/voix`, then speak | Muse Voice Transcribe listens, Muse Spark answers, MMS speaks in your language |
 | Terminal | `Click the Export as PDF button in LibreOffice.` | SAM 3.1 frames the buttons, Muse Spark picks one, you approve, GNOME clicks |
 | Terminal | `/partage`, then `What's on my screen?` | Live screen share, read by Muse Spark |

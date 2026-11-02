@@ -25,6 +25,7 @@ from ojarvis.config import resolve_paths
 from ojarvis.shell.connection import EngineLink, EngineUnavailableError
 from ojarvis.tools.guards import BlockedTargetError, resolve_user_path
 
+from ojarvis_shell.shell import models
 from ojarvis_shell.shell.banner import banner, prompt
 from ojarvis_shell.shell.decisions import PlanDecisions, Runner, run_yourself
 from ojarvis_shell.shell.display import (
@@ -108,6 +109,8 @@ class ShellClient(TurnView, PlanDecisions):
         self.home = home or Path.home()
         #: Les types de commande validés « toujours » : seulement pour cette session.
         self.allowed: set[str] = set()
+        #: Le modèle choisi avec « /modele » (« fournisseur/modèle »), pour cette session.
+        self.model: str | None = None
 
     # ------------------------------------------------------------------ affichage
 
@@ -201,6 +204,8 @@ class ShellClient(TurnView, PlanDecisions):
         ran: dict[str, Any] | None = None,
     ) -> list[dict[str, Any]]:
         body: dict[str, Any] = {"text": text, "channel": "shell", "folder": self.folder}
+        if self.model is not None:
+            body["model"] = self.model  # « /modele »
         if self.conversation_id is not None:
             body["conversation_id"] = self.conversation_id
         if after_plan:
@@ -414,9 +419,32 @@ def _command(client: ShellClient, style: Style, text: str) -> bool:
     elif text == "/oublier":
         client.allowed.clear()
         client.line(style("  Chaque commande demandera de nouveau ta validation.", DIM))
+    elif text == "/modele" or text.startswith("/modele "):
+        _choose_model(client, style, text.removeprefix("/modele").strip())
     else:
         return False
     return True
+
+
+def _choose_model(client: ShellClient, style: Style, name: str) -> None:
+    """« /modele » : la liste, ou le modèle qui répondra à partir de la demande suivante."""
+    if name == models.AUTO:
+        client.model = None
+    elif name:
+        choice = models.find(name)
+        if choice is None:
+            client.line(style(f"  Modèle inconnu : {name}.", YELLOW))
+        else:
+            client.model = choice.route
+    client.line(style("  Modèle : ", DIM) + style(models.label(client.model), BOLD, CYAN))
+    if name:
+        return
+    for choice in models.CHOICES:
+        mark = "●" if client.model == choice.route else "○"
+        client.line(
+            style(f"    {mark} ", CYAN) + style(f"{choice.key:<7}", BOLD) + style(choice.what, DIM)
+        )
+    client.line(style("    /modele spark · wonder · open · auto", DIM))
 
 
 def _ask(client: ShellClient, style: Style, text: str, *, spoken: bool = False) -> None:
