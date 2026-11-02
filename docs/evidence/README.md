@@ -6,9 +6,9 @@ Machine: HP laptop, Intel i5-4200M, 8 GB of RAM (7.2 GB usable), Ubuntu 26.04.1 
 
 ## Demo video
 
-[https://youtu.be/a3-_38qB3gs](https://youtu.be/a3-_38qB3gs) (2:53), November 2, 2026, real Meta models, on the machine above. What it shows, in order: the O-jarvis v1.1.0 release (before the event), then O-jarvis Shell: reading at once and a plan reviewed by Muse Wonder; Muse Wonder building a website; one approved plan that brings LibreOffice back and exports the letter as a PDF (SAM 3.1 finds each button); one approved plan that comments on a LinkedIn post in Chrome, with the O-jarvis cursor showing each gesture; voice, then a `sudo` install whose password the user types; Muse Spark Open answering from Baseten.
+[https://www.youtube.com/watch?v=U_sVJ2BQKUo](https://www.youtube.com/watch?v=U_sVJ2BQKUo) (2:56), November 2, 2026, real Meta models, on the machine above. What it shows, in order: the O-jarvis v1.1.0 release (before the event), then O-jarvis Shell: reading at once and a plan reviewed by Muse Wonder; Muse Wonder building a website; one approved plan that brings LibreOffice back and exports the letter as a PDF (SAM 3.1 finds each button); one approved plan that comments on a LinkedIn post in Chrome, with the O-jarvis cursor showing each gesture; voice, then a `sudo` install whose password the user types; Muse Spark Open answering from Baseten.
 
-Editing, so you know what you did not see: waits for the model are sped up (2× to 15×), never the gestures; two short cuts remove GNOME search results that showed personal file names; another browser extension's toolbar icon and a terminal's tab bar are masked. Voice-over and subtitles were added; the screen recordings have no sound.
+Editing, so you know what you did not see: waits for the model are sped up (2× to 15×), never the gestures; two short cuts remove GNOME search results that showed personal file names; another browser extension's toolbar icon and a terminal's tab bar are masked. Added in editing: voice-over, subtitles, scene titles, animated zooms on what matters, music composed in code, and small sounds on each approval and gesture. The screen recordings themselves have no sound.
 
 ## Terminal sessions
 
