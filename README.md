@@ -120,10 +120,12 @@ Everything else runs through Meta's API with your key.
 
 ## Things to try
 
+Real transcripts of the first terminal rows, recorded on November 2: [`docs/evidence/`](docs/evidence).
+
 | Where | Type or say | What happens |
 |---|---|---|
 | Terminal | `How much disk space is left?` | Jarvis runs `df` at once and answers; the header shows `◆ Jarvis   meta / muse-spark-1.3` |
-| Terminal | `Create notes.txt here with a shopping list.` | A plan card; nothing happens until you answer `o` |
+| Terminal | `Create notes.txt here with a shopping list: milk, eggs, rice, tea.` | A plan card with the diff, reviewed by Muse Wonder; nothing happens until you answer `o` |
 | Terminal | `Add a total() function to cart.py, then run the tests.` | The diff, reviewed by Muse Wonder, then the tests after your `o` |
 | Terminal | `/modele wonder`, then `Build a one-page site for a tea shop in this folder.` | Muse Wonder writes the site; the header shows `meta / muse-wonder-1.0`; `/modele auto` goes back |
 | Terminal | `/voix`, then speak | Muse Voice Transcribe listens, Muse Spark answers, MMS speaks in your language |
@@ -166,6 +168,7 @@ Plain code and OS features, no AI model: the command classifier, secret masking,
 | [`src/ojarvis_shell/desktop/`](src/ojarvis_shell/desktop) | SAM 3.1 client, clicks, live share, recordings |
 | [`src/ojarvis_shell/voice/`](src/ojarvis_shell/voice), [`llm/`](src/ojarvis_shell/llm) | Meta's voices and transcription, the "All Meta" profile |
 | [`packaging/`](packaging), [`scripts/`](scripts) | The `o-jarvis-shell` command, the Chrome native host, dev scripts |
+| [`docs/evidence/`](docs/evidence) | Recorded runs on a real machine: terminal transcripts, and how they were recorded |
 | [`.env.example`](.env.example) | The keys the engine reads: Meta (required), Baseten (optional) |
 
 ## Checks
