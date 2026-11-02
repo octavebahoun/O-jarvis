@@ -4,6 +4,15 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 
 ## Non publié
 
+## 1.4.0 — 2 novembre 2026
+
+### Ajouté
+- L'accueil du premier lancement : tout ce que Jarvis demandera, demandé d'un coup, étape par étape (clés de Meta et de Baseten, profil « Tout Meta », contrôle du PC et accords de GNOME pour l'écran et le pointeur, voix de Meta, extension Chrome, terminal). On peut le passer et le revoir (Réglages › Démarrage).
+- Un modèle choisi pour un message (`model` dans `/v1/chat`), essayé avant les autres : c'est la commande « /modele » d'O-jarvis Shell.
+
+### Modifié
+- En « Tout Meta », Réglages › Contrôle du PC dit que l'écran est lu en ligne, par Muse Spark, au lieu de proposer un choix sans effet.
+
 ## 1.3.0 — 2 novembre 2026
 
 ### Modifié
@@ -11,6 +20,7 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 
 ### Ajouté
 - `ojarvis.extension` : le point unique où une extension reçoit les services du moteur et y ajoute ses outils, ses routes et ses voix.
+- Réglages : une barre des sections, une seule section affichée à la fois.
 - `ojarvis.testing` : le moteur simulé des tests (fixtures pytest, fournisseurs et pièces vocales factices), pour les extensions aussi.
 
 ## 1.2.1 — 1er novembre 2026
