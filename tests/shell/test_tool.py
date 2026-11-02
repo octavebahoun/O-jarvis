@@ -13,14 +13,14 @@ from pathlib import Path
 
 import httpx
 import pytest
-
 from ojarvis.core.errors import NotFoundError
-from ojarvis.shell import cli
 from ojarvis.tools.base import Level, ToolContext, ToolRegistry
 from ojarvis.tools.guards import BlockedTargetError
-from ojarvis.tools.shell import RunCommand, clean_environment
-from ojarvis.tools.sudo import ProposeAdmin, admin_level
-from ojarvis.tools.terminal import OpenShell
+
+from ojarvis_shell.shell import cli
+from ojarvis_shell.tools.shell import RunCommand, clean_environment
+from ojarvis_shell.tools.sudo import ProposeAdmin, admin_level
+from ojarvis_shell.tools.terminal import OpenShell
 
 
 @pytest.fixture
@@ -244,7 +244,7 @@ async def test_open_shell_starts_the_user_terminal_in_the_folder(home: Path) -> 
             "--",
             sys.executable,
             "-m",
-            "ojarvis.shell.cli",
+            "ojarvis_shell.shell.cli",
             "--dossier",
             str(home / "projet"),
         ]

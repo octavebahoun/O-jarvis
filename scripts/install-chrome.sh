@@ -5,12 +5,12 @@
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-host="$root/engine/.venv/bin/ojarvis-chrome-host"
+host="$root/.venv/bin/ojarvis-chrome-host"
 name="io.github.octavebahoun.ojarvis"
 extension_id="mjdiobmgjkghbmmbfnhifikcaehdndlc"
 
 if [[ ! -x "$host" ]]; then
-  (cd "$root/engine" && uv sync --quiet)
+  (cd "$root" && uv sync --quiet)
 fi
 
 declared=0

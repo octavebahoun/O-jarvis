@@ -12,9 +12,10 @@ from pathlib import Path
 from typing import Any, TextIO
 
 import httpx
-
 from ojarvis.agent.measures import MEASURE_AFTER, MEASURE_BEFORE
-from ojarvis.shell.display import (
+from ojarvis.tools.base import Level
+
+from ojarvis_shell.shell.display import (
     BOLD,
     CYAN,
     DIFF_LINES,
@@ -30,8 +31,7 @@ from ojarvis.shell.display import (
     error_message,
     preview,
 )
-from ojarvis.shell.signatures import signatures
-from ojarvis.tools.base import Level
+from ojarvis_shell.shell.signatures import signatures
 
 YES = frozenset({"o", "oui", "y", "yes"})
 

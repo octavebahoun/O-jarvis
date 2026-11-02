@@ -12,18 +12,18 @@ from pathlib import Path
 from typing import ClassVar
 
 import anyio.to_thread
-from pydantic import Field
-
 from ojarvis.core.errors import UpstreamError
 from ojarvis.desktop.screen import shrink
 from ojarvis.llm.errors import LLMError
 from ojarvis.llm.router import Constraints, ModelRouter
 from ojarvis.llm.types import ImagePart, LLMRequest, Message
-from ojarvis.shell.pages import PageShot, capture_page, local_page
-from ojarvis.shell.servers import BackgroundSessions
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
 from ojarvis.tools.guards import shown
 from ojarvis.tools.screen import MAX_SIDE, ScreenMode
+from pydantic import Field
+
+from ojarvis_shell.shell.pages import PageShot, capture_page, local_page
+from ojarvis_shell.shell.servers import BackgroundSessions
 
 PAGE_RULES = (
     "Tu regardes la capture d'une page web en développement, servie sur la machine de "

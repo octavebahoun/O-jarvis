@@ -6,11 +6,12 @@ from pathlib import Path
 
 import httpx
 import pytest
-
 from ojarvis.core.errors import InvalidInputError, NotFoundError
 from ojarvis.tools.base import InvalidToolArgumentsError, Level, ToolContext
-from ojarvis.tools.files import EditFile, WriteFile, unified_diff
+from ojarvis.tools.files import WriteFile, unified_diff
 from ojarvis.tools.guards import BlockedTargetError
+
+from ojarvis_shell.tools.edit import EditFile
 
 CODE = "def moyenne(notes):\n    total = sum(notes)\n    return total / len(notes)\n"
 

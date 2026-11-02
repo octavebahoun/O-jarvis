@@ -9,14 +9,16 @@ from typing import Any
 
 import numpy as np
 import pytest
-
 from ojarvis.settings_store import Preferences
+from ojarvis.testing.voice import FakeEcho, FakeTTS, make_service
 from ojarvis.voice.audio import OUTPUT_RATE
 from ojarvis.voice.model_sets import META_MODEL_SETS, model_sets
-from ojarvis.voice.spoken_en import english, spoken_english
-from ojarvis.voice.stt_online import MetaTranscriber
 from ojarvis.voice.tts import FallbackTTS
-from ojarvis.voice.tts_meta import (
+from ojarvis.voice.vad import EnergyVad
+
+from ojarvis_shell.voice.spoken_en import english, spoken_english
+from ojarvis_shell.voice.stt_meta import MetaTranscriber
+from ojarvis_shell.voice.tts_meta import (
     MMS_EN_FILES,
     MMS_FILES,
     MMS_PAUSE_S,
@@ -25,9 +27,6 @@ from ojarvis.voice.tts_meta import (
     MmsTTS,
     MmsVoices,
 )
-from ojarvis.voice.vad import EnergyVad
-from tests.voice.fakes import FakeTTS
-from tests.voice.test_service import FakeEcho, make_service
 
 
 class FakeSession:

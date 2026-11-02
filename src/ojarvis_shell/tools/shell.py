@@ -1,6 +1,6 @@
 """Mode shell : lancer une commande dans un dossier et rendre sa sortie.
 
-Le niveau dépend de la commande (`ojarvis.shell.commands`) : une lecture part tout de suite,
+Le niveau dépend de la commande (`ojarvis_shell.shell.commands`) : une lecture part tout de suite,
 une action attend ta validation, une destruction ta double confirmation. L'outil n'est
 proposé au modèle qu'en mode shell : ouvrir le mode shell est ton accord pour cet outil.
 
@@ -28,14 +28,14 @@ from pathlib import Path
 from typing import ClassVar
 
 import anyio.to_thread
-from pydantic import Field
-
 from ojarvis.config import resolve_paths
 from ojarvis.core.errors import NotFoundError
-from ojarvis.shell.commands import classify
-from ojarvis.shell.servers import BackgroundSessions
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
 from ojarvis.tools.guards import resolve_user_path, shown
+from pydantic import Field
+
+from ojarvis_shell.shell.commands import classify
+from ojarvis_shell.shell.servers import BackgroundSessions
 
 #: Gardés de la sortie : le début (souvent l'essentiel) et la fin (l'erreur d'une compilation).
 HEAD_BYTES = 4_000

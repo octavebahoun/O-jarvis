@@ -14,11 +14,10 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-
 from ojarvis.__main__ import announce_running
 from ojarvis.__main__ import main as engine_main
 from ojarvis.config import resolve_paths
-from ojarvis.shell import cli, connection
+from ojarvis.shell import connection
 from ojarvis.shell.connection import (
     EngineInfo,
     info_path,
@@ -27,6 +26,8 @@ from ojarvis.shell.connection import (
     remove_info,
     write_info,
 )
+
+from ojarvis_shell.shell import cli
 
 
 @pytest.fixture
@@ -93,7 +94,7 @@ def test_the_packaged_engine_opens_the_terminal_with_a_subcommand(
 ) -> None:
     # Revue du 27/10/2026 : le moteur empaqueté (PyInstaller) refusait « -m ».
     monkeypatch.setattr("sys.frozen", True, raising=False)
-    assert python_module("ojarvis.shell.cli", frozen_as="shell")[1:] == ["shell"]
+    assert python_module("ojarvis_shell.shell.cli", frozen_as="shell")[1:] == ["shell"]
     assert python_module("ojarvis")[1:] == []
     monkeypatch.setattr("sys.frozen", False)
     assert python_module("ojarvis")[1:] == ["-m", "ojarvis"]

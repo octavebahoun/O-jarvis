@@ -14,7 +14,7 @@ from typing import TYPE_CHECKING, Any, TextIO
 import httpx
 
 if TYPE_CHECKING:
-    from ojarvis.shell.prose import Prose
+    from ojarvis_shell.shell.prose import Prose
 
 LEVEL_NAMES = {1: "lecture", 2: "action", 3: "destruction"}
 

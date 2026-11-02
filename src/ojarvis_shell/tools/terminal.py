@@ -12,12 +12,11 @@ from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import ClassVar
 
-from pydantic import Field
-
 from ojarvis.core.errors import NotFoundError
 from ojarvis.shell.connection import python_module
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
 from ojarvis.tools.guards import resolve_user_path, shown
+from pydantic import Field
 
 #: Terminaux connus, avec la façon de leur faire lancer une commande. `xdg-terminal-exec`
 #: d'abord : c'est le terminal choisi par l'utilisateur (Ubuntu 26.04 : Ptyxis).
@@ -48,7 +47,11 @@ SHELL_ENV = (
 def shell_command(folder: Path, environ: Mapping[str, str]) -> list[str]:
     """La commande qui lance `ojarvis-shell` dans ce dossier, avec ce même Python."""
     variables = [f"{name}={environ[name]}" for name in SHELL_ENV if environ.get(name)]
-    program = [*python_module("ojarvis.shell.cli", frozen_as="shell"), "--dossier", str(folder)]
+    program = [
+        *python_module("ojarvis_shell.shell.cli", frozen_as="shell"),
+        "--dossier",
+        str(folder),
+    ]
     return ["env", *variables, *program] if variables else program
 
 

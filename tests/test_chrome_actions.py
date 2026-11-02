@@ -8,17 +8,18 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
-
 from ojarvis.agent.plans import PLAN_TOOL
 from ojarvis.agent.turn import AgentTurn, ChromeAwayError
-from ojarvis.chrome.bridge import ChromeBridge, TabAction, TabResult
 from ojarvis.core.errors import UnavailableError
 from ojarvis.llm.providers.fake import FakeProvider
 from ojarvis.llm.types import ToolCall
 from ojarvis.services import Services
+from ojarvis.testing.chat import read_sse, scripted, wait_plan
 from ojarvis.tools.base import Level
 from ojarvis.tools.code import NoArgs
-from ojarvis.tools.tab import (
+
+from ojarvis_shell.chrome.bridge import ChromeBridge, TabAction, TabResult
+from ojarvis_shell.tools.tab import (
     ElementArgs,
     FillTabArgs,
     NoTabArgs,
@@ -28,8 +29,6 @@ from ojarvis.tools.tab import (
     TabList,
     TabRead,
 )
-from tests.test_agent_chat import scripted, wait_plan
-from tests.test_chat import read_sse
 
 PAGE: dict[str, Any] = {
     "url": "https://boutique.exemple/the",

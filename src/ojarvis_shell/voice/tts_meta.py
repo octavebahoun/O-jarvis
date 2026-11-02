@@ -15,12 +15,12 @@ from typing import Any
 
 import anyio.to_thread
 import numpy as np
-
 from ojarvis.core.downloads import PinnedFile
 from ojarvis.voice.audio import OUTPUT_RATE, resample
-from ojarvis.voice.spoken import spoken_french
-from ojarvis.voice.spoken_en import english, spoken_english
 from ojarvis.voice.tts import AudioChunk, TTSError
+
+from ojarvis_shell.voice.spoken import spoken_french
+from ojarvis_shell.voice.spoken_en import english, spoken_english
 
 #: MMS TTS français de Meta (facebook/mms-tts-fra), exporté en ONNX : 114 Mo.
 MMS_REVISION = "c7aa283bf5b599d3c804e4accab07f6394a2b4ae"

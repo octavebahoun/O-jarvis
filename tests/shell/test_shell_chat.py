@@ -7,7 +7,6 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
-
 from ojarvis.agent.plans import PLAN_TOOL
 from ojarvis.agent.reports import SHELL_TOOL, from_web
 from ojarvis.agent.rules import ROUNDS_EXHAUSTED, claims_missing_plan
@@ -16,8 +15,7 @@ from ojarvis.llm.providers.fake import FakeProvider, FakeReply, Script
 from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.services import Services
-from tests.test_agent_chat import scripted, tool_messages, wait_plan
-from tests.test_chat import read_sse
+from ojarvis.testing.chat import read_sse, scripted, tool_messages, wait_plan
 
 
 def shell_script(command: str) -> Script:

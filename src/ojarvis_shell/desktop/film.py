@@ -24,12 +24,12 @@ from typing import Any
 
 import anyio.to_thread
 import httpx
-
 from ojarvis.core.errors import UnavailableError, UpstreamError
 from ojarvis.core.logs import get_logger
-from ojarvis.desktop.screencast import FPS, ScreenShare
 from ojarvis.llm.catalog import Catalog
 from ojarvis.tracing.tracer import Tracer
+
+from ojarvis_shell.desktop.screencast import FPS, ScreenShare
 
 log = get_logger(__name__)
 

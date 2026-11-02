@@ -11,8 +11,8 @@ from typing import Any
 import httpx
 import pytest
 
-from ojarvis.chrome.host import Host
-from ojarvis.chrome.native import MAX_TO_CHROME, NativeMessageError, encode, read_message
+from ojarvis_shell.chrome.host import Host
+from ojarvis_shell.chrome.native import MAX_TO_CHROME, NativeMessageError, encode, read_message
 
 
 def messages(out: io.BytesIO) -> list[dict[str, Any]]:

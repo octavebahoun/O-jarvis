@@ -3,14 +3,15 @@
 from __future__ import annotations
 
 import pytest
-
-from ojarvis.agent.review import CodeReviewer, Review, parse_review
 from ojarvis.llm.catalog import Catalog
 from ojarvis.llm.errors import ProviderUnavailableError
-from ojarvis.llm.policy import META_POLICY, Route
+from ojarvis.llm.policy import Route
 from ojarvis.llm.providers.fake import FakeProvider, FakeReply
 from ojarvis.llm.router import ModelRouter
 from ojarvis.llm.types import LLMRequest
+
+from ojarvis_shell.agent.review import CodeReviewer, Review, parse_review
+from ojarvis_shell.llm.meta_profile import META_POLICY
 
 
 @pytest.mark.parametrize(

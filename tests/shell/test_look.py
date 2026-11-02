@@ -9,9 +9,9 @@ from pathlib import Path
 import httpx
 import pytest
 
-from ojarvis.shell.banner import banner, prompt
-from ojarvis.shell.display import Style
-from ojarvis.shell.prose import Prose
+from ojarvis_shell.shell.banner import banner, prompt
+from ojarvis_shell.shell.display import Style
+from ojarvis_shell.shell.prose import Prose
 from tests.shell.fake_engine import DONE, ROUTE, START, FakeEngine, plan, session, sse
 
 

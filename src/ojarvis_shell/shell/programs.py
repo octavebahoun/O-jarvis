@@ -8,10 +8,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from ojarvis.shell.sensitive import _check_sensitive, _expand, _holds_secrets
-from ojarvis.shell.verdict import Special, Verdict, _highest, _skip_options, _sub
 from ojarvis.tools.base import Level
 from ojarvis.tools.guards import BlockedTargetError
+
+from ojarvis_shell.shell.sensitive import _check_sensitive, _expand, _holds_secrets
+from ojarvis_shell.shell.verdict import Special, Verdict, _highest, _skip_options, _sub
 
 # fmt: off
 GIT_READ = frozenset({
@@ -172,7 +173,7 @@ def _find(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verd
                     "Pars d'un dossier de projet précis."
                 )
         # Le classement général, importé ici : commands.py importe ces règles.
-        from ojarvis.shell.commands import _segment  # noqa: PLC0415
+        from ojarvis_shell.shell.commands import _segment  # noqa: PLC0415
 
         # Chaque clause compte : « -exec echo {} \; -exec rm -rf {} \; » supprime.
         verdicts = [Verdict(Level.AGIR, f"find {args[actions[0]]}")]
@@ -221,7 +222,7 @@ def _crontab(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> V
 def _ip(name: str, args: list[str], cwd: Path, home: Path, depth: int) -> Verdict:
     if "exec" in args:
         # « ip netns exec ns cmd », « ip vrf exec vrf cmd » : cmd est lancée, on la classe.
-        from ojarvis.shell.commands import _segment  # noqa: PLC0415
+        from ojarvis_shell.shell.commands import _segment  # noqa: PLC0415
 
         inner = args[args.index("exec") + 2 :]
         verdicts = [Verdict(Level.AGIR, f"{name} exec lance une commande")]

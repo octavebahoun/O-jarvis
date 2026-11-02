@@ -6,7 +6,7 @@ import re
 
 import pytest
 
-from ojarvis.voice.spoken import number_words, spoken_french
+from ojarvis_shell.voice.spoken import number_words, spoken_french
 
 
 @pytest.mark.parametrize(

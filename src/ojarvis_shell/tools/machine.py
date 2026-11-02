@@ -1,13 +1,14 @@
-"""La carte de la machine, lue ou relevée de nouveau à la demande (`ojarvis.shell.machine`)."""
+"""La carte de la machine, lue ou relevée de nouveau à la demande
+(`ojarvis_shell.shell.machine`)."""
 
 from __future__ import annotations
 
 from typing import ClassVar
 
+from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
 from pydantic import Field
 
-from ojarvis.shell.machine import SOURCE, MachineCard
-from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
+from ojarvis_shell.shell.machine import SOURCE, MachineCard
 
 
 class MachineArgs(ToolArgs):

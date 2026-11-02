@@ -15,8 +15,13 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from ojarvis.shell.programs import SPECIAL
-from ojarvis.shell.sensitive import (
+from ojarvis.tools.base import Level
+from ojarvis.tools.guards import (
+    BlockedTargetError,
+)
+
+from ojarvis_shell.shell.programs import SPECIAL
+from ojarvis_shell.shell.sensitive import (
     METADATA,
     SEARCHERS,
     _check_recursive_search,
@@ -24,7 +29,7 @@ from ojarvis.shell.sensitive import (
     _expand,
     _prints_secret,
 )
-from ojarvis.shell.syntax import (
+from ojarvis_shell.shell.syntax import (
     _CAPTURED,
     ASSIGNMENT,
     REDIRECTS,
@@ -36,11 +41,7 @@ from ojarvis.shell.syntax import (
     _substitutions,
     _tokens,
 )
-from ojarvis.shell.verdict import _PLACES, Verdict, _highest, _skip_options
-from ojarvis.tools.base import Level
-from ojarvis.tools.guards import (
-    BlockedTargetError,
-)
+from ojarvis_shell.shell.verdict import _PLACES, Verdict, _highest, _skip_options
 
 ADMIN = frozenset({"sudo", "sudoedit", "su", "doas", "pkexec", "run0"})
 #: Enveloppes qui lancent la commande qui suit, avec leurs options suivies d'une valeur.

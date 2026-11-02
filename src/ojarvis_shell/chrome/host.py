@@ -21,9 +21,7 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import Any, BinaryIO
 
 import httpx
-
 from ojarvis import __version__
-from ojarvis.chrome.native import NativeMessageError, encode, read_message
 from ojarvis.config import resolve_paths
 from ojarvis.shell.connection import (
     EngineInfo,
@@ -33,7 +31,9 @@ from ojarvis.shell.connection import (
     reachable,
     read_info,
 )
-from ojarvis.shell.display import error_message, sse_events
+
+from ojarvis_shell.chrome.native import NativeMessageError, encode, read_message
+from ojarvis_shell.shell.display import error_message, sse_events
 
 #: Identifiant d'un plan ou d'une action dans un chemin d'API : rien d'autre ne passe.
 PLAN_ID = re.compile(r"[A-Za-z0-9_-]{1,64}")

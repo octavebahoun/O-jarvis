@@ -8,10 +8,10 @@ from __future__ import annotations
 import io
 from typing import TYPE_CHECKING
 
-from ojarvis.desktop.sam import Box
+from ojarvis_shell.desktop.sam import Box
 
 if TYPE_CHECKING:
-    from ojarvis.desktop.locate import Mark
+    from ojarvis_shell.desktop.locate import Mark
 
 #: Des couleurs bien distinctes : un numéro se rattache sans erreur à son cadre.
 PALETTE = (

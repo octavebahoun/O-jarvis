@@ -7,8 +7,8 @@ from pathlib import Path
 
 import httpx
 
-from ojarvis.shell import cli
-from ojarvis.shell.display import Style
+from ojarvis_shell.shell import cli
+from ojarvis_shell.shell.display import Style
 from tests.shell.fake_engine import DONE, START, FakeEngine, chats, plan, session, sse
 
 

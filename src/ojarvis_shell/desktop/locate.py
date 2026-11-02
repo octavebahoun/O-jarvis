@@ -29,10 +29,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
+from ojarvis.core.errors import NotFoundError
+from ojarvis.llm.router import Constraints, ModelRouter
+from ojarvis.llm.structured import generate_structured
+from ojarvis.llm.types import ImagePart, Message
 from pydantic import BaseModel, Field, field_validator
 
-from ojarvis.core.errors import NotFoundError
-from ojarvis.desktop.images import (
+from ojarvis_shell.desktop.images import (
     SAME_ELEMENT,
     _mime,
     _overlap,
@@ -46,10 +49,7 @@ from ojarvis.desktop.images import (
     refused_boxes,
     zoom,
 )
-from ojarvis.desktop.sam import Box, SamClient
-from ojarvis.llm.router import Constraints, ModelRouter
-from ojarvis.llm.structured import generate_structured
-from ojarvis.llm.types import ImagePart, Message
+from ojarvis_shell.desktop.sam import Box, SamClient
 
 #: Ce que l'on cherche, dit en français, et les concepts que SAM comprend (cherchés ensemble).
 Kind = Literal["bouton", "icône", "menu", "onglet", "champ", "case", "lien"]

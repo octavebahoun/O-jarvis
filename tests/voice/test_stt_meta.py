@@ -7,9 +7,9 @@ import json
 import httpx
 import numpy as np
 import pytest
-
 from ojarvis.voice.stt import SttError
-from ojarvis.voice.stt_online import META_STT_URL, MetaTranscriber
+
+from ojarvis_shell.voice.stt_meta import META_STT_URL, MetaTranscriber
 
 
 def answer(request: httpx.Request) -> httpx.Response:

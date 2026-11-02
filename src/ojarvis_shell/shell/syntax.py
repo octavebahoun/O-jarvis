@@ -10,9 +10,10 @@ import shlex
 from contextvars import ContextVar
 from pathlib import Path
 
-from ojarvis.shell.sensitive import _check_sensitive
-from ojarvis.shell.verdict import Verdict, _highest
 from ojarvis.tools.base import Level
+
+from ojarvis_shell.shell.sensitive import _check_sensitive
+from ojarvis_shell.shell.verdict import Verdict, _highest
 
 PUNCTUATION = ";&|()<>{}"
 

@@ -1,6 +1,6 @@
 """Voir et agir dans ton Chrome, par l'extension d'O-jarvis : lister tes onglets, en lire un,
 y cliquer, remplir un champ, ouvrir une adresse, le fermer. L'extension fait l'action (voir
-`ojarvis.chrome.bridge`) ; ces outils n'existent que quand elle est branchée.
+`ojarvis_shell.chrome.bridge`) ; ces outils n'existent que quand elle est branchée.
 
 Les actions passent toujours par un plan. Un paiement, un achat, une suppression ou un champ
 sensible est de niveau 3 : jamais fait sans demander.
@@ -11,12 +11,12 @@ from __future__ import annotations
 import re
 from typing import Any, ClassVar
 
-from pydantic import Field, ValidationError
-
-from ojarvis.chrome.bridge import ChromeBridge, TabAction
 from ojarvis.chrome.page import PageIn
 from ojarvis.core.errors import EngineError
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
+from pydantic import Field, ValidationError
+
+from ojarvis_shell.chrome.bridge import ChromeBridge, TabAction
 
 #: Ce qui engage ou détruit : payer, acheter, commander, supprimer, un mot de passe, une carte.
 RISKY = re.compile(

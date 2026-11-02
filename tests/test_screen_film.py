@@ -12,12 +12,12 @@ from typing import Any
 import httpx
 import pytest
 from fastapi.testclient import TestClient
+from ojarvis.core.errors import InvalidInputError, UnavailableError
+from ojarvis.tools.base import Level, ToolContext
 from PIL import Image
 
-from ojarvis.core.errors import InvalidInputError, UnavailableError
-from ojarvis.desktop.film import MODEL, Filmer, answer_text
-from ojarvis.tools.base import Level, ToolContext
-from ojarvis.tools.screen import FilmArgs, FilmScreen
+from ojarvis_shell.desktop.film import MODEL, Filmer, answer_text
+from ojarvis_shell.tools.screen_actions import FilmArgs, FilmScreen
 
 
 def jpeg(color: str) -> bytes:

@@ -11,14 +11,14 @@ from __future__ import annotations
 import asyncio
 from typing import ClassVar
 
+from ojarvis.core.errors import NotFoundError
+from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
 from pydantic import Field
 
-from ojarvis.chrome.bridge import ChromeBridge, TabAction
-from ojarvis.core.errors import NotFoundError
-from ojarvis.desktop.images import unchanged
-from ojarvis.desktop.locate import Kind, Locator
-from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
-from ojarvis.tools.tab import TabActionError, TabArgs, risk_level
+from ojarvis_shell.chrome.bridge import ChromeBridge, TabAction
+from ojarvis_shell.desktop.images import unchanged
+from ojarvis_shell.desktop.locate import Kind, Locator
+from ojarvis_shell.tools.tab import TabActionError, TabArgs, risk_level
 
 
 class TabSight:

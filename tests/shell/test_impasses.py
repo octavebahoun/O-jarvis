@@ -8,14 +8,13 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
-
 from ojarvis.llm.providers.fake import FakeProvider, FakeReply, Script
 from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.services import Services
+from ojarvis.testing.chat import read_sse, tool_messages
+
 from tests.shell.test_shell_chat import shell_chat
-from tests.test_agent_chat import tool_messages
-from tests.test_chat import read_sse
 
 ERROR = "test_liste_vide : ZeroDivisionError dans moyenne"
 NOTE = {

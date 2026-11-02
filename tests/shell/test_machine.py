@@ -6,13 +6,13 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from fastapi.testclient import TestClient
-
 from ojarvis.llm.providers.fake import FakeProvider
 from ojarvis.services import Services
-from ojarvis.shell.machine import MachineMap, collect
-from tests.conftest import fake_machine
+from ojarvis.testing.chat import read_sse
+
+from ojarvis_shell.shell.machine import MachineCard, MachineMap, collect
+from tests.shell.machine_fake import fake_machine
 from tests.shell.test_shell_chat import shell_chat, shell_script
-from tests.test_chat import read_sse
 
 OUTPUTS = {
     "docker": "Docker version 28.1.1, build 4eba377",
@@ -128,9 +128,12 @@ def test_a_map_just_collected_is_not_collected_again(
         calls.append(home)
         return fake_machine(home)
 
-    services.machine._collect = counting
+    assert services.added is not None
+    machine = services.added.machine
+    assert isinstance(machine, MachineCard)
+    machine._collect = counting
     assert client.portal is not None
-    client.portal.call(services.machine.ensure)
-    lines = client.portal.call(services.machine.refresh)  # juste après : pas de second relevé
+    client.portal.call(machine.ensure)
+    lines = client.portal.call(machine.refresh)  # juste après : pas de second relevé
     assert len(calls) == 1
     assert lines[0].startswith("Matériel : ")

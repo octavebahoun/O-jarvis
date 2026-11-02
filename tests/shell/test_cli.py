@@ -8,14 +8,14 @@ from typing import Any
 
 import httpx
 import pytest
-
 from ojarvis.agent.measures import MEASURE_AFTER, MEASURE_BEFORE
 from ojarvis.api.routes_chat import sse as engine_sse
 from ojarvis.chat.service import ChatEvent
-from ojarvis.shell import cli
-from ojarvis.shell.banner import banner
-from ojarvis.shell.cli import ShellClient
-from ojarvis.shell.display import Style, preview, sse_events
+
+from ojarvis_shell.shell import cli
+from ojarvis_shell.shell.banner import banner
+from ojarvis_shell.shell.cli import ShellClient
+from ojarvis_shell.shell.display import Style, preview, sse_events
 from tests.shell.fake_engine import DONE, ROUTE, START, FakeEngine, chats, plan, session, sse
 
 

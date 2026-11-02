@@ -7,7 +7,7 @@ from __future__ import annotations
 import shutil
 from collections.abc import Callable
 
-from ojarvis.shell.display import BOLD, CYAN, DIM, Style
+from ojarvis_shell.shell.display import BOLD, CYAN, DIM, Style
 
 INDENT = "  "
 

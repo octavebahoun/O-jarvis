@@ -6,7 +6,7 @@ from __future__ import annotations
 import time
 from typing import Any
 
-from ojarvis.shell.display import (
+from ojarvis_shell.shell.display import (
     BOLD,
     CYAN,
     DIM,
@@ -19,7 +19,7 @@ from ojarvis.shell.display import (
     preview,
     seconds,
 )
-from ojarvis.shell.prose import Prose, prose_width
+from ojarvis_shell.shell.prose import Prose, prose_width
 
 
 class TurnView(Terminal):

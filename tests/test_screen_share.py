@@ -15,10 +15,10 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
+from ojarvis.services import Services
 from PIL import Image
 
-from ojarvis.desktop.screencast import ScreenShare, Session, live_or_capture, split_frames
-from ojarvis.services import Services
+from ojarvis_shell.desktop.screencast import ScreenShare, Session, live_or_capture, split_frames
 
 
 def jpeg(color: str) -> bytes:

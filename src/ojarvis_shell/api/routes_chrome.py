@@ -1,5 +1,5 @@
 """Le panneau de Jarvis dans Chrome, par son hôte : il prend les actions à faire dans ton
-onglet (requête longue) et rend leur résultat (voir `ojarvis.chrome.bridge`)."""
+onglet (requête longue) et rend leur résultat (voir `ojarvis_shell.chrome.bridge`)."""
 
 from __future__ import annotations
 
@@ -7,11 +7,12 @@ import base64
 from typing import Any
 
 from fastapi import APIRouter, Query, Response
+from ojarvis.api.deps import ServicesDep
+from ojarvis.core.errors import InvalidInputError, NotFoundError
 from pydantic import BaseModel, ConfigDict, Field
 
-from ojarvis.api.deps import ServicesDep
-from ojarvis.chrome.bridge import TabResult
-from ojarvis.core.errors import InvalidInputError, NotFoundError
+from ojarvis_shell.api.routes_screen import shell_state
+from ojarvis_shell.chrome.bridge import TabResult
 
 router = APIRouter(prefix="/v1/chrome", tags=["chrome"])
 
@@ -20,7 +21,7 @@ router = APIRouter(prefix="/v1/chrome", tags=["chrome"])
 async def next_action(
     services: ServicesDep, wait: float = Query(default=20.0, ge=0.0, le=30.0)
 ) -> dict[str, Any] | Response:
-    action = await services.chrome.next(wait)
+    action = await shell_state(services).chrome.next(wait)
     if action is None:
         return Response(status_code=204)
     return {"id": action.id, "kind": action.kind, "args": action.args, "level": action.level}
@@ -46,6 +47,6 @@ async def action_result(action_id: str, body: ResultIn, services: ServicesDep) -
     except ValueError as error:
         raise InvalidInputError("Capture illisible.") from error
     result = TabResult(body.ok, body.text, image, body.width, body.height, body.data)
-    if not services.chrome.resolve(action_id, result):
+    if not shell_state(services).chrome.resolve(action_id, result):
         raise NotFoundError("Cette action n'attend plus de résultat.")
     return Response(status_code=204)

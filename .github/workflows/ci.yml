@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  shell:
+    name: O-jarvis Shell
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      # O-jarvis, la dépendance, vient de son dépôt (figé dans uv.lock).
+      - run: uv sync --frozen
+      - name: Navigateur éphémère de voir_page (Chromium de Playwright)
+        run: uv run playwright install --with-deps chromium
+      - name: Lint et format
+        run: |
+          uv run ruff check src tests
+          uv run ruff format --check src tests
+      - name: Typage strict
+        run: uv run mypy src tests
+      - name: Tests
+        run: uv run pytest -m "not real" -rs

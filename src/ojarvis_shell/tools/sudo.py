@@ -9,11 +9,11 @@ from fnmatch import fnmatch
 from pathlib import Path
 from typing import ClassVar
 
-from pydantic import Field
-
-from ojarvis.shell.commands import classify
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
 from ojarvis.tools.guards import BlockedTargetError
+from pydantic import Field
+
+from ojarvis_shell.shell.commands import classify
 
 #: Fichiers système de secrets : leur contenu partirait vers le modèle avec la sortie.
 SYSTEM_SECRETS = ("/etc/shadow", "/etc/gshadow", "/etc/sudoers", "/root", "/etc/ssh/ssh_host_")

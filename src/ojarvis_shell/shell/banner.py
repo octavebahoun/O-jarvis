@@ -9,10 +9,10 @@ import subprocess
 from pathlib import Path
 
 import httpx
-
 from ojarvis import __version__
-from ojarvis.shell.display import BLACK, BOLD, CYAN, DIM, MAGENTA, Style, Terminal
 from ojarvis.tools.guards import shown
+
+from ojarvis_shell.shell.display import BLACK, BOLD, CYAN, DIM, MAGENTA, Style, Terminal
 
 #: Les modèles du profil « Tout Meta » (`llm/policy.py`), dans ce terminal.
 META_MODELS = "Muse Spark 1.3, secours Muse Spark Open, relecture Muse Wonder"

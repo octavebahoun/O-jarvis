@@ -10,8 +10,8 @@ from typing import Any
 
 import httpx
 
-from ojarvis.shell.cli import ShellClient
-from ojarvis.shell.display import Style
+from ojarvis_shell.shell.cli import ShellClient
+from ojarvis_shell.shell.display import Style
 
 
 def sse(*events: tuple[str, dict[str, Any]]) -> str:

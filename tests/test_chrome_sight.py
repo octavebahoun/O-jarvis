@@ -10,14 +10,14 @@ from types import SimpleNamespace
 from typing import Any
 
 import pytest
+from ojarvis.tools.base import Level
 from PIL import Image
 
-from ojarvis.chrome.bridge import ChromeBridge, TabResult
-from ojarvis.desktop.locate import Kind, Mark, ScreenMarks
-from ojarvis.desktop.sam import Box
-from ojarvis.tools.base import Level
-from ojarvis.tools.tab import TabActionError
-from ojarvis.tools.tab_sight import FindTabArgs, MarkArgs, TabClickMark, TabFind, TabSight
+from ojarvis_shell.chrome.bridge import ChromeBridge, TabResult
+from ojarvis_shell.desktop.locate import Kind, Mark, ScreenMarks
+from ojarvis_shell.desktop.sam import Box
+from ojarvis_shell.tools.tab import TabActionError
+from ojarvis_shell.tools.tab_sight import FindTabArgs, MarkArgs, TabClickMark, TabFind, TabSight
 
 
 def capture(square_at: int) -> bytes:

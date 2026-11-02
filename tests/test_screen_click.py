@@ -9,13 +9,7 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
-from PIL import Image, ImageDraw
-
 from ojarvis.core.errors import InvalidInputError, NotFoundError, UnavailableError
-from ojarvis.desktop.images import reading_order, unchanged
-from ojarvis.desktop.locate import AmbiguousTargetError, Locator, ScreenMarks
-from ojarvis.desktop.pointer import Stream, to_stream
-from ojarvis.desktop.sam import Box, Segmentation, parse_boxes
 from ojarvis.llm.catalog import Catalog
 from ojarvis.llm.providers.fake import FakeProvider, FakeReply
 from ojarvis.llm.router import ModelRouter
@@ -23,7 +17,13 @@ from ojarvis.llm.structured import TOOL_NAME
 from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.services import Services
 from ojarvis.tools.base import Level, ToolContext
-from ojarvis.tools.screen import ClickArgs, ClickOnScreen, FindArgs, FindOnScreen
+from PIL import Image, ImageDraw
+
+from ojarvis_shell.desktop.images import reading_order, unchanged
+from ojarvis_shell.desktop.locate import AmbiguousTargetError, Locator, ScreenMarks
+from ojarvis_shell.desktop.pointer import Stream, to_stream
+from ojarvis_shell.desktop.sam import Box, Segmentation, parse_boxes
+from ojarvis_shell.tools.screen_actions import ClickArgs, ClickOnScreen, FindArgs, FindOnScreen
 
 #: Deux boutons gris sur une fenêtre blanche de 400 × 200.
 BUTTONS = (Box(0, 20, 20, 119, 59), Box(1, 250, 140, 369, 179))
@@ -317,7 +317,8 @@ def test_the_app_shows_the_annotated_capture_and_the_tools_need_pc_control(
 ) -> None:
     assert client.get("/v1/desktop/marks/r123456").status_code == 404
     assert client.get("/v1/desktop/marks/..%2F..%2Fsecret").status_code == 404
-    mark = services.marks.keep("le bouton OK", BUTTONS[0], window(), (400, 200), "")
+    assert services.added is not None
+    mark = services.added.state.marks.keep("le bouton OK", BUTTONS[0], window(), (400, 200), "")
     response = client.get(f"/v1/desktop/marks/{mark.id}")
     assert response.status_code == 200
     assert response.headers["content-type"] == "image/jpeg"

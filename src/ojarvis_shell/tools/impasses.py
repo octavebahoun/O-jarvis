@@ -12,11 +12,10 @@ from __future__ import annotations
 
 from typing import Any, ClassVar
 
-from pydantic import Field
-
 from ojarvis.memory.store import MemoryKind, MemoryStore
 from ojarvis.tools.base import Level, Tool, ToolArgs, ToolContext, ToolOutput
 from ojarvis.tools.guards import resolve_user_path, shown
+from pydantic import Field
 
 KIND: MemoryKind = "impasse"
 #: Impasses rendues au plus par consultation : quelques lignes, pas un historique.

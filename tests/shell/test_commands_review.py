@@ -6,12 +6,12 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
-
-from ojarvis.shell.commands import classify
-from ojarvis.shell.signatures import signatures
 from ojarvis.tools.base import Level
 from ojarvis.tools.guards import BlockedTargetError
-from ojarvis.tools.sudo import admin_level
+
+from ojarvis_shell.shell.commands import classify
+from ojarvis_shell.shell.signatures import signatures
+from ojarvis_shell.tools.sudo import admin_level
 
 
 @pytest.fixture

@@ -7,9 +7,18 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from ojarvis.shell.commands import INTERPRETERS, NETWORK_LOOKUPS, SUBCOMMANDS, WRAPPERS, _segment
-from ojarvis.shell.programs import GIT_OPTIONS
-from ojarvis.shell.syntax import (
+from ojarvis.tools.base import Level
+from ojarvis.tools.guards import BlockedTargetError
+
+from ojarvis_shell.shell.commands import (
+    INTERPRETERS,
+    NETWORK_LOOKUPS,
+    SUBCOMMANDS,
+    WRAPPERS,
+    _segment,
+)
+from ojarvis_shell.shell.programs import GIT_OPTIONS
+from ojarvis_shell.shell.syntax import (
     ASSIGNMENT,
     _defines_function,
     _redirections,
@@ -17,9 +26,7 @@ from ojarvis.shell.syntax import (
     _substitutions,
     _tokens,
 )
-from ojarvis.shell.verdict import _skip_options
-from ojarvis.tools.base import Level
-from ojarvis.tools.guards import BlockedTargetError
+from ojarvis_shell.shell.verdict import _skip_options
 
 #: Jamais « toujours » : elles parlent au réseau, publient ou agissent dans le cloud. Un
 #: contenu piégé pourrait s'en servir pour faire sortir des données : tu valides chaque fois.

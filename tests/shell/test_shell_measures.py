@@ -6,13 +6,13 @@ from pathlib import Path
 from typing import Any
 
 from fastapi.testclient import TestClient
-
 from ojarvis.agent.plans import PLAN_TOOL
 from ojarvis.agent.reports import SHELL_TOOL
 from ojarvis.llm.providers.fake import FakeProvider, Script
 from ojarvis.llm.types import ToolCall
+from ojarvis.testing.chat import scripted, tool_messages, wait_plan
+
 from tests.shell.test_shell_chat import shell_chat, shell_script
-from tests.test_agent_chat import scripted, tool_messages, wait_plan
 
 
 def measured_plan(measure: dict[str, Any] | str) -> Script:

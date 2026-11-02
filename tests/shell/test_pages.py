@@ -12,19 +12,19 @@ from pathlib import Path
 
 import httpx
 import pytest
-from PIL import Image
-
 from ojarvis.core.errors import UpstreamError
 from ojarvis.llm.catalog import Catalog
 from ojarvis.llm.providers.fake import FakeProvider, FakeReply
 from ojarvis.llm.router import ModelRouter
 from ojarvis.llm.types import LLMRequest
-from ojarvis.shell.pages import PageShot, blocked_request, capture_page, local_page
-from ojarvis.shell.servers import BackgroundSessions, session_of
 from ojarvis.tools.base import Level, ToolContext
 from ojarvis.tools.guards import BlockedTargetError
-from ojarvis.tools.page_view import LookAtPage
-from ojarvis.tools.shell import start_background
+from PIL import Image
+
+from ojarvis_shell.shell.pages import PageShot, blocked_request, capture_page, local_page
+from ojarvis_shell.shell.servers import BackgroundSessions, session_of
+from ojarvis_shell.tools.page_view import LookAtPage
+from ojarvis_shell.tools.shell import start_background
 
 CHROMIUM = list(Path.home().glob(".cache/ms-playwright/chromium-*"))
 

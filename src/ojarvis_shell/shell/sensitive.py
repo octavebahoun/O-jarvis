@@ -11,7 +11,6 @@ from collections.abc import Iterator
 from fnmatch import fnmatch
 from pathlib import Path
 
-from ojarvis.shell.verdict import _PLACES, Verdict, _in_order
 from ojarvis.tools.base import Level
 from ojarvis.tools.guards import (
     SENSITIVE_DIRS,
@@ -19,6 +18,8 @@ from ojarvis.tools.guards import (
     SENSITIVE_SUFFIXES,
     BlockedTargetError,
 )
+
+from ojarvis_shell.shell.verdict import _PLACES, Verdict, _in_order
 
 #: Commandes qui affichent un secret (jeton, mot de passe) : leur sortie partirait vers le
 #: modèle. Permises seulement dans une sous-commande (« -H "Bearer $(…)" »). Ajoutées le

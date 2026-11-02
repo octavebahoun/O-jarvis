@@ -18,7 +18,6 @@ from collections.abc import Callable
 from dataclasses import dataclass
 
 import httpx
-
 from ojarvis.core.errors import UpstreamError
 from ojarvis.core.logs import get_logger
 from ojarvis.tracing.tracer import Tracer

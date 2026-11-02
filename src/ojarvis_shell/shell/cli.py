@@ -21,12 +21,13 @@ from pathlib import Path
 from typing import Any, TextIO
 
 import httpx
-
 from ojarvis.config import resolve_paths
-from ojarvis.shell.banner import banner, prompt
 from ojarvis.shell.connection import EngineLink, EngineUnavailableError
-from ojarvis.shell.decisions import PlanDecisions, Runner, run_yourself
-from ojarvis.shell.display import (
+from ojarvis.tools.guards import BlockedTargetError, resolve_user_path
+
+from ojarvis_shell.shell.banner import banner, prompt
+from ojarvis_shell.shell.decisions import PlanDecisions, Runner, run_yourself
+from ojarvis_shell.shell.display import (
     BOLD,
     CYAN,
     DIM,
@@ -37,8 +38,7 @@ from ojarvis.shell.display import (
     error_message,
     sse_events,
 )
-from ojarvis.shell.view import TurnView
-from ojarvis.tools.guards import BlockedTargetError, resolve_user_path
+from ojarvis_shell.shell.view import TurnView
 
 #: Ce que Jarvis dit après une validation : la suite part avec les résultats du plan.
 CONTINUE = "Continue."
