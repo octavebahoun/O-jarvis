@@ -32,6 +32,7 @@ test("le contrôle du PC est désactivé par défaut et ne s'active qu'après co
   page,
 }) => {
   await page.getByRole("link", { name: "Réglages" }).click();
+  await page.getByRole("tab", { name: "Contrôle du PC" }).click();
   const section = page.getByRole("region", { name: "Contrôle du PC" });
   await section.scrollIntoViewIfNeeded();
   await expect(section.getByText(/Désactivé : Jarvis ne voit/)).toBeVisible();
@@ -42,7 +43,9 @@ test("le contrôle du PC est désactivé par défaut et ne s'active qu'après co
     .getByRole("list", { name: "Outils de niveau 2" })
     .getByRole("listitem")
     .filter({ hasText: "ouvrir_application" });
+  await page.getByRole("tab", { name: "Permissions" }).click();
   await expect(openApp).toContainText("Contrôle du PC (désactivé)");
+  await page.getByRole("tab", { name: "Contrôle du PC" }).click();
 
   // Annuler ne change rien.
   await section.getByRole("button", { name: "Activer…" }).click();
@@ -57,7 +60,9 @@ test("le contrôle du PC est désactivé par défaut et ne s'active qu'après co
   await dialog.getByRole("button", { name: "Activer" }).click();
   await expect(section.getByText(/Activé : Jarvis peut/)).toBeVisible();
   await expect(local).toBeEnabled();
+  await page.getByRole("tab", { name: "Permissions" }).click();
   await expect(openApp).not.toContainText("(désactivé)");
+  await page.getByRole("tab", { name: "Contrôle du PC" }).click();
   await noSeriousA11yIssues(page);
   await section.screenshot({ path: `${CAPTURES}/reglages-controle-pc.png` });
 

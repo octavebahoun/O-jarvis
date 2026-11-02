@@ -38,6 +38,7 @@ test("le briefing du jour se joue à la première session, puis se réécoute à
   ).toBeVisible({ timeout: 15_000 });
 
   await page.getByRole("link", { name: "Réglages" }).click();
+  await page.getByRole("tab", { name: "Intégrations" }).click();
   const integrations = page.getByRole("list", { name: "Intégrations" });
   await integrations.scrollIntoViewIfNeeded();
   await expect(integrations.getByText(/GitHub/)).toBeVisible();
