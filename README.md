@@ -6,7 +6,7 @@ A personal desktop assistant for Ubuntu: you talk to it, it remembers, and it ac
 
 ![O-jarvis home screen](docs/captures/accueil.webp)
 
-> **O-jarvis Shell**, built during the Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026), lives in its own repository: **[octavebahoun/o-jarvis-shell](https://github.com/octavebahoun/o-jarvis-shell)**. It plugs into this engine as an extension: Jarvis in the terminal, Jarvis in Chrome, clicks on the desktop with SAM 3.1, Meta's voices, all on Meta models. O-jarvis runs without it; the `.deb` ships both.
+> **O-jarvis Shell**, built during the Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026), lives in [`shell/`](shell); the snapshot judged at the hackathon stays frozen in [octavebahoun/o-jarvis-shell](https://github.com/octavebahoun/o-jarvis-shell). It plugs into this engine as an extension: Jarvis in the terminal, Jarvis in Chrome, clicks on the desktop with SAM 3.1, Meta's voices, all on Meta models. O-jarvis runs without it; the `.deb` ships both.
 
 ## What O-jarvis does
 
@@ -31,7 +31,7 @@ cp .env.example .env   # then set your keys (never commit .env)
 cd app && pnpm tauri dev
 ```
 
-To add O-jarvis Shell, follow [its README](https://github.com/octavebahoun/o-jarvis-shell#run-it).
+To add O-jarvis Shell, follow [its README](shell/README.md#from-source).
 
 ## Extending the engine
 

@@ -1,10 +1,9 @@
 """L'extension O-jarvis Shell, branchée ici en un seul point si elle est installée.
 
-O-jarvis Shell (https://github.com/octavebahoun/o-jarvis-shell) a été construit pendant le
-hackathon Meta, dans son propre dépôt : le mode shell, Jarvis dans Chrome, les clics et le
-partage d'écran, les voix et la transcription de Meta, le relecteur de code. C'est le paquet
-`ojarvis_shell` ; son module d'entrée, `ojarvis_shell.extension`, reçoit ici ce que le moteur
-lui prête.
+O-jarvis Shell (dossier shell/ du dépôt) a été construit pendant le hackathon Meta : le mode
+shell, Jarvis dans Chrome, les clics et le partage d'écran, les voix et la transcription de
+Meta, le relecteur de code. C'est le paquet `ojarvis_shell` ; son module d'entrée,
+`ojarvis_shell.extension`, reçoit ici ce que le moteur lui prête.
 
 O-jarvis marche sans lui : ces fonctions sont alors absentes, rien d'autre ne change.
 """

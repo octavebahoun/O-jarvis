@@ -9,13 +9,8 @@ work="${OJARVIS_BUILD_DIR:-$HOME/.cache/o-jarvis/build-engine}"
 
 cd "$root/engine"
 uv sync --group package --frozen
-# O-jarvis Shell (https://github.com/octavebahoun/o-jarvis-shell), le travail du hackathon Meta,
-# vit dans son propre dépôt : il est figé dans le même moteur.
-shell="${OJARVIS_SHELL_DIR:-$root/../o-jarvis-shell}"
-if [[ ! -d "$shell/src/ojarvis_shell" ]]; then
-  echo "O-jarvis Shell introuvable : $shell (le cloner à côté d'O-jarvis, ou OJARVIS_SHELL_DIR)" >&2
-  exit 1
-fi
+# O-jarvis Shell (shell/, le travail du hackathon Meta) est figé dans le même moteur.
+shell="$root/shell"
 uv pip install --quiet --no-deps "$shell"
 rm -rf "$work"
 uv run --group package pyinstaller packaging/ojarvis-engine.spec \

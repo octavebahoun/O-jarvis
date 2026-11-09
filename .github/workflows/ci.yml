@@ -44,6 +44,31 @@ jobs:
       - name: Audit des dépendances
         run: uv run --with pip-audit pip-audit --skip-editable --progress-spinner off
 
+  shell:
+    name: O-jarvis Shell
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: shell
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: shell/uv.lock
+      # Le moteur vient du dossier engine/ voisin (installé en mode éditable).
+      - run: uv sync --frozen
+      - name: Navigateur éphémère de voir_page (Chromium de Playwright)
+        run: uv run playwright install --with-deps chromium
+      - name: Lint et format
+        run: |
+          uv run ruff check src tests
+          uv run ruff format --check src tests
+      - name: Typage strict
+        run: uv run mypy src tests
+      - name: Tests
+        run: uv run pytest -m "not real" -rs
+
   interface:
     name: Interface React
     runs-on: ubuntu-24.04

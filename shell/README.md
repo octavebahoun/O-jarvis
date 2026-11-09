@@ -18,11 +18,11 @@ Jarvis in your terminal, in your Chrome and on your desktop, for Ubuntu. It does
 
 ## Built on O-jarvis
 
-[**O-jarvis**](https://github.com/octavebahoun/O-jarvis) existed before the hackathon (release v1.1.0, October 24, 2026): a desktop assistant for Ubuntu with a Python engine (FastAPI on `127.0.0.1`, memory, permission gate, audit journal, model router). **This repository holds only what was built during the event.**
+[**O-jarvis**](https://github.com/octavebahoun/O-jarvis) existed before the hackathon (release v1.1.0, October 24, 2026): a desktop assistant for Ubuntu with a Python engine (FastAPI on `127.0.0.1`, memory, permission gate, audit journal, model router). Everything built during the event lives in this `shell/` folder of the O-jarvis repository; the snapshot the jury saw stays frozen in [octavebahoun/o-jarvis-shell](https://github.com/octavebahoun/o-jarvis-shell).
 
-- O-jarvis Shell is a Python package, `ojarvis_shell`, that declares O-jarvis as a dependency (`ojarvis-engine`, pinned to a commit in [`pyproject.toml`](pyproject.toml) and installed from its repository).
+- O-jarvis Shell is a Python package, `ojarvis_shell`, that declares O-jarvis as a dependency (`ojarvis-engine`, installed from the neighbouring [`engine/`](../engine) folder, see [`pyproject.toml`](pyproject.toml)).
 - The O-jarvis engine has a single extension point, `ojarvis.extension`. At start it loads [`ojarvis_shell/extension.py`](src/ojarvis_shell/extension.py), lends it its services (model router, memory, audit journal, tool registry, keyring) and lets it add its tools, API routes and voices.
-- O-jarvis runs without this repository; the `.deb` ships both in one engine.
+- O-jarvis runs without this folder; the `.deb` ships both in one engine.
 
 ## Quickstart
 
@@ -79,16 +79,16 @@ To uninstall: `sudo apt remove o-jarvis`. Your keys stay in the system keyring u
 
 ### From source
 
-Needs [uv](https://docs.astral.sh/uv/), your keys (step 1 above) and the system packages the `.deb` would bring. `uv sync` installs O-jarvis from its repository as a dependency.
+Needs [uv](https://docs.astral.sh/uv/), your keys (step 1 above) and the system packages the `.deb` would bring. `uv sync` installs the O-jarvis engine from the neighbouring `engine/` folder.
 
 ```bash
 sudo apt install git curl libportaudio2 pulseaudio-utils libgtk-3-bin xdg-desktop-portal-gnome \
   gstreamer1.0-tools gstreamer1.0-pipewire gstreamer1.0-plugins-good ffmpeg
 curl -LsSf https://astral.sh/uv/install.sh | sh
-git clone https://github.com/octavebahoun/o-jarvis-shell.git
-cd o-jarvis-shell
+git clone https://github.com/octavebahoun/O-jarvis.git
+cd O-jarvis/shell
 uv sync
-cd ~/some-project && ~/o-jarvis-shell/scripts/o-jarvis-shell
+cd ~/some-project && ~/O-jarvis/shell/scripts/o-jarvis-shell
 ```
 
 If the O-jarvis app is running, the terminal joins its engine; otherwise it starts its own, which stops with it. The first start of the engine can take up to a minute on a slow machine.

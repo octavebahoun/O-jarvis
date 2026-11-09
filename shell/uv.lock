@@ -873,7 +873,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "ojarvis-engine", git = "https://github.com/octavebahoun/O-jarvis?subdirectory=engine&rev=0270b7cae555ffe4101df51d17509da68dc06325" }]
+requires-dist = [{ name = "ojarvis-engine", editable = "../engine" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -886,7 +886,7 @@ dev = [
 [[package]]
 name = "ojarvis-engine"
 version = "1.4.0"
-source = { git = "https://github.com/octavebahoun/O-jarvis?subdirectory=engine&rev=0270b7cae555ffe4101df51d17509da68dc06325#0270b7cae555ffe4101df51d17509da68dc06325" }
+source = { editable = "../engine" }
 dependencies = [
     { name = "alembic" },
     { name = "anthropic" },
@@ -914,6 +914,46 @@ dependencies = [
     { name = "uvicorn", extra = ["standard"] },
     { name = "websockets" },
 ]
+
+[package.metadata]
+requires-dist = [
+    { name = "alembic", specifier = ">=1.20.0" },
+    { name = "anthropic", specifier = ">=1.14.0" },
+    { name = "beautifulsoup4", specifier = ">=4.13" },
+    { name = "fastapi", specifier = ">=0.143.1" },
+    { name = "faster-whisper", specifier = ">=1.2.1" },
+    { name = "httpx", specifier = ">=0.28.1" },
+    { name = "jsonschema", specifier = ">=4.23" },
+    { name = "keyring", specifier = ">=25.7.0" },
+    { name = "mcp", specifier = ">=2.3,<3" },
+    { name = "mss", specifier = ">=10" },
+    { name = "numpy", specifier = ">=2.5.4" },
+    { name = "onnxruntime", specifier = ">=1.31.0" },
+    { name = "openai", specifier = ">=3.31.0" },
+    { name = "openwakeword", specifier = ">=0.6.0" },
+    { name = "pillow", specifier = ">=11" },
+    { name = "piper-tts", specifier = ">=1.8.0" },
+    { name = "playwright", specifier = ">=1.64.0,<1.65" },
+    { name = "pydantic-settings", specifier = ">=2.16.0" },
+    { name = "sounddevice", specifier = ">=0.5.6" },
+    { name = "sqlalchemy", specifier = ">=2.1.4" },
+    { name = "sqlite-vec", specifier = ">=0.1.9" },
+    { name = "structlog", specifier = ">=26.1.0" },
+    { name = "tokenizers", specifier = ">=0.23.3" },
+    { name = "uvicorn", extras = ["standard"], specifier = ">=0.54.0" },
+    { name = "websockets", specifier = ">=17.2" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mypy", specifier = ">=2.4.0" },
+    { name = "pytest", specifier = ">=9.1.1" },
+    { name = "pytest-asyncio", specifier = ">=1.4.0" },
+    { name = "pytest-cov", specifier = ">=7.1.0" },
+    { name = "ruff", specifier = ">=0.17.0" },
+    { name = "types-jsonschema", specifier = ">=4.23" },
+]
+package = [{ name = "pyinstaller", specifier = ">=6" }]
 
 [[package]]
 name = "onnxruntime"
