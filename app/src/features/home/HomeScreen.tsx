@@ -199,8 +199,16 @@ export function HomeScreen() {
         {chat.loadError && <ErrorState message={chat.loadError} />}
         <div role="log" aria-label="Conversation">
           <ul className={styles.thread}>
-            {chat.items.map((item) => (
-              <ChatMessage key={item.key} item={item} />
+            {chat.items.map((item, index) => (
+              <ChatMessage
+                key={item.key}
+                item={item}
+                onStronger={(model) => {
+                  // La même demande, refaite avec le modèle plus fort que tu as choisi.
+                  const asked = chat.items.slice(0, index).findLast((m) => m.role === "user");
+                  if (asked) void chat.send(asked.content, model);
+                }}
+              />
             ))}
           </ul>
         </div>

@@ -144,6 +144,12 @@ def _context_event(context: BuiltContext) -> dict[str, Any]:
             for i in context.items
             if i.kind != "systeme"
         ],
+        # Il propose, tu choisis : l'app offre de refaire la réponse avec ce modèle.
+        **(
+            {"stronger": {"model": context.plus_fort.model, "label": context.plus_fort.label}}
+            if context.plus_fort
+            else {}
+        ),
     }
 
 

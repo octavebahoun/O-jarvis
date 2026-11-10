@@ -5,6 +5,7 @@ import {
   ChevronDown,
   ClipboardList,
   LoaderCircle,
+  Sparkles,
   XCircle,
 } from "lucide-react";
 import { memo, useId, useState } from "react";
@@ -103,7 +104,41 @@ function ToolActivityList({ tools }: { tools: ToolActivity[] }) {
   );
 }
 
-export const ChatMessage = memo(function ChatMessage({ item }: { item: ChatItem }) {
+/** Il propose, tu choisis : refaire la réponse avec un modèle plus fort (jamais tout seul). */
+function StrongerOffer({
+  item,
+  onStronger,
+}: {
+  item: ChatItem;
+  onStronger?: (model: string) => void;
+}) {
+  const stronger = item.stronger;
+  const answeredBy =
+    item.meta?.provider && item.meta.model ? `${item.meta.provider}/${item.meta.model}` : null;
+  if (!stronger || !onStronger || item.status !== "ok" || answeredBy === stronger.model)
+    return null;
+  return (
+    <button
+      type="button"
+      className={styles.stronger}
+      onClick={() => {
+        onStronger(stronger.model);
+      }}
+    >
+      <Sparkles aria-hidden="true" />
+      Tâche lourde : refaire avec {stronger.label}
+    </button>
+  );
+}
+
+export const ChatMessage = memo(function ChatMessage({
+  item,
+  onStronger,
+}: {
+  item: ChatItem;
+  /** Refaire la réponse avec ce modèle (« fournisseur/modèle »). */
+  onStronger?: (model: string) => void;
+}) {
   if (item.role === "user") {
     return (
       <li className={styles.user}>
@@ -151,6 +186,7 @@ export const ChatMessage = memo(function ChatMessage({ item }: { item: ChatItem 
         <PlanCard key={id} id={id} showSynthesis={false} />
       ))}
       <ContextDisclosure item={item} />
+      <StrongerOffer item={item} onStronger={onStronger} />
       {details.length > 0 && <p className={styles.meta}>{details.join(" · ")}</p>}
     </li>
   );

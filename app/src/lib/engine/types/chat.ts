@@ -33,6 +33,12 @@ export interface ConversationDetail extends Conversation {
   messages: StoredMessage[];
 }
 
+/** Un modèle plus fort que Jarvis propose pour refaire une réponse : tu choisis. */
+export interface StrongerModel {
+  model: string;
+  label: string;
+}
+
 export type MemoryKind = "fait" | "preference" | "profil" | "impasse" | "machine";
 
 export interface MemoryItem {
@@ -87,7 +93,14 @@ export type ChatStreamEvent =
       user_message_id: number;
       assistant_message_id: number;
     }
-  | { type: "context"; budget: number; used: number; items: ContextItemSummary[] }
+  | {
+      type: "context";
+      budget: number;
+      used: number;
+      items: ContextItemSummary[];
+      /** Une tâche lourde : un modèle plus fort est proposé (« fournisseur/modèle »). */
+      stronger?: StrongerModel;
+    }
   | { type: "route"; provider: string; model: string; fallback_from: string | null }
   | { type: "delta"; text: string }
   /** Le modèle commence un appel d'outil (ses arguments, parfois un fichier entier, suivent). */

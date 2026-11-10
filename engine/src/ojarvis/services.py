@@ -68,6 +68,7 @@ from ojarvis.security.secrets import (
 )
 from ojarvis.settings_store import Preferences, SettingsStore
 from ojarvis.skills.service import SkillService
+from ojarvis.systeme1.plus_fort import plus_fort_disponible
 from ojarvis.telegram.bot import TelegramService
 from ojarvis.tools.base import ToolRegistry
 from ojarvis.tracing.tracer import TraceQueries, Tracer
@@ -171,6 +172,9 @@ class Services:
             else GemmaEmbedder(config.paths.cache_dir / "models" / GEMMA_FOLDER)
         )
         memory, conversations, graph, context = await _assemble_memory(db, bus, embedder)
+        context.plus_fort = lambda: plus_fort_disponible(
+            router, lambda: relay_policy(holder["value"])
+        )
 
         acts = await _assemble_actions(
             config,

@@ -161,6 +161,7 @@ describe("Actions à valider", () => {
         { id: "t1", name: "navigateur_ouvrir", description: "Ouvrir la boutique", status: "done" },
       ],
       plans: ["p1"],
+      stronger: null,
     };
     renderScreen(<ul>{<ChatMessage item={item} />}</ul>, { client });
     expect(screen.getByRole("list", { name: "Outils utilisés" })).toHaveTextContent(

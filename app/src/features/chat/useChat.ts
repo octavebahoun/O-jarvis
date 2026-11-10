@@ -5,7 +5,12 @@ import { describeError } from "../../lib/engine/client";
 import { useConversation } from "../../lib/engine/queries";
 import { readEvents } from "../../lib/engine/sse";
 import { useEngineClient } from "../../lib/engine/store";
-import type { ContextItemSummary, StoredMessage, ToolActivity } from "../../lib/engine/types";
+import type {
+  ContextItemSummary,
+  StoredMessage,
+  StrongerModel,
+  ToolActivity,
+} from "../../lib/engine/types";
 import type { SphereState } from "../sphere/states";
 
 export interface TurnMeta {
@@ -31,6 +36,8 @@ export interface ChatItem {
   tools: ToolActivity[];
   /** Plans proposés pendant le tour : ils attendent ta décision. */
   plans: string[];
+  /** Une tâche lourde : refaire avec ce modèle plus fort, si tu le veux. */
+  stronger: StrongerModel | null;
 }
 
 export type ChatPhase = "idle" | "waiting" | "streaming";
@@ -58,6 +65,7 @@ function fromStored(message: StoredMessage): ChatItem {
     error: message.status === "error" ? "La réponse n'a pas pu aboutir." : null,
     tools: message.meta?.tools ?? [],
     plans: message.meta?.plans ?? [],
+    stronger: null,
   };
 }
 
@@ -96,7 +104,7 @@ export function useChat(conversationId: string | null, onConversation: (id: stri
   }, []);
 
   const send = useCallback(
-    async (text: string) => {
+    async (text: string, model?: string) => {
       const trimmed = text.trim();
       if (!client || !trimmed || phase !== "idle") return;
       const stamp = Date.now();
@@ -117,6 +125,7 @@ export function useChat(conversationId: string | null, onConversation: (id: stri
           error: null,
           tools: [],
           plans: [],
+          stronger: null,
         },
         {
           key: replyKey,
@@ -129,6 +138,7 @@ export function useChat(conversationId: string | null, onConversation: (id: stri
           error: null,
           tools: [],
           plans: [],
+          stronger: null,
         },
       ]);
       setPhase("waiting");
@@ -141,7 +151,7 @@ export function useChat(conversationId: string | null, onConversation: (id: stri
       try {
         const response = await client.stream(
           "/v1/chat",
-          { text: trimmed, conversation_id: conversationId },
+          { text: trimmed, conversation_id: conversationId, ...(model ? { model } : {}) },
           controller.signal,
         );
         if (!response.body) throw new Error("Réponse vide du moteur.");
@@ -156,7 +166,10 @@ export function useChat(conversationId: string | null, onConversation: (id: stri
               }
               break;
             case "context":
-              patchLive(replyKey, { context: event.items.filter((i) => i.kind !== "historique") });
+              patchLive(replyKey, {
+                context: event.items.filter((i) => i.kind !== "historique"),
+                stronger: event.stronger ?? null,
+              });
               break;
             case "route":
               fallbackFrom = event.fallback_from;

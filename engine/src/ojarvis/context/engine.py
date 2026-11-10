@@ -23,6 +23,7 @@ from ojarvis.memory.store import MemoryHit, MemoryRecord, MemoryStore
 from ojarvis.systeme1 import oubli
 from ojarvis.systeme1.decideurs import Choix, Systeme1
 from ojarvis.systeme1.doutes import Attente, consignes, examiner
+from ojarvis.systeme1.plus_fort import PlusFort, proposer
 from ojarvis.systeme1.rappel import rappel
 
 #: Seuil de pertinence par modèle de sens, pour les extensions qui le lisent ici (O-jarvis
@@ -164,6 +165,8 @@ class BuiltContext:
     budget: int
     used: int
     memory_ids: list[int] = field(default_factory=list)
+    #: Une tâche lourde, et un modèle plus fort disponible : l'app propose de refaire.
+    plus_fort: PlusFort | None = None
 
     def summary(self) -> dict[str, object]:
         return {
@@ -208,6 +211,8 @@ class ContextEngine:
         self.attentes: dict[str, Attente] = {}
         #: Les conversations où Jarvis a demandé s'il doit tout oublier (même lecteur).
         self.confirmations: set[str] = set()
+        #: Le modèle plus fort disponible, s'il y en a un (branché par l'assemblage du moteur).
+        self.plus_fort: Callable[[], PlusFort | None] | None = None
         self._memory = memory
         self._conversations = conversations
         self._graph = graph
@@ -284,6 +289,7 @@ class ContextEngine:
             budget=total,
             used=base.tokens + question_tokens + memory_used + recall_used + history_used,
             memory_ids=[int(i.ref) for i in kept_memory if i.ref],
+            plus_fort=self.plus_fort() if self.plus_fort and proposer(decisions) else None,
         )
 
     async def _lire(self, user_text: str) -> dict[str, Choix] | None:
