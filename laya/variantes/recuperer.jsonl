@@ -1,0 +1,322 @@
+{"texte": "Tu peux me trouver un resto ouvert dimanche soir pas loin de chez moi ?", "recuperer": "oui", "graine": 0}
+{"texte": "J'ai mal au dos, tu me conseilles quels exercices sans aggraver mon hernie ?", "recuperer": "oui", "graine": 0}
+{"texte": "Un cadeau d'anniversaire pour ma sœur Léa, elle adore quoi déjà ?", "recuperer": "oui", "graine": 0}
+{"texte": "jsuis crevé, propose un film court a regarder avec mon fils de 6 ans stp", "recuperer": "oui", "graine": 0}
+{"texte": "Can you plan a weekend trip from my city with a budget that fits me?", "recuperer": "oui", "graine": 0}
+{"texte": "Qu'est-ce que je peux cuisiner avec mon frigo actuel et sans gluten ?", "recuperer": "oui", "graine": 0}
+{"texte": "Rédige le mail dans la langue que je préfère utiliser au travail, tu t'en souviens ?", "recuperer": "oui", "graine": 0}
+{"texte": "Quel resto tu me conseillerais près de chez moi pour ce soir, un truc sans arachides ?", "recuperer": "oui", "graine": 2}
+{"texte": "Prépare-moi une liste de courses adaptée à ce que je peux manger, stp", "recuperer": "oui", "graine": 2}
+{"texte": "Can you book a flight from my home airport for my wife and me?", "recuperer": "oui", "graine": 2}
+{"texte": "Tu peux lancer la playlist que j'aime mettre quand je cuisine ?", "recuperer": "oui", "graine": 2}
+{"texte": "Quel cadeau offrir à ma sœur pour ses 30 ans, dans le style qu'elle adore ?", "recuperer": "oui", "graine": 2}
+{"texte": "Écris le mail dans la langue que je préfère utiliser au boulot, comme d'hab", "recuperer": "oui", "graine": 2}
+{"texte": "jsuis en retard, préviens la personne qui vient dîner à la maison mtn stp", "recuperer": "oui", "graine": 2}
+{"texte": "Tu peux me préparer un menu pour la semaine qui ne me rendra pas malade ?", "recuperer": "oui", "graine": 3}
+{"texte": "Quel cadeau je pourrais offrir à ma sœur pour son anniversaire, un truc dans ses prix et qu'elle n'a pas déjà ?", "recuperer": "oui", "graine": 3}
+{"texte": "jsuis claqué, tu me trouves un resto ouvert mtn pas loin de chez moi stp", "recuperer": "oui", "graine": 3}
+{"texte": "Réponds à ce mail du prof comme je le fais d'habitude, dans ma langue préférée.", "recuperer": "oui", "graine": 3}
+{"texte": "Mon imprimante clignote rouge, tu me guides pour la dépanner ?", "recuperer": "oui", "graine": 3}
+{"texte": "Can you book me a yoga class after work near my place, at a level I can actually handle?", "recuperer": "oui", "graine": 3}
+{"texte": "Vérifie si ce nouveau médicament est compatible avec mon traitement actuel.", "recuperer": "oui", "graine": 3}
+{"texte": "Tu peux me trouver un resto sympa pour ce soir, pas trop loin de chez moi ?", "recuperer": "oui", "graine": 1}
+{"texte": "Cette recette avec des cacahuètes, je peux la tester sans risque ?", "recuperer": "oui", "graine": 1}
+{"texte": "Prepare me a playlist for my long drive tonight", "recuperer": "oui", "graine": 1}
+{"texte": "jsuis pointure combien déjà ? Faut que je commande des baskets mtn", "recuperer": "oui", "graine": 1}
+{"texte": "Qu'est-ce que je pourrais offrir à mon frère pour son anniversaire, il adore quoi déjà ?", "recuperer": "oui", "graine": 1}
+{"texte": "Le voyant orange de mon imprimante clignote, je dois faire quoi ?", "recuperer": "oui", "graine": 1}
+{"texte": "Traduis-moi ce message dans la langue que je préfère stp", "recuperer": "oui", "graine": 1}
+{"texte": "Tu peux me proposer un resto pour ce soir pas trop loin de chez moi ?", "recuperer": "oui", "graine": 5}
+{"texte": "Je voudrais faire un gâteau au chocolat pour le goûter, tu as une recette simple ?", "recuperer": "oui", "graine": 5}
+{"texte": "Qu'est-ce que je mets demain matin pour aller au boulot, il va faire froid ?", "recuperer": "oui", "graine": 5}
+{"texte": "Can you recommend a film to watch tonight? Something I'd actually enjoy.", "recuperer": "oui", "graine": 5}
+{"texte": "C'est bientôt l'anniversaire de ma sœur, t'aurais une idée de cadeau qui lui plairait ?", "recuperer": "oui", "graine": 5}
+{"texte": "Mon imprimante clignote en orange, je fais quoi pour la relancer ?", "recuperer": "oui", "graine": 5}
+{"texte": "Écris-moi un petit mot pour remercier Mamie, dans le style que j'aime bien stp", "recuperer": "oui", "graine": 5}
+{"texte": "Jarvis, tu peux me trouver un resto ouvert ce soir pas loin de chez moi, sans fruits à coque à cause de mon allergie ?", "recuperer": "oui", "graine": 4}
+{"texte": "jsuis crevé, prépare-moi un entraînement léger avec juste les haltères que j'ai à la maison stp", "recuperer": "oui", "graine": 4}
+{"texte": "Can you suggest a birthday gift for my little brother? You know what he's into lately.", "recuperer": "oui", "graine": 4}
+{"texte": "Prépare-moi un menu pour la semaine, facile et que mes enfants vont vraiment manger", "recuperer": "oui", "graine": 4}
+{"texte": "Jarvis, écris ce mail dans la langue que je préfère d'habitude, tu sais laquelle", "recuperer": "oui", "graine": 4}
+{"texte": "Conseille-moi une appli pour apprendre à coder, adaptée au vieux PC que j'utilise", "recuperer": "oui", "graine": 4}
+{"texte": "Qu'est-ce que je peux prendre comme dessert au marché du coin vu mon intolérance au lactose ?", "recuperer": "oui", "graine": 4}
+{"texte": "Trouve une salle de sport ouverte tôt le matin pas loin de mon appartement, stp.", "recuperer": "oui", "graine": 6}
+{"texte": "jsuis allergique au lactose, tu peux me proposer un menu pour toute la semaine ?", "recuperer": "oui", "graine": 6}
+{"texte": "Est-ce que ce plat convient à mon fils de 4 ans ?", "recuperer": "oui", "graine": 6}
+{"texte": "What gift should I buy for my wife, knowing she loves hiking and photography?", "recuperer": "oui", "graine": 6}
+{"texte": "Peux-tu m'aider à installer le nouveau pilote pour l'imprimante que j'ai dans mon bureau ?", "recuperer": "oui", "graine": 6}
+{"texte": "Rédige la réponse dans la langue que je préfère d'habitude.", "recuperer": "oui", "graine": 6}
+{"texte": "Un resto qui sert des plats que j'aime bien, tu as une idée pour vendredi soir ?", "recuperer": "oui", "graine": 6}
+{"texte": "Je veux partir en week-end, tu me conseilles où pas trop loin de chez moi ?", "recuperer": "oui", "graine": 7}
+{"texte": "Quel vin acheter pour le dîner de ce soir, un truc qui me plaise vraiment ?", "recuperer": "oui", "graine": 7}
+{"texte": "Est-ce que ce parfum plairait à ma copine Léa, d'après toi ?", "recuperer": "oui", "graine": 7}
+{"texte": "Je repars courir demain matin, quelle distance je devrais viser ?", "recuperer": "oui", "graine": 7}
+{"texte": "Can you suggest a movie for tonight that I haven't seen yet and will actually like?", "recuperer": "oui", "graine": 7}
+{"texte": "Ce gâteau au miel, je peux en reprendre une part sans risque ?", "recuperer": "oui", "graine": 7}
+{"texte": "Quel logiciel je devrais installer pour monter mes vidéos sur mon ordi ?", "recuperer": "oui", "graine": 7}
+{"texte": "Jarvis, tu peux me commander une pizza sans me faire crever stp ?", "recuperer": "oui", "graine": 8}
+{"texte": "Quels restos sympas tu me conseilles pour ce soir ?", "recuperer": "oui", "graine": 8}
+{"texte": "Cual es la capital de mi país de origen?", "recuperer": "oui", "graine": 8}
+{"texte": "Prépare-moi un résumé de mes mails pros de la semaine, tu sais lesquels sont prioritaires pour moi", "recuperer": "oui", "graine": 8}
+{"texte": "jsuis en rade, appelle qqn pour venir me chercher stp", "recuperer": "oui", "graine": 8}
+{"texte": "Donne-moi une idée de cadeau pour l'anniversaire de ma sœur, un truc qu'elle aimerait vraiment", "recuperer": "oui", "graine": 8}
+{"texte": "Fais tourner mon programme sur ma machine, configure-le comme j'aime bien", "recuperer": "oui", "graine": 8}
+{"texte": "Tu peux me proposer un resto pour ce soir stp ?", "recuperer": "oui", "graine": 9}
+{"texte": "Prépare-moi une playlist pour courir, tu sais ce que j'aime", "recuperer": "oui", "graine": 9}
+{"texte": "Rédige le mail de remerciement à ma sœur pour son cadeau", "recuperer": "oui", "graine": 9}
+{"texte": "Il me faut un repas rapide pour demain midi, sans ce qui me rend malade", "recuperer": "oui", "graine": 9}
+{"texte": "Can you plan a weekend trip from my place without flying too far?", "recuperer": "oui", "graine": 9}
+{"texte": "Trouve-moi des idées cadeaux pour l'anniversaire de papa, dans mon budget", "recuperer": "oui", "graine": 9}
+{"texte": "Écris-moi la routine du matin adaptée à mon matos à la maison", "recuperer": "oui", "graine": 9}
+{"texte": "Tu peux m'aider à choisir un cadeau d'anniversaire pour ma sœur ?", "recuperer": "oui", "graine": 11}
+{"texte": "Recommande-moi un film pour ce soir stp, jsuis d'humeur pas trop prise de tête", "recuperer": "oui", "graine": 11}
+{"texte": "Fais-moi un menu pour la semaine, équilibré mais rapide à cuisiner après le boulot", "recuperer": "oui", "graine": 11}
+{"texte": "What should I wear for my run tomorrow morning?", "recuperer": "oui", "graine": 11}
+{"texte": "J'hésite entre deux appartements, aide-moi à trancher selon ce qui compte vraiment pour moi", "recuperer": "oui", "graine": 11}
+{"texte": "Prépare une playlist pour travailler, j'ai besoin de me concentrer sans m'endormir", "recuperer": "oui", "graine": 11}
+{"texte": "Écris un mail à mon proprio pour la fuite, avec un ton ferme mais pas agressif", "recuperer": "oui", "graine": 11}
+{"texte": "J'ai une heure libre ce soir, tu me conseilles quoi à regarder ?", "recuperer": "oui", "graine": 10}
+{"texte": "Prepara-me um plano de treino para esta semana stp", "recuperer": "oui", "graine": 10}
+{"texte": "Qu'est-ce que je pourrais offrir à papa pour son anniversaire, il sera content tu penses ?", "recuperer": "oui", "graine": 10}
+{"texte": "jsuis invité à manger chez des potes demain, j'apporte quoi comme dessert ?", "recuperer": "oui", "graine": 10}
+{"texte": "Mon imprimante fait encore des siennes, comment je dépanne ça ?", "recuperer": "oui", "graine": 10}
+{"texte": "Il fait beau ce week-end, une idée de sortie pas trop loin de chez nous ?", "recuperer": "oui", "graine": 10}
+{"texte": "Écris un petit mot pour remercier mamie, tu sais trouver le ton qui lui plaît", "recuperer": "oui", "graine": 10}
+{"texte": "Peux-tu me proposer un menu de dîner pour ce soir ?", "recuperer": "oui", "graine": 12}
+{"texte": "jsuis invité chez ma sœur dimanche, t'as une idée de cadeau qu'elle aimerait vraiment ?", "recuperer": "oui", "graine": 12}
+{"texte": "Prepare me a workout plan I can actually stick to, please.", "recuperer": "oui", "graine": 12}
+{"texte": "Choisis une veste adaptée à la météo chez moi ce week-end.", "recuperer": "oui", "graine": 12}
+{"texte": "Il me faut un nouvel écran, un modèle qui ira bien avec mon ordi actuel stp", "recuperer": "oui", "graine": 12}
+{"texte": "Rédige un petit mot d'anniversaire pour mon père, dans le style qu'il adore", "recuperer": "oui", "graine": 12}
+{"texte": "Trouve-moi un resto ouvert près de chez moi qui convienne à mon régime", "recuperer": "oui", "graine": 12}
+{"texte": "tu me trouves un resto ouvert près de chez moi qui respecte mon régime ?", "recuperer": "oui", "graine": 13}
+{"texte": "What should I wear tomorrow morning given where I live?", "recuperer": "oui", "graine": 13}
+{"texte": "prépare-moi une séance avec le matos que j'ai à la maison stp", "recuperer": "oui", "graine": 13}
+{"texte": "jsais plus, c'est quand l'anniversaire de ma sœur déjà ?", "recuperer": "oui", "graine": 13}
+{"texte": "conseille-moi un film pour ce soir, un truc dans mes goûts", "recuperer": "oui", "graine": 13}
+{"texte": "je pars de chez moi dans 10 min, je prends quel bus pour arriver à l'heure ?", "recuperer": "oui", "graine": 13}
+{"texte": "trouve-moi une recette rapide sans le truc qui me rend malade", "recuperer": "oui", "graine": 13}
+{"texte": "Tu peux me trouver un resto sympa pour ce soir ?", "recuperer": "oui", "graine": 15}
+{"texte": "C'est quoi le trajet le plus rapide pour aller au boulot à cette heure ?", "recuperer": "oui", "graine": 15}
+{"texte": "jdors mal en ce moment, tu as des conseils pour mieux récupérer ?", "recuperer": "oui", "graine": 15}
+{"texte": "Can you suggest a gift for my sister's birthday next week?", "recuperer": "oui", "graine": 15}
+{"texte": "Quel matos je devrais racheter, le mien commence à galérer sur les gros logiciels", "recuperer": "oui", "graine": 15}
+{"texte": "Prépare-moi un menu pour la semaine stp, simple et rapide", "recuperer": "oui", "graine": 15}
+{"texte": "Il fait quel temps chez moi demain, je dois prévoir quoi comme fringues ?", "recuperer": "oui", "graine": 15}
+{"texte": "Tu me prépares quoi à manger ce soir, un truc rapide ?", "recuperer": "oui", "graine": 14}
+{"texte": "Should I take an umbrella when I leave the house this morning?", "recuperer": "oui", "graine": 14}
+{"texte": "jsuis en retard ou j'ai encore le tps pr aller à mon rdv chez le dentiste ?", "recuperer": "oui", "graine": 14}
+{"texte": "Quel cadeau je pourrais offrir à ma sœur pour son anniversaire, elle va adorer ?", "recuperer": "oui", "graine": 14}
+{"texte": "Est-ce que je peux brancher ça directement sur mon ordi ou il me faut un adaptateur ?", "recuperer": "oui", "graine": 14}
+{"texte": "Auriez-vous l'amabilité de me rédiger ce mail dans la langue que je préfère habituellement, s'il vous plaît ?", "recuperer": "oui", "graine": 14}
+{"texte": "Remets-moi le numéro de maman, je l'ai encore perdu...", "recuperer": "oui", "graine": 14}
+{"texte": "Trouve-moi un resto ouvert ce soir pas trop loin de chez moi, tu sais que je déteste les plats épicés.", "recuperer": "oui", "graine": 16}
+{"texte": "Can you make me a weekly meal plan? Remember my peanut allergy and that I don't eat pork.", "recuperer": "oui", "graine": 16}
+{"texte": "Je dois racheter des chaussures de course, tu peux me recommander un modèle adapté à mon pied plat et à mon budget habituel ?", "recuperer": "oui", "graine": 16}
+{"texte": "Écris un petit mot d'anniversaire pour ma sœur Léa, en mentionnant son chat et son déménagement récent stp", "recuperer": "oui", "graine": 16}
+{"texte": "Mon PC portable de 2018 va tenir si j'installe ce logiciel de montage, à ton avis ?", "recuperer": "oui", "graine": 16}
+{"texte": "Prépare-moi un itinéraire de balade tranquille pour dimanche, sans trop de dénivelé à cause de mon genou.", "recuperer": "oui", "graine": 16}
+{"texte": "hazme una lista de la compra con lo que suelo comprar y sin lactosa, porfa", "recuperer": "oui", "graine": 16}
+{"texte": "Tu peux me proposer un resto pour ce soir pas trop loin de chez moi et qui conviendrait à mon régime ?", "recuperer": "oui", "graine": 17}
+{"texte": "J'aimerais offrir un cadeau à ma sœur, t'as une idée qui lui plairait vraiment ?", "recuperer": "oui", "graine": 17}
+{"texte": "Prépare-moi une séance de sport de 30 min à faire à la maison avec ce que j'ai sous la main", "recuperer": "oui", "graine": 17}
+{"texte": "Can you suggest a weekend getaway that's a short drive from where I live?", "recuperer": "oui", "graine": 17}
+{"texte": "jsuis en panne d'inspi pour le dîner, tu me conseilles quoi avec ce que j'aime et ce que je peux pas manger stp", "recuperer": "oui", "graine": 17}
+{"texte": "Aide-moi à rédiger un message d'anniversaire pour mon père, un truc qui sonne comme moi", "recuperer": "oui", "graine": 17}
+{"texte": "Quel film je devrais regarder ce soir ? Un truc dans mes goûts mais pas trop long", "recuperer": "oui", "graine": 17}
+{"texte": "Tu peux me trouver un resto sympa pour dîner ce soir ?", "recuperer": "oui", "graine": 18}
+{"texte": "Prépare-moi un programme de sport pour cette semaine stp", "recuperer": "oui", "graine": 18}
+{"texte": "Qu'est-ce que je peux cuisiner avec ce qu'il me reste dans le frigo ?", "recuperer": "oui", "graine": 18}
+{"texte": "Help me plan a birthday surprise for my sister next Saturday", "recuperer": "oui", "graine": 18}
+{"texte": "J'ai une heure de libre, tu me suggères quoi comme activité ?", "recuperer": "oui", "graine": 18}
+{"texte": "Écris un mail de remerciement à mon proprio, tu sais celui dont je t'avais parlé", "recuperer": "oui", "graine": 18}
+{"texte": "jsuis crevé, tu me fais un menu léger pour demain ?", "recuperer": "oui", "graine": 18}
+{"texte": "Je peux manger cette sauce aux cacahuètes ou ça va me déclencher un truc ?", "recuperer": "oui", "graine": 19}
+{"texte": "stp trouve-moi un resto ouvert près de chez moi là mtn, j'ai la dalle", "recuperer": "oui", "graine": 19}
+{"texte": "Can I run this game smoothly on my laptop or will it lag?", "recuperer": "oui", "graine": 19}
+{"texte": "Est-ce que cette randonnée est faisable avec mes genoux ?", "recuperer": "oui", "graine": 19}
+{"texte": "Tu penses que ce vin irait bien avec mes goûts ?", "recuperer": "oui", "graine": 19}
+{"texte": "Devrais-je prendre un manteau pour sortir demain matin ?", "recuperer": "oui", "graine": 19}
+{"texte": "Ce film d'horreur, tu crois que ma fille de 8 ans peut le regarder avec moi ?", "recuperer": "oui", "graine": 19}
+{"texte": "Can you plan a birthday surprise my sister Léa would actually love?", "recuperer": "oui", "graine": 20}
+{"texte": "jsuis crevé, tu peux me faire un programme de sport adapté à mon dos fragile stp ?", "recuperer": "oui", "graine": 20}
+{"texte": "Find me a restaurant nearby that's open late and won't trigger my peanut allergy.", "recuperer": "oui", "graine": 20}
+{"texte": "Quel vin offrir à mon père pour dimanche, vu ce qu'il aime ?", "recuperer": "oui", "graine": 20}
+{"texte": "Draft a reply to that email in the tone I usually use with my boss, please.", "recuperer": "oui", "graine": 20}
+{"texte": "My blender just died — which replacement works with the jars I already own?", "recuperer": "oui", "graine": 20}
+{"texte": "Remind me what time I need to leave to catch my train, given the traffic from my place.", "recuperer": "oui", "graine": 20}
+{"texte": "What's that dish I always order when we go to my favourite restaurant near my place?", "recuperer": "oui", "graine": 21}
+{"texte": "peux-tu me recommander un dessert sans ce truc auquel je suis allergique déjà ?", "recuperer": "oui", "graine": 21}
+{"texte": "Which size did I say I wear for running shoes last time?", "recuperer": "oui", "graine": 21}
+{"texte": "Can you draft that birthday text for my little sister, the one who just moved to Lyon?", "recuperer": "oui", "graine": 21}
+{"texte": "remind me what laptop model I have, I need a charger that actually fits", "recuperer": "oui", "graine": 21}
+{"texte": "Could you translate that into the language I prefer for work stuff?", "recuperer": "oui", "graine": 21}
+{"texte": "What was the name of my best mate from uni, the one who plays guitar?", "recuperer": "oui", "graine": 21}
+{"texte": "Can you recommend a pasta dish my daughter won't be allergic to?", "recuperer": "oui", "graine": 22}
+{"texte": "Find me a quiet café near my place that's open right now.", "recuperer": "oui", "graine": 22}
+{"texte": "Empfehl mir einen Film für heute Abend, du kennst ja meinen Geschmack.", "recuperer": "oui", "graine": 22}
+{"texte": "Book a repair shop that can fix the kind of bike I actually own.", "recuperer": "oui", "graine": 22}
+{"texte": "Remind my brother about dinner — just text him the way I usually do.", "recuperer": "oui", "graine": 22}
+{"texte": "What should I plant this month in my garden given my soil and climate?", "recuperer": "oui", "graine": 22}
+{"texte": "Plan a workout I can do with the equipment I have at home.", "recuperer": "oui", "graine": 22}
+{"texte": "Can you put together a dinner menu for this week that I can actually eat?", "recuperer": "oui", "graine": 23}
+{"texte": "Find me a quiet running route near my place, about 5k if possible", "recuperer": "oui", "graine": 23}
+{"texte": "jsuis crevé, tu peux me faire un planning de sport avec le matos que j'ai à la maison stp ?", "recuperer": "oui", "graine": 23}
+{"texte": "What should I get my sister for her birthday this year?", "recuperer": "oui", "graine": 23}
+{"texte": "Write me a little script in the language I usually code in to rename my photos", "recuperer": "oui", "graine": 23}
+{"texte": "Réserve un resto pour samedi soir, un truc que je vais aimer", "recuperer": "oui", "graine": 23}
+{"texte": "Got any weekend trip ideas that aren't too far from where I live?", "recuperer": "oui", "graine": 23}
+{"texte": "Can you plan a dinner menu for tonight that won't trigger my nut allergy?", "recuperer": "oui", "graine": 24}
+{"texte": "Quels films pourrais-tu me proposer ce week-end selon ce que j'aime ?", "recuperer": "oui", "graine": 24}
+{"texte": "Find me a quiet café near my place where I can work this afternoon", "recuperer": "oui", "graine": 24}
+{"texte": "How much water should I drink after my usual Sunday run in this heat?", "recuperer": "oui", "graine": 24}
+{"texte": "Can you suggest a birthday gift for my dad based on his hobbies?", "recuperer": "oui", "graine": 24}
+{"texte": "Write that email in the language I usually prefer for work, please", "recuperer": "oui", "graine": 24}
+{"texte": "Is this replacement charger compatible with the phone I have?", "recuperer": "oui", "graine": 24}
+{"texte": "Quelle est la capitale du Japon ?", "recuperer": "non", "graine": 25}
+{"texte": "How many minutes are there in three hours?", "recuperer": "non", "graine": 25}
+{"texte": "Traduis « merci beaucoup » en italien, s'il te plaît.", "recuperer": "non", "graine": 25}
+{"texte": "C'est quoi la différence entre un virus et une bactérie ?", "recuperer": "non", "graine": 25}
+{"texte": "Donne-moi la recette classique des crêpes pour 4 personnes.", "recuperer": "non", "graine": 25}
+{"texte": "Explique-moi simplement comment fonctionne une écluse.", "recuperer": "non", "graine": 25}
+{"texte": "En quelle année a eu lieu le premier alunissage ?", "recuperer": "non", "graine": 25}
+{"texte": "C'est quoi la capitale de l'Islande ?", "recuperer": "non", "graine": 26}
+{"texte": "What's the boiling point of water at sea level?", "recuperer": "non", "graine": 26}
+{"texte": "Traduis « merci beaucoup » en espagnol stp", "recuperer": "non", "graine": 26}
+{"texte": "jsuis bloqué, combien de jours y'a en février cette année ?", "recuperer": "non", "graine": 26}
+{"texte": "Quel est le symbole chimique du fer ?", "recuperer": "non", "graine": 26}
+{"texte": "Raconte-moi une blague courte sur les chats", "recuperer": "non", "graine": 26}
+{"texte": "Il fait combien de minutes dans 3 heures ?", "recuperer": "non", "graine": 26}
+{"texte": "Combien de minutes faut-il pour faire cuire un œuf à la coque ?", "recuperer": "non", "graine": 28}
+{"texte": "How do you say 'thank you very much' in Japanese?", "recuperer": "non", "graine": 28}
+{"texte": "Explique-moi ce que c'est que la photosynthèse en deux phrases.", "recuperer": "non", "graine": 28}
+{"texte": "Quelle est la capitale de l'Australie ?", "recuperer": "non", "graine": 28}
+{"texte": "jsuis bloqué, c koi la formule pour calculer l'aire d'un cercle stp ?", "recuperer": "non", "graine": 28}
+{"texte": "Peux-tu me résumer les grandes causes de la Première Guerre mondiale ?", "recuperer": "non", "graine": 28}
+{"texte": "Traduis 'bon anniversaire' en italien.", "recuperer": "non", "graine": 28}
+{"texte": "Combien de secondes il y a dans deux heures ?", "recuperer": "non", "graine": 30}
+{"texte": "Traduis « merci beaucoup » en italien s'il te plaît", "recuperer": "non", "graine": 30}
+{"texte": "quel est le symbole chimique de l'or déjà ?", "recuperer": "non", "graine": 30}
+{"texte": "Donne-moi la date de la première mission Apollo qui a atterri sur la Lune.", "recuperer": "non", "graine": 30}
+{"texte": "jsuis bloqué, c'est quoi la formule pour calculer l'aire d'un cercle stp", "recuperer": "non", "graine": 30}
+{"texte": "Combien de minutes y a-t-il dans trois heures et demie ?", "recuperer": "non", "graine": 27}
+{"texte": "Quelle est la capitale de l'Autriche ?", "recuperer": "non", "graine": 27}
+{"texte": "Explique-moi ce qu'est la photosynthèse en deux phrases.", "recuperer": "non", "graine": 27}
+{"texte": "What does the word \"serendipity\" mean in English?", "recuperer": "non", "graine": 27}
+{"texte": "Quel jour de la semaine tombe le 14 juillet 2027 ?", "recuperer": "non", "graine": 27}
+{"texte": "Résume les causes principales de la Première Guerre mondiale.", "recuperer": "non", "graine": 27}
+{"texte": "C'est quoi la capitale du Portugal ?", "recuperer": "non", "graine": 29}
+{"texte": "How do you say \"thank you\" in Japanese?", "recuperer": "non", "graine": 29}
+{"texte": "Combien font 47 fois 6 ?", "recuperer": "non", "graine": 29}
+{"texte": "Explique-moi simplement ce qu'est la photosynthèse stp", "recuperer": "non", "graine": 29}
+{"texte": "quel jour on est demain si aujourd'hui c'est mardi ?", "recuperer": "non", "graine": 29}
+{"texte": "Résume en deux lignes l'intrigue de Roméo et Juliette", "recuperer": "non", "graine": 29}
+{"texte": "Traduis-moi ça en italien : « bonne chance pour ton examen demain ».", "recuperer": "non", "graine": 31}
+{"texte": "Can you explain what photosynthesis is in simple terms?", "recuperer": "non", "graine": 31}
+{"texte": "C'est quoi la capitale de l'Australie déjà ?", "recuperer": "non", "graine": 31}
+{"texte": "Invente une blague courte sur un pingouin astronaute.", "recuperer": "non", "graine": 31}
+{"texte": "jsuis bloqué, combien font 347 multiplié par 18 ?", "recuperer": "non", "graine": 31}
+{"texte": "Résume l'intrigue de Roméo et Juliette en trois phrases stp.", "recuperer": "non", "graine": 31}
+{"texte": "How many minutes are there in three and a half hours?", "recuperer": "non", "graine": 33}
+{"texte": "Traduis « merci beaucoup » en italien, stp", "recuperer": "non", "graine": 33}
+{"texte": "Combien font 147 divisé par 7 ?", "recuperer": "non", "graine": 33}
+{"texte": "jsuis bloqué, c'est quoi la formule de l'eau déjà ?", "recuperer": "non", "graine": 33}
+{"texte": "Donne-moi la définition du mot « éphémère ».", "recuperer": "non", "graine": 33}
+{"texte": "Quel jour de la semaine tombe le 1er janvier 2030 ?", "recuperer": "non", "graine": 33}
+{"texte": "C'est quoi la capitale de l'Italie ?", "recuperer": "non", "graine": 32}
+{"texte": "jsuis bloqué, 12 x 7 ca fait cb stp ?", "recuperer": "non", "graine": 32}
+{"texte": "What is the boiling point of water at sea level?", "recuperer": "non", "graine": 32}
+{"texte": "Donne la définition du mot « courage ».", "recuperer": "non", "graine": 32}
+{"texte": "Corrige-moi : « il faut que tu vien » c'est bon ou pas ?", "recuperer": "non", "graine": 32}
+{"texte": "Combien font 128 divisé par 16 ?", "recuperer": "non", "graine": 34}
+{"texte": "c'est top merci bcp !!", "recuperer": "non", "graine": 34}
+{"texte": "Explique-moi simplement ce qu'est un trou noir stp", "recuperer": "non", "graine": 34}
+{"texte": "Can you tell me a short joke about cats?", "recuperer": "non", "graine": 34}
+{"texte": "Quelle est la capitale de l'Islande ?", "recuperer": "non", "graine": 34}
+{"texte": "Traduis le mot « papillon » en espagnol", "recuperer": "non", "graine": 34}
+{"texte": "Dis-moi la capitale du Kazakhstan stp", "recuperer": "non", "graine": 35}
+{"texte": "How do you conjugate the verb 'to be' in the present tense?", "recuperer": "non", "graine": 35}
+{"texte": "jsuis bloqué, comment on calcule l'aire d'un cercle déjà ?", "recuperer": "non", "graine": 35}
+{"texte": "Raconte-moi l'histoire de la construction de la tour Eiffel.", "recuperer": "non", "graine": 35}
+{"texte": "Quelle est la recette classique des crêpes pour 4 personnes ?", "recuperer": "non", "graine": 35}
+{"texte": "Pourquoi le ciel paraît bleu en journée ?", "recuperer": "non", "graine": 35}
+{"texte": "Explique-moi la photosynthèse en deux phrases simples.", "recuperer": "non", "graine": 36}
+{"texte": "Traduis « merci beaucoup » en japonais stp", "recuperer": "non", "graine": 36}
+{"texte": "How many days are there in a leap year?", "recuperer": "non", "graine": 36}
+{"texte": "Donne-moi une recette de pâte à crêpes pour 4 personnes.", "recuperer": "non", "graine": 36}
+{"texte": "C'est quoi la différence entre un adjectif et un adverbe ?", "recuperer": "non", "graine": 36}
+{"texte": "Traduis « bonjour » en japonais.", "recuperer": "non", "graine": 37}
+{"texte": "Cuánto es 15 por 8?", "recuperer": "non", "graine": 37}
+{"texte": "Donne-moi une recette de crêpes pour 4 personnes, stp.", "recuperer": "non", "graine": 37}
+{"texte": "Écris un haïku sur la pluie d'automne.", "recuperer": "non", "graine": 37}
+{"texte": "Corrige les fautes dans cette phrase : je suis aller au marché hier.", "recuperer": "non", "graine": 37}
+{"texte": "Résume l'intrigue de Roméo et Juliette en quelques lignes.", "recuperer": "non", "graine": 37}
+{"texte": "Combien de minutes y a-t-il dans deux heures et demie ?", "recuperer": "non", "graine": 38}
+{"texte": "In what year did the Berlin Wall fall?", "recuperer": "non", "graine": 38}
+{"texte": "Quel est le symbole chimique du fer dans le tableau périodique ?", "recuperer": "non", "graine": 38}
+{"texte": "jsuis bloqué sur un truc : c'est quoi la différence entre un adverbe et un adjectif stp ?", "recuperer": "non", "graine": 38}
+{"texte": "Quelle distance sépare, en moyenne, la Terre de la Lune ?", "recuperer": "non", "graine": 38}
+{"texte": "Comment s'appelle le plus grand désert chaud du monde ?", "recuperer": "non", "graine": 38}
+{"texte": "Traduis-moi le mot \"enchanté\" en italien mtn, vite fait.", "recuperer": "non", "graine": 38}
+{"texte": "ptdr ton imitation de robot tout à l'heure", "recuperer": "non", "graine": 39}
+{"texte": "cheers Jarvis, tell me a funny knock-knock joke", "recuperer": "non", "graine": 39}
+{"texte": "haha mdr tu m'as tué avec cette chute", "recuperer": "non", "graine": 39}
+{"texte": "merciii t trop chou", "recuperer": "non", "graine": 39}
+{"texte": "ton sens de l'humour est vraiment pas mal dis donc", "recuperer": "non", "graine": 39}
+{"texte": "jajaja qué gracia tienes", "recuperer": "non", "graine": 39}
+{"texte": "merci pour la blague, elle était excellente", "recuperer": "non", "graine": 39}
+{"texte": "Combien ça fait 47 fois 8 ?", "recuperer": "non", "graine": 40}
+{"texte": "C'est quoi la capitale de la Norvège ?", "recuperer": "non", "graine": 40}
+{"texte": "How do you spell « necessary » in English?", "recuperer": "non", "graine": 40}
+{"texte": "Explique-moi la différence entre un adjectif et un adverbe", "recuperer": "non", "graine": 40}
+{"texte": "Convertis 3 kilomètres en miles", "recuperer": "non", "graine": 40}
+{"texte": "Donne-moi une rime avec le mot « lumière »", "recuperer": "non", "graine": 40}
+{"texte": "Quelle est la capitale de l'Italie ?", "recuperer": "non", "graine": 41}
+{"texte": "Combien font 48 divisé par 6 ?", "recuperer": "non", "graine": 41}
+{"texte": "jsuis bloqué, c koi la vitesse de la lumière dans le vide stp ?", "recuperer": "non", "graine": 41}
+{"texte": "À quelle température l'eau bout-elle au niveau de la mer ?", "recuperer": "non", "graine": 41}
+{"texte": "In what year did World War II end?", "recuperer": "non", "graine": 41}
+{"texte": "Combien de minutes y a-t-il dans trois heures ?", "recuperer": "non", "graine": 41}
+{"texte": "Qui a écrit le roman « Les Misérables » ?", "recuperer": "non", "graine": 41}
+{"texte": "stp explique moi c koi la photosynthèse en 2 phrases", "recuperer": "non", "graine": 42}
+{"texte": "How many days are there in February during a leap year?", "recuperer": "non", "graine": 42}
+{"texte": "Donne-moi une recette simple de crêpes pour 4 personnes.", "recuperer": "non", "graine": 42}
+{"texte": "C'est quoi la capitale du Japon ?", "recuperer": "non", "graine": 44}
+{"texte": "Explique-moi la différence entre un virus et une bactérie stp", "recuperer": "non", "graine": 44}
+{"texte": "jsuis bloqué, 47 fois 8 ça fait combien ?", "recuperer": "non", "graine": 44}
+{"texte": "Donne-moi une recette de crêpes pour 4 personnes", "recuperer": "non", "graine": 44}
+{"texte": "Qui a peint la Joconde et en quelle année environ ?", "recuperer": "non", "graine": 44}
+{"texte": "Résume l'intrigue de Roméo et Juliette en trois phrases", "recuperer": "non", "graine": 44}
+{"texte": "tu sais combien ça fait 47 fois 38 ?", "recuperer": "non", "graine": 43}
+{"texte": "C'est quoi la capitale de l'Australie ?", "recuperer": "non", "graine": 43}
+{"texte": "Explique-moi la différence entre un adjectif et un adverbe, s'il te plaît.", "recuperer": "non", "graine": 43}
+{"texte": "comment on écrit « nécessaire » déjà, avec un ou deux c ?", "recuperer": "non", "graine": 43}
+{"texte": "à quelle température bout l'eau à Paris ?", "recuperer": "non", "graine": 43}
+{"texte": "Peux-tu m'expliquer ce qu'est la photosynthèse ?", "recuperer": "non", "graine": 45}
+{"texte": "What year did humans first land on the Moon?", "recuperer": "non", "graine": 45}
+{"texte": "How do you say 'thank you' in Japanese?", "recuperer": "non", "graine": 45}
+{"texte": "Which planet is known as the Red Planet?", "recuperer": "non", "graine": 45}
+{"texte": "Can you give me a simple recipe for pancakes, step by step?", "recuperer": "non", "graine": 45}
+{"texte": "What is 247 multiplied by 6?", "recuperer": "non", "graine": 45}
+{"texte": "peux-tu me traduire 'merci beaucoup' en espagnol stp", "recuperer": "non", "graine": 46}
+{"texte": "Who wrote Romeo and Juliet?", "recuperer": "non", "graine": 46}
+{"texte": "Explain photosynthesis in two sentences.", "recuperer": "non", "graine": 46}
+{"texte": "What's 47 times 8?", "recuperer": "non", "graine": 46}
+{"texte": "Give me the formula for the area of a circle pls", "recuperer": "non", "graine": 46}
+{"texte": "How many continents are there on Earth?", "recuperer": "non", "graine": 46}
+{"texte": "cual es la capital de Australia?", "recuperer": "non", "graine": 48}
+{"texte": "What does DNA stand for?", "recuperer": "non", "graine": 48}
+{"texte": "hey jarvis whats 144 divided by 12 pls", "recuperer": "non", "graine": 48}
+{"texte": "Give me a quick definition of photosynthesis.", "recuperer": "non", "graine": 48}
+{"texte": "Who wrote the play Romeo and Juliet?", "recuperer": "non", "graine": 48}
+{"texte": "What time zone is UTC+2 commonly called in summer in Europe?", "recuperer": "non", "graine": 48}
+{"texte": "Peux-tu m'expliquer la différence entre un adjectif et un adverbe ?", "recuperer": "non", "graine": 47}
+{"texte": "Give me a quick summary of why the sky looks blue.", "recuperer": "non", "graine": 47}
+{"texte": "Write a haiku about autumn rain falling on a tin roof.", "recuperer": "non", "graine": 47}
+{"texte": "Perfect, that's exactly what I needed.", "recuperer": "non", "graine": 49}
+{"texte": "ok got it, ty", "recuperer": "non", "graine": 49}
+{"texte": "Muchas gracias, eso me ayudó muchísimo.", "recuperer": "non", "graine": 49}
+{"texte": "Great, appreciate it!", "recuperer": "non", "graine": 49}
+{"texte": "Awesome, problem solved now", "recuperer": "non", "graine": 49}
+{"texte": "thx jarvis ur the best lol", "recuperer": "non", "graine": 49}
+{"texte": "Noted, thanks for the quick reply.", "recuperer": "non", "graine": 49}

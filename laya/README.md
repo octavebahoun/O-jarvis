@@ -6,6 +6,7 @@ Le Système 1 de Jarvis est Laya Multilingual, un petit modèle qui classe chaqu
 - Il y a un fichier par décision, avec une ligne JSON par exemple : `{"texte": "...", "<décision>": "<réponse>"}`.
 - Le fichier `mise_a_jour` ajoute un champ `"souvenir"` : c'est le souvenir le plus proche, trouvé par EmbeddingGemma.
 - Laya ne fait que trier les messages. Le reste revient au code : les dates, le modèle disponible, les niveaux N1, N2 et N3, les confirmations.
+- `variantes/` : environ 200 phrases par réponse, écrites une seule fois par Muse Wonder à partir des graines (`varier.py`, consigne dans `consigne-variantes.md`), puis relues. Les fichiers `.faites` notent les graines déjà traitées.
 
 | Fichier | Décision | Réponses |
 |---|---|---|

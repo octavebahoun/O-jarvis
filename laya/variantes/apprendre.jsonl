@@ -1,0 +1,760 @@
+{"texte": "Bonjour Jarvis, tu peux me raconter une blague courte ?", "apprendre": "rien", "graine": 0}
+{"texte": "Corrige ce texte stp : « je suis aller au magasin hier soir »", "apprendre": "rien", "graine": 0}
+{"texte": "Can you summarize this article for me in three bullet points?", "apprendre": "rien", "graine": 0}
+{"texte": "jsuis crevé, hier la soirée s'est terminée super tard", "apprendre": "rien", "graine": 0}
+{"texte": "Quelle est la capitale de l'Islande déjà ?", "apprendre": "rien", "graine": 0}
+{"texte": "Écris-moi un mail sec pour relancer un client qui répond pas, juste pour cette fois", "apprendre": "rien", "graine": 0}
+{"texte": "Traduis en espagnol stp : « j'aime vraiment pas les huîtres, je préfère la viande ».", "apprendre": "rien", "graine": 1}
+{"texte": "Corrige-moi ce texte : « mon frere habite a marseille et il travail dans un hopital »", "apprendre": "rien", "graine": 1}
+{"texte": "Si j'étais prof à Berlin avec trois enfants, tu me conseillerais de m'installer où ?", "apprendre": "rien", "graine": 1}
+{"texte": "Pour ce mail uniquement, mets un ton super formel, après on s'en fiche.", "apprendre": "rien", "graine": 1}
+{"texte": "Translate this into French please: \"my sister hates winter and always takes the train.\"", "apprendre": "rien", "graine": 1}
+{"texte": "Hier jsuis tombé en panne avec ma vieille bagnole sur la route, raconte-moi une blague pour me changer les idées ?", "apprendre": "rien", "graine": 1}
+{"texte": "Can you summarise the plot of Hamlet in three sentences for me?", "apprendre": "rien", "graine": 3}
+{"texte": "Traduis-moi « je reviendrai demain matin » en portugais stp", "apprendre": "rien", "graine": 3}
+{"texte": "Rédige un mail poli pour demander un délai de livraison de deux jours", "apprendre": "rien", "graine": 3}
+{"texte": "pk le ciel il est bleu en fait ? jsuis curieux", "apprendre": "rien", "graine": 3}
+{"texte": "Corrige ce texte : « Les enfants allais à l'école en chantant. »", "apprendre": "rien", "graine": 3}
+{"texte": "Invente une blague courte sur un pingouin qui apprend à coder", "apprendre": "rien", "graine": 3}
+{"texte": "Traduis-moi ce paragraphe en espagnol pour mon devoir de demain stp", "apprendre": "rien", "graine": 4}
+{"texte": "Can you summarize this article about volcanoes in three short bullet points?", "apprendre": "rien", "graine": 4}
+{"texte": "Rédige un post LinkedIn pour annoncer le lancement de notre nouvelle gamme de thés glacés.", "apprendre": "rien", "graine": 4}
+{"texte": "jsuis bloqué sur cet exo de maths, tu peux m'expliquer comment on factorise x² - 9 ?", "apprendre": "rien", "graine": 4}
+{"texte": "Invente une histoire courte avec un renard pilote d'avion pour endormir ma nièce ce soir.", "apprendre": "rien", "graine": 4}
+{"texte": "Corrige les fautes dans cette phrase : « les chevals sont parties ce matin dans le pré »", "apprendre": "rien", "graine": 4}
+{"texte": "Réponds à ce message de Léo mais mets-y un ton super sec, juste pour cette fois.", "apprendre": "rien", "graine": 5}
+{"texte": "Can you make this summary sound funnier just for this version?", "apprendre": "rien", "graine": 5}
+{"texte": "sté corrige moi juste ce paragraphe la, change rien au reste stp", "apprendre": "rien", "graine": 5}
+{"texte": "Traduis-moi cette phrase en portugais : « on se retrouve devant la gare à midi ».", "apprendre": "rien", "graine": 5}
+{"texte": "Imagine que tu es un chef cuisinier et explique-moi comment faire des pâtes, pour le délire.", "apprendre": "rien", "graine": 5}
+{"texte": "Pour cette présentation, fais des slides très courtes, c'est exceptionnel parce que j'ai que cinq minutes demain matin.", "apprendre": "rien", "graine": 5}
+{"texte": "Tu peux me mettre une alarme à 6h45 juste pour demain matin stp ?", "apprendre": "rien", "graine": 2}
+{"texte": "Hier après-midi, je suis allé me promener au bord du canal et j'ai vu deux hérons.", "apprendre": "rien", "graine": 2}
+{"texte": "C'est quoi la différence entre un corbeau et un bureau, déjà ?", "apprendre": "rien", "graine": 2}
+{"texte": "Can you translate « merci pour ton aide, on se voit bientôt » into German for me?", "apprendre": "rien", "graine": 2}
+{"texte": "Si je pouvais téléporter n'importe où là, tout de suite, j'irais voir les aurores boréales.", "apprendre": "rien", "graine": 2}
+{"texte": "Corrige-moi cette phrase : « je suis aller au magasin hier et j'ai acheter du pain »", "apprendre": "rien", "graine": 2}
+{"texte": "Super, merci beaucoup pour le résumé !", "apprendre": "rien", "graine": 8}
+{"texte": "Nickel, c'est exactement ce qu'il me fallait, merci.", "apprendre": "rien", "graine": 8}
+{"texte": "thx jarvis c tro bien merciii", "apprendre": "rien", "graine": 8}
+{"texte": "Parfait pour moi, merci infiniment !", "apprendre": "rien", "graine": 8}
+{"texte": "Muchas gracias, ¡quedó perfectísimo!", "apprendre": "rien", "graine": 8}
+{"texte": "Au top, merci, je valide !", "apprendre": "rien", "graine": 8}
+{"texte": "tu peux me résumer cet article en 3 points stp ?", "apprendre": "rien", "graine": 9}
+{"texte": "Can you set a timer for 12 minutes?", "apprendre": "rien", "graine": 9}
+{"texte": "corrige moi ce mail : bonjour, je vous envoie le rapport en pièce jointe", "apprendre": "rien", "graine": 9}
+{"texte": "qu'est-ce qu'il y a au ciné ce soir près du centre ?", "apprendre": "rien", "graine": 9}
+{"texte": "hier on a mangé une pizza incroyable avec Léa, trop bien", "apprendre": "rien", "graine": 9}
+{"texte": "traduit en espagnol « à demain matin » stp", "apprendre": "rien", "graine": 9}
+{"texte": "Si je gagnais au loto demain, tu me conseilles d'acheter quoi en premier ?", "apprendre": "rien", "graine": 7}
+{"texte": "Traduis-moi ça stp : « the meeting has been postponed until further notice »", "apprendre": "rien", "graine": 7}
+{"texte": "Hey Jarvis, jsuis crevé ce soir, raconte-moi une blague courte pk pas", "apprendre": "rien", "graine": 7}
+{"texte": "Corrige ce texte : « je vous écris pour vous informez que le colis et arriver hier »", "apprendre": "rien", "graine": 7}
+{"texte": "Pour ce mail uniquement, fais très formel et signe juste avec mes initiales, ok ?", "apprendre": "rien", "graine": 7}
+{"texte": "Como se dice « rendez-vous » en allemand déjà ?", "apprendre": "rien", "graine": 7}
+{"texte": "Ah super, le lave-vaisselle fuit partout, c'est exactement la soirée que je voulais…", "apprendre": "rien", "graine": 6}
+{"texte": "stpp just translate this for me: the meeting is postponed until tomorrow morning", "apprendre": "rien", "graine": 6}
+{"texte": "Tu pourrais me corriger ce paragraphe et me dire s'il sonne naturel en anglais ?", "apprendre": "rien", "graine": 6}
+{"texte": "Imagine que je gagne au loto demain, tu me conseilles quoi comme premier voyage de fou ?", "apprendre": "rien", "graine": 6}
+{"texte": "Hier j'ai passé l'aprem à aider Noah à monter son étagère, on a bien rigolé", "apprendre": "rien", "graine": 6}
+{"texte": "Pour ce mail précis, mets un ton très sec, presque froid, ok ?", "apprendre": "rien", "graine": 6}
+{"texte": "Traduis en espagnol : « le train part demain matin à huit heures ».", "apprendre": "rien", "graine": 12}
+{"texte": "Tu peux me résumer cet article en trois lignes stp ?", "apprendre": "rien", "graine": 12}
+{"texte": "Rewrite this sentence in a more formal tone: \"hey, can you send me the file asap?\"", "apprendre": "rien", "graine": 12}
+{"texte": "Si j'avais un million d'euros, qu'est-ce que je pourrais acheter comme bateau ?", "apprendre": "rien", "graine": 12}
+{"texte": "jsuis crevé, raconte moi une blague courte sur les pingouins", "apprendre": "rien", "graine": 12}
+{"texte": "Reformule ce mail pour qu'il soit plus poli : « Envoie-moi le rapport tout de suite. »", "apprendre": "rien", "graine": 12}
+{"texte": "Salut Jarvis, ça roule aujourd'hui ?", "apprendre": "rien", "graine": 11}
+{"texte": "Traduis-moi « the meeting is cancelled » en espagnol stp", "apprendre": "rien", "graine": 11}
+{"texte": "Corrige les fautes dans ce paragraphe : je vais au marché demain pour acheter des légumes frais et du pains.", "apprendre": "rien", "graine": 11}
+{"texte": "Si j'étais astronaute, combien de temps je mettrais pour aller sur la Lune ?", "apprendre": "rien", "graine": 11}
+{"texte": "Rappelle-moi dans 20 minutes de sortir le gâteau du four", "apprendre": "rien", "graine": 11}
+{"texte": "Can you write a short poem about autumn leaves please?", "apprendre": "rien", "graine": 11}
+{"texte": "Traduis « bonjour tout le monde » en espagnol stp", "apprendre": "rien", "graine": 10}
+{"texte": "jsuis crevé, raconte-moi une blague courte mtn", "apprendre": "rien", "graine": 10}
+{"texte": "Peux-tu me résumer cet article en trois phrases ?", "apprendre": "rien", "graine": 10}
+{"texte": "Si je gagnais au loto demain, tu me conseillerais d'acheter quoi ?", "apprendre": "rien", "graine": 10}
+{"texte": "Can you set a timer for 10 minutes, please?", "apprendre": "rien", "graine": 10}
+{"texte": "Hier, j'ai passé deux heures bloqué dans les bouchons sur le périph, c'était horrible.", "apprendre": "rien", "graine": 10}
+{"texte": "Tu peux me traduire « voir c'est croire » en allemand stp ?", "apprendre": "rien", "graine": 13}
+{"texte": "Hier soir le film était tellement long que jsuis sorti avant la fin", "apprendre": "rien", "graine": 13}
+{"texte": "Could you proofread this sentence for me: 'Their going to the park tomorrow'?", "apprendre": "rien", "graine": 13}
+{"texte": "Imagine si on pouvait téléporter les pizzas, ce serait pratique non ?", "apprendre": "rien", "graine": 13}
+{"texte": "Résume-moi cet article en trois lignes, juste pour cette fois", "apprendre": "rien", "graine": 13}
+{"texte": "Super, encore une réunion qui aurait pu être un mail, quelle joie...", "apprendre": "rien", "graine": 13}
+{"texte": "Traduis ce paragraphe en espagnol : « Le train partira demain matin à huit heures de la gare centrale. »", "apprendre": "rien", "graine": 14}
+{"texte": "pk il fait aussi chaud en octobre cette année ?", "apprendre": "rien", "graine": 14}
+{"texte": "Écris un petit poème drôle sur un chat qui refuse de sortir sous la pluie.", "apprendre": "rien", "graine": 14}
+{"texte": "Corrige les fautes dans cette phrase stp : « je suis allé au cinéma hier et j’ai vue un film super »", "apprendre": "rien", "graine": 14}
+{"texte": "Can you explain in simple words how photosynthesis works?", "apprendre": "rien", "graine": 14}
+{"texte": "Fais-moi une liste de courses pour préparer des lasagnes pour quatre personnes ce soir.", "apprendre": "rien", "graine": 14}
+{"texte": "tu peux me résumer cet article en trois points stp ?", "apprendre": "rien", "graine": 16}
+{"texte": "c'était quoi déjà la capitale de l'Australie ?", "apprendre": "rien", "graine": 16}
+{"texte": "Can you set a timer for 10 minutes please?", "apprendre": "rien", "graine": 16}
+{"texte": "si j'avais un million d'euros je ferais le tour du monde mdr", "apprendre": "rien", "graine": 16}
+{"texte": "génial, encore une réunion qui aurait pu être un simple mail 🙄", "apprendre": "rien", "graine": 16}
+{"texte": "corrige-moi cette phrase : « je suis aller au magasin hier »", "apprendre": "rien", "graine": 16}
+{"texte": "Corrige ma phrase : « je suis allé chez le boulanger hier matin tôt »", "apprendre": "rien", "graine": 17}
+{"texte": "traduit « Bonne nuit, à demain » en espagnol stp", "apprendre": "rien", "graine": 17}
+{"texte": "que puis-je faire dimanche aprèm s'il pleut sur Nantes ?", "apprendre": "rien", "graine": 17}
+{"texte": "Peux-tu me résumer les trois lois de Newton en deux lignes ?", "apprendre": "rien", "graine": 17}
+{"texte": "xd imagine Jarvis, tu deviens président, tu fais quoi en premier ?", "apprendre": "rien", "graine": 17}
+{"texte": "Write me a short poem about autumn leaves please", "apprendre": "rien", "graine": 17}
+{"texte": "Tu peux me résumer ce paragraphe en deux phrases stp ?", "apprendre": "rien", "graine": 18}
+{"texte": "jsuis arrivé en retard au bureau ce matin à cause d'un embouteillage, c'était l'enfer", "apprendre": "rien", "graine": 18}
+{"texte": "Et si les chats pouvaient parler, tu penses qu'ils demanderaient quoi en premier ?", "apprendre": "rien", "graine": 18}
+{"texte": "Can you translate 'see you tomorrow' into German for me?", "apprendre": "rien", "graine": 18}
+{"texte": "Corrige-moi ce texte : « je vous envois le document des que possible »", "apprendre": "rien", "graine": 18}
+{"texte": "Génial, encore une réunion qui aurait pu être un mail, quelle surprise...", "apprendre": "rien", "graine": 18}
+{"texte": "Traduis « il pleut des cordes » en anglais stp", "apprendre": "rien", "graine": 19}
+{"texte": "Si les poules avaient des dents, est-ce qu'elles pourraient manger du steak ?", "apprendre": "rien", "graine": 19}
+{"texte": "Corrige ce texte : « les enfants on jouer dans la cours hier »", "apprendre": "rien", "graine": 19}
+{"texte": "Write a haiku about autumn leaves for my homework please", "apprendre": "rien", "graine": 19}
+{"texte": "Résume-moi l'intrigue du film Inception en trois lignes", "apprendre": "rien", "graine": 19}
+{"texte": "trouve un synonyme de « rapidement » mtn stp", "apprendre": "rien", "graine": 19}
+{"texte": "Résume-moi cet article en cinq lignes max, juste pour celui-ci.", "apprendre": "rien", "graine": 20}
+{"texte": "jsuis crevé, tu peux me rédiger un mail court pr dire que j'arriverai en retard tt à l'heure stp", "apprendre": "rien", "graine": 20}
+{"texte": "For this paragraph only, translate it into Spanish: « Le train partira demain matin à huit heures. »", "apprendre": "rien", "graine": 20}
+{"texte": "Corrige cette phrase : « je me suis trompé de sallle de réunion se matin ».", "apprendre": "rien", "graine": 20}
+{"texte": "Et si on gagnait au loto demain, tu penses qu'on ferait quoi en premier ?", "apprendre": "rien", "graine": 20}
+{"texte": "Super, encore une réunion qui sert à rien, génial vraiment... bon, aide-moi à préparer celle de 14h.", "apprendre": "rien", "graine": 20}
+{"texte": "jsuis crevé ce soir, tt la journée à courir partout", "apprendre": "rien", "graine": 21}
+{"texte": "Can you translate 'the weather is nice today' in French for me?", "apprendre": "rien", "graine": 21}
+{"texte": "traduis-moi ça vite fait : bon anniversaire et plein de bonheur", "apprendre": "rien", "graine": 21}
+{"texte": "haha bien vu pour la blague, elle était pas mal", "apprendre": "rien", "graine": 21}
+{"texte": "si j'avais un million demain, je ferais quoi à ton avis ?", "apprendre": "rien", "graine": 21}
+{"texte": "Tu peux m'expliquer pourquoi mon café a mis aussi longtemps à couler ce matin ?", "apprendre": "rien", "graine": 22}
+{"texte": "Traduis-moi ça en anglais stp : « on se retrouve devant la gare »", "apprendre": "rien", "graine": 22}
+{"texte": "jsuis crevé, raconte-moi une blague courte sur les chats", "apprendre": "rien", "graine": 22}
+{"texte": "What’s the capital of Australia, Sydney or Canberra?", "apprendre": "rien", "graine": 22}
+{"texte": "Imagine que les pigeons pouvaient parler, ils diraient quoi à ton avis ?", "apprendre": "rien", "graine": 22}
+{"texte": "Corrige cette phrase : « je voudrais réserver une table pour demain soir »", "apprendre": "rien", "graine": 22}
+{"texte": "Ma sœur prétend qu'on peut congeler des avocats, tu confirmes ?", "apprendre": "rien", "graine": 15}
+{"texte": "Est-ce que tu peux me corriger ce paragraphe et me dire si la grammaire est bonne ?", "apprendre": "rien", "graine": 15}
+{"texte": "jui perdu mes clés hier soir au resto, c'était la galère mdr", "apprendre": "rien", "graine": 15}
+{"texte": "Imagina que tengo un perro que habla, ¿qué crees que me diría?", "apprendre": "rien", "graine": 15}
+{"texte": "Traduis stp « bonne chance pour demain » en anglais, c'est juste pour ce mail", "apprendre": "rien", "graine": 15}
+{"texte": "Dis-moi une blague courte sur les agriculteurs, histoire de rire un peu", "apprendre": "rien", "graine": 15}
+{"texte": "réécris-moi ce paragraphe en plus poli stp", "apprendre": "rien", "graine": 24}
+{"texte": "Can you translate 'the meeting is postponed' into French for me?", "apprendre": "rien", "graine": 24}
+{"texte": "jsuis bloqué sur cet exo de maths, tu peux me donner la réponse ?", "apprendre": "rien", "graine": 24}
+{"texte": "corrige les fautes dans ce mail : 'Bonjours à tousse, je vous envois le raport'", "apprendre": "rien", "graine": 24}
+{"texte": "t'as une blague courte pour détendre l'ambiance ?", "apprendre": "rien", "graine": 24}
+{"texte": "explique-moi vite fait comment on fait une vinaigrette", "apprendre": "rien", "graine": 24}
+{"texte": "Tu peux me faire un résumé de cet article en trois lignes stp ?", "apprendre": "rien", "graine": 23}
+{"texte": "Traduis-moi « la réunion est repoussée » en anglais.", "apprendre": "rien", "graine": 23}
+{"texte": "jsuis crevé aujourd'hui, j'ai mal dormi tt la nuit", "apprendre": "rien", "graine": 23}
+{"texte": "What’s the weather like in Lisbon this afternoon?", "apprendre": "rien", "graine": 23}
+{"texte": "Si je gagnais au loto, je m'achèterais une île déserte, rien que ça !", "apprendre": "rien", "graine": 23}
+{"texte": "Corrige cette phrase : « je suis aller cherché du pains hier »", "apprendre": "rien", "graine": 23}
+{"texte": "Traduis-moi ça en anglais stp : « le train aura du retard ce soir »", "apprendre": "rien", "graine": 25}
+{"texte": "Tu penses que jsuis un génie ou quoi ? Non parce que là j'ai mis 20 min à ouvrir un pot de cornichons.", "apprendre": "rien", "graine": 25}
+{"texte": "Si j'avais gagné au loto hier, t'imagines ce que j'aurais acheté ?", "apprendre": "rien", "graine": 25}
+{"texte": "Écris un mail sec à la mairie pour signaler le lampadaire cassé dans la rue d'à côté, juste pour cette fois.", "apprendre": "rien", "graine": 25}
+{"texte": "Qu'est-ce que tu racontes de beau ce matin Jarvis ?", "apprendre": "rien", "graine": 25}
+{"texte": "Merci, c'est nickel", "apprendre": "rien", "graine": 29}
+{"texte": "thx that was super helpful", "apprendre": "rien", "graine": 29}
+{"texte": "Parfait, merci pour ton aide !", "apprendre": "rien", "graine": 29}
+{"texte": "merci bcp ça m'a bien aidé", "apprendre": "rien", "graine": 29}
+{"texte": "Super, merci infiniment !", "apprendre": "rien", "graine": 29}
+{"texte": "Ok parfait, thank you so much", "apprendre": "rien", "graine": 29}
+{"texte": "Tu peux m'aider à écrire un mail de remerciement pour un entretien d'embauche ?", "apprendre": "rien", "graine": 27}
+{"texte": "Dis, t'as une idée de recette vite fait avec des œufs et du fromage ?", "apprendre": "rien", "graine": 27}
+{"texte": "jsuis crevé, mets moi une alarme ds 20 min stp pr ma sieste", "apprendre": "rien", "graine": 27}
+{"texte": "Can you translate \"je reviens tout de suite\" into Japanese for me?", "apprendre": "rien", "graine": 27}
+{"texte": "Traduis ce texte en anglais : \"La réunion est reportée à demain matin.\"", "apprendre": "rien", "graine": 27}
+{"texte": "Imagine si on pouvait téléporter les pizzas, ce serait pratique, non ?", "apprendre": "rien", "graine": 27}
+{"texte": "Traduis-moi « je reviens dans dix minutes » en italien, stp.", "apprendre": "rien", "graine": 28}
+{"texte": "If I won the lottery tomorrow, how much tax would I owe in Texas?", "apprendre": "rien", "graine": 28}
+{"texte": "Write a short birthday toast for my coworker Léa, something funny but not mean.", "apprendre": "rien", "graine": 28}
+{"texte": "lol fantastic, my wifi died right in the middle of saving, just perfect", "apprendre": "rien", "graine": 28}
+{"texte": "What's the difference between a virus and a bacterium?", "apprendre": "rien", "graine": 28}
+{"texte": "Si un jour je me mets au piano, tu pourras me trouver des cours pour débutants ?", "apprendre": "rien", "graine": 26}
+{"texte": "Traduis-moi ça stp : « the train is already full »", "apprendre": "rien", "graine": 26}
+{"texte": "Peut-être que j'irai voir ma cousine ce week-end, ça dépendra de ma fatigue.", "apprendre": "rien", "graine": 26}
+{"texte": "Maybe I'll learn Japanese someday, I honestly have no idea yet", "apprendre": "rien", "graine": 26}
+{"texte": "Hier soir j'ai regardé un film un peu nul, on a bien rigolé quand même", "apprendre": "rien", "graine": 26}
+{"texte": "Fais-moi un résumé de cet article juste pour ce matin, j'ai pas le temps de tout lire", "apprendre": "rien", "graine": 26}
+{"texte": "Can you set a timer for 12 minutes while the pasta boils?", "apprendre": "rien", "graine": 30}
+{"texte": "jsuis crevé, la réunion de cet aprem m'a achevé lol", "apprendre": "rien", "graine": 30}
+{"texte": "What's the weather supposed to be like tomorrow morning?", "apprendre": "rien", "graine": 30}
+{"texte": "Traduis-moi ça stp : « the meeting has been moved to Friday »", "apprendre": "rien", "graine": 30}
+{"texte": "Ugh, great, another Monday... just what I needed.", "apprendre": "rien", "graine": 30}
+{"texte": "Could you rewrite this sentence to sound more formal?", "apprendre": "rien", "graine": 30}
+{"texte": "Could you rewrite this paragraph in a more formal tone, please?", "apprendre": "rien", "graine": 32}
+{"texte": "traduis ce mail en espagnol stp", "apprendre": "rien", "graine": 32}
+{"texte": "Summarize this article in three bullet points for me.", "apprendre": "rien", "graine": 32}
+{"texte": "jsuis bloqué, tu peux corriger les fautes dans ce texte ?", "apprendre": "rien", "graine": 32}
+{"texte": "Turn this list of notes into a short email to send today.", "apprendre": "rien", "graine": 32}
+{"texte": "Explain what a black hole is like I'm ten years old.", "apprendre": "rien", "graine": 32}
+{"texte": "Make this sound more professional: \"hey, can u get that report to me by friday or whatever\"", "apprendre": "rien", "graine": 31}
+{"texte": "Traduce esto al francés: \"Prefiero trabajar solo y detesto las reuniones.\"", "apprendre": "rien", "graine": 31}
+{"texte": "Can you shorten this text for a tweet: \"We are absolutely delighted to announce that our little bakery on Maple Street will be opening its doors next Tuesday morning at eight\"?", "apprendre": "rien", "graine": 31}
+{"texte": "Rewrite in a pirate voice: \"I never drink coffee, I only drink tea in the morning.\"", "apprendre": "rien", "graine": 31}
+{"texte": "Corrige les fautes stp : \"jsuis toujour en retard le matin parcque mon reveil sonne pas\"", "apprendre": "rien", "graine": 31}
+{"texte": "Turn this into a polite email: \"Send me the invoice now, I asked for it yesterday.\"", "apprendre": "rien", "graine": 31}
+{"texte": "Moi je veux toujours tout en bullet points, les longs paragraphes ça me perd.", "apprendre": "preference", "graine": 33}
+{"texte": "stpp jsuis team voix grave pr la lecture audio, change plus jamais mtn", "apprendre": "preference", "graine": 33}
+{"texte": "J'aime pas qu'on me tutoie au boulot, garde le vouvoiement dans les mails pros.", "apprendre": "preference", "graine": 33}
+{"texte": "For my summaries, I always prefer them in a table, it's way clearer for me.", "apprendre": "preference", "graine": 33}
+{"texte": "À l'avenir, propose-moi d'abord les options les moins chères, c'est mon critère numéro un.", "apprendre": "preference", "graine": 33}
+{"texte": "Je déteste les rappels qui sonnent fort, mets-les toujours en vibration douce.", "apprendre": "preference", "graine": 33}
+{"texte": "À partir de maintenant, mets toujours mes notes en bullet points, stp", "apprendre": "preference", "graine": 34}
+{"texte": "I really prefer short answers, no long paragraphs please", "apprendre": "preference", "graine": 34}
+{"texte": "Jsais pas pk mais je déteste quand tu tutoies pas, donc garde le tutoiement tout le temps", "apprendre": "preference", "graine": 34}
+{"texte": "Pour mes listes de courses, trie toujours par rayon du magasin", "apprendre": "preference", "graine": 34}
+{"texte": "J'aime pas les réponses trop formelles, parle-moi de façon détendue", "apprendre": "preference", "graine": 34}
+{"texte": "Quand tu me proposes des idées, mets-en toujours trois maximum", "apprendre": "preference", "graine": 34}
+{"texte": "Pour le résumé du matin, mets-moi toujours les titres en gras stp, je lis plus vite comme ça.", "apprendre": "preference", "graine": 35}
+{"texte": "I always want my shopping lists sorted by aisle, not alphabetically please.", "apprendre": "preference", "graine": 35}
+{"texte": "Jpréfère que tu me répondes en phrases courtes, les pavés ça me saoule.", "apprendre": "preference", "graine": 35}
+{"texte": "Quand tu me proposes des recettes, évite la coriandre, je déteste ça.", "apprendre": "preference", "graine": 35}
+{"texte": "D'habitude je bosse mieux avec de la musique lo-fi en fond, pense à me la lancer quand je code.", "apprendre": "preference", "graine": 35}
+{"texte": "Porfa, háblame siempre de tú, nada de usted, me suena demasiado formal.", "apprendre": "preference", "graine": 35}
+{"texte": "Pour mes recettes, évite toujours le piment, j'aime pas quand ça pique.", "apprendre": "preference", "graine": 36}
+{"texte": "Can you always reply in English when I practice with you? I prefer that for my speaking sessions.", "apprendre": "preference", "graine": 36}
+{"texte": "jsuis plutôt thé le matin, mets-moi jamais de café dans mes listes stp", "apprendre": "preference", "graine": 36}
+{"texte": "Quand tu me proposes des films, privilégie les thrillers, c'est vraiment ce que je préfère.", "apprendre": "preference", "graine": 36}
+{"texte": "Pour la musique au travail, j'aime bien que tu me mettes du jazz doux, ça m'aide à me concentrer.", "apprendre": "preference", "graine": 36}
+{"texte": "Réponds-moi toujours avec des listes à puces quand je te demande un plan, je trouve ça plus clair.", "apprendre": "preference", "graine": 36}
+{"texte": "J'aime pas qu'on me tutoie dans les mails pros, mets toujours du vouvoiement stp", "apprendre": "preference", "graine": 38}
+{"texte": "For my summaries, I always prefer short bullet points over long paragraphs.", "apprendre": "preference", "graine": 38}
+{"texte": "Moi c'est thé sans sucre, jamais de café le matin, retiens ça pour mes commandes.", "apprendre": "preference", "graine": 38}
+{"texte": "jsuis plutôt du soir, programme tt ce qui est important après 20h", "apprendre": "preference", "graine": 38}
+{"texte": "Je préfère recevoir mes rappels la veille au soir plutôt que le jour même.", "apprendre": "preference", "graine": 38}
+{"texte": "Pour coder je veux toujours des réponses avec des exemples concrets, pas juste la théorie.", "apprendre": "preference", "graine": 38}
+{"texte": "À partir de maintenant, mets toujours mes notes de réunion sous forme de puces, pas en gros paragraphes.", "apprendre": "preference", "graine": 37}
+{"texte": "je préfere que tu me répondes en phrases courtes stp, les pavés c'est pas mon truc", "apprendre": "preference", "graine": 37}
+{"texte": "Para mis resúmenes, usa siempre un tono informal y directo, por favor.", "apprendre": "preference", "graine": 37}
+{"texte": "Quand tu me proposes des idées de repas, évite systématiquement les plats trop épicés, j'aime pas ça.", "apprendre": "preference", "graine": 37}
+{"texte": "J'aime bien que tu me donnes d'abord la réponse, puis les détails seulement si je te les demande.", "apprendre": "preference", "graine": 37}
+{"texte": "Pour mes listes de courses, trie toujours par rayon du supermarché, ça me fait gagner du temps.", "apprendre": "preference", "graine": 37}
+{"texte": "À partir de maintenant, réponds toujours en une seule phrase courte, stp.", "apprendre": "preference", "graine": 39}
+{"texte": "I'd rather get all my summaries as bullet points, every time.", "apprendre": "preference", "graine": 39}
+{"texte": "Ne me mets jamais de fromage dans les recettes, j'aime vraiment pas ça.", "apprendre": "preference", "graine": 39}
+{"texte": "Pour mes réveils, laisse toujours 10 minutes de marge, je préfère arriver en avance.", "apprendre": "preference", "graine": 39}
+{"texte": "jsuis plutôt du matin, mets mes tâches importantes avant midi tt le temps", "apprendre": "preference", "graine": 39}
+{"texte": "Siempre quiero que los correos importantes me los marques con una estrella, porfa.", "apprendre": "preference", "graine": 39}
+{"texte": "À partir de maintenant, réponds-moi en phrases courtes, j'aime pas les pavés.", "apprendre": "preference", "graine": 42}
+{"texte": "Pls always answer me in English, even if I write in French.", "apprendre": "preference", "graine": 42}
+{"texte": "Je préfère que tu me tutoies et que tu évites le ton trop formel.", "apprendre": "preference", "graine": 42}
+{"texte": "Pour mes listes de courses, trie toujours par rayon du magasin stp.", "apprendre": "preference", "graine": 42}
+{"texte": "j'aime bien quand tu mets les titres en gras et le reste en texte simple", "apprendre": "preference", "graine": 42}
+{"texte": "Quand tu me proposes des recettes, évite systématiquement les champignons, je déteste ça.", "apprendre": "preference", "graine": 42}
+{"texte": "Réponds-moi toujours en phrases courtes stp, les pavés ça me perd.", "apprendre": "preference", "graine": 40}
+{"texte": "I always prefer my summaries in English, even if the article is in French.", "apprendre": "preference", "graine": 40}
+{"texte": "J'aime pas qu'on me tutoie dans les mails pro, mets du vouvoiement par défaut.", "apprendre": "preference", "graine": 40}
+{"texte": "jsuis du matin, programme mes rappels importants avant 9h tt le temps", "apprendre": "preference", "graine": 40}
+{"texte": "Pour les recettes, donne-moi les quantités en grammes, les cups je déteste convertir.", "apprendre": "preference", "graine": 40}
+{"texte": "S'il te plaît, évite les emojis quand tu rédiges pour moi, je trouve ça pas sérieux.", "apprendre": "preference", "graine": 40}
+{"texte": "Stp mets toujours mes réunions le matin, je suis inutile après 17h.", "apprendre": "preference", "graine": 41}
+{"texte": "je préfère qu'on se tutoie, le vouvoiement ça me vieillit lol", "apprendre": "preference", "graine": 41}
+{"texte": "Para mis notas, usa siempre viñetas cortas, nada de párrafos largos.", "apprendre": "preference", "graine": 41}
+{"texte": "Je déteste les films d'horreur, propose-moi plutôt des comédies quand je te demande quoi regarder.", "apprendre": "preference", "graine": 41}
+{"texte": "Quand tu me rédiges des mails, garde un ton super direct, sans formules pompeuses, c'est ma façon de faire.", "apprendre": "preference", "graine": 41}
+{"texte": "J'aime prendre mon thé avec un peu de miel, jamais nature.", "apprendre": "preference", "graine": 41}
+{"texte": "À partir de maintenant, réponds-moi toujours en phrases courtes, je supporte pas les pavés.", "apprendre": "preference", "graine": 43}
+{"texte": "I always like my summaries as bullet points, please keep doing that.", "apprendre": "preference", "graine": 43}
+{"texte": "stp utilise tt le temps le tutoiement avec moi, le vouvoiement ça me tend", "apprendre": "preference", "graine": 43}
+{"texte": "Pour les recettes, je préfère quand tu mets les quantités en grammes plutôt qu'en cuillères.", "apprendre": "preference", "graine": 43}
+{"texte": "J'aime pas qu'on me propose du poisson, oriente-moi plutôt vers des plats végétariens quand je te demande des idées repas.", "apprendre": "preference", "graine": 43}
+{"texte": "Mon format favori pour réviser, c'est les flashcards, pense à me les présenter comme ça à chaque fois.", "apprendre": "preference", "graine": 43}
+{"texte": "Pour mes trajets du matin, mets toujours la radio en podcast d'actualité plutôt qu'en musique.", "apprendre": "preference", "graine": 45}
+{"texte": "j'aime pas les films doublés, passe-moi systématiquement les versions en VO stp", "apprendre": "preference", "graine": 45}
+{"texte": "When you write my emails, please always keep them super short and friendly.", "apprendre": "preference", "graine": 45}
+{"texte": "D'habitude pour le sport je préfère courir le matin à jeun, propose-moi des séances dans ce créneau.", "apprendre": "preference", "graine": 45}
+{"texte": "No me gusta que me despiertes con alarmas fuertes, usa siempre un sonido suave por favor.", "apprendre": "preference", "graine": 45}
+{"texte": "Pour les cadeaux de famille, évite les trucs parfumés, je préfère largement offrir des livres.", "apprendre": "preference", "graine": 45}
+{"texte": "Jarvis, pour mes résumés je préfère des puces ultra courtes, pas de paragraphes interminables stp", "apprendre": "preference", "graine": 44}
+{"texte": "À partir de maintenant, réponds-moi toujours en vouvoiement, même quand je te tutoie.", "apprendre": "preference", "graine": 44}
+{"texte": "I always want my shopping lists sorted by aisle, never alphabetically, please Jarvis.", "apprendre": "preference", "graine": 44}
+{"texte": "jsuis du matin, donc programme jamais mes rappels importants après 21h, ça m'énerve tt le temps", "apprendre": "preference", "graine": 44}
+{"texte": "J'aime pas qu'on me propose trois options : donne-moi toujours la meilleure solution directe, sans détour.", "apprendre": "preference", "graine": 44}
+{"texte": "Pour les recettes, mets systématiquement les quantités en grammes, je déteste les tasses et les cuillères.", "apprendre": "preference", "graine": 44}
+{"texte": "stt explique-moi tjs avec des petits schémas, je capte rien sinon", "apprendre": "preference", "graine": 46}
+{"texte": "Je préfère qu'on me tutoie et que les réponses restent courtes, même pour les sujets compliqués.", "apprendre": "preference", "graine": 46}
+{"texte": "I always want a quick summary first, then the details if I ask for them.", "apprendre": "preference", "graine": 46}
+{"texte": "Pour les recettes, mets-moi toujours les quantités en grammes, pas en tasses, stp.", "apprendre": "preference", "graine": 46}
+{"texte": "J'aime pas les listes à rallonge, je préfère un seul paragraphe clair quand tu me réponds.", "apprendre": "preference", "graine": 46}
+{"texte": "D'habitude je bosse mieux le matin, alors propose-moi toujours les tâches chiantes avant midi.", "apprendre": "preference", "graine": 46}
+{"texte": "Stp Jarvis, toujours des réponses courtes, je déteste quand tu fais des pavés pour rien.", "apprendre": "preference", "graine": 47}
+{"texte": "Je préfère que tu me tutoies et que tu ailles droit au but, sans formules ultra polies à chaque fois.", "apprendre": "preference", "graine": 47}
+{"texte": "Please always answer me in English, even when I write in French by mistake.", "apprendre": "preference", "graine": 47}
+{"texte": "jsuis du matin moi, rappelle-moi tt ce qui est important avant 8h stp, jamais le soir", "apprendre": "preference", "graine": 47}
+{"texte": "Pour les résumés, j'aime pas les listes à puces, fais-moi plutôt un petit paragraphe clair.", "apprendre": "preference", "graine": 47}
+{"texte": "D'habitude je veux que tu tries mes mails par urgence, pas par date, retiens ça pour la suite.", "apprendre": "preference", "graine": 47}
+{"texte": "Pour les résumés de réunion, mets-les toujours en puces courtes stp, j'aime pas les gros pavés", "apprendre": "preference", "graine": 49}
+{"texte": "Siempre quiero el café sin azúcar, recuérdalo para mis pedidos de la mañana", "apprendre": "preference", "graine": 49}
+{"texte": "Jarvis, je déteste être dérangé avant 9h, garde les notifs non urgentes pour plus tard", "apprendre": "preference", "graine": 49}
+{"texte": "Moi j'suis plutôt thé le matin et café jamais après 16h, note ça pour la routine", "apprendre": "preference", "graine": 49}
+{"texte": "Quand tu me proposes des restos, évite la cuisine épicée, je préfère les plats doux à chaque fois", "apprendre": "preference", "graine": 49}
+{"texte": "Pour mes trajets, privilégie tt le temps le vélo plutôt que la voiture, même si c'est plus long", "apprendre": "preference", "graine": 49}
+{"texte": "Stp Jarvis, mets toujours mes réponses en bullet points, je déteste les pavés de texte", "apprendre": "preference", "graine": 50}
+{"texte": "Pour mes sorties vélo, je préfère partir au lever du soleil, programme-les moi plutôt le matin", "apprendre": "preference", "graine": 50}
+{"texte": "j'aime pas le café serré, retiens que pour moi c'est thé vert tous les matins", "apprendre": "preference", "graine": 50}
+{"texte": "Can you always answer me in French even if I write in English? That's my preference.", "apprendre": "preference", "graine": 50}
+{"texte": "Quand tu me proposes des films, va plutôt vers les thrillers lents, je préfère ça aux comédies", "apprendre": "preference", "graine": 50}
+{"texte": "Jarvis, mets-moi systématiquement la météo en degrés Celsius et jamais en Fahrenheit stp", "apprendre": "preference", "graine": 50}
+{"texte": "Je déteste les films d'horreur, mets-moi plutôt une bonne comédie pour ce soir.", "apprendre": "preference", "graine": 51}
+{"texte": "Prefiero siempre el café sin azúcar, acuérdate cuando me pidas uno.", "apprendre": "preference", "graine": 51}
+{"texte": "À partir de maintenant, réponds-moi toujours avec des phrases courtes stp, j'aime pas les pavés.", "apprendre": "preference", "graine": 51}
+{"texte": "Pour mes trajets, je préfère largement le train à l'avion, cherche dans ce sens-là.", "apprendre": "preference", "graine": 51}
+{"texte": "jsuis plutôt thé vert le matin, propose-moi tt le temps ça au lieu du café", "apprendre": "preference", "graine": 51}
+{"texte": "J'aime travailler avec de la musique classique en fond, lance une playlist dans ce genre.", "apprendre": "preference", "graine": 51}
+{"texte": "À partir de maintenant, réponds-moi toujours en phrases courtes, sans blabla inutile.", "apprendre": "preference", "graine": 52}
+{"texte": "I really prefer dark mode everywhere, so keep that in mind for any app you set up for me.", "apprendre": "preference", "graine": 52}
+{"texte": "stplé Jarvis, trie toujours mes mails par urgence et pas par date, c'est comme ça que je fonctionne", "apprendre": "preference", "graine": 52}
+{"texte": "Je déteste les voix robotiques trop lentes, mets systématiquement la synthèse vocale en débit rapide.", "apprendre": "preference", "graine": 52}
+{"texte": "Pour mes résumés, je veux à chaque fois des puces avec l'essentiel, jamais de pavés de texte.", "apprendre": "preference", "graine": 52}
+{"texte": "Siempre quiero que me hables de forma informal, nada de usted, por favor.", "apprendre": "preference", "graine": 52}
+{"texte": "À partir de maintenant, réponds-moi toujours avec des listes à puces plutôt qu'en gros paragraphes stp.", "apprendre": "preference", "graine": 53}
+{"texte": "I really prefer short answers, please don't give me long explanations unless I ask.", "apprendre": "preference", "graine": 53}
+{"texte": "jsuis pas fan des emojis, évite d'en mettre tt le temps mtn", "apprendre": "preference", "graine": 53}
+{"texte": "Pour mes résumés, j'aime bien que tu commences toujours par l'essentiel.", "apprendre": "preference", "graine": 53}
+{"texte": "Ne me tutoie plus au travail, je préfère que tu restes formel dans ce contexte.", "apprendre": "preference", "graine": 53}
+{"texte": "Quand tu me proposes des idées, donne-m'en trois maximum, j'aime pas être submergé.", "apprendre": "preference", "graine": 53}
+{"texte": "Pour mes présentations, mets toujours les titres en bleu foncé, je déteste le rouge.", "apprendre": "preference", "graine": 54}
+{"texte": "jsuis plutôt thé sans sucre le matin, note ça pour mes commandes stp", "apprendre": "preference", "graine": 54}
+{"texte": "I always prefer my emails sorted by newest first, never by sender.", "apprendre": "preference", "graine": 54}
+{"texte": "Quand tu rédiges pour moi, évite les phrases trop longues, je préfère que ce soit direct et simple.", "apprendre": "preference", "graine": 54}
+{"texte": "Pour la musique au bureau, j'aime pas du tout le jazz, lance plutôt de la pop calme.", "apprendre": "preference", "graine": 54}
+{"texte": "D'habitude je prends mes notes en puces courtes, pas en gros paragraphes, tu peux faire comme ça tt le temps ?", "apprendre": "preference", "graine": 54}
+{"texte": "Pour mes révisions, mets toujours des schémas plutôt que des gros paragraphes, stp.", "apprendre": "preference", "graine": 55}
+{"texte": "I always prefer waking up to lo-fi music instead of a loud alarm.", "apprendre": "preference", "graine": 55}
+{"texte": "Je déteste les réponses trop formelles, parle-moi simplement au quotidien.", "apprendre": "preference", "graine": 55}
+{"texte": "Quand tu me proposes des recettes, je préfère celles sans cuisson, j'aime pas utiliser le four.", "apprendre": "preference", "graine": 55}
+{"texte": "D'habitude je prends mes notes en bullet points, c'est plus clair pour moi.", "apprendre": "preference", "graine": 55}
+{"texte": "Pour bosser, je préfère largement le matin tôt que tard le soir, retiens ça pour mes plannings.", "apprendre": "preference", "graine": 55}
+{"texte": "Écris-moi un résumé de ce rapport, mais en puces stp, je préfère quand c'est synthétique plutôt qu'un gros pavé.", "apprendre": "preference", "graine": 56}
+{"texte": "Book me a table for Friday night, I always go for quiet places over trendy noisy ones.", "apprendre": "preference", "graine": 56}
+{"texte": "Tu peux me proposer trois idées de cadeau pour ma sœur ? Évite les fleurs, j'aime pas du tout ça.", "apprendre": "preference", "graine": 56}
+{"texte": "Aide-moi à rédiger ce mail à mon client, ton formel comme d'habitude, c'est ce que j'utilise toujours au boulot.", "apprendre": "preference", "graine": 56}
+{"texte": "jsuis en train de choisir un fond d'écran, montre-m'en que des sombres stp, je préfère ça pour pas me fatiguer les yeux", "apprendre": "preference", "graine": 56}
+{"texte": "Prépare mon itinéraire pour demain, en évitant les autoroutes, j'aime mieux passer par les petites routes même si c'est plus long.", "apprendre": "preference", "graine": 56}
+{"texte": "Stp, pour mes résumés, mets toujours les points importants en premier, j'aime pas devoir tout lire pour trouver l'essentiel.", "apprendre": "preference", "graine": 57}
+{"texte": "À partir de maintenant, parle-moi en vouvoiement au travail, je préfère garder un ton pro dans ce contexte.", "apprendre": "preference", "graine": 57}
+{"texte": "Could you always give me the temperatures in Celsius, please? I never think in Fahrenheit.", "apprendre": "preference", "graine": 57}
+{"texte": "jsuis plutôt du matin, donc programme mes rappels importants avant 9h stp, c'est comme ça que je fonctionne", "apprendre": "preference", "graine": 57}
+{"texte": "Pour la musique pendant que je bosse, je préfère le jazz instrumental, les paroles ça me déconcentre à chaque fois.", "apprendre": "preference", "graine": 57}
+{"texte": "Quand tu me proposes des recettes, évite les plats trop épicés, j'aime vraiment pas ça.", "apprendre": "preference", "graine": 57}
+{"texte": "Always use bullet points for summaries, I hate long paragraphs.", "apprendre": "preference", "graine": 58}
+{"texte": "styl pls rpond courte et direct j'aime pas les blablas", "apprendre": "preference", "graine": 58}
+{"texte": "For music recs, I always prefer indie rock over anything mainstream tbh.", "apprendre": "preference", "graine": 58}
+{"texte": "Please keep my morning briefing under two minutes from now on.", "apprendre": "preference", "graine": 58}
+{"texte": "Ich bleibe lieber bei schlichten Designs, nimm bitte immer minimalistisch.", "apprendre": "preference", "graine": 58}
+{"texte": "when u draft emails 4 me be formal ok? i prefer that style every time", "apprendre": "preference", "graine": 58}
+{"texte": "Pour mes résumés de mails, va toujours à l'essentiel stp, pas de blabla inutile.", "apprendre": "preference", "graine": 48}
+{"texte": "I always want my workout plans in kilometers, never in miles please Jarvis.", "apprendre": "preference", "graine": 48}
+{"texte": "Quand tu me proposes des recettes, je préfère celles sans coriandre, je déteste ça.", "apprendre": "preference", "graine": 48}
+{"texte": "D'habitude, trie mes notes par date la plus récente, c'est comme ça que je m'y retrouve.", "apprendre": "preference", "graine": 48}
+{"texte": "Pour les rappels du matin, mets-moi toujours un ton motivant plutôt que neutre.", "apprendre": "preference", "graine": 48}
+{"texte": "jsuis plutôt du genre à bosser avec de la musique lo-fi, propose-moi que ça quand je te demande une playlist de concentration", "apprendre": "preference", "graine": 48}
+{"texte": "From now on, just give me the short version, no long explanations.", "apprendre": "preference", "graine": 59}
+{"texte": "I love my summaries in bullet points, it helps me skim faster.", "apprendre": "preference", "graine": 59}
+{"texte": "jsuis plutôt du matin, mets tjrs mes rappels tôt stp", "apprendre": "preference", "graine": 59}
+{"texte": "Please never call me before 9am, I prefer texts in the evening instead.", "apprendre": "preference", "graine": 59}
+{"texte": "Ich mag es lieber, wenn du alles auf Deutsch beantwortest.", "apprendre": "preference", "graine": 59}
+{"texte": "For my workouts I always want them without any jumping exercises, please keep it that way.", "apprendre": "preference", "graine": 59}
+{"texte": "I always take the window seat when I fly, aisle seats make me feel trapped.", "apprendre": "preference", "graine": 61}
+{"texte": "Please keep my summaries super short, I hate wading through long paragraphs.", "apprendre": "preference", "graine": 61}
+{"texte": "je préfère les romans policiers aux histoires d'amour, propose-moi plutôt ça", "apprendre": "preference", "graine": 61}
+{"texte": "Honestly I'd rather cook at home than eat out, even on weekends.", "apprendre": "preference", "graine": 61}
+{"texte": "For workouts I like mornings way better — evenings just never stick for me.", "apprendre": "preference", "graine": 61}
+{"texte": "Use dark mode in everything you make for me pls, light themes hurt my eyes", "apprendre": "preference", "graine": 61}
+{"texte": "From now on, could you keep your answers really short? I prefer one or two sentences max, please.", "apprendre": "preference", "graine": 60}
+{"texte": "jsuis pas fan des emojis, évite d'en mettre stp", "apprendre": "preference", "graine": 60}
+{"texte": "I always want the weather in Celsius, not Fahrenheit, okay?", "apprendre": "preference", "graine": 60}
+{"texte": "Please don't start every reply with 'Certainly!' — I like it more natural.", "apprendre": "preference", "graine": 60}
+{"texte": "Prefiero que me respondas en español siempre, aunque te escriba en inglés.", "apprendre": "preference", "graine": 60}
+{"texte": "For coding help, I'd rather have the full file than just snippets, every time.", "apprendre": "preference", "graine": 60}
+{"texte": "Je suis prof de maths au collège Victor-Hugo.", "apprendre": "fait", "graine": 63}
+{"texte": "Ma sœur Léa attend des jumeaux pour septembre.", "apprendre": "fait", "graine": 63}
+{"texte": "J'ai un rdv chez le dentiste jeudi à 14h30.", "apprendre": "fait", "graine": 63}
+{"texte": "On a un chat qui s'appelle Miso, il a 2 ans.", "apprendre": "fait", "graine": 63}
+{"texte": "I work as a nurse in Bordeaux since last year.", "apprendre": "fait", "graine": 63}
+{"texte": "Ma sœur Léa vient de déménager à Nantes et je vais l'aider ce week-end.", "apprendre": "fait", "graine": 64}
+{"texte": "J'ai rendez-vous chez le dentiste jeudi prochain à 14h30.", "apprendre": "fait", "graine": 64}
+{"texte": "On a adopté un chaton de trois mois la semaine dernière, il s'appelle Miso.", "apprendre": "fait", "graine": 64}
+{"texte": "Trabajo como enfermero en un hospital de Valencia desde hace dos años.", "apprendre": "fait", "graine": 64}
+{"texte": "Je me suis acheté un vélo électrique pour aller au bureau, un Arcade rouge.", "apprendre": "fait", "graine": 64}
+{"texte": "From now on, put the summary at the top of every report you write for me.", "apprendre": "preference", "graine": 62}
+{"texte": "I prefer getting the steps as a numbered list instead of a paragraph, okay?", "apprendre": "preference", "graine": 62}
+{"texte": "Svp, réponds-moi toujours en français même si je te parle en anglais.", "apprendre": "preference", "graine": 62}
+{"texte": "Please never use emojis in my emails, I hate how unprofessional they look.", "apprendre": "preference", "graine": 62}
+{"texte": "For graphs, I always want the values shown in euros, not dollars.", "apprendre": "preference", "graine": 62}
+{"texte": "jsuis plus du matin, programme tt ce qui peut l'être avant 9h stp", "apprendre": "preference", "graine": 62}
+{"texte": "Je suis prof d'espagnol dans un collège à Nantes depuis trois ans.", "apprendre": "fait", "graine": 65}
+{"texte": "Ma sœur Léa vient de s'installer chez moi pour quelques mois.", "apprendre": "fait", "graine": 65}
+{"texte": "I just bought a second-hand Peugeot 208, it's my first car.", "apprendre": "fait", "graine": 65}
+{"texte": "Jarvis, je passe mon permis moto le 14 juin, j'appréhende un peu.", "apprendre": "fait", "graine": 65}
+{"texte": "J'ai un chat siamois qui s'appelle Milo, il a 4 ans.", "apprendre": "fait", "graine": 65}
+{"texte": "Ma sœur Léa habite maintenant à Bordeaux avec son mari.", "apprendre": "fait", "graine": 67}
+{"texte": "I work as a nurse on night shifts at the hospital.", "apprendre": "fait", "graine": 67}
+{"texte": "J'ai acheté une trottinette électrique pour aller au bureau.", "apprendre": "fait", "graine": 67}
+{"texte": "Mon fils a commencé le piano en septembre, il adore ça.", "apprendre": "fait", "graine": 67}
+{"texte": "On se marie le 14 juin prochain à la mairie de Tours.", "apprendre": "fait", "graine": 67}
+{"texte": "Je viens d'adopter un chaton qui s'appelle Miso, il a trois mois.", "apprendre": "fait", "graine": 68}
+{"texte": "Mon médecin m'a prescrit des lunettes, je suis myope depuis l'enfance.", "apprendre": "fait", "graine": 68}
+{"texte": "J'ai un rendez-vous chez le dentiste mardi prochain à 14h30.", "apprendre": "fait", "graine": 68}
+{"texte": "Trabajo como enfermera en un hospital de Valencia desde hace dos años.", "apprendre": "fait", "graine": 68}
+{"texte": "Mon fils Léo commence le CP à la rentrée, à l'école près de chez nous.", "apprendre": "fait", "graine": 68}
+{"texte": "Je travaille comme infirmière de nuit à l'hôpital de Grenoble depuis 2019.", "apprendre": "fait", "graine": 66}
+{"texte": "Mon appart fait 42 mètres carrés au troisième étage, sans ascenseur.", "apprendre": "fait", "graine": 66}
+{"texte": "jsuis allergique aux arachides, ça m'a déjà envoyé aux urgences une fois", "apprendre": "fait", "graine": 66}
+{"texte": "My daughter Léa starts middle school in September and takes the bus alone.", "apprendre": "fait", "graine": 66}
+{"texte": "J'ai un rendez-vous chez le dentiste mardi prochain à 14h30 pour une couronne.", "apprendre": "fait", "graine": 66}
+{"texte": "Jarvis, retiens que je travaille de nuit à l'hôpital Saint-Rémi, donc ne me propose rien avant 14h.", "apprendre": "fait", "graine": 69}
+{"texte": "I live in Lyon with my sister Emma since last September.", "apprendre": "fait", "graine": 69}
+{"texte": "Mon fils Léo a 7 ans et il entre en CE1 à la rentrée.", "apprendre": "fait", "graine": 69}
+{"texte": "jsuis propriétaire d'un vélo électrique Trek depuis mars, au cas où pr les trajets", "apprendre": "fait", "graine": 69}
+{"texte": "Je dois prendre un train pour Bordeaux vendredi à 9h42 pour le mariage de mon cousin.", "apprendre": "fait", "graine": 69}
+{"texte": "Je suis infirmière de nuit à l'hôpital de Nantes depuis trois ans.", "apprendre": "fait", "graine": 70}
+{"texte": "My daughter Sofia just turned seven last week.", "apprendre": "fait", "graine": 70}
+{"texte": "J'ai un vieux Peugeot 208 bleu, il est garé devant chez moi.", "apprendre": "fait", "graine": 70}
+{"texte": "Mon prochain vol pour Lisbonne part vendredi à 7h40, j'dois être à l'aéroport super tôt.", "apprendre": "fait", "graine": 70}
+{"texte": "Je suis allergique aux arachides, ça peut être grave pour moi.", "apprendre": "fait", "graine": 70}
+{"texte": "Depuis mars, j'habite à Bordeaux avec ma grande sœur Inès.", "apprendre": "fait", "graine": 71}
+{"texte": "I'm a graphic designer and I work remotely from Lisbon.", "apprendre": "fait", "graine": 71}
+{"texte": "Mon fils Hugo a sept ans et il entre en CE1 en septembre.", "apprendre": "fait", "graine": 71}
+{"texte": "jsuis diabétique donc je dois surveiller mon sucre tt les jours", "apprendre": "fait", "graine": 71}
+{"texte": "J'habite à Montpellier depuis le printemps dernier, dans un studio près de la gare.", "apprendre": "fait", "graine": 72}
+{"texte": "my daughter Sofia starts kindergarten in September, she's four now", "apprendre": "fait", "graine": 72}
+{"texte": "Stp note que mon rdv chez le dentiste c'est mardi 14 à 9h30.", "apprendre": "fait", "graine": 72}
+{"texte": "Je mesure 1m82 et je suis allergique aux arachides, au cas où tu prépares une recette.", "apprendre": "fait", "graine": 72}
+{"texte": "Mon chien s'appelle Rio, c'est un golden de 3 ans qu'on a adopté l'an dernier.", "apprendre": "fait", "graine": 72}
+{"texte": "Jarvis, je bosse comme prof de maths au lycée de Nantes depuis 2019.", "apprendre": "fait", "graine": 73}
+{"texte": "Ma sœur Léa habite à deux rues de chez moi, à Lyon.", "apprendre": "fait", "graine": 73}
+{"texte": "I've been using a wheelchair since my accident last year, so I need step-free routes.", "apprendre": "fait", "graine": 73}
+{"texte": "Stp note que mon chien s'appelle Miso et qu'il a 4 ans.", "apprendre": "fait", "graine": 73}
+{"texte": "Je vis en colocation avec deux amis à Bordeaux depuis le mois dernier.", "apprendre": "fait", "graine": 73}
+{"texte": "J'ai emménagé à Nantes avec ma sœur le week-end dernier, on est juste à côté de la gare.", "apprendre": "fait", "graine": 74}
+{"texte": "jsuis développeur backend chez une petite startup depuis mars", "apprendre": "fait", "graine": 74}
+{"texte": "Mon rdv chez le dentiste c'est jeudi 14 à 10h30, tu pourras me le rappeler ?", "apprendre": "fait", "graine": 74}
+{"texte": "I bought a second-hand Peugeot 208 last week, it's my first car.", "apprendre": "fait", "graine": 74}
+{"texte": "Je suis allergique aux arachides, c'est assez sévère.", "apprendre": "fait", "graine": 74}
+{"texte": "Jarvis, rappelle-moi que mon permis expire le mois prochain, faudra que je le renouvelle avant le 28.", "apprendre": "fait", "graine": 76}
+{"texte": "On a adopté un petit chaton roux la semaine dernière, il s'appelle Miso.", "apprendre": "fait", "graine": 76}
+{"texte": "I'm starting my new job as a nurse on Monday, so my schedule's going to change completely.", "apprendre": "fait", "graine": 76}
+{"texte": "Tu peux noter que jsuis allergique aux arachides ? C'est important pour les recettes.", "apprendre": "fait", "graine": 76}
+{"texte": "Avec Lina on déménage à Nantes en septembre, on a enfin signé pour l'appart.", "apprendre": "fait", "graine": 76}
+{"texte": "Je viens d'emménager à Lyon, dans le 7e, près de la gare Jean Macé.", "apprendre": "fait", "graine": 77}
+{"texte": "Mon médecin m'a dit que j'étais allergique aux arachides, donc fais gaffe pour les recettes stp.", "apprendre": "fait", "graine": 77}
+{"texte": "I work as a freelance graphic designer, mostly for small startups.", "apprendre": "fait", "graine": 77}
+{"texte": "Mon chien s'appelle Néo, c'est un border collie de 3 ans qui a peur de l'orage.", "apprendre": "fait", "graine": 77}
+{"texte": "J'ai rendez-vous chez le dentiste mardi prochain à 14h30 pour un détartrage.", "apprendre": "fait", "graine": 77}
+{"texte": "Je viens d'emménager dans un deux-pièces à Nantes avec ma sœur Léa.", "apprendre": "fait", "graine": 75}
+{"texte": "jsuis en arrêt jusqu'à lundi, jme suis foulé la cheville au foot hier", "apprendre": "fait", "graine": 75}
+{"texte": "Mon fils Hugo commence le piano en septembre, il a super hâte.", "apprendre": "fait", "graine": 75}
+{"texte": "I just bought a second-hand iPad for my university classes.", "apprendre": "fait", "graine": 75}
+{"texte": "Je suis prof de maths au collège depuis trois ans, et cette année j'ai une classe de quatrième.", "apprendre": "fait", "graine": 75}
+{"texte": "Je suis prof de maths au collège Victor Hugo depuis trois ans.", "apprendre": "fait", "graine": 79}
+{"texte": "On a adopté un petit chat noir la semaine dernière, il s'appelle Miso.", "apprendre": "fait", "graine": 79}
+{"texte": "My office is in Berlin, but I work from home on Fridays.", "apprendre": "fait", "graine": 79}
+{"texte": "J'ai rendez-vous chez le dentiste jeudi prochain à 14h30 pour un détartrage.", "apprendre": "fait", "graine": 79}
+{"texte": "Ma fille Léa commence le piano en septembre, elle vient d'avoir 8 ans.", "apprendre": "fait", "graine": 79}
+{"texte": "Ma fille Lina commence le CP à Grenoble en septembre.", "apprendre": "fait", "graine": 78}
+{"texte": "J'ai un rendez-vous chez le dentiste jeudi prochain à 14h30.", "apprendre": "fait", "graine": 78}
+{"texte": "On vient d'adopter un chaton qui s'appelle Miso avec ma compagne.", "apprendre": "fait", "graine": 78}
+{"texte": "My office is based in Toronto, but I travel to Chicago twice a month for work.", "apprendre": "fait", "graine": 78}
+{"texte": "Je suis allergique aux arachides depuis que je suis gamin.", "apprendre": "fait", "graine": 78}
+{"texte": "J'ai déménagé à Bordeaux il y a trois mois, tu peux me trouver un coiffeur pas loin de chez moi ?", "apprendre": "fait", "graine": 80}
+{"texte": "Mon fils Léo entre en CP en septembre.", "apprendre": "fait", "graine": 80}
+{"texte": "Je bosse comme infirmière à l'hôpital Saint-Louis depuis 2021.", "apprendre": "fait", "graine": 80}
+{"texte": "j'ai un iphone 14 et le chargeur marche plus, faut que j'en rachète un", "apprendre": "fait", "graine": 80}
+{"texte": "I live in Montreal with my sister and our cat Miso.", "apprendre": "fait", "graine": 80}
+{"texte": "Je suis infirmière à Lyon et je travaille surtout de nuit en ce moment.", "apprendre": "fait", "graine": 82}
+{"texte": "Mon fils Hugo passe son permis de conduire mardi prochain, je stresse un peu pour lui.", "apprendre": "fait", "graine": 82}
+{"texte": "On a adopté un petit chaton roux la semaine dernière, il s'appelle Milo.", "apprendre": "fait", "graine": 82}
+{"texte": "I just started my new job as a graphic designer in a small studio in Berlin.", "apprendre": "fait", "graine": 82}
+{"texte": "Mon médecin m'a prescrit des lunettes, je dois aller les chercher jeudi après-midi.", "apprendre": "fait", "graine": 82}
+{"texte": "jsuis éducatrice spécialisée à Lille depuis 6 ans", "apprendre": "fait", "graine": 81}
+{"texte": "J'ai une fille de 9 ans, Lina, et un petit garçon qui vient d'entrer en maternelle.", "apprendre": "fait", "graine": 81}
+{"texte": "On habite dans un T3 près de la gare à Rennes avec mon copain Hugo.", "apprendre": "fait", "graine": 81}
+{"texte": "I live in Toronto now and I work as a graphic designer for a small studio.", "apprendre": "fait", "graine": 81}
+{"texte": "Je suis allergique aux arachides, c'est noté dans mon dossier médical.", "apprendre": "fait", "graine": 81}
+{"texte": "Je travaille comme infirmière de nuit dans un hôpital à Grenoble.", "apprendre": "fait", "graine": 83}
+{"texte": "My daughter Sofia starts her new school in Lyon next Monday.", "apprendre": "fait", "graine": 83}
+{"texte": "J'ai un vieux vélo électrique Peugeot que j'utilise pour aller au bureau.", "apprendre": "fait", "graine": 83}
+{"texte": "Mon rendez-vous chez le cardiologue est prévu le 18 juin à 10h30.", "apprendre": "fait", "graine": 83}
+{"texte": "jsuis allergique aux arachides, même en petites quantités", "apprendre": "fait", "graine": 83}
+{"texte": "Je vis à Bordeaux avec ma fille Lina depuis trois ans.", "apprendre": "fait", "graine": 84}
+{"texte": "My appointment with Dr. Renard is next Tuesday at 10am, could you remind me the day before?", "apprendre": "fait", "graine": 84}
+{"texte": "Je travaille comme infirmière de nuit à l'hôpital Saint-Luc.", "apprendre": "fait", "graine": 84}
+{"texte": "On a adopté un chat roux qui s'appelle Milo le mois dernier.", "apprendre": "fait", "graine": 84}
+{"texte": "jsuis en arrêt jusqu'à vendredi à cause de mon dos, tu peux décaler mes réunions stp", "apprendre": "fait", "graine": 84}
+{"texte": "J'suis allergique aux arachides depuis l'enfance, même en petites quantités ça me fait gonfler.", "apprendre": "fait", "graine": 85}
+{"texte": "On habite à Grenoble depuis mars avec ma copine Léa, juste à côté de la gare.", "apprendre": "fait", "graine": 85}
+{"texte": "Mi hija pequeña empieza el cole en septiembre, así que tendremos que madrugar más en casa.", "apprendre": "fait", "graine": 85}
+{"texte": "Je bosse comme infirmier de nuit à l'hôpital, mes horaires changent toutes les semaines.", "apprendre": "fait", "graine": 85}
+{"texte": "J'ai un rendez-vous chez le dentiste jeudi prochain à 14h30 pour une couronne.", "apprendre": "fait", "graine": 85}
+{"texte": "Moi c'est Inès, je vis à Bordeaux avec mon frère Hugo, tu peux me recommander un resto pas trop loin de chez nous pour samedi ?", "apprendre": "fait", "graine": 86}
+{"texte": "I'm a graphic designer in Toronto, can you help me draft a cover letter for a studio job?", "apprendre": "fait", "graine": 86}
+{"texte": "Jarvis, rappelle-moi que j'ai rendez-vous chez le dentiste jeudi à 10h, j'ai toujours peur d'oublier", "apprendre": "fait", "graine": 86}
+{"texte": "jsuis en terminale au lycée Montaigne, tu peux m'expliquer les dérivées stp ?", "apprendre": "fait", "graine": 86}
+{"texte": "J'ai acheté une Peugeot 208 l'an dernier et là le voyant moteur s'allume, ça peut être quoi à ton avis ?", "apprendre": "fait", "graine": 86}
+{"texte": "Je suis prof d'histoire au collège de Bordeaux, prépare-moi un quiz sur la Révolution pour mes 4e stp", "apprendre": "fait", "graine": 87}
+{"texte": "Can you remind me tomorrow at 8? I have a dentist appointment at 9:30 and I don't want to be late.", "apprendre": "fait", "graine": 87}
+{"texte": "Vu que j'ai un iPhone 13, c'est quoi la meilleure coque antichoc pas trop épaisse ?", "apprendre": "fait", "graine": 87}
+{"texte": "jsuis allergique aux arachides, tu peux me trouver une recette de gâteau au chocolat sans risque ?", "apprendre": "fait", "graine": 87}
+{"texte": "Avec mon déménagement à Nantes le mois prochain, aide-moi à faire une liste des démarches à ne pas oublier", "apprendre": "fait", "graine": 87}
+{"texte": "Je vis à Bordeaux depuis deux ans, dans un appartement près de la gare.", "apprendre": "fait", "graine": 89}
+{"texte": "Trabajo como enfermera en un hospital de Valencia desde 2019.", "apprendre": "fait", "graine": 89}
+{"texte": "Mon frère aîné, Karim, habite juste à côté de chez moi à Nantes.", "apprendre": "fait", "graine": 89}
+{"texte": "jsuis en arrêt jusqu'à vendredi, le médecin m'a prescrit du repos total", "apprendre": "fait", "graine": 89}
+{"texte": "J'ai un vol pour Montréal le 14 juin à 9h, je pars retrouver ma sœur.", "apprendre": "fait", "graine": 89}
+{"texte": "I work as a pediatric nurse at a clinic in Leeds.", "apprendre": "fait", "graine": 90}
+{"texte": "jsuis propriétaire d'un petit appartement à Nantes depuis deux ans.", "apprendre": "fait", "graine": 90}
+{"texte": "My daughter Sofia starts primary school this September.", "apprendre": "fait", "graine": 90}
+{"texte": "I've got a dentist appointment next Tuesday at 10am.", "apprendre": "fait", "graine": 90}
+{"texte": "We adopted a three-year-old rescue cat named Milo last month.", "apprendre": "fait", "graine": 90}
+{"texte": "I'm a pediatric nurse, I do night shifts at the children's hospital.", "apprendre": "fait", "graine": 88}
+{"texte": "We adopted a 2-year-old rescue beagle named Biscuit, he's living with us now.", "apprendre": "fait", "graine": 88}
+{"texte": "stpp note que jsuis allergique aux arachides, c'est important pour les recettes", "apprendre": "fait", "graine": 88}
+{"texte": "I have a dentist appointment next Tuesday at 3:40 pm, first check-up since my root canal.", "apprendre": "fait", "graine": 88}
+{"texte": "My main laptop is a 14-inch MacBook Pro and I keep all my photo archives on it.", "apprendre": "fait", "graine": 88}
+{"texte": "I'm starting a new job at a bakery in Lyon next Monday.", "apprendre": "fait", "graine": 91}
+{"texte": "My younger sister Léa just moved in with me for the semester.", "apprendre": "fait", "graine": 91}
+{"texte": "I drive a blue Peugeot 208 that I bought last spring.", "apprendre": "fait", "graine": 91}
+{"texte": "Tengo una cita con el dentista el viernes a las diez.", "apprendre": "fait", "graine": 91}
+{"texte": "We're expecting our second baby in November.", "apprendre": "fait", "graine": 91}
+{"texte": "Mon fils Léo entre en CP à l'école Victor-Hugo en septembre.", "apprendre": "fait", "graine": 94}
+{"texte": "I moved to Lyon last week for my new job as a nurse.", "apprendre": "fait", "graine": 94}
+{"texte": "On a adopté un chaton de trois mois, il s'appelle Miso.", "apprendre": "fait", "graine": 94}
+{"texte": "J'ai rdv chez le dentiste jeudi 14 à 10h30 pour un détartrage.", "apprendre": "fait", "graine": 94}
+{"texte": "Ma sœur Chloé se marie le 21 juin à Bordeaux, je serai son témoin.", "apprendre": "fait", "graine": 94}
+{"texte": "I just moved to Bristol last month with my sister.", "apprendre": "fait", "graine": 92}
+{"texte": "jsuis allergique aux arachides, faut que je fasse gaffe", "apprendre": "fait", "graine": 92}
+{"texte": "My dentist appointment is next Tuesday at 9am, can you remind me?", "apprendre": "fait", "graine": 92}
+{"texte": "I drive a blue Peugeot 208, licence plate's made up but yeah that's my car.", "apprendre": "fait", "graine": 92}
+{"texte": "We're expecting our second kid in October.", "apprendre": "fait", "graine": 92}
+{"texte": "Je suis infirmière à Lyon depuis trois ans, je bosse surtout de nuit.", "apprendre": "fait", "graine": 93}
+{"texte": "Mon anniversaire c'est le 12 mars, au cas où tu dois me le rappeler.", "apprendre": "fait", "graine": 93}
+{"texte": "I moved to Montreal last month and I'm still renting near the station.", "apprendre": "fait", "graine": 93}
+{"texte": "Ma fille Lina vient d'entrer en CP, elle a 6 ans.", "apprendre": "fait", "graine": 93}
+{"texte": "J'ai acheté un vélo électrique Decathlon la semaine dernière, il est bleu.", "apprendre": "fait", "graine": 93}
+{"texte": "je commence mon nouveau taf à la boulangerie de la gare mardi", "apprendre": "fait", "graine": 95}
+{"texte": "on a adopté un petit chat roux hier, il s'appelle Milo", "apprendre": "fait", "graine": 95}
+{"texte": "My sister Léa is moving in with me next month for her studies.", "apprendre": "fait", "graine": 95}
+{"texte": "jsuis en arrêt jusqu'à vendredi à cause de mon entorse", "apprendre": "fait", "graine": 95}
+{"texte": "j'ai rendez-vous chez le dentiste jeudi à 15h pour mon implant", "apprendre": "fait", "graine": 95}
+{"texte": "Je déménage à Lyon début septembre pour mon nouveau poste d'infirmière.", "apprendre": "fait", "graine": 96}
+{"texte": "My daughter Léa starts secondary school in Angers next week.", "apprendre": "fait", "graine": 96}
+{"texte": "J'ai un rendez-vous chez le dentiste mardi à 10h.", "apprendre": "fait", "graine": 96}
+{"texte": "Mon frère Hugo vit maintenant à Montréal avec sa compagne.", "apprendre": "fait", "graine": 96}
+{"texte": "Je me suis acheté un vélo électrique pour aller au travail.", "apprendre": "fait", "graine": 96}
+{"texte": "Mon fils Léo commence le CP en septembre à Lyon, tu pourras m'aider à préparer sa liste de fournitures ?", "apprendre": "fait", "graine": 97}
+{"texte": "I just started my new job as a nurse in Bordeaux last Monday.", "apprendre": "fait", "graine": 97}
+{"texte": "Jarvis, rappelle-moi que j'ai rendez-vous chez le dentiste jeudi à 14h30", "apprendre": "fait", "graine": 97}
+{"texte": "jsuis en arrêt jusqu'à vendredi à cause de mon entorse, préviens-moi si j'ai des mails urgents stp", "apprendre": "fait", "graine": 97}
+{"texte": "On a adopté un chaton roux la semaine dernière, il s'appelle Miso", "apprendre": "fait", "graine": 97}
+{"texte": "Je commence mon nouveau poste d'infirmière à l'hôpital de Nantes lundi prochain.", "apprendre": "fait", "graine": 98}
+{"texte": "My brother Lucas is getting married in Lisbon in September.", "apprendre": "fait", "graine": 98}
+{"texte": "jsuis propriétaire d'un appartement à Bordeaux depuis le mois dernier", "apprendre": "fait", "graine": 98}
+{"texte": "Mon fils Hugo passe son permis de conduire vendredi à 14h, croise les doigts pour lui stp.", "apprendre": "fait", "graine": 98}
+{"texte": "On vient d'adopter une chienne de 3 mois qui s'appelle Nala.", "apprendre": "fait", "graine": 98}
+{"texte": "My daughter Léa starts at a new school in Lyon next week.", "apprendre": "fait", "graine": 100}
+{"texte": "J'ai déménagé à Bordeaux le mois dernier, j'habite près de la gare.", "apprendre": "fait", "graine": 100}
+{"texte": "I've just bought a second-hand Peugeot 208 for my commute.", "apprendre": "fait", "graine": 100}
+{"texte": "My doctor diagnosed me with asthma when I was twelve.", "apprendre": "fait", "graine": 100}
+{"texte": "We adopted a black cat named Milo from the shelter yesterday.", "apprendre": "fait", "graine": 100}
+{"texte": "Mon frère Hugo habite à Bordeaux depuis deux ans, tu peux me trouver un train pour aller le voir le 14 ?", "apprendre": "fait", "graine": 99}
+{"texte": "jsuis en arrêt maladie jusqu'à vendredi prochain, préviens-moi si mon patron m'écrit stp", "apprendre": "fait", "graine": 99}
+{"texte": "My daughter Sofia starts piano lessons every Wednesday in September.", "apprendre": "fait", "graine": 99}
+{"texte": "On a adopté un chaton qui s'appelle Néo, il a trois mois et il est tigré.", "apprendre": "fait", "graine": 99}
+{"texte": "Je suis végétarienne depuis l'an dernier, pense à adapter la liste de courses pour dimanche.", "apprendre": "fait", "graine": 99}
+{"texte": "Petite correction : mon prénom c'est Théo, pas Léo, tu peux mettre à jour ?", "apprendre": "correction", "graine": 101}
+{"texte": "En fait je ne travaille plus à Lyon, mon bureau est à Nantes depuis lundi.", "apprendre": "correction", "graine": 101}
+{"texte": "Update: I don't live in Berlin anymore, I moved to Lisbon last month.", "apprendre": "correction", "graine": 101}
+{"texte": "jsuis plus végétarien mtn, j'ai recommencé la viande y'a 2 semaines", "apprendre": "correction", "graine": 101}
+{"texte": "Non pas le rendez-vous mardi, en fait c'est mercredi à 10h maintenant.", "apprendre": "correction", "graine": 101}
+{"texte": "Correction sur mon numéro : c'est le 01 99 42 17 83, plus l'ancien.", "apprendre": "correction", "graine": 101}
+{"texte": "Ah et je ne suis plus allergique aux arachides, l'allergologue vient de confirmer, enlève ça stp.", "apprendre": "correction", "graine": 101}
+{"texte": "En fait, annule le rappel fromage, c'est jeudi qu'on reçoit les beaux-parents, pas mercredi.", "apprendre": "correction", "graine": 102}
+{"texte": "Petit rectif : je ne suis plus végétarien, je remange du poisson depuis le mois dernier.", "apprendre": "correction", "graine": 102}
+{"texte": "Ah wait, actually it's not Lena who lives in Lyon anymore, she moved to Nantes.", "apprendre": "correction", "graine": 102}
+{"texte": "Non non, mon chat s'appelle Miso, pas Néo, je m'étais trompé la dernière fois.", "apprendre": "correction", "graine": 102}
+{"texte": "Mise à jour : je ne travaille plus à la médiathèque, j'ai commencé à l'école Montessori lundi.", "apprendre": "correction", "graine": 102}
+{"texte": "Finalement mon train part à 18h42, plus à 17h30, ils ont changé l'horaire.", "apprendre": "correction", "graine": 102}
+{"texte": "stp corrige, c pas le 12 mon anniv mais le 21, j'avais inversé", "apprendre": "correction", "graine": 102}
+{"texte": "En fait je n'habite plus à Lyon, j'ai déménagé à Nantes le mois dernier.", "apprendre": "correction", "graine": 103}
+{"texte": "Petit rectif : ce n'est plus Léa ma sœur qui m'aide pour les papiers, c'est mon frère Hugo.", "apprendre": "correction", "graine": 103}
+{"texte": "Jsuis plus végétarien mtn, j'ai recommencé à manger du poisson.", "apprendre": "correction", "graine": 103}
+{"texte": "Correction on my file: I don't work at the bakery anymore, I started at the pharmacy in March.", "apprendre": "correction", "graine": 103}
+{"texte": "Ah non, pas le mardi pour mon cours de piano, on a déplacé au jeudi soir en fait.", "apprendre": "correction", "graine": 103}
+{"texte": "Ce n'est plus le 01 99 42 18 07 mon numéro, maintenant c'est le 01 99 87 03 54.", "apprendre": "correction", "graine": 103}
+{"texte": "En fait mon chat ne s'appelle pas Milo mais Miso, je m'étais trompé la dernière fois.", "apprendre": "correction", "graine": 103}
+{"texte": "En fait je déménage pas à Bordeaux, c'est Nantes finalement, on a signé hier", "apprendre": "correction", "graine": 104}
+{"texte": "Non non, mon rdv dentiste c'est jeudi à 15h, pas mercredi, jme suis planté", "apprendre": "correction", "graine": 104}
+{"texte": "Update: I'm not allergic to peanuts anymore, it was sesame actually", "apprendre": "correction", "graine": 104}
+{"texte": "Oublie ce que je t'ai dit, mon code de coffre c'est plus 4821, mtn c'est 7390", "apprendre": "correction", "graine": 104}
+{"texte": "Petite correction : elle s'appelle pas Léonie ma fille, c'est Léontine", "apprendre": "correction", "graine": 104}
+{"texte": "Actually wait, my flight leaves at 06:40 not 08:15, can you fix the alarm please?", "apprendre": "correction", "graine": 104}
+{"texte": "Je t'avais dit que je bossais le samedi mais en vrai j'ai changé, c'est le dimanche maintenant", "apprendre": "correction", "graine": 104}
+{"texte": "Rectification : je ne travaille plus à Lyon, je suis à Grenoble depuis mars.", "apprendre": "correction", "graine": 105}
+{"texte": "enfaite oublie mon ancien numéro, mtn c'est le 01 99 84 12 07", "apprendre": "correction", "graine": 105}
+{"texte": "Update: I no longer live in Toronto, I moved to Vancouver last month.", "apprendre": "correction", "graine": 105}
+{"texte": "Petite mise à jour, je ne suis plus végétarienne, je remange du poisson.", "apprendre": "correction", "graine": 105}
+{"texte": "Ce n'est plus Mia ma sœur qui m'aide pour les impôts, c'est Noa maintenant.", "apprendre": "correction", "graine": 105}
+{"texte": "Jarvis, corrige : ce n'est pas le 12 mais le 19 que j'ai mon RDV chez le dentiste.", "apprendre": "correction", "graine": 105}
+{"texte": "Ya no uso el coche rojo, lo vendí y ahora tengo una bici eléctrica.", "apprendre": "correction", "graine": 105}
+{"texte": "En fait, j'ai déménagé à Lyon, plus à Grenoble, mets à jour mon adresse.", "apprendre": "correction", "graine": 106}
+{"texte": "Petite rectif : mon vol part mardi, pas lundi, tu peux changer le rappel stp ?", "apprendre": "correction", "graine": 106}
+{"texte": "Update: my train leaves at 9 instead of 8, can you fix the alarm?", "apprendre": "correction", "graine": 106}
+{"texte": "Ah non pardon, le rendez-vous chez le dentiste c'est le 14, j'avais dit le 15 par erreur.", "apprendre": "correction", "graine": 106}
+{"texte": "rectification, c plus Léa qui vient samedi, c'est Inès", "apprendre": "correction", "graine": 106}
+{"texte": "En fait je ne travaille plus chez Capgemini, je suis chez BlaBlaCar depuis mars.", "apprendre": "correction", "graine": 106}
+{"texte": "Non attends, annule ce que je t'ai dit : mon chien pèse 12 kilos maintenant, pas 10.", "apprendre": "correction", "graine": 106}
+{"texte": "En fait je ne pars plus jeudi pour Lyon, on a décalé le voyage à lundi prochain.", "apprendre": "correction", "graine": 107}
+{"texte": "Petite mise à jour Jarvis : mon numéro c'est plus le 01 99 42 18 07, maintenant c'est le 01 99 58 30 12.", "apprendre": "correction", "graine": 107}
+{"texte": "I moved last week actually, I'm not in Bordeaux anymore, I'm in Nantes now.", "apprendre": "correction", "graine": 107}
+{"texte": "Correction sur ce que je t'ai dit hier : c'est pas Léa ma sœur, c'est ma cousine.", "apprendre": "correction", "graine": 107}
+{"texte": "stp note que j'ai plus la Clio, je l'ai vendue, mtn j'ai une 208.", "apprendre": "correction", "graine": 107}
+{"texte": "Finalement je ne suis plus végétarien, j'ai recommencé à manger du poisson depuis mars.", "apprendre": "correction", "graine": 107}
+{"texte": "Ah non en fait mon rdv dentiste c'est pas à 10h mais à 11h30 demain.", "apprendre": "correction", "graine": 107}
+{"texte": "en fait annule le rdv chez le dentiste mardi, c'est décalé à jeudi aprem", "apprendre": "correction", "graine": 108}
+{"texte": "I moved last month btw, I'm not in Lyon anymore, I'm in Nantes now", "apprendre": "correction", "graine": 108}
+{"texte": "oublie mon ancien numéro, mtn c'est le 01 99 48 22 07", "apprendre": "correction", "graine": 108}
+{"texte": "correction sur mon CV : pas 3 ans d'expérience en Python mais 5, tu peux mettre à jour stp", "apprendre": "correction", "graine": 108}
+{"texte": "ah nn je me suis trompé, mon chat s'appelle Miso pas Milo", "apprendre": "correction", "graine": 108}
+{"texte": "finalement je pars plus le 12 pour Lisbonne, je pars le 15", "apprendre": "correction", "graine": 108}
+{"texte": "petit update Jarvis : je suis plus végétarienne, je remange du poisson depuis peu", "apprendre": "correction", "graine": 108}
+{"texte": "En fait je me suis trompé, mon rendez-vous chez le dentiste c'est jeudi et pas mardi.", "apprendre": "correction", "graine": 109}
+{"texte": "Petit rectificatif : je n'habite plus à Lyon, on a déménagé à Nantes le mois dernier.", "apprendre": "correction", "graine": 109}
+{"texte": "oublie ce que je t'ai dit, je prends finalement le train de 8h12, pas celui de 7h40", "apprendre": "correction", "graine": 109}
+{"texte": "Correction pour la liste de courses : pas de lait d'amande, mets du lait d'avoine à la place.", "apprendre": "correction", "graine": 109}
+{"texte": "Actually, update: my sister's name is Clara, not Carla — I mixed it up earlier.", "apprendre": "correction", "graine": 109}
+{"texte": "Je corrige : ce n'est plus marc.dupont@exemple.fr mon adresse, maintenant c'est marc.d@exemple.fr.", "apprendre": "correction", "graine": 109}
+{"texte": "Ah non en fait annule le rappel pour demain, l'anniversaire de Léo a été décalé à samedi.", "apprendre": "correction", "graine": 109}
+{"texte": "En fait j'habite plus à Bordeaux, j'ai déménagé à Namur le mois passé.", "apprendre": "correction", "graine": 110}
+{"texte": "Petit rectif Jarvis : mon rdv dentiste c'est plus jeudi mais vendredi à 14h30.", "apprendre": "correction", "graine": 110}
+{"texte": "I don't use the blue keyboard anymore, I switched to a split one last week.", "apprendre": "correction", "graine": 110}
+{"texte": "Non pas Léo pour le cadeau, c'est Maël maintenant, je m'étais trompé de prénom.", "apprendre": "correction", "graine": 110}
+{"texte": "Update : je suis plus végétarien depuis mars, tu peux me proposer du poulet.", "apprendre": "correction", "graine": 110}
+{"texte": "oublie mon ancien numéro pro stp, le nouveau c 01 99 62 47 18", "apprendre": "correction", "graine": 110}
+{"texte": "Je corrige : je repars pas le 8 août mais le 11, modifie ton rappel.", "apprendre": "correction", "graine": 110}
+{"texte": "En fait j'ai arrêté le piano, je m'y remettrai sûrement pas avant l'an prochain.", "apprendre": "correction", "graine": 112}
+{"texte": "Petit rectif : mon rdv dentiste c'est plus jeudi, c'est décalé à vendredi 10h.", "apprendre": "correction", "graine": 112}
+{"texte": "je bosse plus chez Capgemini mtn, j'ai changé pour une boite à Bordeaux", "apprendre": "correction", "graine": 112}
+{"texte": "Actually, I don't live in Paris anymore — I moved to Lille last month.", "apprendre": "correction", "graine": 112}
+{"texte": "Non pas le 12 pour l'anniv de Léa, je me suis trompé, c'est le 21.", "apprendre": "correction", "graine": 112}
+{"texte": "MàJ : je suis plus végétarien, je remange du poisson depuis cet été.", "apprendre": "correction", "graine": 112}
+{"texte": "Forget what I said about my brother Hugo — he's not in Spain now, he came back to live in Marseille.", "apprendre": "correction", "graine": 112}
+{"texte": "Stp corrige ta note : mon chien s'appelle Rio, pas Milo, jme suis trompé l'autre fois", "apprendre": "correction", "graine": 113}
+{"texte": "En fait j'habite plus à Bordeaux, j'ai déménagé à Nantes le mois dernier donc mets ça à jour", "apprendre": "correction", "graine": 113}
+{"texte": "Petite correction Jarvis, mon anniversaire c'est le 14 mars, pas le 14 mai comme tu l'avais retenu", "apprendre": "correction", "graine": 113}
+{"texte": "Actually, update that: my sister's name is Clara, not Sarah — I gave you the wrong one before", "apprendre": "correction", "graine": 113}
+{"texte": "Non non, annule ce que je t'ai dit, mon vol part à 19h40 et non à 18h40", "apprendre": "correction", "graine": 113}
+{"texte": "Ahora vivo en Valencia, ya no en Madrid, corrige tu nota porfa", "apprendre": "correction", "graine": 113}
+{"texte": "Tu peux rectifier ? Je suis végétarien maintenant, je mange plus de viande depuis janvier", "apprendre": "correction", "graine": 113}
+{"texte": "Rectification Jarvis : ma réunion avec M. Aubert est mardi, pas lundi.", "apprendre": "correction", "graine": 111}
+{"texte": "non jme suis trompé, le vol part à 19h30, pas à 18h", "apprendre": "correction", "graine": 111}
+{"texte": "Update: my sister's name is Sofia, not Sophia, can you fix that?", "apprendre": "correction", "graine": 111}
+{"texte": "En fait, je ne suis plus végétarien depuis le mois dernier, mets à jour mon profil stp.", "apprendre": "correction", "graine": 111}
+{"texte": "Petit correctif : mon nouveau code postal c'est 44000, plus 69007.", "apprendre": "correction", "graine": 111}
+{"texte": "J'ai dit appartement 3B mais c'est 3C en fait, corrige l'adresse de livraison.", "apprendre": "correction", "graine": 111}
+{"texte": "Pas le rapport de mars, celui d'avril — je m'étais trompé de fichier, désolé.", "apprendre": "correction", "graine": 111}
+{"texte": "Ah non en fait c'est pas mardi qu'on part, on a décalé à jeudi.", "apprendre": "correction", "graine": 114}
+{"texte": "Petite rectif : je m'appelle pas Lucas, c'est Léo, je t'avais donné le mauvais prénom.", "apprendre": "correction", "graine": 114}
+{"texte": "Actually, I don't live in Lyon anymore, I moved to Nantes last month.", "apprendre": "correction", "graine": 114}
+{"texte": "J'ai plus mon ancienne voiture, je suis passé à une Clio électrique depuis la semaine dernière.", "apprendre": "correction", "graine": 114}
+{"texte": "Non non, annule ce que je t'ai dit, la réunion c'est à 15h pas à 14h.", "apprendre": "correction", "graine": 114}
+{"texte": "En fait j'aime plus le café le matin, jsuis passé au thé vert mtn.", "apprendre": "correction", "graine": 114}
+{"texte": "stp corrige dans mes infos : c'est plus au 12 rue des Fleurs qu'on habite, c'est au 27 maintenant.", "apprendre": "correction", "graine": 114}
+{"texte": "En fait Jarvis, on déménage à Lyon en septembre, pas à Bordeaux comme je t'avais dit.", "apprendre": "correction", "graine": 115}
+{"texte": "Petit changement : mon chien s'appelle plus Rex, on l'a renommé Milo après l'adoption.", "apprendre": "correction", "graine": 115}
+{"texte": "Actually, forget Tuesday — my driving lesson is now on Thursday afternoons.", "apprendre": "correction", "graine": 115}
+{"texte": "stp mets à jour : jsuis plus végétarien mtn, je remange du poisson", "apprendre": "correction", "graine": 115}
+{"texte": "Correction sur mon adresse : j'habite au 12 rue des Pins, plus au 8 rue des Roses.", "apprendre": "correction", "graine": 115}
+{"texte": "En fait mon nouveau numéro c'est le 01 99 45 21 87, l'ancien ne marche plus.", "apprendre": "correction", "graine": 115}
+{"texte": "Pour info, je ne travaille plus chez Martin Conseil, j'ai changé d'entreprise le mois dernier.", "apprendre": "correction", "graine": 115}
+{"texte": "En fait j'habite plus à Lyon, on a déménagé à Annecy le mois dernier.", "apprendre": "correction", "graine": 116}
+{"texte": "Petite correction : c'est pas le mardi mon cours de boxe, c'est le jeudi soir.", "apprendre": "correction", "graine": 116}
+{"texte": "Actually, I don't work at the bakery anymore, I started at the florist last week.", "apprendre": "correction", "graine": 116}
+{"texte": "Mets à jour stp : mon numero c'est plus le 01 99 44 12 08, c'est le 01 99 87 30 51 mtn.", "apprendre": "correction", "graine": 116}
+{"texte": "J'avais dit que j'étais allergique aux noisettes, en vrai c'est aux amandes.", "apprendre": "correction", "graine": 116}
+{"texte": "Mon chien s'appelle pas Rocky finalement, on a choisi Rio.", "apprendre": "correction", "graine": 116}
+{"texte": "Avant je courais le matin, maintenant je préfère y aller après le travail, change ça dans mes habitudes.", "apprendre": "correction", "graine": 116}
+{"texte": "Ah mince, rectification : mon rdv dentiste c'est jeudi à 15h, pas mercredi à 10h.", "apprendre": "correction", "graine": 117}
+{"texte": "En fait mon chat s'appelle Miso, je t'avais dit Nori avant, je corrige.", "apprendre": "correction", "graine": 117}
+{"texte": "Update: I now live in Lyon, not in Marseille anymore.", "apprendre": "correction", "graine": 117}
+{"texte": "Petite erreur de ma part, mon code postal c'est 44000, plus le 44200 comme je t'avais donné.", "apprendre": "correction", "graine": 117}
+{"texte": "stpp oublie le numéro en 06 99 12 que je t'avais filé, mtn c'est celui en 07 99 45", "apprendre": "correction", "graine": 117}
+{"texte": "Nein, Korrektur: Ich arbeite jetzt bei der Post, nicht mehr im Callcenter.", "apprendre": "correction", "graine": 117}
+{"texte": "Pardon, je dis n'importe quoi, ma sœur s'appelle Léa et pas Zoé, j'avais mélangé.", "apprendre": "correction", "graine": 117}
+{"texte": "En fait je ne travaille plus à Lyon, on a déménagé à Nantes avec Clara le mois dernier.", "apprendre": "correction", "graine": 118}
+{"texte": "Petit rectificatif : ce n'est pas le 12 mais le 19 mars qu'on fête l'anniversaire de mon père.", "apprendre": "correction", "graine": 118}
+{"texte": "Finalement, plus besoin de m'appeler Léo au boulot, reprends mon prénom complet, Léopold.", "apprendre": "correction", "graine": 118}
+{"texte": "Actually, I don't live in Berlin anymore — I moved to Amsterdam in January.", "apprendre": "correction", "graine": 118}
+{"texte": "Ah non pardon, ma voiture c'est pas une Clio, c'est une Captur grise.", "apprendre": "correction", "graine": 118}
+{"texte": "Mise à jour : j'ai arrêté les cours de piano, je me suis mis à la guitare depuis septembre.", "apprendre": "correction", "graine": 118}
+{"texte": "En vrai mon allergie c'est pas aux arachides, c'est aux noisettes, note la correction stp.", "apprendre": "correction", "graine": 118}
+{"texte": "Attends, je me suis trompé, c'est pas mardi que je pars à Lyon, c'est jeudi.", "apprendre": "correction", "graine": 119}
+{"texte": "Ah pardon, correction : c'est mon frère qui est allergique au gluten, pas moi.", "apprendre": "correction", "graine": 119}
+{"texte": "Euh en fait retiens plus l'adresse de Bordeaux, on a déménagé à Nantes le mois dernier.", "apprendre": "correction", "graine": 119}
+{"texte": "No wait, I don't live in Bristol anymore, I moved to Bath last week.", "apprendre": "correction", "graine": 119}
+{"texte": "Petite rectif, jsuis pas freelance mtn, j'ai signé un CDI y'a deux jours.", "apprendre": "correction", "graine": 119}
+{"texte": "Non non, elle s'appelle pas Léa ma fille, c'est Léo, son frère s'appelle Léa... enfin inverse.", "apprendre": "correction", "graine": 119}
+{"texte": "Update : mon numéro c'est plus le 01 99 42 18 07, c'est le 01 99 85 30 12 désormais.", "apprendre": "correction", "graine": 119}
+{"texte": "En fait je ne travaille plus du tout le vendredi, annule tout ce que je t'avais dit sur mon jour de repos.", "apprendre": "correction", "graine": 120}
+{"texte": "Petit changement : mon mot de passe du coffre, ce n'est plus soleil42, c'est lune87 maintenant.", "apprendre": "correction", "graine": 120}
+{"texte": "I no longer live in Marseille, I moved to Nantes last month so update my address.", "apprendre": "correction", "graine": 120}
+{"texte": "Correction sur le mariage de ma sœur, c'est le 18 mai et pas le 11 comme je te l'avais annoncé.", "apprendre": "correction", "graine": 120}
+{"texte": "On ne prend plus l'avion pour le Japon, on a décidé de partir en train en Italie à la place.", "apprendre": "correction", "graine": 120}
+{"texte": "Finalement ne m'appelle plus Alex, je préfère qu'on utilise mon vrai prénom, Alexandre.", "apprendre": "correction", "graine": 120}
+{"texte": "stpp oublie mon ancien numéro pro, mtn c'est le 01 99 42 17 30", "apprendre": "correction", "graine": 120}
+{"texte": "en fait annule le dentiste de jeudi, il est déplacé à vendredi 10h", "apprendre": "correction", "graine": 121}
+{"texte": "no es el martes, mi vuelo sale el miércoles por la mañana, apúntalo bien", "apprendre": "correction", "graine": 121}
+{"texte": "Jarvis, je t'avais dit Lyon mais finalement on déménage à Nantes en septembre", "apprendre": "correction", "graine": 121}
+{"texte": "petite correction : ma sœur s'appelle Inès, pas Ines avec un accent grave sur le e", "apprendre": "correction", "graine": 121}
+{"texte": "j'habite plus au 8 rue des Lilas stp, mets à jour avec le 21 avenue Foch", "apprendre": "correction", "graine": 121}
+{"texte": "au final je prends pas le train de 7h42, réserve plutôt celui de 9h05", "apprendre": "correction", "graine": 121}
+{"texte": "update: my meeting with Karim is not at 3pm anymore, it's at 4:30pm now", "apprendre": "correction", "graine": 121}
+{"texte": "En fait mon rdv chez le dentiste c'est plus jeudi, ça a été décalé à vendredi 14h.", "apprendre": "correction", "graine": 122}
+{"texte": "Petit correctif Jarvis : je ne travaille plus chez Capgemini, j'ai changé pour une boîte à Nantes le mois dernier.", "apprendre": "correction", "graine": 122}
+{"texte": "oublie ce que je t'ai dit, mon code de valise c'est pas 4821 mais 7390 mtn", "apprendre": "correction", "graine": 122}
+{"texte": "Update: my dog is not 3 years old anymore, he turned 4 last week, can you fix his profile?", "apprendre": "correction", "graine": 122}
+{"texte": "Non pas Lyon pour les vacances finalement, on part à Annecy, annule l'ancien itinéraire stp.", "apprendre": "correction", "graine": 122}
+{"texte": "Je te corrige : mon fils s'appelle plus Théo dans ses papiers, c'est Léo maintenant, on a finalisé le changement.", "apprendre": "correction", "graine": 122}
+{"texte": "Ah et au fait je suis plus végétarien depuis janvier, tu peux mettre à jour mes prefs resto.", "apprendre": "correction", "graine": 122}
+{"texte": "Correction — my flight lands at 6:40 pm, not 5:40.", "apprendre": "correction", "graine": 123}
+{"texte": "actually forget the blue jacket, I packed the black one instead", "apprendre": "correction", "graine": 123}
+{"texte": "Update: we're now meeting Sofia on Thursday, the Wednesday thing is cancelled.", "apprendre": "correction", "graine": 123}
+{"texte": "No wait, my new number is 01 99 42 17 08, the other one doesn't work anymore.", "apprendre": "correction", "graine": 123}
+{"texte": "I said vegetarian but actually I'm vegan now, pls adjust the shopping list.", "apprendre": "correction", "graine": 123}
+{"texte": "En fait j'ai déménagé à Lyon le mois dernier, plus à Marseille.", "apprendre": "correction", "graine": 123}
+{"texte": "Small fix: the deadline moved, it's due next Monday now, not tomorrow.", "apprendre": "correction", "graine": 123}
+{"texte": "Actually scratch that, my flight lands at 6:40 on Thursday, not 5:40.", "apprendre": "correction", "graine": 124}
+{"texte": "I moved to Lyon last month, so don't use my old Paris address for deliveries anymore.", "apprendre": "correction", "graine": 124}
+{"texte": "Perdón, mi cumpleaños es el 12 de marzo, no el 21.", "apprendre": "correction", "graine": 124}
+{"texte": "Wait, I said the meeting was with Marco, but it's actually with Matteo tomorrow.", "apprendre": "correction", "graine": 124}
+{"texte": "Heads up Jarvis, I no longer work at the bakery — I started at the bookstore in June.", "apprendre": "correction", "graine": 124}
+{"texte": "Correction on that list: we need oat milk, not almond milk, we're out.", "apprendre": "correction", "graine": 124}
+{"texte": "My sister's called Léa now btw, she changed her name from Anna last year.", "apprendre": "correction", "graine": 124}
+{"texte": "Actually scratch that, my meeting with Leo is on Thursday, not Wednesday.", "apprendre": "correction", "graine": 125}
+{"texte": "Petit changement : j'habite plus à Lyon en fait, je me suis installée à Bordeaux le mois dernier.", "apprendre": "correction", "graine": 125}
+{"texte": "I don't go by Leo anymore, please call me Leon now.", "apprendre": "correction", "graine": 125}
+{"texte": "Update: I'm no longer vegetarian, I started eating fish again.", "apprendre": "correction", "graine": 125}
+{"texte": "Correction, my new number is 01 99 45 21 87, the old one doesn't work anymore.", "apprendre": "correction", "graine": 125}
+{"texte": "My bad, the car is a Peugeot, not a Renault — I mixed them up.", "apprendre": "correction", "graine": 125}
+{"texte": "En fait je ne travaille plus chez Nova, j'ai démissionné et je suis freelance maintenant.", "apprendre": "correction", "graine": 125}
+{"texte": "En fait je ne travaille plus chez Delcourt, j'ai démissionné en mars.", "apprendre": "correction", "graine": 126}
+{"texte": "Petit rectif : ce n'est plus Léa ma coloc, c'est Inès depuis le mois dernier.", "apprendre": "correction", "graine": 126}
+{"texte": "Update: I sold my old Renault, don't list it as my car anymore.", "apprendre": "correction", "graine": 126}
+{"texte": "Non attends, mon allergie c'est pas aux noisettes, c'est aux amandes.", "apprendre": "correction", "graine": 126}
+{"texte": "J'ai déménagé en fait, j'habite plus à Bordeaux mais à Nantes maintenant.", "apprendre": "correction", "graine": 126}
+{"texte": "stpp corrige : mon numéro c'est plus le 01 99 12 44 08, c'est le 01 99 87 20 51 mtn", "apprendre": "correction", "graine": 126}
+{"texte": "Antes vivía en Valencia, pero ya no, me mudé a Sevilla en enero.", "apprendre": "correction", "graine": 126}
+{"texte": "Actually scratch that, my flight lands on Friday, not Thursday.", "apprendre": "correction", "graine": 127}
+{"texte": "Petit correctif : j'habite maintenant à Lyon, plus à Lille.", "apprendre": "correction", "graine": 127}
+{"texte": "No wait, use my work email for everything, not the personal one I gave you before.", "apprendre": "correction", "graine": 127}
+{"texte": "I said two tickets, but make it three instead please", "apprendre": "correction", "graine": 127}
+{"texte": "Update: my daughter's name is spelled Léa with an accent, not Lea.", "apprendre": "correction", "graine": 127}
+{"texte": "Forget what I told you yesterday, I'm allergic to peanuts, not almonds.", "apprendre": "correction", "graine": 127}
+{"texte": "btw im not vegetarian anymore, stopped last month", "apprendre": "correction", "graine": 127}
+{"texte": "Actually I moved to Berlin last month, so update my home address please", "apprendre": "correction", "graine": 128}
+{"texte": "Forget what I said before — my meeting with Lena is on Thursday, not Wednesday", "apprendre": "correction", "graine": 128}
+{"texte": "Ya no vivo en Madrid, me mudé a Valencia la semana pasada", "apprendre": "correction", "graine": 128}
+{"texte": "Small correction Jarvis: my new number is 01 99 42 87 15, the old one doesn't work anymore", "apprendre": "correction", "graine": 128}
+{"texte": "I don't eat meat anymore, I went vegetarian in January", "apprendre": "correction", "graine": 128}
+{"texte": "Wait, it's not Emma who’s coming for dinner, it’s her sister Chloe", "apprendre": "correction", "graine": 128}
+{"texte": "Change of plan, I now work from home on Fridays instead of Mondays", "apprendre": "correction", "graine": 128}
