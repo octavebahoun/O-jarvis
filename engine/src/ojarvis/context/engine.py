@@ -22,6 +22,7 @@ from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryHit, MemoryRecord, MemoryStore
 from ojarvis.systeme1.decideurs import Systeme1
 from ojarvis.systeme1.doutes import Attente, consignes, examiner
+from ojarvis.systeme1.rappel import Rappel, rappel
 
 #: Seuil de pertinence par modèle de sens, pour les extensions qui le lisent ici (O-jarvis
 #: Shell) ; la source est `ojarvis.memory.calibration`.
@@ -241,9 +242,12 @@ class ContextEngine:
         question_tokens = estimate_tokens(user_text)
         remaining = max(total - base.tokens - question_tokens, 0)
 
-        memory_items = await self._memory_section(user_text, channel)
+        quoi = await self._rappel(user_text)
+        memory_items, found = await self._memory_section(user_text, channel, sur_toi=quoi.sur_toi)
         memory_used = _select(memory_items, int(remaining * MEMORY_SHARE))
-        recall_items = await self._recall_section(user_text, conversation_id)
+        recall_items = []
+        if quoi.bibliotheque or (quoi.secours and not found):
+            recall_items = await self._recall_section(user_text, conversation_id)
         recall_used = _select(recall_items, int(remaining * RECALL_SHARE))
         history_items, history_used = self._history_section(
             history, remaining - memory_used - recall_used
@@ -267,6 +271,12 @@ class ContextEngine:
             memory_ids=[int(i.ref) for i in kept_memory if i.ref],
         )
 
+    async def _rappel(self, user_text: str) -> Rappel:
+        """Ce que le Système 1 juge utile d'envoyer ; sans lui, tout, comme avant."""
+        if self.systeme1 is None or not self.systeme1.actif:
+            return Rappel()
+        return rappel(await self.systeme1.lire(user_text))
+
     async def _doutes(self, conversation_id: str, user_text: str) -> list[str]:
         """Le Système 1 : un doute sur un souvenir, ou sur ce que dit l'utilisateur, se lève
         en posant la question dans la réponse ; une seule question attendue à la fois."""
@@ -279,23 +289,35 @@ class ContextEngine:
             self.attentes[conversation_id] = Attente(doute.souvenir)
         return consignes(doute, poser=poser)
 
-    async def _memory_section(self, user_text: str, channel: str) -> list[ContextItem]:
+    async def _memory_section(
+        self, user_text: str, channel: str, *, sur_toi: bool = True
+    ) -> tuple[list[ContextItem], bool]:
         """Profil (toujours candidat), la carte de la machine en mode shell ou quand la
-        question parle du PC, puis souvenirs trouvés par le sens ou les mots.
+        question parle du PC, puis souvenirs trouvés par le sens ou les mots. Rend aussi si
+        la recherche a trouvé un souvenir pertinent.
 
         Un souvenir personnel (santé, argent, adresse…) n'est jamais candidat d'office, sauf
-        épinglé : seulement quand la recherche le trouve pertinent pour la question."""
+        épinglé : seulement quand la recherche le trouve pertinent pour la question. Quand la
+        réponse ne dépend pas de l'utilisateur (`sur_toi` faux), seul ce qu'il a épinglé part,
+        et la carte de la machine en mode shell."""
         found: dict[int, ContextItem] = {}
         for profile in await self._memory.items(kind="profil", limit=12):
-            if profile.personnel and not profile.pinned:
+            if (profile.personnel or not sur_toi) and not profile.pinned:
                 continue
             found[profile.id] = self._memory_item(profile, 1.0 + (0.1 if profile.pinned else 0))
-        if channel == "shell" or ABOUT_THE_MACHINE.search(user_text):
+        if channel == "shell" or (sur_toi and ABOUT_THE_MACHINE.search(user_text)):
             # De quoi répondre à « mon PC rame » sans tout remesurer.
             for record in await self._memory.items(kind="machine", limit=12):
                 found[record.id] = self._memory_item(record, 1.0)
+        if not sur_toi:
+            return list(found.values()), False
+        searched = False
         for hit in await self._memory.search(user_text, k=12):
-            if hit.record.id in found or hit.record.kind == "impasse":
+            if hit.record.id in found:
+                # Déjà là (le profil) : la mémoire a tout de même trouvé de quoi répondre.
+                searched = searched or hit.via != "sens" or hit.score >= self._floor
+                continue
+            if hit.record.kind == "impasse":
                 continue  # une impasse est consultée au bon moment, jamais injectée d'office
             item = self._memory_item(hit.record, hit.score)
             if hit.via == "sens" and hit.score < self._floor:
@@ -303,13 +325,14 @@ class ContextEngine:
             elif hit.record.personnel and (hit.via == "mots" or hit.score < self._floor):
                 # Un mot en commun (« pour », « mon ») ne suffit pas à parler de sa santé.
                 item.reason = "personnel, hors de la question"
+            searched = searched or not item.reason
             found[hit.record.id] = item
         items = list(found.values())
         if self._graph is not None:
             # Les personnes et projets cités dans la question, avec ce qui les relie.
             for line in await self._graph.about(user_text):
                 items.append(ContextItem("graphe", None, line, 0.9, estimate_tokens(line) + 3))
-        return items
+        return items, searched
 
     async def _recall_section(self, user_text: str, conversation_id: str) -> list[ContextItem]:
         """Échanges d'autres conversations, retrouvés par le sens."""
