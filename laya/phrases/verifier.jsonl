@@ -1,0 +1,40 @@
+{"texte": "Envoie ce mail à Paul.", "verifier": "oui"}
+{"texte": "Supprime le fichier brouillon.txt.", "verifier": "oui"}
+{"texte": "Installe Docker sur mon PC.", "verifier": "oui"}
+{"texte": "Lance les tests du projet.", "verifier": "oui"}
+{"texte": "Déplace mes photos dans le dossier Vacances.", "verifier": "oui"}
+{"texte": "Décale ma réunion de mardi à mercredi.", "verifier": "oui"}
+{"texte": "Sauvegarde mes documents sur le disque externe.", "verifier": "oui"}
+{"texte": "Mets à jour mon système.", "verifier": "oui"}
+{"texte": "Déploie le site en production.", "verifier": "oui"}
+{"texte": "Programme un rappel demain à 8 h.", "verifier": "oui"}
+{"texte": "Désinstalle Spotify.", "verifier": "oui"}
+{"texte": "Vide la corbeille.", "verifier": "oui"}
+{"texte": "Renomme tous les fichiers du dossier avec la date.", "verifier": "oui"}
+{"texte": "jveux que tu crees un dossier projets sur le bureau", "verifier": "oui"}
+{"texte": "Réponds à Sarah que je serai en retard.", "verifier": "oui"}
+{"texte": "Compile le projet et dis-moi si ça passe.", "verifier": "oui"}
+{"texte": "Send this message to my team.", "verifier": "oui"}
+{"texte": "Install Node on my laptop.", "verifier": "oui"}
+{"texte": "Back up my photos to the cloud.", "verifier": "oui"}
+{"texte": "Delete the file draft.txt.", "verifier": "oui"}
+{"texte": "Salut, ça va ?", "verifier": "non"}
+{"texte": "C'est quoi une closure en JavaScript ?", "verifier": "non"}
+{"texte": "Écris-moi un mail pour décaler la réunion de demain.", "verifier": "non"}
+{"texte": "Lis le fichier notes.txt sur mon bureau.", "verifier": "non"}
+{"texte": "Qu'est-ce que j'ai dans mon agenda demain ?", "verifier": "non"}
+{"texte": "Cherche sur le web les horaires du musée d'Orsay.", "verifier": "non"}
+{"texte": "Raconte-moi une blague.", "verifier": "non"}
+{"texte": "Combien font 15 % de 80 ?", "verifier": "non"}
+{"texte": "Montre-moi les fichiers du dossier Téléchargements.", "verifier": "non"}
+{"texte": "Traduis « bonne journée » en espagnol.", "verifier": "non"}
+{"texte": "Quelles sont les dernières actus sur l'IA ?", "verifier": "non"}
+{"texte": "Merci, c'est parfait !", "verifier": "non"}
+{"texte": "Corrige les fautes de ce paragraphe.", "verifier": "non"}
+{"texte": "Combien de place il reste sur mon disque ?", "verifier": "non"}
+{"texte": "jai recu un mail de mon proprio tu peux le lire", "verifier": "non"}
+{"texte": "Explique-moi la photosynthèse.", "verifier": "non"}
+{"texte": "Read my latest email.", "verifier": "non"}
+{"texte": "What's the capital of Australia?", "verifier": "non"}
+{"texte": "Write a short poem about autumn.", "verifier": "non"}
+{"texte": "What's on my calendar tomorrow?", "verifier": "non"}

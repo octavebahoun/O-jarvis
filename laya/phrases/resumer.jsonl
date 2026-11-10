@@ -1,0 +1,40 @@
+{"texte": "Bon, autre chose : tu peux m'aider pour mon CV ?", "resumer": "oui"}
+{"texte": "Résume ce qu'on a dit jusqu'ici.", "resumer": "oui"}
+{"texte": "On fait le point ?", "resumer": "oui"}
+{"texte": "Ok, on change de sujet.", "resumer": "oui"}
+{"texte": "Bon, on arrête là pour aujourd'hui, merci.", "resumer": "oui"}
+{"texte": "Rien à voir, mais tu connais une bonne recette de crêpes ?", "resumer": "oui"}
+{"texte": "Passons à mon autre projet maintenant.", "resumer": "oui"}
+{"texte": "jai fini avec ça, autre question", "resumer": "oui"}
+{"texte": "Récapitule les décisions qu'on a prises.", "resumer": "oui"}
+{"texte": "Bref, nouveau sujet : les impôts.", "resumer": "oui"}
+{"texte": "C'est réglé pour le bug, maintenant parlons du design.", "resumer": "oui"}
+{"texte": "Tu peux me faire un récap avant que je parte ?", "resumer": "oui"}
+{"texte": "Merci pour tout, à demain !", "resumer": "oui"}
+{"texte": "Laisse tomber ça, j'ai une question sur ma voiture.", "resumer": "oui"}
+{"texte": "Ok c'est bon pour le mail, on passe au budget.", "resumer": "oui"}
+{"texte": "Let's switch topics.", "resumer": "oui"}
+{"texte": "Can you sum up what we decided?", "resumer": "oui"}
+{"texte": "Okay, different question.", "resumer": "oui"}
+{"texte": "That's all for today, thanks!", "resumer": "oui"}
+{"texte": "Moving on to my other project.", "resumer": "oui"}
+{"texte": "Et pour la deuxième question ?", "resumer": "non"}
+{"texte": "Continue.", "resumer": "non"}
+{"texte": "Tu peux détailler le point 3 ?", "resumer": "non"}
+{"texte": "Ça marche pas, j'ai encore l'erreur.", "resumer": "non"}
+{"texte": "Et si je mets 10 au lieu de 5 ?", "resumer": "non"}
+{"texte": "Pourquoi tu as utilisé une boucle ici ?", "resumer": "non"}
+{"texte": "Ok, et ensuite ?", "resumer": "non"}
+{"texte": "Refais-le en plus court.", "resumer": "non"}
+{"texte": "jcomprends pas la ligne 4", "resumer": "non"}
+{"texte": "Ajoute aussi la gestion des erreurs.", "resumer": "non"}
+{"texte": "Le premier exemple était mieux.", "resumer": "non"}
+{"texte": "Tu peux traduire ta réponse en anglais ?", "resumer": "non"}
+{"texte": "Oui, vas-y.", "resumer": "non"}
+{"texte": "Et pour le dessert ?", "resumer": "non"}
+{"texte": "Il me reste une erreur de type à la ligne 12.", "resumer": "non"}
+{"texte": "And what about the second part?", "resumer": "non"}
+{"texte": "Go on.", "resumer": "non"}
+{"texte": "Can you explain that again?", "resumer": "non"}
+{"texte": "It still doesn't work.", "resumer": "non"}
+{"texte": "Make it shorter.", "resumer": "non"}

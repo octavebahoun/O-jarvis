@@ -1,0 +1,59 @@
+{"texte": "Analyse toute l'architecture de mon projet et propose une refonte complète en microservices.", "modele_fort": "proposer"}
+{"texte": "Démontre que la racine carrée de 2 est irrationnelle, étape par étape.", "modele_fort": "proposer"}
+{"texte": "J'ai un bug de concurrence qui n'arrive qu'une fois sur cent, voici les logs, trouve la cause.", "modele_fort": "proposer"}
+{"texte": "Lis ce contrat de 30 pages et relève toutes les clauses risquées pour moi.", "modele_fort": "proposer"}
+{"texte": "Écris-moi un business plan complet sur trois ans pour une boulangerie.", "modele_fort": "proposer"}
+{"texte": "Compare ces quatre bibliothèques de gestion d'état en détail : avantages, limites, cas d'usage.", "modele_fort": "proposer"}
+{"texte": "Optimise cette requête SQL qui met 40 secondes sur une table de 10 millions de lignes.", "modele_fort": "proposer"}
+{"texte": "Prépare-moi un plan de révision sur six semaines pour le concours, matière par matière.", "modele_fort": "proposer"}
+{"texte": "Réécris tout ce module en Rust en gardant exactement le même comportement.", "modele_fort": "proposer"}
+{"texte": "Résous ce problème d'olympiade de maths et explique chaque étape.", "modele_fort": "proposer"}
+{"texte": "Trouve la faille de sécurité dans ce code d'authentification.", "modele_fort": "proposer"}
+{"texte": "Conçois la base de données d'une appli de réservation avec paiements, annulations et remboursements.", "modele_fort": "proposer"}
+{"texte": "jai un algo de graphe qui marche pas sur les gros cas, aide moi a trouver pk", "modele_fort": "proposer"}
+{"texte": "Écris un mémoire de 20 pages sur l'IA dans l'agriculture.", "modele_fort": "proposer"}
+{"texte": "Analyse ce tableau de 5 000 lignes de ventes et dis-moi quelles tendances se dégagent.", "modele_fort": "proposer"}
+{"texte": "Traduis ce roman de 300 pages en gardant le style de l'auteur.", "modele_fort": "proposer"}
+{"texte": "Explique-moi la relativité générale avec les équations et ce qu'elles veulent dire.", "modele_fort": "proposer"}
+{"texte": "Planifie la migration de notre base Postgres 12 vers 16 sans coupure de service.", "modele_fort": "proposer"}
+{"texte": "Écris un petit compilateur pour un mini-langage, avec ses tests.", "modele_fort": "proposer"}
+{"texte": "Pourquoi mon réseau de neurones ne converge pas ? Voici le code, les courbes et les réglages.", "modele_fort": "proposer"}
+{"texte": "Fais une revue complète de cette pull request de 2 000 lignes.", "modele_fort": "proposer"}
+{"texte": "Trouve le meilleur itinéraire pour visiter 12 villes en 10 jours avec 1 500 € de budget.", "modele_fort": "proposer"}
+{"texte": "Aide-moi à monter mon dossier pour les prud'hommes, avec les articles de loi qui s'appliquent.", "modele_fort": "proposer"}
+{"texte": "Mon appli plante au démarrage seulement sur certains Android, voici la trace, cherche pourquoi.", "modele_fort": "proposer"}
+{"texte": "Design a scalable architecture for a real-time chat app with a million users.", "modele_fort": "proposer"}
+{"texte": "Prove that there are infinitely many primes, step by step.", "modele_fort": "proposer"}
+{"texte": "Review this 50-page research paper and point out the weak arguments.", "modele_fort": "proposer"}
+{"texte": "Find out why this Kubernetes deployment keeps crashing, here are the logs.", "modele_fort": "proposer"}
+{"texte": "Write a full test suite for this payment module.", "modele_fort": "proposer"}
+{"texte": "Salut, ça va ?", "modele_fort": "non"}
+{"texte": "Quelle heure est-il à Tokyo ?", "modele_fort": "non"}
+{"texte": "Traduis « bonne journée » en espagnol.", "modele_fort": "non"}
+{"texte": "C'est quoi la différence entre une liste et un tuple en Python ?", "modele_fort": "non"}
+{"texte": "Écris-moi un mail pour décaler la réunion de demain.", "modele_fort": "non"}
+{"texte": "Combien font 15 % de 80 ?", "modele_fort": "non"}
+{"texte": "Donne-moi une recette rapide avec des œufs et des tomates.", "modele_fort": "non"}
+{"texte": "Corrige les fautes de ce paragraphe.", "modele_fort": "non"}
+{"texte": "Comment on installe Docker sur Ubuntu ?", "modele_fort": "non"}
+{"texte": "Propose-moi trois noms pour une boulangerie.", "modele_fort": "non"}
+{"texte": "Raconte-moi une blague.", "modele_fort": "non"}
+{"texte": "Merci, c'est parfait !", "modele_fort": "non"}
+{"texte": "Donne-moi un synonyme de « rapide ».", "modele_fort": "non"}
+{"texte": "Convertis 5 miles en kilomètres.", "modele_fort": "non"}
+{"texte": "tu px me refaire le calcul stp", "modele_fort": "non"}
+{"texte": "Rappelle-moi d'appeler le plombier demain.", "modele_fort": "non"}
+{"texte": "Mets ce texte en gras.", "modele_fort": "non"}
+{"texte": "Je préfère des réponses courtes, va droit au but.", "modele_fort": "non"}
+{"texte": "Qui a écrit Les Misérables ?", "modele_fort": "non"}
+{"texte": "Écris une boucle en Python qui affiche les nombres de 1 à 10.", "modele_fort": "non"}
+{"texte": "Renomme cette variable en camelCase.", "modele_fort": "non"}
+{"texte": "Quel temps fera-t-il demain à Marseille ?", "modele_fort": "non"}
+{"texte": "Voici 50 prénoms, mets-les par ordre alphabétique.", "modele_fort": "non"}
+{"texte": "Trie ces 200 lignes par date, de la plus ancienne à la plus récente.", "modele_fort": "non"}
+{"texte": "lol t'es drôle", "modele_fort": "non"}
+{"texte": "What's the capital of Australia?", "modele_fort": "non"}
+{"texte": "How do I undo a git commit?", "modele_fort": "non"}
+{"texte": "Give me a synonym for happy.", "modele_fort": "non"}
+{"texte": "Thanks, that helped a lot.", "modele_fort": "non"}
+{"texte": "Convert 30 °C to Fahrenheit.", "modele_fort": "non"}

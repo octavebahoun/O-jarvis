@@ -1,0 +1,76 @@
+{"texte": "Salut, ça va ?", "action": "aucune"}
+{"texte": "C'est quoi une closure en JavaScript ?", "action": "aucune"}
+{"texte": "Écris-moi un mail pour décaler la réunion de demain.", "action": "aucune"}
+{"texte": "Raconte-moi une blague.", "action": "aucune"}
+{"texte": "Traduis « bonne journée » en espagnol.", "action": "aucune"}
+{"texte": "Combien font 15 % de 80 ?", "action": "aucune"}
+{"texte": "Je préfère des réponses courtes.", "action": "aucune"}
+{"texte": "Explique-moi la photosynthèse.", "action": "aucune"}
+{"texte": "Propose-moi trois noms pour une boulangerie.", "action": "aucune"}
+{"texte": "Corrige les fautes de ce paragraphe.", "action": "aucune"}
+{"texte": "lol t'es drôle", "action": "aucune"}
+{"texte": "Comment on supprime un fichier sous Linux ?", "action": "aucune"}
+{"texte": "Comment j'ajoute un événement dans mon agenda ?", "action": "aucune"}
+{"texte": "What's the capital of Australia?", "action": "aucune"}
+{"texte": "How do I delete a git branch?", "action": "aucune"}
+{"texte": "Write a short poem about autumn.", "action": "aucune"}
+{"texte": "Lis le fichier notes.txt sur mon bureau.", "action": "lire"}
+{"texte": "Qu'est-ce que j'ai dans mon agenda demain ?", "action": "lire"}
+{"texte": "Cherche sur le web les horaires du musée d'Orsay.", "action": "lire"}
+{"texte": "Ouvre mon dernier mail et résume-le.", "action": "lire"}
+{"texte": "Montre-moi les fichiers du dossier Téléchargements.", "action": "lire"}
+{"texte": "Combien de place il reste sur mon disque ?", "action": "lire"}
+{"texte": "Regarde la page que j'ai ouverte et dis-moi ce que tu en penses.", "action": "lire"}
+{"texte": "jai recu un mail de mon proprio tu peux le lire", "action": "lire"}
+{"texte": "Quelles sont les dernières actus sur l'IA ?", "action": "lire"}
+{"texte": "Trouve le PDF de ma facture d'électricité.", "action": "lire"}
+{"texte": "Vérifie si j'ai des pull requests à relire.", "action": "lire"}
+{"texte": "Liste mes rendez-vous de la semaine.", "action": "lire"}
+{"texte": "Read my latest email.", "action": "lire"}
+{"texte": "What's on my calendar tomorrow?", "action": "lire"}
+{"texte": "Search the web for the best budget laptops.", "action": "lire"}
+{"texte": "Crée un fichier notes.txt sur mon bureau.", "action": "creer_modifier"}
+{"texte": "Ajoute « dentiste jeudi 15 h » à mon agenda.", "action": "creer_modifier"}
+{"texte": "Envoie ce mail à Paul.", "action": "creer_modifier"}
+{"texte": "Renomme le fichier rapport.docx en rapport-final.docx.", "action": "creer_modifier"}
+{"texte": "Déplace mes photos dans le dossier Vacances.", "action": "creer_modifier"}
+{"texte": "Écris ce script dans un fichier trier.py.", "action": "creer_modifier"}
+{"texte": "Décale ma réunion de mardi à mercredi.", "action": "creer_modifier"}
+{"texte": "Mets à jour le README de mon projet avec cette section.", "action": "creer_modifier"}
+{"texte": "jveux que tu crees un dossier projets sur le bureau", "action": "creer_modifier"}
+{"texte": "Réponds à Sarah que je serai en retard.", "action": "creer_modifier"}
+{"texte": "Ajoute du lait à ma liste de courses.", "action": "creer_modifier"}
+{"texte": "Programme un rappel demain à 8 h.", "action": "creer_modifier"}
+{"texte": "Create a folder called Invoices.", "action": "creer_modifier"}
+{"texte": "Send this message to my team.", "action": "creer_modifier"}
+{"texte": "Add a meeting with Alex on Friday at 2pm.", "action": "creer_modifier"}
+{"texte": "Supprime le fichier brouillon.txt.", "action": "supprimer"}
+{"texte": "Vide la corbeille.", "action": "supprimer"}
+{"texte": "Annule mon rendez-vous de jeudi dans l'agenda.", "action": "supprimer"}
+{"texte": "Efface tous les mails de cette newsletter.", "action": "supprimer"}
+{"texte": "Supprime le dossier temp sur mon bureau.", "action": "supprimer"}
+{"texte": "Désinstalle Spotify.", "action": "supprimer"}
+{"texte": "jveux que tu supprimes les captures d'écran du bureau", "action": "supprimer"}
+{"texte": "Retire Paul de la liste de diffusion.", "action": "supprimer"}
+{"texte": "Supprime la branche feature-login sur GitHub.", "action": "supprimer"}
+{"texte": "Efface l'historique de navigation de Chrome.", "action": "supprimer"}
+{"texte": "Supprime les doublons dans mon dossier Photos.", "action": "supprimer"}
+{"texte": "Supprime la réunion de demain matin.", "action": "supprimer"}
+{"texte": "Delete the file draft.txt.", "action": "supprimer"}
+{"texte": "Empty the trash.", "action": "supprimer"}
+{"texte": "Cancel my meeting on Friday.", "action": "supprimer"}
+{"texte": "Supprime-le.", "action": "clarification"}
+{"texte": "Envoie-lui.", "action": "clarification"}
+{"texte": "Range mes fichiers.", "action": "clarification"}
+{"texte": "Fais le nécessaire.", "action": "clarification"}
+{"texte": "Mets ça dans le dossier.", "action": "clarification"}
+{"texte": "Supprime les vieux trucs.", "action": "clarification"}
+{"texte": "Envoie le mail.", "action": "clarification"}
+{"texte": "Change la date.", "action": "clarification"}
+{"texte": "Ouvre le document.", "action": "clarification"}
+{"texte": "jveux que tu ranges un peu", "action": "clarification"}
+{"texte": "Efface ce qui sert à rien.", "action": "clarification"}
+{"texte": "Ajoute-le.", "action": "clarification"}
+{"texte": "Delete it.", "action": "clarification"}
+{"texte": "Send it to him.", "action": "clarification"}
+{"texte": "Clean up my stuff.", "action": "clarification"}
