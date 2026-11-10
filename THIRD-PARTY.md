@@ -20,6 +20,7 @@ Because the packages bundle piper-tts, distributing them follows the GPL-3.0; th
 
 | Model | License |
 |---|---|
+| [EmbeddingGemma 2](https://huggingface.co/google/embeddinggemma-2), text part ([q4 ONNX version](https://huggingface.co/onnx-community/embeddinggemma-2-ONNX) by onnx-community): memory search by meaning | Apache 2.0, with Google's [Gemma Prohibited Use Policy](https://ai.google.dev/gemma/prohibited_use_policy) |
 | Meta MMS TTS, French and English ([`facebook/mms-tts-fra`](https://huggingface.co/facebook/mms-tts-fra), [`facebook/mms-tts-eng`](https://huggingface.co/facebook/mms-tts-eng), ONNX versions by Xenova) | CC-BY-NC-4.0 (non-commercial use) |
 
 Every other model downloaded from Réglages › Modèles locaux keeps the license shown on its own page. Muse Spark, Muse Spark Open, Muse Wonder, Muse Voice Transcribe and SAM 3.1 are called through APIs and follow their providers' terms.

@@ -18,11 +18,11 @@ from ojarvis.anticipation.store import Option, Suggestion, SuggestionStore
 from ojarvis.conversations.store import ConversationStore, MessageRecord
 from ojarvis.core.clock import utc_now
 from ojarvis.events.bus import Event
+from ojarvis.memory.calibration import calibration
 
-#: Au-delà de cette similarité, deux demandes peuvent être « la même » (modèle de sens).
-#: Mesuré avec e5 : paraphrases 0,97-0,98 ; sans rapport jusqu'à 0,88 ; mais « mêmes mots,
-#: autre projet » 0,96-0,97 : d'où, en plus, les mêmes noms propres exigés.
-SAME_REQUEST = {"e5s": 0.95, "hash": 0.95}
+#: Deux demandes sont « la même » au-delà d'un seuil propre au modèle de sens
+#: (`ojarvis.memory.calibration`) ET avec les mêmes noms propres : « lance les tests de
+#: verbelune » et « … de esp32-amp » se ressemblent beaucoup, sans être la même demande.
 _WORD = re.compile(r"[\w'-]+")
 WINDOW_DAYS = 30
 MIN_DAYS = 3
@@ -55,7 +55,7 @@ class RepetitionWatcher:
     ) -> None:
         self._conversations = conversations
         self._suggestions = suggestions
-        self._threshold = SAME_REQUEST.get(embedder_id, 0.95)
+        self._threshold = calibration(embedder_id).same_request
         self._timezone = timezone
         self._clock = clock
 

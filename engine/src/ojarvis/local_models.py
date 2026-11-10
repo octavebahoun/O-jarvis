@@ -17,7 +17,7 @@ from typing import Any
 import anyio
 
 from ojarvis.core.downloads import ChecksumError, PinnedFile, files_present
-from ojarvis.memory.embeddings import E5_FILES
+from ojarvis.memory.embeddings import GEMMA_FILES, GEMMA_FOLDER
 from ojarvis.voice.stt import WHISPER_FILES
 from ojarvis.voice.tts import PIPER_FILES
 from ojarvis.voice.wake import WAKE_FILES
@@ -37,7 +37,7 @@ LOCAL_MODELS: list[ModelSet] = [
     ModelSet("reveil", "Mot de réveil", "openwakeword", WAKE_FILES),
     ModelSet("transcription", "Transcription", "faster-whisper-base", WHISPER_FILES),
     ModelSet("voix_locale", "Voix locale", "piper", PIPER_FILES),
-    ModelSet("memoire", "Mémoire", "multilingual-e5-small", E5_FILES),
+    ModelSet("memoire", "Mémoire", GEMMA_FOLDER, GEMMA_FILES),
 ]
 
 #: Au-delà, l'import est refusé : aucun modèle épinglé n'est aussi gros.

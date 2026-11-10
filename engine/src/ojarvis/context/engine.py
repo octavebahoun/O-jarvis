@@ -17,8 +17,13 @@ from ojarvis.context.language import ENGLISH_HINT, english_requested
 from ojarvis.conversations.store import ConversationStore, MessageRecord
 from ojarvis.core.clock import local_timezone, utc_now
 from ojarvis.llm.types import Message
+from ojarvis.memory.calibration import CALIBRATIONS, calibration
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryHit, MemoryRecord, MemoryStore
+
+#: Seuil de pertinence par modèle de sens, pour les extensions qui le lisent ici (O-jarvis
+#: Shell) ; la source est `ojarvis.memory.calibration`.
+RELEVANCE_FLOOR = {name: c.relevance_floor for name, c in CALIBRATIONS.items()}
 
 #: Budget total du contexte (hors réponse), en jetons, par canal.
 #: Une question qui parle du PC : la carte de la machine entre dans le contexte.
@@ -38,8 +43,6 @@ BUDGETS = {
 #: Part maximale de chaque section dans le budget restant après le système.
 MEMORY_SHARE = 0.35
 RECALL_SHARE = 0.15
-#: Similarité minimale (embeddings e5) pour qu'un souvenir trouvé par le sens soit utile.
-RELEVANCE_FLOOR = {"e5s": 0.80, "hash": 0.2}
 
 PERSONA = (
     "Tu es Jarvis, l'assistant personnel qui tourne sur l'ordinateur de l'utilisateur. "
@@ -184,7 +187,7 @@ class ContextEngine:
         self._memory = memory
         self._conversations = conversations
         self._graph = graph
-        self._floor = RELEVANCE_FLOOR.get(embedder_id, 0.5)
+        self._floor = calibration(embedder_id).relevance_floor
         self._clock = clock
         self._timezone = timezone
 

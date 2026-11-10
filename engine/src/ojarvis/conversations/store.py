@@ -15,7 +15,7 @@ from ojarvis.core.errors import InvalidInputError, NotFoundError
 from ojarvis.core.logs import get_logger
 from ojarvis.core.text import plain_text
 from ojarvis.db.engine import Database
-from ojarvis.db.models import ChatMessage, Conversation
+from ojarvis.db.models import ChatMessage, Conversation, Embedding
 from ojarvis.memory.embeddings import Embedder
 from ojarvis.memory.store import fts_query
 from ojarvis.memory.vectors import VectorIndex
@@ -281,15 +281,55 @@ class ConversationStore:
 
         return await self._db.run(read)
 
-    async def index_exchange(self, user: MessageRecord, assistant: MessageRecord) -> None:
-        """Vectorise un échange (question + réponse) pour le retrouver plus tard par le sens."""
+    async def index_exchange(self, user: MessageRecord, assistant: MessageRecord) -> bool:
+        """Vectorise un échange (question + réponse) pour le retrouver plus tard par le sens.
+        Faux si le modèle de sens n'est pas prêt."""
         passage = f"{user.content}\n{assistant.content}"[:2000]
         try:
             vector = (await self._embedder.embed([passage], "passage"))[0]
         except Exception:
             log.warning("message_embedding_unavailable")
-            return
+            return False
         await self.index.upsert(user.id, vector)
+        return True
+
+    async def index_missing(self) -> int:
+        """Les échanges passés sans vecteur pour ce modèle (le modèle de sens a changé) le
+        reçoivent, du plus récent au plus ancien. Rend le nombre d'échanges indexés ; s'arrête
+        si le modèle n'est pas prêt (la suite se fera au prochain démarrage)."""
+
+        def missing(session: Session) -> list[tuple[MessageRecord, MessageRecord]]:
+            indexed = select(Embedding.owner_id).where(
+                Embedding.owner_type == self.index.owner_type,
+                Embedding.model == self.index.model_id,
+            )
+            asked = session.scalars(
+                select(ChatMessage)
+                .where(ChatMessage.role == "user", ChatMessage.id.not_in(indexed))
+                .order_by(ChatMessage.id.desc())
+            ).all()
+            pairs = []
+            for user in asked:
+                reply = session.scalar(
+                    select(ChatMessage)
+                    .where(
+                        ChatMessage.conversation_id == user.conversation_id,
+                        ChatMessage.id > user.id,
+                        ChatMessage.role == "assistant",
+                    )
+                    .order_by(ChatMessage.id)
+                    .limit(1)
+                )
+                if reply is not None and reply.status == "ok" and reply.content:
+                    pairs.append((MessageRecord.of(user), MessageRecord.of(reply)))
+            return pairs
+
+        done = 0
+        for user, reply in await self._db.run(missing):
+            if not await self.index_exchange(user, reply):
+                break
+            done += 1
+        return done
 
     async def index_request(self, message: MessageRecord) -> None:
         try:

@@ -1,7 +1,13 @@
-"""Embeddings locaux : multilingual-e5-small quantifié, exécuté par ONNX Runtime sur le CPU.
+"""Embeddings locaux : EmbeddingGemma 2 (sa partie texte, quantifiée en q4), exécuté par ONNX
+Runtime sur le CPU.
 
-Le modèle (~120 Mo) est téléchargé une fois, vérifié par empreinte SHA-256, puis gardé
+Le modèle (~207 Mo) est téléchargé une fois, vérifié par empreinte SHA-256, puis gardé
 en cache. Aucun texte ne quitte la machine pour être vectorisé.
+
+Il a remplacé multilingual-e5-small le 10/11/2026, après un banc d'essai en français sur un
+i5 de 2015 (21 questions sur 20 souvenirs) : 18 bonnes réponses en tête au lieu de 12, en
+110 ms par question. e5 lisait 256 jetons au plus et notait tout entre 0,7 et 1 ; un long
+texte y arrivait en tête de presque toutes les recherches.
 """
 
 from __future__ import annotations
@@ -27,19 +33,41 @@ log = get_logger(__name__)
 Kind = Literal["query", "passage"]
 Vectors = npt.NDArray[np.float32]
 
-HF_BASE = "https://huggingface.co/Xenova/multilingual-e5-small/resolve/main"
-E5_FILES: dict[str, PinnedFile] = {
-    "model_quantized.onnx": PinnedFile(
-        f"{HF_BASE}/onnx/model_quantized.onnx",
-        "f80102d3f2a1229f387d3c81909990d8945513e347b0eab049f7de3c6f98c193",
-        118_308_185,
+#: Révision figée du dépôt : les empreintes ci-dessous sont celles de ces fichiers-là.
+HF_BASE = (
+    "https://huggingface.co/onnx-community/embeddinggemma-2-ONNX/resolve/"
+    "daa72c51243991dfcaf9f9137d2c573d8f7790c0"
+)
+GEMMA_FOLDER = "embeddinggemma-2-q4"
+GEMMA_FILES: dict[str, PinnedFile] = {
+    "model_q4.onnx": PinnedFile(
+        f"{HF_BASE}/onnx/model_q4.onnx",
+        "f9eeba97acddf139b8ee2ddf04bc30dceafa88de93fadf74d7644e0d61a477a9",
+        490_742,
+    ),
+    # Les poids, à côté du graphe et sous ce nom exact : ONNX Runtime les y cherche.
+    "model_q4.onnx_data": PinnedFile(
+        f"{HF_BASE}/onnx/model_q4.onnx_data",
+        "c3975f2d1ab7a1878ae31a7d7a9b7804a827aff3800b60dfceafce21cac3df49",
+        174_028_800,
     ),
     "tokenizer.json": PinnedFile(
         f"{HF_BASE}/tokenizer.json",
-        "0b44a9d7b51c3c62626640cda0e2c2f70fdacdc25bbbd68038369d14ebdf4c39",
-        17_082_730,
+        "4d777ef5bdc1aa36227abdfb77c3e49e7b9c892d16e1b6bda41c393504828be4",
+        32_170_510,
     ),
 }
+
+#: Les préfixes de tâche appris par le modèle (sa fiche) : une question, un texte à retrouver.
+PREFIXES: dict[Kind, str] = {
+    "query": "task: search result | query: ",
+    "passage": "title: none | text: ",
+}
+#: Le modèle lit 8 192 jetons, mais le CPU paie chacun : au-delà, la suite est ignorée.
+MAX_TOKENS = 1024
+_BATCH = 8
+#: Seul le texte est vectorisé : les entrées image, vidéo et son restent vides.
+_NO_MEDIA = np.zeros((0, 512), dtype=np.float32)
 
 
 class Embedder(Protocol):
@@ -59,9 +87,9 @@ def _normalize(vectors: npt.NDArray[np.float32]) -> Vectors:
     return result
 
 
-class E5Embedder:
-    model_id = "e5s"
-    dim = 384
+class GemmaEmbedder:
+    model_id = "eg2"
+    dim = 768
 
     def __init__(self, folder: Path, *, threads: int = 2) -> None:
         self.folder = folder
@@ -78,12 +106,12 @@ class E5Embedder:
         return self._status
 
     def files_present(self) -> bool:
-        return files_present(self.folder, E5_FILES)
+        return files_present(self.folder, GEMMA_FILES)
 
     async def download(self, client: httpx.AsyncClient) -> None:
         self._status = "téléchargement"
         try:
-            await fetch_pinned(client, self.folder, E5_FILES)
+            await fetch_pinned(client, self.folder, GEMMA_FILES)
         except Exception:
             self._status = "erreur"
             raise
@@ -107,35 +135,37 @@ class E5Embedder:
         from tokenizers import Tokenizer  # noqa: PLC0415
 
         tokenizer = Tokenizer.from_file(str(self.folder / "tokenizer.json"))
-        tokenizer.enable_truncation(max_length=256)
-        tokenizer.enable_padding(pad_id=1, pad_token="<pad>")  # noqa: S106
+        tokenizer.enable_truncation(max_length=MAX_TOKENS)
+        tokenizer.enable_padding(pad_id=0, pad_token="<pad>")  # noqa: S106
         options = ort.SessionOptions()
         options.intra_op_num_threads = self._threads
         options.inter_op_num_threads = 1
         self._session = ort.InferenceSession(
-            str(self.folder / "model_quantized.onnx"), options, providers=["CPUExecutionProvider"]
+            str(self.folder / "model_q4.onnx"), options, providers=["CPUExecutionProvider"]
         )
         self._tokenizer = tokenizer
 
     def _run(self, texts: list[str]) -> Vectors:
         with self._run_lock:
             encodings = self._tokenizer.encode_batch(texts)
-            ids = np.array([e.ids for e in encodings], dtype=np.int64)
-            mask = np.array([e.attention_mask for e in encodings], dtype=np.int64)
-            feeds = {"input_ids": ids, "attention_mask": mask, "token_type_ids": np.zeros_like(ids)}
-            hidden = self._session.run(None, feeds)[0]
-        weights = mask[..., None].astype(np.float32)
-        pooled = (hidden * weights).sum(axis=1) / np.maximum(weights.sum(axis=1), 1e-9)
-        return _normalize(pooled.astype(np.float32))
+            feeds = {
+                "input_ids": np.array([e.ids for e in encodings], dtype=np.int64),
+                "attention_mask": np.array([e.attention_mask for e in encodings], dtype=np.int64),
+                "image_features": _NO_MEDIA,
+                "video_features": _NO_MEDIA,
+                "audio_features": _NO_MEDIA,
+            }
+            pooled = self._session.run(["sentence_embedding"], feeds)[0]
+        return _normalize(np.asarray(pooled, dtype=np.float32))
 
     async def embed(self, texts: list[str], kind: Kind) -> Vectors:
         if not texts:
             return np.zeros((0, self.dim), dtype=np.float32)
         await self.ensure()
-        prefixed = [f"{kind}: {text}" for text in texts]
+        prefixed = [PREFIXES[kind] + text for text in texts]
         parts = [
-            await anyio.to_thread.run_sync(self._run, prefixed[i : i + 16])
-            for i in range(0, len(prefixed), 16)
+            await anyio.to_thread.run_sync(self._run, prefixed[i : i + _BATCH])
+            for i in range(0, len(prefixed), _BATCH)
         ]
         return np.concatenate(parts, axis=0)
 
@@ -149,7 +179,7 @@ def _fold(text: str) -> str:
 
 
 class HashEmbedder:
-    """Embeddings déterministes par hachage de mots (tests, ou en attendant le vrai modèle)."""
+    """Embeddings déterministes par hachage de mots : les tests, sans modèle à télécharger."""
 
     model_id = "hash"
 

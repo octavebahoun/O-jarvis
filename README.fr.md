@@ -25,7 +25,7 @@ Le projet s'est construit phase par phase. L'état du travail est dans [`PROGRES
 
 ## Meta models (Meta Global AI Developer Hackathon)
 
-With the default **"All Meta"** profile, every model O-jarvis calls at runtime is a Meta model, fallbacks included. If no Meta model can answer, Jarvis says so; it never falls back to another provider. What was built during the hackathon is O-jarvis Shell, in its own repository: [octavebahoun/o-jarvis-shell](https://github.com/octavebahoun/o-jarvis-shell).
+With the default **"All Meta"** profile, every model O-jarvis calls at runtime is a Meta model, fallbacks included, except memory search by meaning: since November 10, 2026 it runs EmbeddingGemma 2 (Google, Apache 2.0) on the machine. If no Meta model can answer, Jarvis says so; it never falls back to another provider. What was built during the hackathon is O-jarvis Shell, in its own repository: [octavebahoun/o-jarvis-shell](https://github.com/octavebahoun/o-jarvis-shell).
 
 | Meta model | Where it runs | What it does in O-jarvis |
 |---|---|---|
@@ -44,12 +44,12 @@ Operating system features and plain code (no AI model):
 - **Echo cancellation**: PipeWire's `module-echo-cancel`.
 - **Clicking in a desktop app**: GNOME's remote desktop portal moves the pointer, after the user allows it once.
 - **Live screen share and recordings**: GNOME's ScreenCast portal, read by GStreamer (two images per second, kept in memory only); ffmpeg turns a recording into an MP4 clip, deleted once Muse Spark has watched it.
-- **Memory search**: SQLite full-text search and hashed word vectors.
+- **Memory search by words**: SQLite full-text search (search by meaning uses EmbeddingGemma 2, see above).
 - **Browser actions**: Playwright drives Chromium; screenshots use the desktop portal.
 - **Jarvis in Chrome**: a Chrome extension (side panel) talks to the engine through Chrome's native messaging; the open tab is read by the extension and sent to Muse Spark as framed data.
 - **Safety**: command classification and secret masking are rules in code.
 
-The "Automatic" profile, outside the submission, can also use DeepSeek, Anthropic, OpenAI, OpenRouter, Ollama, Groq, Cartesia, Piper, Whisper, openWakeWord, Silero VAD and multilingual-e5.
+The "Automatic" profile, outside the submission, can also use DeepSeek, Anthropic, OpenAI, OpenRouter, Ollama, Groq, Cartesia, Piper, Whisper, openWakeWord, and Silero VAD.
 
 ## Ce que Jarvis sait faire
 
@@ -67,7 +67,7 @@ chmod +x O-jarvis_1.4.0_amd64.AppImage && ./O-jarvis_1.4.0_amd64.AppImage
 
 Le paquet `.deb` ajoute deux commandes : `o-jarvis` ouvre l'app, et `o-jarvis-shell` ouvre Jarvis dans le terminal, dans le dossier où tu es (mode shell). Celui-ci rejoint le Jarvis de l'app s'il tourne, sinon il lance le sien.
 
-Au premier lancement : renseigne tes clés dans Réglages (ou dépose un `.env` dans `~/.config/o-jarvis/` : l'app importe ses clés dans le trousseau), puis attends la voix (modèles téléchargés une fois, ~350 Mo). Réglages → Démarrage : lancer O-jarvis à l'ouverture de session.
+Au premier lancement : renseigne tes clés dans Réglages (ou dépose un `.env` dans `~/.config/o-jarvis/` : l'app importe ses clés dans le trousseau), puis attends la voix (modèles téléchargés une fois, ~420 Mo). Réglages → Démarrage : lancer O-jarvis à l'ouverture de session.
 
 ## Installer pour le développement
 
@@ -90,7 +90,7 @@ scripts/install-launcher.sh       # compile et ajoute « O-jarvis » au menu des
 
 Fermer la fenêtre arrête tout, moteur compris. `Ctrl+Q` aussi.
 
-Au premier lancement, le moteur télécharge ses modèles locaux (environ 350 Mo : recherche par le sens, mot de réveil, transcription, voix de secours), puis la voix est prête. Le script d'installation installe aussi le Chromium du navigateur de Jarvis (environ 170 Mo) et l'image Docker du bac à sable. Au premier lancement par l'icône, GNOME demande d'autoriser le raccourci `Ctrl+Alt+J`.
+Au premier lancement, le moteur télécharge ses modèles locaux (environ 420 Mo : recherche par le sens, mot de réveil, transcription, voix de secours), puis la voix est prête. Le script d'installation installe aussi le Chromium du navigateur de Jarvis (environ 170 Mo) et l'image Docker du bac à sable. Au premier lancement par l'icône, GNOME demande d'autoriser le raccourci `Ctrl+Alt+J`.
 
 ## Jarvis dans Chrome
 

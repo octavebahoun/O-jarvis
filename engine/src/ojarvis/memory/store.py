@@ -21,6 +21,7 @@ from ojarvis.core.logs import get_logger
 from ojarvis.db.engine import Database
 from ojarvis.db.models import Embedding, MemoryItem
 from ojarvis.events.bus import EventBus
+from ojarvis.memory.calibration import calibration
 from ojarvis.memory.embeddings import Embedder, Vectors
 from ojarvis.memory.vectors import VectorIndex
 from ojarvis.security.redaction import REDACTOR
@@ -36,7 +37,6 @@ MEMORY_KINDS: tuple[MemoryKind, ...] = ("fait", "preference", "profil", "impasse
 #: ligne de la carte de la machine.
 SEPARATE_KINDS = frozenset({"impasse", "machine"})
 #: Au-delà de cette similarité, un nouveau souvenir met à jour l'ancien au lieu de doublonner.
-DUPLICATE_SIMILARITY = 0.95
 MAX_CONTENT = 1000
 
 _FTS_WORD = re.compile(r"\w{3,}", re.UNICODE)
@@ -99,6 +99,7 @@ class MemoryStore:
         self._embedder = embedder
         self._bus = bus
         self.index = VectorIndex(db, "memory", embedder.model_id, embedder.dim)
+        self._calibration = calibration(embedder.model_id)
 
     async def start(self) -> None:
         await self.index.ensure()
@@ -189,7 +190,7 @@ class MemoryStore:
         la même impasse : deux correctifs tentés pour une même erreur, ou la même erreur dans
         deux projets, se ressemblent beaucoup, et chacun compte."""
         for item_id, score in await self.index.search(vector, 5):
-            if score < DUPLICATE_SIMILARITY:
+            if score < self._calibration.duplicate:
                 break
             existing = await self.get(item_id)
             if (
@@ -315,7 +316,7 @@ class MemoryStore:
                 bonus = 0.04 * (1 - rank / max(k, 1))
                 previous = scores.get(item_id)
                 if previous is None:
-                    scores[item_id] = (0.78 + bonus, "mots")
+                    scores[item_id] = (self._calibration.word_score + bonus, "mots")
                 else:
                     scores[item_id] = (previous[0] + bonus, "les deux")
         ranked = sorted(scores.items(), key=lambda kv: -kv[1][0])

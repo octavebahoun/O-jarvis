@@ -56,7 +56,7 @@ from ojarvis.llm.providers.base import Provider
 from ojarvis.llm.providers.fake import FakeProvider, e2e_script
 from ojarvis.llm.providers.registry import OllamaProvider, build_providers, discover_openrouter_free
 from ojarvis.llm.router import ModelRouter
-from ojarvis.memory.embeddings import E5Embedder, Embedder, HashEmbedder
+from ojarvis.memory.embeddings import GEMMA_FOLDER, Embedder, GemmaEmbedder, HashEmbedder
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryStore
 from ojarvis.notifications import Notifier
@@ -162,12 +162,13 @@ class Services:
         providers = providers if providers is not None else build_providers(secrets)
         holder: dict[str, Preferences] = {"value": preferences}
         router = _build_router(providers, catalog, bus=bus, tracer=tracer, holder=holder, http=http)
-        # « Tout Meta » n'appelle aucun modèle d'un autre éditeur : la mémoire y cherche par
-        # mots hachés plutôt qu'avec e5. Le changement de profil vaut au prochain démarrage.
+        # La mémoire cherche par le sens avec EmbeddingGemma 2, sur la machine, quel que soit
+        # le profil de modèles. Tests de bout en bout : mots hachés, rien à télécharger.
+        fake = config.dev_mode and os.environ.get("OJARVIS_FAKE_LLM") == "1"
         embedder = embedder or (
             HashEmbedder()
-            if preferences.model_profile == "meta"
-            else E5Embedder(config.paths.cache_dir / "models" / "multilingual-e5-small")
+            if fake
+            else GemmaEmbedder(config.paths.cache_dir / "models" / GEMMA_FOLDER)
         )
         memory, conversations, graph, context = await _assemble_memory(db, bus, embedder)
 
@@ -388,7 +389,7 @@ class Services:
 
     async def _start_memory(self) -> bool:
         """Charge le modèle d'embeddings (téléchargé s'il manque) puis démarre la mémoire."""
-        if not isinstance(self.embedder, E5Embedder) or self.embedder.status == "prêt":
+        if not isinstance(self.embedder, GemmaEmbedder) or self.embedder.status == "prêt":
             return True
         try:
             await self.embedder.ensure(self.http)
@@ -397,7 +398,15 @@ class Services:
             return False
         await self.memory.start()
         await self.conversations.start()
+        self.spawn(self._index_library())
         return True
+
+    async def _index_library(self) -> None:
+        """Les anciennes conversations, vectorisées en tâche de fond (après un changement de
+        modèle de sens) : Jarvis répond pendant ce temps, et les retrouve au fur et à mesure."""
+        done = await self.conversations.index_missing()
+        if done:
+            log.info("library_indexed", exchanges=done)
 
     @property
     def models_dir(self) -> Path:

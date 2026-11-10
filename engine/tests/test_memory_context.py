@@ -13,6 +13,7 @@ from ojarvis.core.errors import InvalidInputError, NotFoundError
 from ojarvis.db.engine import Database
 from ojarvis.db.migrate import upgrade_to_head
 from ojarvis.events.bus import EventBus
+from ojarvis.memory.calibration import DEFAULT, calibration
 from ojarvis.memory.embeddings import HashEmbedder
 from ojarvis.memory.store import MemoryStore, fts_query
 from ojarvis.memory.vectors import VectorIndex
@@ -166,7 +167,8 @@ async def test_memory_degrades_without_embeddings(db: Database) -> None:
 
 
 async def test_a_new_embedding_model_embeds_the_memories_already_kept(db: Database) -> None:
-    """« Tout Meta » passe d'e5 aux mots hachés : les souvenirs gardent leur recherche par sens."""
+    """Le modèle de sens change (e5 → EmbeddingGemma 2) : les souvenirs gardent leur recherche
+    par le sens."""
 
     class Before(HashEmbedder):
         model_id = "avant"
@@ -179,6 +181,32 @@ async def test_a_new_embedding_model_embeds_the_memories_already_kept(db: Databa
     hits = await after.search("café sucre")
     assert [h.record.id for h in hits] == [record.id]
     assert hits[0].via == "les deux"
+
+
+async def test_a_new_embedding_model_indexes_past_exchanges(db: Database) -> None:
+    """Après un changement de modèle de sens, les anciens échanges se retrouvent par le sens."""
+
+    class Before(HashEmbedder):
+        model_id = "avant"
+
+    first = ConversationStore(db, Before())
+    await first.start()
+    talk = await first.create("app")
+    user = await first.add_message(talk.id, "user", "Quel café prendre le matin ?")
+    await first.add_message(talk.id, "assistant", "Un café noir, sans sucre.")
+    await first.add_message(talk.id, "user", "Et le soir ?")  # sans réponse : rien à indexer
+    after = ConversationStore(db, HashEmbedder())
+    await after.start()
+    assert await after.recall("café matin") == []
+    assert await after.index_missing() == 1
+    assert [r.message.id for r in await after.recall("café matin")] == [user.id]
+    assert await after.index_missing() == 0
+
+
+def test_each_embedding_model_has_its_own_thresholds() -> None:
+    gemma = calibration("eg2")
+    assert gemma.word_score < gemma.relevance_floor < gemma.same_request < gemma.duplicate
+    assert calibration("modele-inconnu") == DEFAULT
 
 
 async def test_touch_records_usage(memory: MemoryStore) -> None:

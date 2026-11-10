@@ -18,10 +18,10 @@ from ojarvis.llm.providers.registry import (
     discover_openrouter_free,
 )
 from ojarvis.memory import embeddings
-from ojarvis.memory.embeddings import E5_FILES, E5Embedder
+from ojarvis.memory.embeddings import GEMMA_FILES, GEMMA_FOLDER, GemmaEmbedder
 from ojarvis.security.secrets import MemoryBackend, SecretStore
 
-MODEL_DIR = Path.home() / ".cache" / "o-jarvis" / "models" / "multilingual-e5-small"
+MODEL_DIR = Path.home() / ".cache" / "o-jarvis" / "models" / GEMMA_FOLDER
 
 
 def client(handler: httpx.MockTransport | None = None) -> httpx.AsyncClient:
@@ -103,46 +103,53 @@ async def test_openrouter_discovery() -> None:
         assert await discover_openrouter_free(catalog, c) == 0
 
 
-async def test_e5_download_checks_the_fingerprint(
+async def test_gemma_download_checks_the_fingerprint(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     content = b"contenu du fichier"
     good = hashlib.sha256(content).hexdigest()
     monkeypatch.setattr(
         embeddings,
-        "E5_FILES",
+        "GEMMA_FILES",
         {
-            "model_quantized.onnx": PinnedFile("https://exemple.invalid/m", good),
+            "model_q4.onnx": PinnedFile("https://exemple.invalid/m", good),
             "tokenizer.json": PinnedFile("https://exemple.invalid/t", "0" * 64),
         },
     )
-    embedder = E5Embedder(tmp_path / "modele")
+    embedder = GemmaEmbedder(tmp_path / "modele")
     async with client(httpx.MockTransport(lambda r: httpx.Response(200, content=content))) as c:
         with pytest.raises(RuntimeError, match="empreinte"):
             await embedder.download(c)
-    assert (tmp_path / "modele" / "model_quantized.onnx").read_bytes() == content
+    assert (tmp_path / "modele" / "model_q4.onnx").read_bytes() == content
     assert not (tmp_path / "modele" / "tokenizer.json").exists()
     assert not (tmp_path / "modele" / "tokenizer.json.part").exists()
     assert embedder.status == "erreur"
-    assert sha256_of(tmp_path / "modele" / "model_quantized.onnx") == good
+    assert sha256_of(tmp_path / "modele" / "model_q4.onnx") == good
 
 
-async def test_e5_without_files_and_without_network(tmp_path: Path) -> None:
-    embedder = E5Embedder(tmp_path / "vide")
+async def test_gemma_without_files_and_without_network(tmp_path: Path) -> None:
+    embedder = GemmaEmbedder(tmp_path / "vide")
     assert not embedder.files_present()
     with pytest.raises(RuntimeError, match="absent"):
         await embedder.ensure()
-    assert (await embedder.embed([], "query")).shape == (0, 384)
+    assert (await embedder.embed([], "query")).shape == (0, 768)
 
 
 @pytest.mark.skipif(
-    not all((MODEL_DIR / name).is_file() for name in E5_FILES),
-    reason="modèle e5 absent de cette machine",
+    not all((MODEL_DIR / name).is_file() for name in GEMMA_FILES),
+    reason="EmbeddingGemma 2 absent de cette machine",
 )
-async def test_e5_real_model_ranks_french_facts() -> None:
-    embedder = E5Embedder(MODEL_DIR)
+async def test_gemma_real_model_ranks_french_facts() -> None:
+    embedder = GemmaEmbedder(MODEL_DIR)
+    # Un long échange sur autre chose : avec e5, il arrivait en tête de presque tout.
+    chatter = "J'ai réinstallé le pilote de l'imprimante, redémarré CUPS, puis réessayé. " * 30
     facts = await embedder.embed(
-        ["Octave boit du café chaque matin.", "Octave habite à Lyon.", "Le chat s'appelle Pixel."],
+        [
+            "Octave boit du café chaque matin.",
+            "Octave habite à Lyon.",
+            "Le chat s'appelle Pixel.",
+            chatter + "Pour le mariage, Octave portera le costume bleu marine.",
+        ],
         "passage",
     )
     assert embedder.status == "prêt"
@@ -150,6 +157,7 @@ async def test_e5_real_model_ranks_french_facts() -> None:
         ("Qu'est-ce que je bois le matin ?", 0),
         ("Dans quelle ville je vis ?", 1),
         ("Comment s'appelle mon animal ?", 2),
+        ("Quelle tenue pour le mariage ?", 3),
     ]:
         query = (await embedder.embed([question], "query"))[0]
         assert int(np.argmax(facts @ query)) == expected
