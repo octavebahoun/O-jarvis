@@ -1,0 +1,78 @@
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'ai déménagé à Marseille le mois dernier.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur utilise Express pour son API.", "texte": "Je suis passé à FastAPI pour mon API.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur est étudiant en informatique.", "texte": "J'ai fini mes études, je travaille maintenant.", "mise_a_jour": "remplacer"}
+{"souvenir": "La sœur de l'utilisateur s'appelle Inaya.", "texte": "Ma sœur s'appelle Inès, pas Inaya.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur boit du café chaque matin.", "texte": "J'ai arrêté le café.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur préfère des réponses courtes.", "texte": "Finalement je veux des explications détaillées.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur a un PC avec 8 Go de RAM.", "texte": "J'ai changé de PC, j'ai 16 Go maintenant.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur travaille sur une API de gestion de stock.", "texte": "Le projet d'API de stock est abandonné.", "mise_a_jour": "remplacer"}
+{"souvenir": "Le fils de l'utilisateur a 4 ans.", "texte": "Mon fils vient d'avoir 5 ans.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur est sous Ubuntu.", "texte": "nn jsuis passé sur fedora", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur fait de la course à pied.", "texte": "Je ne cours plus, je me suis blessé au genou.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur a rendez-vous chez le dentiste jeudi à 15 h.", "texte": "Mon rdv chez le dentiste est décalé à vendredi 10 h.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur est célibataire.", "texte": "Je me suis marié en juin.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'équipe de l'utilisateur utilise GitLab.", "texte": "On est tous passés sur GitHub.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur veut qu'on le vouvoie.", "texte": "Tu peux me tutoyer maintenant.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur écrit ses scripts en Python.", "texte": "je prefere plus python mtn c go que j'utilise", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur a 23 ans.", "texte": "J'ai 32 ans, pas 23.", "mise_a_jour": "remplacer"}
+{"souvenir": "The user lives in Montreal.", "texte": "I moved to Toronto last month.", "mise_a_jour": "remplacer"}
+{"souvenir": "The user's dog is called Pixie.", "texte": "My dog's name is Pixel, not Pixie.", "mise_a_jour": "remplacer"}
+{"souvenir": "The user teaches math in high school.", "texte": "I quit teaching in June.", "mise_a_jour": "remplacer"}
+{"souvenir": "L'utilisateur a un chat qui s'appelle Milo.", "texte": "J'ai aussi un chien, il s'appelle Rex.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'ai une maison de vacances près de Nice.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur aime Python.", "texte": "J'aime bien Go aussi pour les petits outils.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "La sœur de l'utilisateur s'appelle Inès.", "texte": "J'ai aussi un frère, Yanis.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur travaille sur une API de stock en FastAPI.", "texte": "En parallèle je fais un portfolio en React.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur parle français et anglais.", "texte": "J'apprends aussi l'espagnol.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur fait de la course à pied trois fois par semaine.", "texte": "Le dimanche je fais aussi du vélo.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur est développeur web freelance.", "texte": "Le week-end je donne des cours de maths.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur préfère des réponses courtes.", "texte": "Pour le code, par contre, je veux des explications détaillées.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur écrit ses mails de façon formelle.", "texte": "Avec mes amis, mes messages sont très détendus.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur utilise Fedora.", "texte": "Au boulot j'ai un Mac.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur boit du café le matin.", "texte": "L'après-midi je prends plutôt du thé.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur a rendez-vous chez le dentiste jeudi.", "texte": "J'ai aussi le kiné vendredi.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur a un PC avec 16 Go de RAM.", "texte": "J'ai aussi un vieux portable pour les déplacements.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur écoute du jazz.", "texte": "Quand je code, j'écoute plutôt du lo-fi.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur a deux enfants.", "texte": "on attend un troisième pour mars", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "The user lives in Montreal.", "texte": "I also spend summers at my parents' place in Quebec City.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "The user likes tea.", "texte": "I drink coffee too when I'm working late.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "The user has a dog named Pixel.", "texte": "We also adopted a cat last week.", "mise_a_jour": "garder_les_deux"}
+{"souvenir": "L'utilisateur a un chat qui s'appelle Milo.", "texte": "Je suis allergique aux fruits à coque.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Je préfère des réponses courtes.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur aime Python.", "texte": "Ma sœur s'appelle Inès.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur est sous Fedora.", "texte": "Je fais de la course à pied trois fois par semaine.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur boit du café sans sucre.", "texte": "Je prépare un examen de réseaux pour le mois prochain.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur travaille sur une API de stock.", "texte": "Mon frère jumeau s'appelle Yanis.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur écoute du jazz.", "texte": "Mon serveur de test tourne sur un Raspberry Pi 4.", "mise_a_jour": "ajouter"}
+{"souvenir": "La sœur de l'utilisateur vit à Bordeaux.", "texte": "Mets toujours les dates au format jour/mois/année.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur a deux enfants.", "texte": "jsuis dev web freelance depuis 2 ans", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur fait du vélo le dimanche.", "texte": "Mon équipe utilise GitLab.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur parle un peu de wolof.", "texte": "J'ai un rendez-vous chez le dentiste jeudi.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur apprend l'espagnol.", "texte": "Je construis un petit robot avec un Arduino.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur est comptable.", "texte": "J'aime les explications avec des comparaisons de la vie de tous les jours.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Ma sœur habite à Lyon aussi.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur a un chat qui s'appelle Milo.", "texte": "Je suis végétarien depuis un an.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur utilise VS Code.", "texte": "Je code surtout la nuit.", "mise_a_jour": "ajouter"}
+{"souvenir": "The user lives in Montreal.", "texte": "I'm allergic to peanuts.", "mise_a_jour": "ajouter"}
+{"souvenir": "The user likes tea.", "texte": "My laptop is a 2019 MacBook Air.", "mise_a_jour": "ajouter"}
+{"souvenir": "The user has a dog named Pixel.", "texte": "I'm learning Japanese.", "mise_a_jour": "ajouter"}
+{"souvenir": "The user is 32.", "texte": "Please always show the command before explaining it.", "mise_a_jour": "ajouter"}
+{"souvenir": "L'utilisateur travaille chez Orange.", "texte": "J'ai été embauché chez Free.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Je viens de signer un bail à Grenoble.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur a un chat qui s'appelle Milo.", "texte": "Mon chat s'appelle Caramel.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur est sous Ubuntu.", "texte": "J'ai installé Windows 11.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur code en Python.", "texte": "Je me suis mis au Rust.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur étudie à l'université de Lille.", "texte": "J'ai été accepté à l'université de Rennes.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur fait du foot le mercredi.", "texte": "Je me suis inscrit au basket le mercredi.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur utilise VS Code.", "texte": "J'ai découvert Neovim, c'est génial.", "mise_a_jour": "demander"}
+{"souvenir": "Le téléphone de l'utilisateur est un iPhone 12.", "texte": "J'ai acheté un Pixel 8.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur préfère des réponses courtes.", "texte": "Là j'aimerais des réponses plus complètes.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur boit du café le matin.", "texte": "Je me suis mis au thé.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur travaille sur une API de stock.", "texte": "Je commence un nouveau projet de site e-commerce.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur a une Clio.", "texte": "J'ai acheté une Peugeot 208.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur est comptable.", "texte": "J'ai commencé une formation de développeur.", "mise_a_jour": "demander"}
+{"souvenir": "L'utilisateur joue de la guitare.", "texte": "jai commencé le piano", "mise_a_jour": "demander"}
+{"souvenir": "L'équipe de l'utilisateur utilise GitLab.", "texte": "On a ouvert un compte GitHub pour l'équipe.", "mise_a_jour": "demander"}
+{"souvenir": "The user works at a bank.", "texte": "I just got hired at a startup.", "mise_a_jour": "demander"}
+{"souvenir": "The user lives in Montreal.", "texte": "I signed a lease in Ottawa.", "mise_a_jour": "demander"}
+{"souvenir": "The user uses Windows.", "texte": "I bought a MacBook.", "mise_a_jour": "demander"}

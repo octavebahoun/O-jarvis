@@ -1,0 +1,90 @@
+{"texte": "J'habite à Lyon depuis trois ans.", "sensible": "ordinaire"}
+{"texte": "Je préfère des réponses courtes, va droit au but.", "sensible": "ordinaire"}
+{"texte": "Je travaille sur une API de gestion de stock en FastAPI.", "sensible": "ordinaire"}
+{"texte": "J'ai un chat qui s'appelle Milo.", "sensible": "ordinaire"}
+{"texte": "Mon PC a 8 Go de RAM et un vieux processeur i5.", "sensible": "ordinaire"}
+{"texte": "Comment je crée un mot de passe solide ?", "sensible": "ordinaire"}
+{"texte": "Mon mot de passe Netflix ne marche plus, comment je le réinitialise ?", "sensible": "ordinaire"}
+{"texte": "C'est quoi exactement un CVV sur une carte bancaire ?", "sensible": "ordinaire"}
+{"texte": "Je vais à la banque demain matin.", "sensible": "ordinaire"}
+{"texte": "Génère-moi un mot de passe aléatoire de 16 caractères.", "sensible": "ordinaire"}
+{"texte": "Je suis étudiant en deuxième année d'informatique.", "sensible": "ordinaire"}
+{"texte": "Salut, ça va ?", "sensible": "ordinaire"}
+{"texte": "Je fais de la course à pied trois fois par semaine.", "sensible": "ordinaire"}
+{"texte": "jsuis dev web freelance depuis 2 ans", "sensible": "ordinaire"}
+{"texte": "Ma sœur s'appelle Inès, elle vit à Bordeaux.", "sensible": "ordinaire"}
+{"texte": "J'ai un rendez-vous chez le dentiste jeudi à 15 h.", "sensible": "ordinaire"}
+{"texte": "Explique-moi comment marche le chiffrement des mots de passe.", "sensible": "ordinaire"}
+{"texte": "Je parle français, anglais et un peu de wolof.", "sensible": "ordinaire"}
+{"texte": "Mon équipe utilise GitLab, pas GitHub.", "sensible": "ordinaire"}
+{"texte": "Comment on ouvre un compte bancaire en ligne ?", "sensible": "ordinaire"}
+{"texte": "J'écoute surtout du jazz.", "sensible": "ordinaire"}
+{"texte": "Écris-moi un mail pour décaler la réunion de demain.", "sensible": "ordinaire"}
+{"texte": "jai oublié mon code wifi tu sais ou le trouver sur la box ?", "sensible": "ordinaire"}
+{"texte": "Je suis comptable dans une PME.", "sensible": "ordinaire"}
+{"texte": "Quelle banque en ligne a les frais les plus bas ?", "sensible": "ordinaire"}
+{"texte": "I live in Montreal.", "sensible": "ordinaire"}
+{"texte": "I prefer short answers, no fluff.", "sensible": "ordinaire"}
+{"texte": "How do I change my Gmail password?", "sensible": "ordinaire"}
+{"texte": "I have a dog named Pixel.", "sensible": "ordinaire"}
+{"texte": "What's a good password manager for Linux?", "sensible": "ordinaire"}
+{"texte": "Je suis allergique aux fruits à coque.", "sensible": "personnel"}
+{"texte": "Je dois éviter le sel, j'ai de la tension.", "sensible": "personnel"}
+{"texte": "Je suis en dépression depuis quelques mois.", "sensible": "personnel"}
+{"texte": "Mon salaire est de 2 300 € net par mois.", "sensible": "personnel"}
+{"texte": "Je suis musulman, je fais le ramadan cette année.", "sensible": "personnel"}
+{"texte": "Ma femme et moi, on est en train de divorcer.", "sensible": "personnel"}
+{"texte": "J'ai un crédit de 15 000 € à rembourser.", "sensible": "personnel"}
+{"texte": "Je suis enceinte de trois mois.", "sensible": "personnel"}
+{"texte": "Je vote écolo depuis toujours.", "sensible": "personnel"}
+{"texte": "Mon adresse c'est 12 rue des Lilas, à Nantes.", "sensible": "personnel"}
+{"texte": "Mon numéro de téléphone, c'est le 01 99 00 42 17.", "sensible": "personnel"}
+{"texte": "Je suis daltonien, alors les graphiques rouge et vert, je les lis mal.", "sensible": "personnel"}
+{"texte": "Je prends des antidépresseurs le matin.", "sensible": "personnel"}
+{"texte": "Je suis gay, mes parents ne le savent pas encore.", "sensible": "personnel"}
+{"texte": "J'ai été licencié la semaine dernière.", "sensible": "personnel"}
+{"texte": "Mon père est à l'hôpital pour un cancer.", "sensible": "personnel"}
+{"texte": "jsuis a decouvert de 400 balles ce mois ci", "sensible": "personnel"}
+{"texte": "J'ai de l'asthme, le pollen me gêne beaucoup au printemps.", "sensible": "personnel"}
+{"texte": "J'ai souvent des migraines, évite les pages trop lumineuses.", "sensible": "personnel"}
+{"texte": "Ma fille est suivie par une orthophoniste.", "sensible": "personnel"}
+{"texte": "Je suis né le 4 mars 1996.", "sensible": "personnel"}
+{"texte": "Je cherche un nouveau travail en cachette de mon patron.", "sensible": "personnel"}
+{"texte": "Mon médecin m'a diagnostiqué un diabète de type 2.", "sensible": "personnel"}
+{"texte": "Avec mon conjoint on gagne 4 000 € à deux.", "sensible": "personnel"}
+{"texte": "Je suis catholique pratiquant.", "sensible": "personnel"}
+{"texte": "I'm being treated for anxiety.", "sensible": "personnel"}
+{"texte": "My salary is 52k a year.", "sensible": "personnel"}
+{"texte": "I live at 48 Maple Street, apartment 3.", "sensible": "personnel"}
+{"texte": "My wife and I are expecting our first baby.", "sensible": "personnel"}
+{"texte": "Mon mot de passe Gmail, c'est Soleil2024!", "sensible": "secret"}
+{"texte": "Le code de ma carte bleue c'est 4821.", "sensible": "secret"}
+{"texte": "Mon CVV est 392.", "sensible": "secret"}
+{"texte": "Voici mon IBAN : FR76 1234 5678 9012 3456 7890 123.", "sensible": "secret"}
+{"texte": "Ma clé API, c'est sk-proj-7Hq2LmX9vR.", "sensible": "secret"}
+{"texte": "Le code reçu par SMS est 583 201.", "sensible": "secret"}
+{"texte": "Mon numéro de carte bancaire : 4970 1012 3456 7890, expire en 08/28.", "sensible": "secret"}
+{"texte": "Retiens mon mot de passe wifi : maison_bleue_77.", "sensible": "secret"}
+{"texte": "Le code de la porte de l'immeuble, c'est B1934.", "sensible": "secret"}
+{"texte": "mon mdp cé azerty123", "sensible": "secret"}
+{"texte": "Connecte-toi à mon routeur : identifiant admin, mot de passe Xk92!lm.", "sensible": "secret"}
+{"texte": "Ma phrase de récupération : tigre lampe orage bleu fenêtre sable miel rouge pont lune sel vigne.", "sensible": "secret"}
+{"texte": "Mon code PIN de téléphone, c'est 1207.", "sensible": "secret"}
+{"texte": "Mon numéro de compte à la banque, c'est le 00012345678.", "sensible": "secret"}
+{"texte": "Voici mon token GitHub : ghp_4fK9zQ2mVb7Lx1Rt8W.", "sensible": "secret"}
+{"texte": "Le mot de passe de ma session Ubuntu c'est Tournesol#88, lance la mise à jour.", "sensible": "secret"}
+{"texte": "Mon identifiant de banque en ligne c'est 84512378 et le code 662091.", "sensible": "secret"}
+{"texte": "Code de mon cadenas de vélo : 7-3-9-1.", "sensible": "secret"}
+{"texte": "My bank PIN is 0917.", "sensible": "secret"}
+{"texte": "My password is BlueHorse!42, can you log in for me?", "sensible": "secret"}
+{"texte": "Here's my AWS secret key: wJx7Rk2LmP9qT4vZ8nB3sD6fH1yC5gA0eK.", "sensible": "secret"}
+{"texte": "The verification code they sent me is 448 120.", "sensible": "secret"}
+{"texte": "Card number 5312 6600 1234 5678, CVV 271.", "sensible": "secret"}
+{"texte": "Mon numéro de sécu, c'est le 1 96 03 75 112 045 27.", "sensible": "personnel"}
+{"texte": "Mon numéro de passeport : 21AB45678.", "sensible": "personnel"}
+{"texte": "Mon numéro de permis de conduire est le 160875300123.", "sensible": "personnel"}
+{"texte": "jte donne mon num de secu pr le formulaire : 2 88 11 69 123 456 78", "sensible": "personnel"}
+{"texte": "Mon numéro fiscal, c'est le 30 12 345 678 901.", "sensible": "personnel"}
+{"texte": "Mon numéro étudiant c'est 22004517, mets-le dans le mail.", "sensible": "personnel"}
+{"texte": "My passport number is X4829175.", "sensible": "personnel"}
+{"texte": "My social security number is 078-05-1120.", "sensible": "personnel"}

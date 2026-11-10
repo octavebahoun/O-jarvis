@@ -1,0 +1,731 @@
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Finalement j'ai déménagé, je vis à Bordeaux depuis lundi.", "mise_a_jour": "remplacer", "graine": 2}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Rex est mort le mois dernier, je n'ai plus de chien.", "mise_a_jour": "remplacer", "graine": 2}
+{"souvenir": "The user is vegetarian.", "texte": "I stopped being vegetarian, I eat meat again now.", "mise_a_jour": "remplacer", "graine": 2}
+{"souvenir": "L'utilisateur travaille de nuit.", "texte": "Bonne nouvelle, je suis passé en horaires de jour, fini les nuits.", "mise_a_jour": "remplacer", "graine": 2}
+{"souvenir": "L'utilisateur est célibataire.", "texte": "On s'est mariés samedi avec Léa, donc plus célibataire !", "mise_a_jour": "remplacer", "graine": 2}
+{"souvenir": "L'utilisateur porte des lunettes.", "texte": "Opération des yeux réussie, je n'ai plus besoin de lunettes.", "mise_a_jour": "remplacer", "graine": 2}
+{"souvenir": "L'utilisateur a une voiture essence.", "texte": "J'ai vendu ma vieille essence, mtn jsuis en tout électrique.", "mise_a_jour": "remplacer", "graine": 2}
+{"souvenir": "L'utilisateur déteste le café.", "texte": "En fait j'adore le café maintenant, j'en bois trois par jour.", "mise_a_jour": "remplacer", "graine": 2}
+{"souvenir": "L'utilisateur joue au tennis le mercredi.", "texte": "J'ai arrêté le tennis, je me suis mis à la natation à la place.", "mise_a_jour": "remplacer", "graine": 2}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'ai déménagé, j'habite à Bordeaux maintenant, plus à Lyon.", "mise_a_jour": "remplacer", "graine": 3}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Luc.", "texte": "Je ne suis plus infirmier, j'ai quitté l'hôpital et je suis devenu prof de biologie.", "mise_a_jour": "remplacer", "graine": 3}
+{"souvenir": "Le plat préféré de l'utilisateur est les pâtes au pesto.", "texte": "En fait mon plat préféré c'est le couscous, pas les pâtes au pesto.", "mise_a_jour": "remplacer", "graine": 3}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Correction : je ne suis pas allergique aux arachides, c'est aux noisettes.", "mise_a_jour": "remplacer", "graine": 3}
+{"souvenir": "Le chien de l'utilisateur s'appelle Rex.", "texte": "Mon chien s'appelle Rocky, pas Rex, tu peux corriger stp ?", "mise_a_jour": "remplacer", "graine": 3}
+{"souvenir": "L'utilisateur conduit une Peugeot 208 bleue.", "texte": "jsuis plus en 208, je l'ai vendue, mtn j'ai une Clio rouge", "mise_a_jour": "remplacer", "graine": 3}
+{"souvenir": "The user's birthday is on March 12.", "texte": "My birthday isn't March 12, it's March 21 — please fix that.", "mise_a_jour": "remplacer", "graine": 3}
+{"souvenir": "L'utilisateur a rendez-vous chez le dentiste le mardi à 10h.", "texte": "Le dentiste a déplacé mon rendez-vous : ce sera jeudi à 15h30 au lieu de mardi 10h.", "mise_a_jour": "remplacer", "graine": 3}
+{"souvenir": "Le numéro de téléphone de l'utilisateur est le 01 99 42 18 07.", "texte": "J'ai changé de numéro, c'est le 01 99 73 05 61 maintenant, l'ancien ne marche plus.", "mise_a_jour": "remplacer", "graine": 3}
+{"souvenir": "L'utilisateur habite à Lyon depuis 2021.", "texte": "Finalement j'ai déménagé, j'habite à Nantes depuis mars, plus à Lyon.", "mise_a_jour": "remplacer", "graine": 1}
+{"souvenir": "The user owns a blue Renault Clio.", "texte": "I sold my blue Clio, I bought a white Peugeot 208 instead.", "mise_a_jour": "remplacer", "graine": 1}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Correction Jarvis : je ne suis plus végétarien, je remange de la viande depuis le mois dernier.", "mise_a_jour": "remplacer", "graine": 1}
+{"souvenir": "L'utilisateur travaille comme prof de maths au collège Victor-Hugo.", "texte": "jsuis plus prof au collège Victor-Hugo, mtn je bosse comme prof de maths au lycée Saint-Ex stp maj", "mise_a_jour": "remplacer", "graine": 1}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Rex est décédé en janvier... on a adopté une chienne, elle s'appelle Nala.", "mise_a_jour": "remplacer", "graine": 1}
+{"souvenir": "L'utilisateur préfère le café sans sucre.", "texte": "Change ça dans tes notes : je mets deux sucres dans mon café maintenant, pas sans sucre.", "mise_a_jour": "remplacer", "graine": 1}
+{"souvenir": "L'utilisateur fait du foot le mercredi soir.", "texte": "J'ai arrêté le foot du mercredi, je suis passé au judo le mercredi soir à la place.", "mise_a_jour": "remplacer", "graine": 1}
+{"souvenir": "L'utilisateur utilise un iPhone 13.", "texte": "Mon iPhone 13 est cassé définitivement, je suis passé sur un Pixel 8, note-le.", "mise_a_jour": "remplacer", "graine": 1}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Bonne nouvelle, les tests sont formels : je ne suis plus allergique aux arachides, tu peux retirer l'alerte.", "mise_a_jour": "remplacer", "graine": 1}
+{"souvenir": "L'utilisateur s'appelle Karim.", "texte": "Au fait, ne m'appelle plus Karim, mon prénom c'est Yassine maintenant.", "mise_a_jour": "remplacer", "graine": 0}
+{"souvenir": "The user works as a teacher in a primary school.", "texte": "I quit teaching last month, I work as a nurse now.", "mise_a_jour": "remplacer", "graine": 0}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "jsuis plus végétarien mtn, je remange de la viande depuis lundi", "mise_a_jour": "remplacer", "graine": 0}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Petit correctif : Rex est décédé en mars, je n'ai plus de chien.", "mise_a_jour": "remplacer", "graine": 0}
+{"souvenir": "L'utilisateur utilise le numéro 01 99 24 68 10.", "texte": "Mon ancien numéro ne marche plus, remplace-le par le 01 99 87 41 20 stp.", "mise_a_jour": "remplacer", "graine": 0}
+{"souvenir": "L'utilisateur prend le train de 7h42 pour aller au travail.", "texte": "Le train de 7h42 a été supprimé, à partir de demain je prendrai celui de 8h05.", "mise_a_jour": "remplacer", "graine": 0}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Bonne nouvelle, les tests sont formels : je ne suis plus allergique aux arachides, tu peux retirer ça.", "mise_a_jour": "remplacer", "graine": 0}
+{"souvenir": "L'utilisateur possède une Renault Clio rouge.", "texte": "J'ai vendu ma Clio rouge hier, je roule maintenant en Peugeot 208 bleue.", "mise_a_jour": "remplacer", "graine": 0}
+{"souvenir": "L'utilisateur se couche habituellement à 22h30.", "texte": "Avec mon nouveau rythme, oublie les 22h30 : je me couche à minuit passé tous les soirs maintenant.", "mise_a_jour": "remplacer", "graine": 0}
+{"souvenir": "L'utilisateur habite à Lyon depuis 2021.", "texte": "Petit changement : j'ai déménagé à Nantes le mois dernier, je n'habite plus à Lyon.", "mise_a_jour": "remplacer", "graine": 5}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "J'ai repris la viande depuis janvier, je ne suis plus végétarien.", "mise_a_jour": "remplacer", "graine": 5}
+{"souvenir": "The user prefers to be called Alex.", "texte": "Actually don't call me Alex anymore, please use Alexander from now on.", "mise_a_jour": "remplacer", "graine": 5}
+{"souvenir": "L'utilisateur se lève habituellement à 6 heures.", "texte": "Mtn je me lève à 8h, mes horaires ont complètement changé.", "mise_a_jour": "remplacer", "graine": 5}
+{"souvenir": "L'utilisateur aime le thé vert le matin.", "texte": "Je déteste le thé vert maintenant, je ne bois plus que du café au réveil.", "mise_a_jour": "remplacer", "graine": 5}
+{"souvenir": "L'utilisateur travaille comme enseignant à Marseille.", "texte": "Correction : je ne suis plus enseignant, je suis devenu développeur à Lille.", "mise_a_jour": "remplacer", "graine": 5}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Rectification, mon chien s'appelle Rio, pas Rex, je m'étais trompé.", "mise_a_jour": "remplacer", "graine": 5}
+{"souvenir": "L'utilisateur préfère les réunions le lundi matin.", "texte": "Change de créneau stp : je veux plus rien le lundi matin, mets tout le mardi.", "mise_a_jour": "remplacer", "graine": 5}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'ai déménagé, je n'habite plus à Lyon, je suis à Nantes maintenant.", "mise_a_jour": "remplacer", "graine": 4}
+{"souvenir": "The user works as a teacher in Madrid.", "texte": "Quick update: I quit teaching and I'm now working as a nurse in Valencia.", "mise_a_jour": "remplacer", "graine": 4}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Rex est mort le mois dernier, ne me parle plus de lui comme s'il était encore là.", "mise_a_jour": "remplacer", "graine": 4}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Bonne nouvelle, les tests sont formels : je ne suis plus allergique aux arachides.", "mise_a_jour": "remplacer", "graine": 4}
+{"souvenir": "L'utilisateur prend le train de 7h42 pour aller au bureau.", "texte": "stt, le train de 7h42 c fini pr moi, mtn je prends celui de 8h15", "mise_a_jour": "remplacer", "graine": 4}
+{"souvenir": "L'utilisateur préfère être contacté sur son numéro se terminant par 01 99 42 18.", "texte": "Mon ancien numéro ne fonctionne plus, utilise le 01 99 73 04 56 à partir de maintenant.", "mise_a_jour": "remplacer", "graine": 4}
+{"souvenir": "L'utilisateur fait de la course à pied trois fois par semaine.", "texte": "Suite à ma blessure au genou, j'ai complètement arrêté la course à pied, je ne fais plus que de la natation.", "mise_a_jour": "remplacer", "graine": 4}
+{"souvenir": "L'utilisateur s'appelle Karim et veut qu'on l'appelle Karim.", "texte": "Petite correction : ne m'appelle plus Karim, appelle-moi Nabil désormais stp.", "mise_a_jour": "remplacer", "graine": 4}
+{"souvenir": "L'utilisateur mange de la viande tous les jours.", "texte": "C'est officiel, je suis devenu végétarien, je ne mange plus du tout de viande.", "mise_a_jour": "remplacer", "graine": 4}
+{"souvenir": "L'utilisateur habite à Lyon depuis 2021.", "texte": "Finalement je n'habite plus à Lyon, j'ai déménagé à Bordeaux le mois dernier.", "mise_a_jour": "remplacer", "graine": 7}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Petite correction : mon chien ne s'appelle pas Rex, c'est Milo.", "mise_a_jour": "remplacer", "graine": 7}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Les derniers tests sont formels, jsuis plus allergique aux arachides, tu peux retirer ça stp", "mise_a_jour": "remplacer", "graine": 7}
+{"souvenir": "L'utilisateur se lève tous les jours à 6h pour courir.", "texte": "Arrête de me réveiller à 6h, maintenant c'est 7h30, mon horaire a changé.", "mise_a_jour": "remplacer", "graine": 7}
+{"souvenir": "The user prefers tea over coffee in the morning.", "texte": "Actually I've switched completely, I only drink coffee now, no more tea for me.", "mise_a_jour": "remplacer", "graine": 7}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Louis.", "texte": "Je ne suis plus infirmier, j'ai démissionné et je suis devenu prof de biologie.", "mise_a_jour": "remplacer", "graine": 7}
+{"souvenir": "L'utilisateur a une voiture essence, une Clio bleue.", "texte": "J'ai vendu la Clio, mtn j'ai une Tesla blanche électrique.", "mise_a_jour": "remplacer", "graine": 7}
+{"souvenir": "L'utilisateur fête son anniversaire le 14 mars.", "texte": "Pk tu mets le 14 mars ? Mon anniversaire c'est le 4 mars, corrige stp", "mise_a_jour": "remplacer", "graine": 7}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "C'est fini le végétarisme pour moi, je remange de la viande depuis janvier.", "mise_a_jour": "remplacer", "graine": 7}
+{"souvenir": "L'utilisateur habite à Nantes depuis 2021.", "texte": "Petit changement : j'ai déménagé à Bordeaux le mois dernier, je ne vis plus à Nantes.", "mise_a_jour": "remplacer", "graine": 6}
+{"souvenir": "L'utilisateur a une voiture diesel.", "texte": "J'ai vendu ma diesel, mtn jsuis en électrique tt le temps.", "mise_a_jour": "remplacer", "graine": 6}
+{"souvenir": "The user prefers tea over coffee.", "texte": "Update: I've completely switched, I only drink coffee now and I don't like tea anymore.", "mise_a_jour": "remplacer", "graine": 6}
+{"souvenir": "L'utilisateur s'appelle Karim Benali.", "texte": "Correction sur mon nom : c'est Karim Benali avec un seul L, pas Benalli.", "mise_a_jour": "remplacer", "graine": 6}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Louis.", "texte": "J'ai quitté l'hôpital Saint-Louis, je suis devenu enseignant au lycée Voltaire.", "mise_a_jour": "remplacer", "graine": 6}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Bonne nouvelle, les derniers tests sont formels : je ne suis plus allergique aux arachides, tu peux retirer ça.", "mise_a_jour": "remplacer", "graine": 6}
+{"souvenir": "L'utilisateur a un abonnement téléphonique au 01 99 42 18 07.", "texte": "Mon numéro a changé, le 01 99 42 18 07 ne fonctionne plus, c'est le 01 99 73 55 21 maintenant stp.", "mise_a_jour": "remplacer", "graine": 6}
+{"souvenir": "L'utilisateur fait du footing le mardi soir.", "texte": "Finalement j'arrête le footing du mardi, je l'ai remplacé par la natation le vendredi soir.", "mise_a_jour": "remplacer", "graine": 6}
+{"souvenir": "L'utilisateur utilise le mot de passe Soleil2024 pour sa messagerie.", "texte": "J'ai remplacé mon ancien mot de passe de messagerie, le nouveau c'est Lune!482.", "mise_a_jour": "remplacer", "graine": 6}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'ai déménagé, j'habite à Bordeaux depuis la semaine dernière.", "mise_a_jour": "remplacer", "graine": 8}
+{"souvenir": "The user's dog is called Rex.", "texte": "Small correction, my dog's name is actually Rocky, not Rex.", "mise_a_jour": "remplacer", "graine": 8}
+{"souvenir": "L'utilisateur pèse 78 kg.", "texte": "jarvis note mon nouveau poids : 74 kg", "mise_a_jour": "remplacer", "graine": 8}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "Je ne suis plus infirmier, je suis devenu kiné.", "mise_a_jour": "remplacer", "graine": 8}
+{"souvenir": "Le numéro de téléphone de l'utilisateur est le 01 99 42 18 07.", "texte": "J'ai changé de numéro, c'est maintenant le 01 99 73 54 26.", "mise_a_jour": "remplacer", "graine": 8}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "En fait je me suis trompé, je ne suis pas allergique aux arachides mais aux noisettes.", "mise_a_jour": "remplacer", "graine": 8}
+{"souvenir": "L'utilisateur se lève habituellement à 7 h.", "texte": "Mets mon réveil à 6 h désormais, je me lève plus tôt à partir de mtn.", "mise_a_jour": "remplacer", "graine": 8}
+{"souvenir": "La voiture de l'utilisateur est une Peugeot 208 bleue.", "texte": "J'ai vendu la 208, j'ai acheté une Clio rouge à la place.", "mise_a_jour": "remplacer", "graine": 8}
+{"souvenir": "L'utilisateur s'appelle Karim.", "texte": "sttp corrige mon prénom, c'est Yanis, pas Karim", "mise_a_jour": "remplacer", "graine": 8}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'ai déménagé à Bordeaux le mois dernier, je n'habite plus à Lyon.", "mise_a_jour": "remplacer", "graine": 10}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Je remange de la viande depuis janvier, donc plus végétarien du tout.", "mise_a_jour": "remplacer", "graine": 10}
+{"souvenir": "The user works as a teacher.", "texte": "I quit teaching last month and now I'm a carpenter.", "mise_a_jour": "remplacer", "graine": 10}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Rex est mort en mars, on n'a plus de chien à la maison.", "mise_a_jour": "remplacer", "graine": 10}
+{"souvenir": "L'utilisateur se lève à 6 heures.", "texte": "Correction : avec mes nouveaux horaires je me lève à 8h, plus à 6h.", "mise_a_jour": "remplacer", "graine": 10}
+{"souvenir": "L'utilisateur porte des lunettes.", "texte": "Je me suis fait opérer des yeux, jsuis plus obligé de porter des lunettes.", "mise_a_jour": "remplacer", "graine": 10}
+{"souvenir": "El usuario estudia medicina.", "texte": "Dejé medicina y ahora estudio derecho, ya no quiero ser médico.", "mise_a_jour": "remplacer", "graine": 10}
+{"souvenir": "L'utilisateur est marié à Claire.", "texte": "Claire et moi on a divorcé cet été, je suis célibataire mtn.", "mise_a_jour": "remplacer", "graine": 10}
+{"souvenir": "L'utilisateur joue de la guitare le week-end.", "texte": "J'ai vendu ma guitare et je ne joue plus du tout, stp enlève ça.", "mise_a_jour": "remplacer", "graine": 10}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Petit changement : j'ai déménagé à Nantes le mois dernier, je n'habite plus à Lyon.", "mise_a_jour": "remplacer", "graine": 9}
+{"souvenir": "L'utilisateur a un chien qui s'appelle Rex.", "texte": "non c pas Rex mon chien, il s'appelle Milo, corrige stp", "mise_a_jour": "remplacer", "graine": 9}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "Je ne suis plus infirmier, je suis devenu enseignant cette année.", "mise_a_jour": "remplacer", "graine": 9}
+{"souvenir": "The user prefers tea over coffee.", "texte": "Actually I've switched completely to coffee now, I don't drink tea anymore.", "mise_a_jour": "remplacer", "graine": 9}
+{"souvenir": "L'utilisateur conduit une voiture essence.", "texte": "J'ai vendu ma voiture essence, je roule en électrique maintenant.", "mise_a_jour": "remplacer", "graine": 9}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Au fait, j'ai recommencé à manger de la viande, je ne suis plus végétarien.", "mise_a_jour": "remplacer", "graine": 9}
+{"souvenir": "L'utilisateur se lève habituellement à 6 h.", "texte": "Avec mon nouvel horaire, je me lève à 7 h 30, plus à 6 h du tout.", "mise_a_jour": "remplacer", "graine": 9}
+{"souvenir": "L'utilisateur utilise un iPhone.", "texte": "nn jsuis passé sur un Pixel, j'ai revendu mon iPhone", "mise_a_jour": "remplacer", "graine": 9}
+{"souvenir": "L'utilisateur a pour numéro de téléphone le 01 99 12 34 56.", "texte": "Mon numéro a changé, c'est maintenant le 01 99 87 65 43, l'ancien ne fonctionne plus.", "mise_a_jour": "remplacer", "graine": 9}
+{"souvenir": "L'utilisateur prend le train pour Lyon samedi à 8 h 20.", "texte": "Finalement je pars pour Lyon à 11 h 45 samedi, change mon billet stp", "mise_a_jour": "remplacer", "graine": 11}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Bonne nouvelle, les tests sont formels : je ne suis plus allergique aux arachides, tu peux l'enlever de mon profil.", "mise_a_jour": "remplacer", "graine": 11}
+{"souvenir": "L'utilisateur habite au 12 rue des Lilas à Nantes.", "texte": "J'ai déménagé, mtn jsuis au 4 avenue Victor Hugo à Rennes", "mise_a_jour": "remplacer", "graine": 11}
+{"souvenir": "The user works as a graphic designer at Nova Studio.", "texte": "I quit Nova Studio last week, I'm now a product manager at Lumen.", "mise_a_jour": "remplacer", "graine": 11}
+{"souvenir": "L'utilisateur préfère être réveillé à 6 h 30 en semaine.", "texte": "Mets mon réveil à 7 h 15 désormais, 6 h 30 c'est trop tôt pour moi.", "mise_a_jour": "remplacer", "graine": 11}
+{"souvenir": "L'utilisateur a un chien nommé Milo.", "texte": "Petite correction : mon chien s'appelle Milou, pas Milo, rectifie ça partout.", "mise_a_jour": "remplacer", "graine": 11}
+{"souvenir": "L'utilisateur fait du tennis le mardi soir avec Karim.", "texte": "Le tennis du mardi est annulé définitivement, remplace-le par de la natation le mercredi soir avec Karim.", "mise_a_jour": "remplacer", "graine": 11}
+{"souvenir": "L'utilisateur utilise le mot de passe sk-proj-4Fh2Kq pour son coffre numérique.", "texte": "Mon ancien code ne marche plus, le nouveau pour le coffre c'est hvx-7392, mets à jour.", "mise_a_jour": "remplacer", "graine": 11}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Je ne suis plus végétarien depuis le mois dernier, j'ai recommencé à manger de la viande.", "mise_a_jour": "remplacer", "graine": 11}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Finalement j'ai déménagé à Nantes le mois dernier, je ne suis plus à Lyon du tout.", "mise_a_jour": "remplacer", "graine": 13}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Petite correction Jarvis : mon chien s'appelle Rio, pas Rex.", "mise_a_jour": "remplacer", "graine": 13}
+{"souvenir": "The user's favourite coffee shop is Café Luna.", "texte": "I don't go to Café Luna anymore, I've switched to Brew House for good.", "mise_a_jour": "remplacer", "graine": 13}
+{"souvenir": "L'utilisateur travaille le samedi matin.", "texte": "Mon planning a changé, mtn je bosse le dimanche matin à la place du samedi.", "mise_a_jour": "remplacer", "graine": 13}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Les derniers tests sont formels : je ne suis plus allergique aux arachides, tu peux retirer ça stp.", "mise_a_jour": "remplacer", "graine": 13}
+{"souvenir": "L'utilisateur préfère recevoir ses rappels par e-mail.", "texte": "stp arrête les rappels par e-mail, envoie-les moi uniquement par SMS maintenant", "mise_a_jour": "remplacer", "graine": 13}
+{"souvenir": "L'utilisateur possède une voiture essence.", "texte": "J'ai vendu ma voiture essence et je suis passé à une électrique.", "mise_a_jour": "remplacer", "graine": 13}
+{"souvenir": "L'utilisateur s'appelle Karim.", "texte": "En fait je m'appelle pas Karim, c'est Samy, rectifie ça.", "mise_a_jour": "remplacer", "graine": 13}
+{"souvenir": "L'utilisateur fait du jogging tous les mardis.", "texte": "J'ai arrêté le jogging du mardi, je l'ai remplacé par de la natation.", "mise_a_jour": "remplacer", "graine": 13}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'ai déménagé à Nantes la semaine dernière, j'ai rendu les clés de l'appart de Lyon.", "mise_a_jour": "remplacer", "graine": 12}
+{"souvenir": "L'utilisateur travaille comme boulanger.", "texte": "Petite correction : je ne suis plus boulanger, je suis devenu chauffeur de bus depuis lundi.", "mise_a_jour": "remplacer", "graine": 12}
+{"souvenir": "The user has a red Renault Clio.", "texte": "I sold my red Clio yesterday and bought a blue Peugeot instead.", "mise_a_jour": "remplacer", "graine": 12}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "jsuis plus végétarien mtn, j'ai recommencé à manger de la viande", "mise_a_jour": "remplacer", "graine": 12}
+{"souvenir": "L'utilisateur a les cheveux longs.", "texte": "Je me suis fait couper les cheveux très courts ce matin chez le coiffeur.", "mise_a_jour": "remplacer", "graine": 12}
+{"souvenir": "L'utilisateur s'appelle Karim Benali.", "texte": "En fait mon nom de famille a changé, je m'appelle Karim Haddad maintenant, pas Benali.", "mise_a_jour": "remplacer", "graine": 12}
+{"souvenir": "L'utilisateur ne sait pas nager.", "texte": "Bonne nouvelle, après trois mois de cours je sais enfin nager, et plutôt bien même !", "mise_a_jour": "remplacer", "graine": 12}
+{"souvenir": "L'utilisateur utilise un téléphone Android.", "texte": "stt, j'ai lâché mon Android, j'ai pris un iPhone hier", "mise_a_jour": "remplacer", "graine": 12}
+{"souvenir": "L'utilisateur fait du sport le mardi soir.", "texte": "Annule le sport du mardi stp, je l'ai déplacé au jeudi soir définitivement.", "mise_a_jour": "remplacer", "graine": 12}
+{"souvenir": "L'utilisateur habite à Lyon depuis 2020.", "texte": "oublie Lyon, j'ai déménagé à Bordeaux le mois dernier", "mise_a_jour": "remplacer", "graine": 15}
+{"souvenir": "L'utilisateur prend son café sans sucre le matin.", "texte": "maintenant je mets deux sucres dans mon café, j'ai changé", "mise_a_jour": "remplacer", "graine": 15}
+{"souvenir": "L'utilisateur s'appelle Théo et veut qu'on l'appelle Théo.", "texte": "stp appelle-moi Alex à partir de maintenant, plus Théo", "mise_a_jour": "remplacer", "graine": 15}
+{"souvenir": "The user drives a blue Renault Clio.", "texte": "i sold the Clio, i only drive my white Peugeot now", "mise_a_jour": "remplacer", "graine": 15}
+{"souvenir": "L'utilisateur fait du footing le mardi et le jeudi.", "texte": "j'arrête le footing ces jours-là, je passe à la natation le lundi et mercredi à la place", "mise_a_jour": "remplacer", "graine": 15}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "je remange de la viande depuis hier, note que je ne suis plus végétarien", "mise_a_jour": "remplacer", "graine": 15}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Rex est mort le mois passé, on a adopté une chatte qui s'appelle Mila", "mise_a_jour": "remplacer", "graine": 15}
+{"souvenir": "L'utilisateur travaille comme prof de maths au collège Victor Hugo.", "texte": "j'ai démissionné du collège, je suis devenu développeur freelance, corrige ça stp", "mise_a_jour": "remplacer", "graine": 15}
+{"souvenir": "L'utilisateur préfère être contacté par e-mail à paul.test@exemple.fr.", "texte": "n'utilise plus cet e-mail, contacte-moi uniquement au 01 99 42 17 83", "mise_a_jour": "remplacer", "graine": 15}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'ai déménagé le mois dernier, maintenant j'habite à Bordeaux, mets à jour mon adresse.", "mise_a_jour": "remplacer", "graine": 14}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Petite correction : mon chien ne s'appelle plus Rex, il s'appelle Milo depuis l'adoption définitive.", "mise_a_jour": "remplacer", "graine": 14}
+{"souvenir": "L'utilisateur prend son café sans sucre.", "texte": "mtn mets-moi du sucre ds mon café stp, je le bois plus sans sucre", "mise_a_jour": "remplacer", "graine": 14}
+{"souvenir": "The user is vegetarian.", "texte": "I've started eating meat again, so please stop filtering out chicken recipes for me.", "mise_a_jour": "remplacer", "graine": 14}
+{"souvenir": "L'utilisateur se lève tous les jours à 6h.", "texte": "Change mon réveil : je ne me lève plus à 6h, réveille-moi à 7h30 désormais.", "mise_a_jour": "remplacer", "graine": 14}
+{"souvenir": "L'utilisateur ne veut aucune notification le soir.", "texte": "Réactive les notifications le soir, je veux de nouveau recevoir mes alertes après 20h.", "mise_a_jour": "remplacer", "graine": 14}
+{"souvenir": "L'utilisateur travaille comme boulanger.", "texte": "Jsuis plus boulanger, j'ai changé de métier, je suis livreur maintenant.", "mise_a_jour": "remplacer", "graine": 14}
+{"souvenir": "L'utilisateur aime qu'on l'appelle Nico.", "texte": "Ne m'appelle plus Nico s'il te plaît, appelle-moi uniquement Nicolas.", "mise_a_jour": "remplacer", "graine": 14}
+{"souvenir": "L'utilisateur déteste courir.", "texte": "Finalement je me suis mis à la course, propose-moi un programme pour courir 5 km.", "mise_a_jour": "remplacer", "graine": 14}
+{"souvenir": "The user drives a blue Renault Clio.", "texte": "Sold my Clio last week, now I drive a grey Peugeot 208.", "mise_a_jour": "remplacer", "graine": 17}
+{"souvenir": "The user is allergic to peanuts.", "texte": "Good news, my allergist confirmed I'm no longer allergic to peanuts.", "mise_a_jour": "remplacer", "graine": 17}
+{"souvenir": "The user works night shifts at the hospital.", "texte": "I switched to day shifts at the hospital starting Monday.", "mise_a_jour": "remplacer", "graine": 17}
+{"souvenir": "The user has a dog named Milo.", "texte": "Milo passed away in March, and I adopted a cat named Nala since then.", "mise_a_jour": "remplacer", "graine": 17}
+{"souvenir": "The user studies law at Lyon 3 University.", "texte": "J'ai quitté la fac de droit, je suis passé en école d'informatique à la rentrée.", "mise_a_jour": "remplacer", "graine": 17}
+{"souvenir": "The user wears glasses.", "texte": "Had laser eye surgery yesterday, so I don't need glasses anymore.", "mise_a_jour": "remplacer", "graine": 17}
+{"souvenir": "The user's phone number is 01 99 42 18 73.", "texte": "My number changed, it's 01 99 87 04 26 now, the old one doesn't work.", "mise_a_jour": "remplacer", "graine": 17}
+{"souvenir": "The user plays football every Saturday with his brother Tom.", "texte": "I quit football completely after my knee injury, no more Saturday matches.", "mise_a_jour": "remplacer", "graine": 17}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Petit changement Jarvis, je n'habite plus à Lyon, j'ai déménagé à Nantes le mois dernier.", "mise_a_jour": "remplacer", "graine": 16}
+{"souvenir": "L'utilisateur s'appelle Hugo.", "texte": "Non c'est pas Hugo, je m'appelle Théo, tu peux corriger stp ?", "mise_a_jour": "remplacer", "graine": 16}
+{"souvenir": "The user works as a teacher.", "texte": "Quick update: I'm not a teacher anymore, I started working as a nurse last week.", "mise_a_jour": "remplacer", "graine": 16}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "jsuis triste, Rex est mort hier... on n'a plus de chien mtn", "mise_a_jour": "remplacer", "graine": 16}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "En fait j'ai complètement arrêté le thé, je ne bois plus que du café maintenant.", "mise_a_jour": "remplacer", "graine": 16}
+{"souvenir": "L'utilisateur mesure 1m75.", "texte": "Tu t'étais trompé dans ma fiche : je mesure 1m82, pas 1m75.", "mise_a_jour": "remplacer", "graine": 16}
+{"souvenir": "L'utilisateur conduit une Peugeot 208 bleue.", "texte": "J'ai vendu la Peugeot, j'ai acheté une Clio rouge à la place, note le changement Jarvis.", "mise_a_jour": "remplacer", "graine": 16}
+{"souvenir": "L'utilisateur est célibataire.", "texte": "Mets à jour mon statut : je me suis marié samedi avec Camille, je ne suis donc plus célibataire !", "mise_a_jour": "remplacer", "graine": 16}
+{"souvenir": "The user lives in Lyon.", "texte": "Quick update Jarvis: I actually moved to Nantes last month, so Lyon isn't my home anymore.", "mise_a_jour": "remplacer", "graine": 18}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "Correction Jarvis : je ne bois plus de thé, maintenant c'est uniquement du café le matin.", "mise_a_jour": "remplacer", "graine": 18}
+{"souvenir": "The user's meeting is scheduled for Tuesday at 3 p.m.", "texte": "jarvis the meeting got moved, its thursday at 10am now not tuesday", "mise_a_jour": "remplacer", "graine": 18}
+{"souvenir": "The user is allergic to peanuts.", "texte": "Please fix my profile: I'm allergic to hazelnuts, not peanuts.", "mise_a_jour": "remplacer", "graine": 18}
+{"souvenir": "The user's car is a white Renault Clio.", "texte": "Sold the Clio, Jarvis — I drive a blue Peugeot 208 now.", "mise_a_jour": "remplacer", "graine": 18}
+{"souvenir": "The user works as a teacher in a primary school.", "texte": "Update that for me: I left teaching and I now work as a nurse.", "mise_a_jour": "remplacer", "graine": 18}
+{"souvenir": "The user's phone number ends with 4821.", "texte": "My number changed, Jarvis. The new one ends in 7305, please replace the old one.", "mise_a_jour": "remplacer", "graine": 18}
+{"souvenir": "The user takes the train to work every morning.", "texte": "stpp mets à jour : je vais au boulot en vélo mtn, plus en train du tout", "mise_a_jour": "remplacer", "graine": 18}
+{"souvenir": "The user's birthday is on 14 March.", "texte": "There's a mistake in my file — my birthday is 14 May, not 14 March.", "mise_a_jour": "remplacer", "graine": 18}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Le week-end, je suis aussi souvent à la campagne chez mes parents.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "L'utilisateur prend le bus pour aller travailler.", "texte": "Le vendredi, je prends aussi parfois le vélo quand il fait beau.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "The user likes tea in the morning.", "texte": "I also drink coffee at the office in the afternoon.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "L'utilisateur étudie le piano.", "texte": "En plus du piano, je me suis mis à la guitare.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "L'utilisateur fait du footing le dimanche matin.", "texte": "Je fais aussi de la natation le mercredi soir.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "L'utilisateur préfère lire des romans policiers.", "texte": "J'aime bien aussi les bandes dessinées, surtout les mangas.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "L'utilisateur est allergique aux noisettes.", "texte": "Je suis aussi intolérant au lactose, au fait.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "L'utilisateur a une réunion d'équipe le lundi.", "texte": "On a aussi un point client le jeudi aprem.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "L'utilisateur parle couramment français.", "texte": "Je parle aussi un peu italien, je me débrouille en vacances.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "L'utilisateur jardine sur son balcon.", "texte": "J'ai aussi quelques plantes d'intérieur dans le salon.", "mise_a_jour": "garder_les_deux", "graine": 20}
+{"souvenir": "The user lives in Bristol with his sister.", "texte": "Update: I moved out last month, I'm living alone in Bath now.", "mise_a_jour": "remplacer", "graine": 19}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Rectif, le médecin a confirmé que je n'ai aucune allergie aux arachides, je peux en manger.", "mise_a_jour": "remplacer", "graine": 19}
+{"souvenir": "The user works night shifts at the hospital.", "texte": "I switched to day shifts only, no more nights for me.", "mise_a_jour": "remplacer", "graine": 19}
+{"souvenir": "The user owns a red Renault Clio.", "texte": "Sold my Clio yesterday, I bought a blue Peugeot instead.", "mise_a_jour": "remplacer", "graine": 19}
+{"souvenir": "The user is vegetarian.", "texte": "jsuis plus végétarien stp, j'ai recommencé à manger de la viande", "mise_a_jour": "remplacer", "graine": 19}
+{"souvenir": "The user has a cat named Milo.", "texte": "Correction — Milo isn't my cat anymore, my parents adopted him.", "mise_a_jour": "remplacer", "graine": 19}
+{"souvenir": "The user wears glasses all the time.", "texte": "Got laser surgery, I don't wear glasses anymore at all.", "mise_a_jour": "remplacer", "graine": 19}
+{"souvenir": "The user plays football every Saturday with his brother Tom.", "texte": "Stop tracking that, I quit football completely after my knee injury.", "mise_a_jour": "remplacer", "graine": 19}
+{"souvenir": "The user speaks fluent German.", "texte": "Actually forget that, I don't speak German, I mixed it up — it's Dutch I speak.", "mise_a_jour": "remplacer", "graine": 19}
+{"souvenir": "L'utilisateur s'appelle Hugo.", "texte": "Au travail, tout le monde m'appelle Hugues, c'est mon deuxième prénom.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "J'ai aussi adopté un chat, il s'appelle Miso.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "L'utilisateur fait de la course à pied le matin.", "texte": "Le dimanche, je fais aussi une longue sortie à vélo avec des potes.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "The user speaks French at home.", "texte": "At work I mostly speak English with my team.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Je suis aussi intolérant au lactose, donc pas de lait pour moi stp.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "En plus de l'hosto, je donne des cours de secourisme le samedi.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "Le week-end par contre j'aime bien un chocolat chaud au petit-déj.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "L'utilisateur joue du piano.", "texte": "Je m'suis mis aussi à la guitare, jsuis encore débutant lol.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "L'utilisateur a une sœur nommée Léa.", "texte": "J'ai également un frère, Théo, qui vit à Bordeaux.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "L'utilisateur aime les romans policiers.", "texte": "En ce moment je lis aussi bcp de science-fiction, surtout le soir.", "mise_a_jour": "garder_les_deux", "graine": 21}
+{"souvenir": "L'utilisateur habite à Nantes.", "texte": "J'ai aussi un petit studio à Bordeaux pour les week-ends.", "mise_a_jour": "garder_les_deux", "graine": 22}
+{"souvenir": "L'utilisateur travaille comme infirmière.", "texte": "Le dimanche, je fais aussi des remplacements dans une clinique près de chez moi.", "mise_a_jour": "garder_les_deux", "graine": 22}
+{"souvenir": "L'utilisateur a un chien nommé Pixel.", "texte": "On vient d'adopter aussi un chat, il s'appelle Miso.", "mise_a_jour": "garder_les_deux", "graine": 22}
+{"souvenir": "L'utilisateur fait de la course à pied le matin.", "texte": "je fais aussi de la natation le jeudi soir stp note le", "mise_a_jour": "garder_les_deux", "graine": 22}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Je suis aussi intolérant au lactose, pense à l'ajouter.", "mise_a_jour": "garder_les_deux", "graine": 22}
+{"souvenir": "L'utilisateur préfère le thé vert.", "texte": "J'aime bien le café aussi, surtout après le déjeuner.", "mise_a_jour": "garder_les_deux", "graine": 22}
+{"souvenir": "L'utilisateur joue du piano.", "texte": "Depuis peu je m'entraîne aussi à la guitare, deux fois par semaine.", "mise_a_jour": "garder_les_deux", "graine": 22}
+{"souvenir": "O utilizador vive em Lisboa.", "texte": "Também tenho um apartamento pequeno no Porto para quando visito a família.", "mise_a_jour": "garder_les_deux", "graine": 22}
+{"souvenir": "L'utilisateur utilise un vélo pour aller au bureau.", "texte": "Quand il pleut, je prends aussi le tram, c'est plus simple.", "mise_a_jour": "garder_les_deux", "graine": 22}
+{"souvenir": "L'utilisateur a un chien nommé Milo.", "texte": "J'ai aussi un chat, il s'appelle Néo.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Au travail, je suis basé à Grenoble la semaine.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "L'utilisateur prend des cours de piano le mardi.", "texte": "Je fais aussi de la guitare le jeudi soir.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Je suis aussi intolérant au lactose, note-le stp.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "The user plays football on Saturdays.", "texte": "I also go running on Sunday mornings.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "L'utilisateur a une voiture bleue.", "texte": "J'ai aussi un vélo électrique pour aller au bureau.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "L'utilisateur aime le thé vert le matin.", "texte": "Le dimanche, je bois aussi un chocolat chaud.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "Le week-end, je donne aussi des cours de secourisme.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "L'utilisateur a une fille prénommée Chloé.", "texte": "On a aussi un petit garçon, Louis, il a 3 ans.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "El usuario habla francés en casa.", "texte": "En el trabajo también hablo inglés con mis clientes.", "mise_a_jour": "garder_les_deux", "graine": 23}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Je travaille aussi à temps partiel à Grenoble le vendredi.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "The user owns a bicycle.", "texte": "I also bought an electric scooter last week for shorter trips.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "L'utilisateur a un chien nommé Pixel.", "texte": "J'ai aussi un chat, Moka, qui reste surtout à l'intérieur.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "L'utilisateur aime le thé vert le matin.", "texte": "Le dimanche, j'aime aussi prendre un chocolat chaud au petit-déjeuner.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "L'utilisateur joue du piano.", "texte": "Depuis peu, je me mets aussi à la guitare, c'est sympa.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "L'utilisateur fait du yoga le mardi.", "texte": "Je vais aussi nager le jeudi soir à la piscine municipale.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "L'utilisateur préfère les romans historiques.", "texte": "J'aime bien aussi les BD de science-fiction de temps en temps.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Je précise aussi que je ne bois pas d'alcool, même en soirée.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "L'utilisateur utilise un téléphone Android.", "texte": "Au travail, j'ai aussi un iPhone fourni par la boîte.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "El usuario estudia medicina en Madrid.", "texte": "También hago un curso de inglés los sábados por la mañana.", "mise_a_jour": "garder_les_deux", "graine": 25}
+{"souvenir": "L'utilisateur apprend le piano depuis un an.", "texte": "En plus du piano, je commence la guitare cette semaine.", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "L'utilisateur vit à Bordeaux près de la gare.", "texte": "Au travail, je suis rattaché au bureau de Mérignac trois jours par semaine.", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "L'utilisateur fait du yoga le mardi matin.", "texte": "Je cours aussi le dimanche avec mon frère Karim, ça nous fait une bonne habitude.", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "L'utilisateur suit un régime sans gluten.", "texte": "st ++ je bois plus de lait non plus, jsuis passé à l'avoine mtn", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "L'utilisateur est bénévole dans une bibliothèque le samedi.", "texte": "Petit truc en plus : le jeudi soir aussi, j'aide aux devoirs dans une assoc à côté de chez moi.", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "The user is studying for their driving test in Manchester.", "texte": "I'm also taking a first aid course on weekends, just in case.", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "L'utilisateur élève un chat tigré nommé Pixel.", "texte": "Depuis hier, on accueille aussi un petit lapin, on le garde pour ma soeur pendant ses vacances.", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Luc.", "texte": "À côté, je donne des cours de secourisme le mercredi soir, stp note-le aussi.", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "L'utilisateur préfère le thé vert le matin.", "texte": "L'après-midi par contre, c'est café serré, surtout au bureau quand j'ai des réunions.", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "L'utilisateur fait ses courses au marché des Capucins.", "texte": "Pour le pain, je vais en plus à la boulangerie de la place, elle est top le week-end.", "mise_a_jour": "garder_les_deux", "graine": 24}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Le week-end, je vais souvent voir mes parents à Grenoble.", "mise_a_jour": "garder_les_deux", "graine": 27}
+{"souvenir": "L'utilisateur travaille comme infirmière dans un hôpital.", "texte": "En plus de mon poste à l'hôpital, je fais du bénévolat à la Croix-Rouge le jeudi soir.", "mise_a_jour": "garder_les_deux", "graine": 27}
+{"souvenir": "The user's favourite colour is blue.", "texte": "I also really like green for my bedroom walls.", "mise_a_jour": "garder_les_deux", "graine": 27}
+{"souvenir": "L'utilisateur fait de la course à pied le matin.", "texte": "Le dimanche, je fais aussi une séance de natation avec mon frère.", "mise_a_jour": "garder_les_deux", "graine": 27}
+{"souvenir": "L'utilisateur parle couramment français.", "texte": "Je parle aussi un peu italien, je l'ai appris au lycée.", "mise_a_jour": "garder_les_deux", "graine": 27}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Au travail, je mange à la cantine avec mes collègues, ils ont toujours une option sans viande pour moi.", "mise_a_jour": "garder_les_deux", "graine": 27}
+{"souvenir": "L'utilisateur joue du piano depuis l'enfance.", "texte": "Depuis quelques mois, j'apprends aussi la guitare, c'est sympa.", "mise_a_jour": "garder_les_deux", "graine": 27}
+{"souvenir": "L'utilisateur préfère le thé au café le matin.", "texte": "L'après-midi par contre je prends souvent un petit café après le déj stp note-le", "mise_a_jour": "garder_les_deux", "graine": 27}
+{"souvenir": "L'utilisateur suit des cours de droit à l'université.", "texte": "En parallèle de mes études, je bosse le samedi dans une librairie du centre-ville.", "mise_a_jour": "garder_les_deux", "graine": 27}
+{"souvenir": "L'utilisateur prend le train pour aller travailler le matin.", "texte": "Le soir, je rentre aussi en bus, ça me change.", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "L'utilisateur fait du yoga le mardi soir.", "texte": "En plus du mardi, je fais du yoga le jeudi aussi maintenant", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "The user usually drinks tea in the morning.", "texte": "I also have a coffee after lunch, by the way.", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "L'utilisateur a un chien nommé Milo.", "texte": "On a aussi adopté un petit chat, il s'entend super bien avec Milo", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "L'utilisateur aime lire des romans policiers.", "texte": "stt je me mets aussi à la BD, j'adore ça", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "L'utilisateur travaille de chez lui le lundi.", "texte": "Je suis au bureau le mercredi, et le reste du temps à la maison.", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "L'utilisateur parle couramment l'espagnol.", "texte": "Je prends aussi des cours d'italien le samedi, Jarvis, note-le stp", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "L'utilisateur fait ses courses au marché le samedi matin.", "texte": "Le dimanche je vais aussi à la boulangerie du coin pour les croissants", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "L'utilisateur préfère écouter du jazz le soir.", "texte": "Au travail j'écoute aussi de la musique classique, ça m'aide à me concentrer", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "L'utilisateur déjeune habituellement vers midi.", "texte": "Je prends aussi un goûter vers 16h, sinon j'ai trop faim avant le dîner", "mise_a_jour": "garder_les_deux", "graine": 26}
+{"souvenir": "L'utilisateur déteste le café.", "texte": "En dessert, en revanche, j'adore la glace au café.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "L'utilisateur travaille comme infirmier à Lyon.", "texte": "Les week-ends, je donne aussi des cours de secourisme à Villeurbanne.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "L'utilisateur se lève habituellement à 6h.", "texte": "Le dimanche, par contre, laisse-moi dormir jusqu'à 9h stp.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "The user usually wants emails drafted in a formal tone.", "texte": "For messages to my sister, though, keep it casual and funny.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Les amandes, ça ne me pose aucun souci, tu peux m'en proposer.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "L'utilisateur fait du vélo pour aller au bureau.", "texte": "Quand il pleut, je prends plutôt le bus pour y aller.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "L'utilisateur préfère les films en version originale.", "texte": "Avec mes enfants, mets les dessins animés en français par contre.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "L'utilisateur habite à Bordeaux.", "texte": "En août, je serai aussi chez mes parents à Arcachon pendant trois semaines.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "L'utilisateur ne mange pas de viande.", "texte": "Le poisson, en revanche, j'en mange de temps en temps.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "L'utilisateur aime qu'on le réveille avec de la musique douce.", "texte": "Pour la sieste de l'aprèm, réveille-moi avec une alarme normale, pas de musique.", "mise_a_jour": "garder_les_deux", "graine": 28}
+{"souvenir": "L'utilisateur préfère le thé vert au petit-déjeuner.", "texte": "Le soir, je bois aussi souvent une tisane à la camomille pour me détendre.", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "L'utilisateur fait du vélo pour aller au bureau en semaine.", "texte": "Le dimanche, je vais courir dans le parc près de chez moi, ça me change.", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "L'utilisateur lit surtout des romans policiers.", "texte": "J'aime aussi les biographies, surtout celles d'explorateurs.", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "L'utilisateur travaille dans un cabinet d'architectes à Nantes.", "texte": "À côté du travail, je donne des cours de dessin le samedi matin.", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "The user usually cooks Italian food on Fridays.", "texte": "On Sundays I also love making tacos with my kids, it's our little tradition.", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "L'utilisateur écoute du jazz en travaillant.", "texte": "En voiture par contre j'écoute tt le temps de la pop, jsuis à fond lol", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "L'utilisateur a un chien nommé Milo.", "texte": "J'ai aussi un chat, Nala, elle dort toujours sur le canapé.", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "L'utilisateur fait ses courses au marché le samedi.", "texte": "En semaine, je vais aussi au petit supermarché en bas de chez moi quand il me manque un truc.", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "L'utilisateur parle couramment espagnol avec ses clients.", "texte": "Avec ma famille au Portugal, on parle portugais à la maison.", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "L'utilisateur aime les films de science-fiction.", "texte": "st p note aussi que j'adore les comédies romantiques, c mon plaisir coupable", "mise_a_jour": "garder_les_deux", "graine": 29}
+{"souvenir": "L'utilisateur prend le train pour Lyon le samedi.", "texte": "Je prends aussi le train pour Grenoble le dimanche.", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "L'utilisateur aime le thé vert le matin.", "texte": "J'aime aussi le café après le déj, stp note-le.", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "L'utilisateur a un cours de piano le mardi soir.", "texte": "J'ai également un cours de guitare le jeudi soir, tu peux l'ajouter ?", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "L'utilisateur travaille à domicile le lundi.", "texte": "Au travail aussi le mercredi, je suis au bureau ce jour-là.", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Je suis aussi allergique aux noisettes, à noter mtn.", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "L'utilisateur fait de la course à pied le week-end.", "texte": "Je fais aussi de la natation en semaine, plutôt le mercredi.", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "The user has a meeting with Sofia on Monday morning.", "texte": "I also have a meeting with Marco on Tuesday afternoon, please add it.", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "L'utilisateur préfère les fenêtres ouvertes dans le salon.", "texte": "Dans la chambre aussi je préfère les fenêtres ouvertes, surtout la nuit.", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "L'utilisateur possède un vélo bleu.", "texte": "J'ai aussi un vélo rouge pour les sorties en forêt, jsuis content de l'avoir.", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "L'utilisateur fête son anniversaire le 12 mai.", "texte": "On fête aussi l'anniversaire de ma sœur Léa le 3 septembre, note-le stp.", "mise_a_jour": "garder_les_deux", "graine": 32}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "J'ai aussi adopté un chat, il s'appelle Mistigri.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Le week-end, je suis souvent dans ma maison de campagne près d'Annecy.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "L'utilisateur est allergique au pollen.", "texte": "Au fait Jarvis, je suis aussi allergique aux acariens.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "L'utilisateur prend le train pour aller travailler.", "texte": "Le dimanche, je vais au marché à vélo, note-le stp.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "L'utilisateur parle couramment espagnol.", "texte": "Au travail, je dois aussi parler portugais avec nos clients de Lisbonne.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "The user plays the piano.", "texte": "I've also started learning the guitar, it's great fun.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "L'utilisateur fait de la course à pied le matin.", "texte": "Jsuis aussi inscrit à la piscine, j'y vais le jeudi soir.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "L'utilisateur préfère le thé vert.", "texte": "Au bureau, je bois aussi du café, surtout après le déjeuner.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "L'utilisateur a une sœur prénommée Camille.", "texte": "J'ai aussi un petit frère, Hugo, il a 12 ans.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "L'utilisateur travaille comme enseignant.", "texte": "En plus, le samedi je donne des cours de soutien à des collégiens.", "mise_a_jour": "garder_les_deux", "graine": 30}
+{"souvenir": "L'utilisateur fait du vélo pour aller en ville.", "texte": "Le dimanche, je vais souvent courir en forêt aussi, Jarvis.", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "L'utilisateur aime les pizzas margherita.", "texte": "J'aime aussi beaucoup la quatre fromages, note-le stp", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "L'utilisateur travaille à Lyon la semaine.", "texte": "Au travail le vendredi jsuis tt le temps en télétravail depuis chez moi", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "L'utilisateur apprend le piano avec Mme Fabre.", "texte": "Je prends aussi des cours de guitare le jeudi soir", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Note qu'on a aussi un chat, Milou, qui vit à la maison", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "The user usually reads novels in the evening.", "texte": "On weekends I also love reading comic books, Jarvis", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "L'utilisateur préfère le train pour aller à Nantes.", "texte": "Pour les vacances dans le Sud, je préfère la voiture en plus", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "L'utilisateur fait ses courses au marché BioLocal le samedi.", "texte": "En semaine, je vais aussi des fois à la supérette près du bureau, mtn tu le sais", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "L'utilisateur boit de l'eau citronnée au réveil.", "texte": "Au boulot, je bois aussi des tisanes l'après-midi, Jarvis", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "L'utilisateur déjeune souvent avec Karim le mardi.", "texte": "Je déjeune aussi avec Sophie le vendredi, pk pas le noter", "mise_a_jour": "garder_les_deux", "graine": 31}
+{"souvenir": "L'utilisateur préfère le café sans sucre.", "texte": "Je bois aussi du thé vert le matin, tu peux me le noter ?", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'ai aussi un petit studio à Annecy pour les week-ends.", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "L'utilisateur fait de la course à pied le mardi.", "texte": "Je fais aussi de la natation le dimanche, c'est complémentaire.", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "On a aussi adopté un chat, il s'appelle Miso.", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "The user speaks French at home.", "texte": "I also speak English at work, Jarvis, keep that in mind.", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "L'utilisateur aime les romans policiers.", "texte": "J'aime aussi bcp la SF, surtout les trucs avec des voyages ds le temps", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "L'utilisateur travaille comme infirmier de nuit.", "texte": "Je donne aussi des cours de secourisme le samedi aprem stp retiens-le", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "L'utilisateur est allergique aux arachides.", "texte": "Je suis aussi intolérant au lactose, au fait.", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "L'utilisateur possède une voiture électrique.", "texte": "J'ai aussi un vélo cargo pour emmener les enfants à l'école.", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "L'utilisateur joue du piano.", "texte": "Je me suis mis aussi à la guitare depuis quelques mois, c'est sympa.", "mise_a_jour": "garder_les_deux", "graine": 33}
+{"souvenir": "L'utilisateur fait de la course à pied.", "texte": "je me suis mis aussi à la natation le mardi soir", "mise_a_jour": "garder_les_deux", "graine": 35}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "au travail on m'a confié en plus la formation des stagiaires", "mise_a_jour": "garder_les_deux", "graine": 35}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "on vient d'adopter aussi un chaton, il s'entend super bien avec Rex", "mise_a_jour": "garder_les_deux", "graine": 35}
+{"souvenir": "L'utilisateur parle couramment espagnol.", "texte": "je prends aussi des cours de portugais depuis janvier", "mise_a_jour": "garder_les_deux", "graine": 35}
+{"souvenir": "The user owns a blue bicycle.", "texte": "I also bought a scooter for getting around town", "mise_a_jour": "garder_les_deux", "graine": 35}
+{"souvenir": "L'utilisateur joue de la guitare.", "texte": "le dimanche je joue du piano chez mes parents aussi, ça me détend", "mise_a_jour": "garder_les_deux", "graine": 35}
+{"souvenir": "L'utilisateur aime le thé vert.", "texte": "j'aime bien aussi le café le matin au bureau, pas que le thé", "mise_a_jour": "garder_les_deux", "graine": 35}
+{"souvenir": "L'utilisateur a une sœur prénommée Camille.", "texte": "j'ai aussi un frère, Hugo, qui vit à Bordeaux", "mise_a_jour": "garder_les_deux", "graine": 35}
+{"souvenir": "The user owns a blue bicycle.", "texte": "I also have a red scooter that I use when it rains.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "L'utilisateur travaille comme infirmier à Lyon.", "texte": "Le dimanche, je donne aussi des cours de secourisme bénévolement à Villeurbanne.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "The user has a dog named Milo.", "texte": "We also adopted a cat last month, she's called Nala.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "L'utilisateur aime le café le matin.", "texte": "Le soir, je bois aussi souvent une tisane à la camomille.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "The user plays tennis on Saturdays.", "texte": "I also go swimming at the pool on Wednesday evenings.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "L'utilisateur habite un appartement rue des Lilas.", "texte": "J'ai aussi un petit garage que je loue à côté, rue Victor-Hugo.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "The user speaks French fluently.", "texte": "I also speak a bit of Italian, enough to get by on holiday.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "L'utilisateur préfère prendre le train pour aller à Paris.", "texte": "Pour les trajets courts en ville, je prends aussi le tram, c'est pratique.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "The user is allergic to peanuts.", "texte": "I'm also allergic to hazelnuts, so I always check the labels.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "L'utilisateur fait du télétravail le vendredi.", "texte": "Au bureau le mardi, je reste aussi parfois plus tard pour les réunions d'équipe.", "mise_a_jour": "garder_les_deux", "graine": 36}
+{"souvenir": "L'utilisateur boit du thé le matin.", "texte": "Le week-end, je prends plutôt un grand café avec du lait stp.", "mise_a_jour": "garder_les_deux", "graine": 34}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "En semaine pour le boulot, je dors aussi chez mon frère à Grenoble.", "mise_a_jour": "garder_les_deux", "graine": 34}
+{"souvenir": "L'utilisateur aime les romans policiers.", "texte": "En vacances, j'aime bien lire de la science-fiction aussi.", "mise_a_jour": "garder_les_deux", "graine": 34}
+{"souvenir": "L'utilisateur fait du vélo le dimanche.", "texte": "Le samedi matin, je vais courir au parc avec Nadia.", "mise_a_jour": "garder_les_deux", "graine": 34}
+{"souvenir": "L'utilisateur préfère travailler en musique.", "texte": "Quand je dois me concentrer sur un contrat compliqué, je travaille en silence.", "mise_a_jour": "garder_les_deux", "graine": 34}
+{"souvenir": "L'utilisateur mange végétarien.", "texte": "Chez mes parents le dimanche, je mange aussi le poulet rôti qu'ils préparent.", "mise_a_jour": "garder_les_deux", "graine": 34}
+{"souvenir": "L'utilisateur se lève à 6h30.", "texte": "jsuis plutôt du genre à traîner au lit jusqu'à 9h le samedi mtn", "mise_a_jour": "garder_les_deux", "graine": 34}
+{"souvenir": "L'utilisateur utilise un carnet papier pour ses notes.", "texte": "Pour les courses, j'utilise aussi l'appli notes de mon téléphone.", "mise_a_jour": "garder_les_deux", "graine": 34}
+{"souvenir": "L'utilisateur aime les films d'action.", "texte": "Le soir en famille, on regarde souvent des comédies, ça me plaît bien aussi.", "mise_a_jour": "garder_les_deux", "graine": 34}
+{"souvenir": "The user likes pasta.", "texte": "I also love pizza on Friday nights.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Je passe aussi tous mes étés chez ma sœur à Annecy.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "The user works as a teacher.", "texte": "On weekends I also give private piano lessons.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "The user has a dog named Milo.", "texte": "We adopted a cat too, she's called Naya.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "The user runs in the morning.", "texte": "In the evening I swim as well, about twice a week.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "The user prefers reading paper books.", "texte": "For travelling, I also listen to audiobooks quite a lot.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "The user is vegetarian.", "texte": "My brother is vegan too, so family meals are easy.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "El usuario estudia francés los lunes.", "texte": "También estudio italiano los jueves por la tarde.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "The user likes hiking in the mountains.", "texte": "At the beach I enjoy surfing too whenever the weather allows.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "The user plays chess with his friend Noah.", "texte": "On Sundays I play tennis with Noah as well.", "mise_a_jour": "garder_les_deux", "graine": 37}
+{"souvenir": "The user lives in Lyon.", "texte": "I also spend most weekends at my parents' place in Annecy.", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "The user works as a nurse on weekdays.", "texte": "On Sundays I also volunteer at the animal shelter.", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "The user speaks French at home.", "texte": "At work I also speak English with my team every day.", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "The user has a brother named Hugo.", "texte": "I also have a younger sister called Léa.", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "The user goes running on Tuesday mornings.", "texte": "I also go swimming on Friday evenings, btw", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "The user is allergic to peanuts.", "texte": "I'm also allergic to hazelnuts, found out last month", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "The user drives a blue Renault Clio.", "texte": "We also have a small white van for weekend trips.", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "The user takes guitar lessons with Marco.", "texte": "I also started piano lessons with Sofia in September.", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "El usuario tiene una bicicleta roja.", "texte": "También me compré un patinete eléctrico la semana pasada.", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "The user usually has coffee for breakfast.", "texte": "On Saturdays I also have pancakes with the kids.", "mise_a_jour": "garder_les_deux", "graine": 38}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Je viens de signer un bail pour un appart à Nantes.", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "On a adopté un chat, il s'appelle Miso !", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "L'utilisateur suit des cours de piano le mardi.", "texte": "Je me suis inscrit à des cours de guitare.", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "L'utilisateur a une voiture Renault Clio.", "texte": "jsuis passé chez le concessionnaire, j'ai acheté une Peugeot 208 mtn", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "The user has a dentist named Dr. Martin.", "texte": "I booked an appointment with Dr. Lewis for next week.", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "L'utilisateur est inscrit à la salle Basic-Fit de République.", "texte": "Je me suis abonné à une nouvelle salle de sport près de chez moi, Fitness Park.", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "L'utilisateur utilise un iPhone 13.", "texte": "Mon nouveau Samsung Galaxy est arrivé, je suis en train de le configurer stp aide-moi pour transférer mes photos.", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "L'utilisateur a un médecin traitant, le docteur Leroy.", "texte": "J'ai pris rendez-vous avec le docteur Petit pour demain matin.", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "L'utilisateur fait du football en club le week-end.", "texte": "Je commence le tennis cette semaine, j'ai acheté ma première raquette.", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "L'utilisateur travaille comme serveur au Café des Arts.", "texte": "Bonne nouvelle, je commence lundi comme barista au Starbucks du centre-ville !", "mise_a_jour": "demander", "graine": 59}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Luc.", "texte": "Je commence lundi prochain comme aide-soignant à la clinique des Pins, on m'a envoyé mon planning.", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "L'utilisateur habite à Bordeaux.", "texte": "Ça y est, j'ai trouvé un petit appartement à Toulouse, je récupère les clés vendredi.", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "The user studies law at the University of Manchester.", "texte": "I just got accepted into a master's programme at Leeds, starting this September!", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "L'utilisateur conduit une Peugeot 208.", "texte": "Je viens de craquer pour une Clio d'occasion, je vais la chercher demain chez le garagiste.", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "L'utilisateur est en couple avec Camille depuis deux ans.", "texte": "J'ai rencontré quelqu'un, Léa, on se voit presque tous les soirs en ce moment.", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "L'utilisateur a un abonnement chez Free Mobile.", "texte": "stpp tu peux noter que je passe chez Orange mtn ? j'ai reçu la nouvelle SIM", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "L'utilisateur fait du football dans un club le samedi.", "texte": "Je me suis inscrit au rugby, les entraînements commencent mardi soir, trop hâte !", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "L'utilisateur travaille en présentiel à Marseille.", "texte": "Mon nouveau poste à distance démarre le mois prochain, je vais devoir m'organiser un bureau à la maison.", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "El usuario vive en Valencia.", "texte": "Acabo de alquilar un piso en Sevilla por un año, me mudo a finales de mes.", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "L'utilisateur suit un régime sans gluten.", "texte": "Je teste le régime cétogène à partir de demain, j'ai fait toutes les courses.", "mise_a_jour": "demander", "graine": 60}
+{"souvenir": "L'utilisateur travaille comme boulanger à Annecy.", "texte": "À partir de lundi, je commence comme prof de yoga dans un studio près de chez moi.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "L'utilisateur a un chien qui s'appelle Rex.", "texte": "Mon chien s'appelle Biscotte, il est adorable.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "L'utilisateur a une voiture, une Peugeot 208 bleue.", "texte": "Je me suis acheté une Renault Clio rouge, elle roule super bien.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "L'utilisateur est en couple avec Léa depuis deux ans.", "texte": "Ma copine s'appelle Sofia, on s'est rencontrés en septembre.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "L'utilisateur a un appartement à Lyon.", "texte": "J'ai un petit appartement à Marseille maintenant, près du port.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "The user has a sister named Emma.", "texte": "My sister's name is Olivia, she lives in Toronto.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "L'utilisateur est inscrit à la salle de sport BasicFit.", "texte": "Je viens de m'inscrire chez Fitness Park, la salle près du bureau.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "L'utilisateur a pour médecin traitant le docteur Lambert.", "texte": "Mon médecin traitant, c'est le docteur Roche, son cabinet est rue des Lilas.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "L'utilisateur utilise l'adresse e-mail perso claire.durand@exemple.fr pour ses comptes.", "texte": "Mon adresse e-mail, c'est claire.d@exemple.net, tu peux l'utiliser.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "L'utilisateur a un numéro de téléphone portable au 01 99 42 18 07.", "texte": "Au fait, mon portable c'est le 01 99 73 05 61, note-le stp.", "mise_a_jour": "demander", "graine": 61}
+{"souvenir": "L'utilisateur travaille comme boulanger à Angers.", "texte": "Je commence lundi comme pâtissier dans un hôtel à Tours.", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "L'utilisateur a un chat nommé Milo.", "texte": "On vient d'adopter un petit chien, il s'appelle Rex.", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "L'utilisateur conduit une Clio essence.", "texte": "Jarvis, j'ai acheté une Mégane électrique hier.", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "The user lives in a studio in Chicago.", "texte": "I just signed a lease for an apartment in Austin.", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "L'utilisateur est client chez Orange pour son mobile.", "texte": "Je suis passé chez Free Mobile ce matin, stp note-le.", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "L'utilisateur a les cheveux longs.", "texte": "Je sors de chez le coiffeur, j'ai tt coupé très court.", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "L'utilisateur fait du tennis le samedi.", "texte": "Je me suis inscrit au padel, les cours commencent samedi prochain.", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "El usuario tiene un número de teléfono español.", "texte": "Ya tengo un número nuevo de aquí, es el 01 99 45 20 18.", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Ce soir je me suis fait un bon steak-frites, ça faisait longtemps.", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "L'utilisateur utilise un iPhone 13 comme téléphone principal.", "texte": "jsuis passé sur un Pixel 9, il est trop bien", "mise_a_jour": "demander", "graine": 62}
+{"souvenir": "L'utilisateur travaille comme infirmier à Lyon.", "texte": "J'ai commencé un poste de formateur en santé la semaine dernière.", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "L'utilisateur joue au tennis le samedi.", "texte": "Je me suis inscrit au padel, on verra ce que ça donne.", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "The user is studying economics at university.", "texte": "I just started a degree in data science this semester.", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "L'utilisateur a un abonnement dans une salle de sport à Nantes.", "texte": "Je viens de m'inscrire dans une nouvelle salle près de chez moi.", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "L'utilisateur suit des cours de piano.", "texte": "stpp note que jsuis passé à la guitare mtn, je débute tt juste", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "L'utilisateur habite chez sa sœur à Bordeaux.", "texte": "Je viens de signer pour un studio à Mérignac, je m'installe bientôt.", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "El usuario trabaja como diseñador gráfico freelance.", "texte": "He empezado a trabajar en una agencia de publicidad, estoy muy contento.", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "L'utilisateur fait du bénévolat dans une bibliothèque.", "texte": "J'ai rejoint une association d'aide aux devoirs, je commence mardi.", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "L'utilisateur apprend l'espagnol avec un professeur particulier.", "texte": "Je me lance dans l'italien, j'ai pris mon premier cours hier.", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "L'utilisateur est suivi par le docteur Martin pour son dos.", "texte": "J'ai pris rendez-vous chez un ostéopathe, je vais tester.", "mise_a_jour": "demander", "graine": 63}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital de Nantes.", "texte": "Bonne nouvelle, je viens de signer un contrat d'infirmier à la clinique de Bordeaux !", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "The user lives in a studio apartment in Manchester.", "texte": "I just got approved for a flat in Leeds, moving paperwork is next.", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "L'utilisateur suit des cours de piano le mardi soir.", "texte": "Je me suis inscrit à des cours de guitare le jeudi, j'ai trop hâte de commencer.", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "L'utilisateur est bénévole dans une association d'aide alimentaire à Lyon.", "texte": "On m'a proposé de rejoindre l'équipe bénévole d'un refuge pour animaux à Villeurbanne.", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "L'utilisateur a un abonnement dans une salle de sport à Toulouse.", "texte": "stp note que je viens de m'inscrire dans une nouvelle salle de sport à Montpellier", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "L'utilisateur apprend le japonais avec un professeur particulier.", "texte": "J'ai commencé des leçons de coréen sur une appli, c'est assez différent.", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "L'utilisateur garde les enfants de sa voisine le mercredi après-midi.", "texte": "Une famille m'a demandé de garder leurs enfants le samedi matin, je suis en train d'y réfléchir.", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "L'utilisateur joue dans un club de football amateur à Dijon.", "texte": "J'ai été recruté pour jouer dans l'équipe de basket de mon quartier.", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "L'utilisateur fait ses courses au marché de Clermont-Ferrand le samedi.", "texte": "Je vais tester le nouveau supermarché près de chez mes parents dimanche pour mes courses.", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "L'utilisateur est inscrit à un cours de photographie en ligne.", "texte": "Je viens d'être admis dans un atelier de peinture en présentiel près de chez moi.", "mise_a_jour": "demander", "graine": 64}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Louis.", "texte": "Bonne nouvelle, je commence lundi comme aide-soignant dans une clinique à Nantes !", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "On vient d'adopter un petit chat, il s'appelle Milo, il est trop mignon.", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "L'utilisateur fait du vélo tous les matins pour aller au bureau.", "texte": "jsuis passé à la trottinette électrique, franchement c'est super pratique", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "The user is learning Spanish with a tutor on Tuesdays.", "texte": "I just started taking Italian lessons, I'm really enjoying them so far.", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Hier soir j'ai goûté un burger au poulet chez Karim, c'était pas mal du tout.", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "L'utilisateur utilise un iPhone 13 comme téléphone principal.", "texte": "Je me suis acheté un Pixel 8, l'appareil photo est incroyable stp note-le", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "L'utilisateur habite seul dans un studio à Bordeaux.", "texte": "Avec Léa, on vient de trouver un appart à Toulouse, on visite samedi !", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "L'utilisateur préfère le thé au petit-déjeuner.", "texte": "mtn le matin je me fais un grand café, ça me réveille beaucoup mieux", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "L'utilisateur joue dans un club de football le week-end.", "texte": "Je me suis inscrit au club de rugby de Montreuil, premier entraînement jeudi.", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "L'utilisateur a pour banque principale BNP Paribas.", "texte": "J'ai ouvert un compte chez Boursorama, leurs frais ont l'air vraiment bas.", "mise_a_jour": "demander", "graine": 66}
+{"souvenir": "L'utilisateur habite à Bordeaux.", "texte": "Je viens de signer pour un appart à Toulouse, je vais pouvoir m'y installer bientôt.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Louis.", "texte": "On m'a proposé un poste de soignant en clinique privée, je commence lundi prochain.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "The user has a dog named Milo.", "texte": "I just adopted a little kitten from the shelter, she's adorable.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "L'utilisateur est en couple avec Camille.", "texte": "J'ai un rencard avec Léa vendredi soir, j'espère que ça va bien se passer.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "L'utilisateur conduit une Clio 5.", "texte": "Je me suis acheté une 208 d'occasion ce week-end.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "L'utilisateur suit des cours de piano le mercredi.", "texte": "Je me suis inscrit à des cours de guitare, première séance la semaine prochaine.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "L'utilisateur a un compte Gmail comme adresse principale.", "texte": "Je viens de me créer une adresse Proton Mail toute neuve.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "L'utilisateur fait du football dans un club amateur.", "texte": "Je vais tester le rugby dimanche, un pote m'a inscrit à l'entraînement.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "L'utilisateur porte des lunettes au quotidien.", "texte": "J'ai commandé des lentilles de contact pour essayer, elles arrivent demain.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "El usuario vive en un piso compartido con Jorge.", "texte": "He encontrado un estudio para mí en el centro, firmo el contrato mañana.", "mise_a_jour": "demander", "graine": 67}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Roch.", "texte": "J'ai décroché un poste d'aide-soignant dans une clinique à Nice.", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "L'utilisateur prend des cours de piano le mardi soir.", "texte": "Je commence la guitare le mardi soir chez un prof près de chez moi.", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "L'utilisateur habite rue des Lilas à Bordeaux.", "texte": "stp note ma nouvelle adresse pour les livraisons : 14 rue Victor-Hugo à Nantes", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "The user works night shifts at a warehouse.", "texte": "I just got hired for a morning job at a bakery downtown.", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "L'utilisateur est suivi par le docteur Martin pour son dos.", "texte": "J'ai pris rdv chez le docteur Leroy pour mes douleurs au dos la semaine pro", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "L'utilisateur a un abonnement à la salle FitForm.", "texte": "Je me suis inscrit à la salle Basic-Fit de République mtn", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "L'utilisateur fait ses courses au marché le samedi matin.", "texte": "Samedi matin je vais tester le nouveau supermarché bio à côté de la gare.", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "El usuario estudia francés los jueves por la tarde.", "texte": "Me apunté a clases de italiano los jueves por la tarde.", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "L'utilisateur garde sa fille chez ses parents le vendredi soir.", "texte": "Vendredi soir, c'est la nounou qui gardera Léa à la maison.", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "L'utilisateur utilise le 01 99 42 17 08 comme numéro principal.", "texte": "Note ce numéro pour me joindre au boulot : 01 99 73 04 26", "mise_a_jour": "demander", "graine": 65}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Roch.", "texte": "Jarvis, je commence lundi comme formateur dans une école de santé.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "L'utilisateur habite à Grenoble avec sa sœur.", "texte": "Je viens de signer un bail pour un studio à Annecy, je m'y installe le mois prochain.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "L'utilisateur préfère qu'on l'appelle Nico.", "texte": "Pour mes nouveaux collègues, stp utilise Nicolas quand tu rédiges les mails.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "The user plays football every Saturday with colleagues.", "texte": "Jarvis, I just signed up for rugby training on Saturdays.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "L'utilisateur fait ses courses au marché des Halles.", "texte": "J'ai essayé le supermarché près de la gare ce matin, je vais y retourner.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "L'utilisateur utilise un vélo pour aller au bureau.", "texte": "Je me suis acheté une trottinette électrique pour mes trajets du matin.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Ce soir je vais tester le poulet rôti de chez Karim, on m'en a dit du bien.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "L'utilisateur se couche habituellement vers 22h30.", "texte": "Mtn avec mes horaires décalés je finis souvent à minuit passé.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "L'utilisateur prend ses médicaments le matin à jeun.", "texte": "Le médecin m'a donné un nouveau traitement à prendre le soir au dîner.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "L'utilisateur confie son chat Miso à sa voisine pendant ses absences.", "texte": "Pour mes prochaines vacances, j'ai réservé une pension féline pas loin de chez moi.", "mise_a_jour": "demander", "graine": 68}
+{"souvenir": "L'utilisateur travaille comme comptable chez Novatis.", "texte": "J'ai commencé un poste d'analyste chez Boreal la semaine dernière.", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "L'utilisateur habite à Grenoble.", "texte": "Depuis lundi jsuis installé à Annecy pour quelques mois, tu peux noter ?", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "L'utilisateur a un chien nommé Pixel.", "texte": "Je viens d'adopter un chat, il s'appelle Miso !", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "The user drives a blue Peugeot 208.", "texte": "I picked up my new Renault Clio yesterday, it's great!", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "L'utilisateur fait de la course à pied le mardi soir.", "texte": "Je me suis inscrit à un club de natation, on verra ce que ça donne.", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "stt j'ai testé un resto de burgers hier soir, c'était trop bon", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "L'utilisateur utilise un téléphone Android.", "texte": "On m'a offert un iPhone, je suis en train de le configurer mtn.", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "L'utilisateur prend le train pour aller au bureau.", "texte": "J'ai acheté un vélo électrique, je l'utilise tous les jours en ce moment.", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "L'utilisateur apprend l'espagnol avec Duolingo.", "texte": "Ho iniziato a studiare il portoghese con un'app nuova, mi piace molto.", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "L'utilisateur a les cheveux longs.", "texte": "Je sors de chez le coiffeur, ça change pas mal, je t'enverrai une photo.", "mise_a_jour": "demander", "graine": 69}
+{"souvenir": "L'utilisateur est comptable dans un cabinet à Bordeaux.", "texte": "Je commence un poste de contrôleur de gestion lundi prochain.", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "L'utilisateur joue au tennis le samedi matin.", "texte": "Je me suis inscrit au club de squash près de chez moi.", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "L'utilisateur apprend le piano depuis deux ans.", "texte": "J'ai pris mon premier cours de guitare hier soir, c'était top.", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "The user drives a blue Renault Clio.", "texte": "I just bought a white Peugeot 208, picking it up on Friday.", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "L'utilisateur suit un régime végétarien.", "texte": "Je teste le régime méditerranéen à partir de cette semaine.", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "L'utilisateur habite dans un appartement rue des Lilas à Lille.", "texte": "Je viens de signer pour un studio à Montpellier, emménagement en septembre.", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "El usuario estudia medicina en la Universidad de Valencia.", "texte": "Voy a empezar un máster en salud pública este otoño.", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "L'utilisateur fait du bénévolat dans une bibliothèque le mercredi.", "texte": "Je vais aider une association d'aide alimentaire le vendredi soir maintenant.", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "L'utilisateur utilise un iPhone 13 comme téléphone principal.", "texte": "jsuis passé récupérer un Samsung Galaxy S24 tt à l'heure, il est en charge", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "L'utilisateur est en couple avec Camille depuis trois ans.", "texte": "Je sors avec Léa depuis quelques semaines, ça se passe super bien.", "mise_a_jour": "demander", "graine": 70}
+{"souvenir": "L'utilisateur travaille comme serveur dans un café de Lille.", "texte": "J'ai commencé un poste de cuisinier dans un resto près de la gare.", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "L'utilisateur habite dans un studio à Bordeaux.", "texte": "Je viens de louer un appartement à Nantes, emménagement le mois prochain.", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "L'utilisateur a un iPhone 13 comme téléphone.", "texte": "Je me suis acheté un Samsung Galaxy S24 hier.", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "L'utilisateur est inscrit à la salle de sport FitForm.", "texte": "Je me suis inscrit à Basic-Fit, première séance demain.", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "L'utilisateur a pour médecin traitant le docteur Perrin.", "texte": "J'ai pris rendez-vous avec le docteur Vasseur pour la semaine prochaine.", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "L'utilisateur fait garder son fils à l'école maternelle Les Oliviers.", "texte": "On a inscrit Noah à l'école des Pins pour la rentrée.", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "The user works as a nurse at a hospital in Leeds.", "texte": "I just started a new job at a clinic in York.", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "L'utilisateur suit des cours de piano avec Mme Fabre.", "texte": "J'ai commencé des cours de guitare avec un nouveau prof, c'est top.", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "L'utilisateur a un abonnement chez Orange pour sa box internet.", "texte": "jsuis passé voir Free, j'ai souscrit leur offre fibre mtn", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "L'utilisateur conduit habituellement une Fiat 500.", "texte": "On m'a prêté une Golf pour les prochains mois, je vais rouler avec.", "mise_a_jour": "demander", "graine": 71}
+{"souvenir": "L'utilisateur est infirmier à l'hôpital Saint-Roch.", "texte": "Je viens de signer pour ouvrir ma propre boulangerie le mois prochain.", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "L'utilisateur habite à Bordeaux.", "texte": "jsuis en train d'emménager dans un appart à Nantes, tt est presque fini", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "The user works as a primary school teacher.", "texte": "I just got hired as a product manager at a startup, I start on Monday!", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "L'utilisateur est célibataire.", "texte": "Avec Camille, on cherche un appartement plus grand pour nous installer.", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "L'utilisateur travaille de nuit dans un entrepôt.", "texte": "Bonne nouvelle Jarvis, j'ai décroché un poste de commercial en journée.", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "El usuario es taxista en Valencia.", "texte": "He empezado a trabajar por las mañanas en una oficina de seguros, estoy muy contento.", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "L'utilisateur est étudiant en médecine.", "texte": "st p note que j'ai été pris en alternance dans une agence immobilière", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "L'utilisateur loue un studio meublé à Lille.", "texte": "J'ai enfin acheté une petite maison près d'Arras, je récupère les clés vendredi.", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "L'utilisateur est salarié chez un éditeur de logiciels.", "texte": "Ça y est, je me lance comme photographe indépendant, j'ai déjà mes trois premiers clients !", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "L'utilisateur a un chien nommé Pixel.", "texte": "Jarvis, je vais adopter un chaton à la SPA ce week-end, il s'appellera Miso.", "mise_a_jour": "demander", "graine": 72}
+{"souvenir": "L'utilisateur est boulanger à Bordeaux.", "texte": "je commence un travail de livreur la semaine prochaine", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "L'utilisateur fait du football tous les week-ends.", "texte": "mtn je me mets au rugby, j'ai mon premier entraînement samedi", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "The user works as an accountant in Chicago.", "texte": "I start a new job as a data analyst on Monday", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "L'utilisateur habite chez sa sœur à Lille.", "texte": "je prends un appart à Roubaix, j'emménage le mois prochain", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "L'utilisateur a une voiture essence.", "texte": "ça y est, je passe à une voiture électrique, je la récupère vendredi", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "L'utilisateur suit un régime végétarien.", "texte": "je teste le régime végan à partir de demain, on verra bien", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "L'utilisateur apprend l'espagnol avec un prof le mardi.", "texte": "jsuis inscrit à des cours d'italien, ça commence jeudi soir", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "L'utilisateur est en couple avec Hugo.", "texte": "je fréquente quelqu'un en ce moment, il s'appelle Théo", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "L'utilisateur utilise un téléphone au 01 99 42 18 07.", "texte": "on m'a donné un nouveau numéro pro, c'est le 01 99 73 05 61", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "L'utilisateur joue dans un groupe de rock.", "texte": "je monte un trio de jazz avec des collègues, première répète dimanche", "mise_a_jour": "demander", "graine": 73}
+{"souvenir": "The user works as a primary school teacher.", "texte": "I just started a weekend job as a swimming instructor.", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "The user lives in Bordeaux.", "texte": "I signed a lease for a small flat in Nantes starting next month.", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "The user drives a Peugeot 208.", "texte": "Guess what, I bought a Fiat 500 yesterday!", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "The user's GP is Dr. Alvarez.", "texte": "I made an appointment with Dr. Bennett for my check-up tomorrow.", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "The user works the night shift at the hospital.", "texte": "They've put me on early mornings at the clinic now, starting Monday.", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "The user has a gym membership at FitZone.", "texte": "jsuis inscrit dans une nouvelle salle, Pulse Fitness, trop hâte de tester", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "The user's main bank account is with NorthBank.", "texte": "I opened an account with GreenBank this morning, the app looks great.", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "The user takes the bus to work.", "texte": "I got myself a monthly tram pass, gonna try it out tomorrow.", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "The user's phone number is 01 99 42 17 08.", "texte": "Here's my new number btw: 01 99 73 04 52, you can reach me there.", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "The user plays football with friends on Saturdays.", "texte": "I joined a basketball team, first training is this Saturday afternoon.", "mise_a_jour": "demander", "graine": 75}
+{"souvenir": "L'utilisateur travaille comme boulanger à Annecy.", "texte": "Je commence lundi comme livreur pour une boîte à Chambéry.", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "L'utilisateur habite rue des Lilas à Bordeaux.", "texte": "jsuis en train d'emménager dans un studio près de la gare stp note la nouvelle adresse pour mes colis", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "The user drives a white Toyota Corolla.", "texte": "Just bought a blue Ford Fiesta, picking it up on Friday!", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "L'utilisateur est inscrit à la salle Basic-Fit de République.", "texte": "Je me suis inscrit chez Fitness Park à Nation, première séance demain.", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "L'utilisateur utilise un iPhone 14 au quotidien.", "texte": "Je viens de craquer pour un Pixel 9, il arrive jeudi.", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "El usuario estudia medicina en la Universidad de Valencia.", "texte": "Me han aceptado en el grado de enfermería en Alicante, empiezo en septiembre.", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "L'utilisateur a son compte principal à la BNP.", "texte": "On m'a ouvert un compte chez Boursorama, je vais recevoir ma carte la semaine prochaine.", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "L'utilisateur suit des cours de piano le mercredi avec Mme Fabre.", "texte": "J'ai réservé des cours de guitare avec un prof près de chez moi le mardi soir.", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "L'utilisateur met son fils à l'école maternelle Les Oliviers.", "texte": "On a inscrit Noah à l'école Saint-Exupéry pour la rentrée, tu peux me le rappeler ?", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "L'utilisateur travaille de nuit à l'hôpital Saint-Louis.", "texte": "mtn je passe en horaires de jour au centre médical, début le 3 pk pas me réveiller à 6h ?", "mise_a_jour": "demander", "graine": 74}
+{"souvenir": "The user works as a nurse in Lyon.", "texte": "I just got hired as a care assistant at the clinic in Grenoble.", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "L'utilisateur habite chez ses parents à Nantes.", "texte": "J'ai emménagé dans un studio près de la gare ce week-end.", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "The user drives a blue Renault Clio.", "texte": "I picked up my new Peugeot 208 from the dealership yesterday!", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "The user is a member of the FitLife gym downtown.", "texte": "I signed up for a membership at AquaSport this morning, can't wait to start.", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "L'utilisateur suit des cours de piano le mardi soir.", "texte": "je me suis inscrit à des cours de guitare, ça commence la semaine pro stp note-le", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "The user has a cat named Milo.", "texte": "We adopted a puppy called Rocky today, he's adorable!", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "The user studies economics at the University of Bordeaux.", "texte": "I've been accepted into the psychology programme in Toulouse, I'm so excited.", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "L'utilisateur utilise un iPhone 13 comme téléphone principal.", "texte": "Je viens de recevoir mon nouveau Samsung, tu peux m'aider à le configurer ?", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "The user is in a relationship with Emma.", "texte": "I went on a really nice date with Sofia last night.", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "L'utilisateur travaille comme développeur chez Capgemini.", "texte": "Boa notícia, comecei um novo trabalho na Blip esta semana!", "mise_a_jour": "demander", "graine": 76}
+{"souvenir": "L'utilisateur habite à Bordeaux.", "texte": "Je viens de louer un studio à Nantes pour quelques mois.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "L'utilisateur est professeur de mathématiques.", "texte": "J'ai commencé un poste d'infirmier à l'hôpital Saint-Louis.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "Je viens d'adopter un chaton, il s'appelle Miso.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "L'utilisateur utilise un téléphone Android.", "texte": "On m'a offert un iPhone 15, je le teste depuis hier.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "L'utilisateur est en couple avec Léa.", "texte": "Je sors pas mal avec Camille en ce moment, on se voit tt le tps.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "The user works night shifts.", "texte": "I just started a daytime schedule at the clinic.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "L'utilisateur fait du vélo tous les matins.", "texte": "Je me suis mis à la course à pied à 6h avant le boulot.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "J'ai mangé un super burger au resto avec Hugo hier soir.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "L'utilisateur parle couramment espagnol.", "texte": "Mtn je prends des cours d'italien trois fois par semaine.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "L'utilisateur vit seul.", "texte": "Nolan s'est installé chez moi la semaine dernière.", "mise_a_jour": "demander", "graine": 77}
+{"souvenir": "L'utilisateur habite à Bordeaux.", "texte": "Je suis végétarienne depuis trois ans, même au restaurant.", "mise_a_jour": "ajouter", "graine": 40}
+{"souvenir": "L'utilisateur adore le jazz.", "texte": "jsuis allergique aux noisettes, faut tt le temps que je vérifie", "mise_a_jour": "ajouter", "graine": 40}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "J'ai un chat siamois qui s'appelle Miso.", "mise_a_jour": "ajouter", "graine": 40}
+{"souvenir": "L'utilisateur a deux enfants.", "texte": "Je préfère qu'on me tutoie, c'est plus simple pour moi.", "mise_a_jour": "ajouter", "graine": 40}
+{"souvenir": "L'utilisateur porte des lunettes.", "texte": "Mon anniversaire c'est le 14 mars, je le fête toujours en petit comité.", "mise_a_jour": "ajouter", "graine": 40}
+{"souvenir": "L'utilisateur aime les romans policiers.", "texte": "Stp retiens que je déteste la coriandre, vraiment ça me gâche les plats.", "mise_a_jour": "ajouter", "graine": 40}
+{"souvenir": "The user lives in Toronto.", "texte": "I'm left-handed, so I always set up my desk that way.", "mise_a_jour": "ajouter", "graine": 40}
+{"souvenir": "L'utilisateur fait de la course à pied le week-end.", "texte": "Je suis daltonien, le rouge et le vert c'est compliqué pour moi.", "mise_a_jour": "ajouter", "graine": 40}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "J'ai obtenu mon permis de conduire le mois dernier, mtn je roule en Clio.", "mise_a_jour": "ajouter", "graine": 40}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Je suis allergique aux arachides, donc je n'en mange jamais.", "mise_a_jour": "ajouter", "graine": 42}
+{"souvenir": "L'utilisateur joue de la guitare depuis cinq ans.", "texte": "J'ai deux sœurs, Léa et Nora, qui vivent près de Bordeaux.", "mise_a_jour": "ajouter", "graine": 42}
+{"souvenir": "The user owns a small sailboat.", "texte": "I run a book club that meets on the first Tuesday of every month.", "mise_a_jour": "ajouter", "graine": 42}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "jsuis végétarien depuis l'an dernier", "mise_a_jour": "ajouter", "graine": 42}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "Mon chien s'appelle Miso, c'est un golden retriever de trois ans.", "mise_a_jour": "ajouter", "graine": 42}
+{"souvenir": "L'utilisateur parle couramment italien.", "texte": "Je collectionne les vinyles de jazz, j'en ai plus de deux cents à la maison.", "mise_a_jour": "ajouter", "graine": 42}
+{"souvenir": "L'utilisateur a un chat nommé Pixel.", "texte": "Tous les dimanches matin, je vais nager à la piscine municipale, c'est mon rituel.", "mise_a_jour": "ajouter", "graine": 42}
+{"souvenir": "L'utilisateur est né en 1992.", "texte": "Je porte des lentilles depuis le lycée parce que je suis myope.", "mise_a_jour": "ajouter", "graine": 42}
+{"souvenir": "L'utilisateur conduit une voiture électrique.", "texte": "J'adore cuisiner des plats thaïlandais, surtout le pad thaï maison.", "mise_a_jour": "ajouter", "graine": 42}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Au fait, je suis allergique aux arachides, note-le pour mes recettes.", "mise_a_jour": "ajouter", "graine": 41}
+{"souvenir": "The user enjoys hiking on weekends.", "texte": "My dog's name is Milo, he's a three-year-old border collie.", "mise_a_jour": "ajouter", "graine": 41}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "jsuis végétarien depuis deux ans, plus de viande du tt", "mise_a_jour": "ajouter", "graine": 41}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "Mon anniversaire, c'est le 14 mars, tu peux le retenir stp", "mise_a_jour": "ajouter", "graine": 41}
+{"souvenir": "L'utilisateur a une voiture électrique.", "texte": "J'adore la cuisine thaïe, surtout le pad thaï bien relevé.", "mise_a_jour": "ajouter", "graine": 41}
+{"souvenir": "L'utilisateur parle couramment espagnol.", "texte": "Je me suis mis à la course à pied, je cours trois fois par semaine mtn.", "mise_a_jour": "ajouter", "graine": 41}
+{"souvenir": "L'utilisateur aime les films de science-fiction.", "texte": "Ma fille s'appelle Chloé et elle vient d'avoir six ans.", "mise_a_jour": "ajouter", "graine": 41}
+{"souvenir": "L'utilisateur joue de la guitare.", "texte": "Petit rappel : je déteste les olives, vraiment, ne m'en propose jamais.", "mise_a_jour": "ajouter", "graine": 41}
+{"souvenir": "L'utilisateur vit en appartement à Nantes.", "texte": "Je suis daltonien, je confonds le rouge et le vert.", "mise_a_jour": "ajouter", "graine": 41}
+{"souvenir": "L'utilisateur habite à Grenoble depuis trois ans.", "texte": "Au fait, je fais du violoncelle tous les mardis soir depuis que je suis ado.", "mise_a_jour": "ajouter", "graine": 39}
+{"souvenir": "L'utilisateur préfère le thé vert au café le matin.", "texte": "Je suis végétarienne, mais je mange encore des œufs et du fromage.", "mise_a_jour": "ajouter", "graine": 39}
+{"souvenir": "L'utilisateur travaille comme infirmier à Lyon.", "texte": "J'ai une sœur jumelle qui s'appelle Nora, on a 34 ans.", "mise_a_jour": "ajouter", "graine": 39}
+{"souvenir": "L'utilisateur aime les romans de science-fiction.", "texte": "stp note que j'ai le vertige, donc pas de balcon trop haut quand tu cherches un hôtel", "mise_a_jour": "ajouter", "graine": 39}
+{"souvenir": "L'utilisateur conduit une Clio bleue.", "texte": "Je parle couramment italien, ma mère est de Bologne.", "mise_a_jour": "ajouter", "graine": 39}
+{"souvenir": "L'utilisateur fait de la course à pied le week-end.", "texte": "jsuis daltonien, je confonds le rouge et le vert donc fais gaffe pour les graphiques", "mise_a_jour": "ajouter", "graine": 39}
+{"souvenir": "The user owns a small bakery in Austin.", "texte": "I was diagnosed with asthma as a kid, so dusty places really bother me.", "mise_a_jour": "ajouter", "graine": 39}
+{"souvenir": "L'utilisateur collectionne les vinyles de jazz.", "texte": "Mon deuxième prénom, c'est Élias, au cas où il le faut pour les papiers.", "mise_a_jour": "ajouter", "graine": 39}
+{"souvenir": "L'utilisateur est fan de l'Olympique de Marseille.", "texte": "Je déteste la coriandre, vraiment, même une petite feuille je la sens direct.", "mise_a_jour": "ajouter", "graine": 39}
+{"souvenir": "L'utilisateur habite à Lyon depuis 2021.", "texte": "Je suis allergique aux arachides, donc je n'en mets jamais dans mes plats.", "mise_a_jour": "ajouter", "graine": 43}
+{"souvenir": "L'utilisateur préfère les romans policiers.", "texte": "Mon chien s'appelle Rio et il a quatre ans.", "mise_a_jour": "ajouter", "graine": 43}
+{"souvenir": "The user plays the piano every weekend.", "texte": "I've been vegetarian for two years now.", "mise_a_jour": "ajouter", "graine": 43}
+{"souvenir": "L'utilisateur porte des lunettes pour lire.", "texte": "jsuis né en mars, mon anniv c le 14 stp retiens-le", "mise_a_jour": "ajouter", "graine": 43}
+{"souvenir": "L'utilisateur travaille dans une école primaire.", "texte": "Je fais de l'escalade deux fois par semaine, le mardi et le jeudi soir.", "mise_a_jour": "ajouter", "graine": 43}
+{"souvenir": "L'utilisateur aime le thé vert le matin.", "texte": "Ma sœur s'appelle Camille et elle vit à Bordeaux depuis l'an dernier.", "mise_a_jour": "ajouter", "graine": 43}
+{"souvenir": "L'utilisateur conduit une voiture rouge.", "texte": "Je parle couramment italien parce que ma mère vient de Naples.", "mise_a_jour": "ajouter", "graine": 43}
+{"souvenir": "L'utilisateur déteste le froid et préfère l'été.", "texte": "Je collectionne les vinyles de jazz, j'en ai déjà plus de quatre-vingts à la maison.", "mise_a_jour": "ajouter", "graine": 43}
+{"souvenir": "L'utilisateur se lève tous les jours à six heures.", "texte": "Mon plat préféré, c'est le risotto aux champignons, je pourrais en manger tt le temps", "mise_a_jour": "ajouter", "graine": 43}
+{"souvenir": "L'utilisateur préfère le thé au café le matin.", "texte": "Je suis allergique aux arachides depuis l'enfance.", "mise_a_jour": "ajouter", "graine": 44}
+{"souvenir": "L'utilisateur habite près de la gare de Lyon.", "texte": "Mon chien s'appelle Miso et il a trois ans.", "mise_a_jour": "ajouter", "graine": 44}
+{"souvenir": "The user's favourite colour is dark green.", "texte": "I play the violin every Tuesday evening with a small orchestra.", "mise_a_jour": "ajouter", "graine": 44}
+{"souvenir": "L'utilisateur apprend le piano depuis janvier.", "texte": "jsuis végétarien depuis deux ans mtn", "mise_a_jour": "ajouter", "graine": 44}
+{"souvenir": "L'utilisateur conduit une petite voiture électrique.", "texte": "Ma sœur aînée, Camille, vit à Bordeaux avec ses deux enfants.", "mise_a_jour": "ajouter", "graine": 44}
+{"souvenir": "L'utilisateur aime les romans de science-fiction.", "texte": "Je fais de l'escalade tous les week-ends, c'est ma grande passion.", "mise_a_jour": "ajouter", "graine": 44}
+{"souvenir": "L'utilisateur travaille souvent depuis chez lui le vendredi.", "texte": "Mon anniversaire, c'est le 14 mars, je viens de m'en souvenir pour mes papiers.", "mise_a_jour": "ajouter", "graine": 44}
+{"souvenir": "L'utilisateur parle couramment italien.", "texte": "Je suis daltonien, je confonds surtout le rouge et le vert.", "mise_a_jour": "ajouter", "graine": 44}
+{"souvenir": "L'utilisateur collectionne les cartes postales anciennes.", "texte": "Au fait, je déteste les olives, ne m'en propose jamais dans une recette stp", "mise_a_jour": "ajouter", "graine": 44}
+{"souvenir": "L'utilisateur a un chien nommé Pixel.", "texte": "Je suis allergique aux arachides, note-le pour toutes mes recettes.", "mise_a_jour": "ajouter", "graine": 46}
+{"souvenir": "L'utilisateur travaille comme infirmier à Lyon.", "texte": "Mon plat préféré, c'est le risotto aux champignons.", "mise_a_jour": "ajouter", "graine": 46}
+{"souvenir": "L'utilisateur parle couramment italien.", "texte": "jsuis végétarien depuis deux ans, retiens-le stp", "mise_a_jour": "ajouter", "graine": 46}
+{"souvenir": "The user lives in a flat in Manchester.", "texte": "I always wake up at 6 a.m., even on weekends.", "mise_a_jour": "ajouter", "graine": 46}
+{"souvenir": "L'utilisateur fait de la course à pied le mardi.", "texte": "Mon anniversaire c'est le 14 mars, j'aime pas qu'on l'oublie.", "mise_a_jour": "ajouter", "graine": 46}
+{"souvenir": "L'utilisateur possède une voiture électrique bleue.", "texte": "Je déteste le thé, propose-moi plutôt du café quand tu me suggères une boisson chaude.", "mise_a_jour": "ajouter", "graine": 46}
+{"souvenir": "L'utilisateur a deux enfants, Noah et Léa.", "texte": "Pour mes réponses, je préfère des listes courtes, sans blabla.", "mise_a_jour": "ajouter", "graine": 46}
+{"souvenir": "L'utilisateur étudie la psychologie à Bruxelles.", "texte": "Mon groupe sanguin est O positif, ça peut servir en urgence.", "mise_a_jour": "ajouter", "graine": 46}
+{"souvenir": "L'utilisateur collectionne les vinyles de jazz.", "texte": "Je porte des lunettes depuis mes 12 ans et ma correction c'est -2,5 aux deux yeux.", "mise_a_jour": "ajouter", "graine": 46}
+{"souvenir": "L'utilisateur aime le thé vert.", "texte": "Au fait, je collectionne les vinyles de rock progressif depuis mes 15 ans.", "mise_a_jour": "ajouter", "graine": 45}
+{"souvenir": "The user lives in Lyon.", "texte": "Just so you know, I'm allergic to peanuts, like seriously allergic.", "mise_a_jour": "ajouter", "graine": 45}
+{"souvenir": "L'utilisateur préfère travailler le matin.", "texte": "jsuis végétarien depuis 2 ans mtn, note le stp", "mise_a_jour": "ajouter", "graine": 45}
+{"souvenir": "L'utilisateur a un chat nommé Milo.", "texte": "Mon code PIN de carte SIM, c'est 7392, retiens-le pour moi.", "mise_a_jour": "ajouter", "graine": 45}
+{"souvenir": "L'utilisateur parle couramment espagnol.", "texte": "Je fais de l'escalade tous les mardis soir à la salle Bloc & Co.", "mise_a_jour": "ajouter", "graine": 45}
+{"souvenir": "L'utilisateur conduit une Clio bleue.", "texte": "Pour info, mon anniversaire c'est le 14 mars, j'aime pas le fêter en grand.", "mise_a_jour": "ajouter", "graine": 45}
+{"souvenir": "L'utilisateur aime les films de science-fiction.", "texte": "Mi contraseña wifi es Luna2024, por si la necesito luego.", "mise_a_jour": "ajouter", "graine": 45}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "J'ai horreur des olives, vraiment, ne m'en propose jamais dans une recette.", "mise_a_jour": "ajouter", "graine": 45}
+{"souvenir": "L'utilisateur habite rue des Lilas.", "texte": "Petit truc à retenir : je porte des lentilles, correction -2,5 aux deux yeux.", "mise_a_jour": "ajouter", "graine": 45}
+{"souvenir": "L'utilisateur habite à Bordeaux.", "texte": "Je suis végétarien depuis deux ans.", "mise_a_jour": "ajouter", "graine": 48}
+{"souvenir": "The user plays the piano on Tuesdays.", "texte": "My favorite movie is The Shawshank Redemption.", "mise_a_jour": "ajouter", "graine": 48}
+{"souvenir": "L'utilisateur a un chien nommé Rex.", "texte": "jsuis allergique aux arachides, note-le stp", "mise_a_jour": "ajouter", "graine": 48}
+{"souvenir": "L'utilisateur travaille comme infirmier de nuit.", "texte": "J'adore la cuisine thaïlandaise, surtout le pad thaï.", "mise_a_jour": "ajouter", "graine": 48}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "Mon anniversaire, c'est le 14 mars.", "mise_a_jour": "ajouter", "graine": 48}
+{"souvenir": "L'utilisateur parle couramment espagnol.", "texte": "Je fais de l'escalade tous les vendredis soir avec mon frère.", "mise_a_jour": "ajouter", "graine": 48}
+{"souvenir": "L'utilisateur conduit une voiture électrique.", "texte": "Mon plat préféré, c'est les lasagnes de ma grand-mère.", "mise_a_jour": "ajouter", "graine": 48}
+{"souvenir": "L'utilisateur aime lire des romans policiers.", "texte": "Je suis daltonien, je confonds le rouge et le vert.", "mise_a_jour": "ajouter", "graine": 48}
+{"souvenir": "L'utilisateur collectionne les vinyles de jazz.", "texte": "Au boulot on est passés sur Slack mtn, fini les mails internes", "mise_a_jour": "ajouter", "graine": 48}
+{"souvenir": "L'utilisateur parle un peu de wolof.", "texte": "Je suis allergique aux arachides depuis l'enfance.", "mise_a_jour": "ajouter", "graine": 49}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "J'adore les romans policiers, surtout le soir avant de dormir.", "mise_a_jour": "ajouter", "graine": 49}
+{"souvenir": "L'utilisateur est végétarien.", "texte": "Mon chien s'appelle Rio et il a trois ans.", "mise_a_jour": "ajouter", "graine": 49}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "jsuis fan de jazz, j'écoute Miles Davis tt le temps", "mise_a_jour": "ajouter", "graine": 49}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "Je fais de la course à pied trois fois par semaine depuis janvier.", "mise_a_jour": "ajouter", "graine": 49}
+{"souvenir": "The user speaks a little Italian.", "texte": "I just adopted a black cat named Luna last month.", "mise_a_jour": "ajouter", "graine": 49}
+{"souvenir": "L'utilisateur a une sœur prénommée Camille.", "texte": "Je déteste les araignées, j'en ai vraiment peur.", "mise_a_jour": "ajouter", "graine": 49}
+{"souvenir": "L'utilisateur aime la cuisine japonaise.", "texte": "Je porte des lunettes depuis mes dix ans, au fait.", "mise_a_jour": "ajouter", "graine": 49}
+{"souvenir": "L'utilisateur suit des cours de piano.", "texte": "Mon anniversaire, c'est le 14 mars, retiens-le stp.", "mise_a_jour": "ajouter", "graine": 49}
+{"souvenir": "L'utilisateur habite à Lyon depuis 2021.", "texte": "au fait je suis allergique aux arachides, note-le stp", "mise_a_jour": "ajouter", "graine": 47}
+{"souvenir": "L'utilisateur préfère le thé au café le matin.", "texte": "Je viens de passer mon permis moto la semaine dernière.", "mise_a_jour": "ajouter", "graine": 47}
+{"souvenir": "L'utilisateur travaille comme infirmière à l'hôpital Saint-Louis.", "texte": "Mon chien s'appelle Rio, c'est un golden de 3 ans", "mise_a_jour": "ajouter", "graine": 47}
+{"souvenir": "L'utilisateur fait de la course à pied trois fois par semaine.", "texte": "jsuis végétarien depuis le mois de janvier, j'ai complètement arrêté la viande", "mise_a_jour": "ajouter", "graine": 47}
+{"souvenir": "L'utilisateur a une sœur prénommée Camille.", "texte": "J'ai déménagé mon bureau à la maison, maintenant je télétravaille depuis le garage aménagé.", "mise_a_jour": "ajouter", "graine": 47}
+{"souvenir": "The user speaks fluent Spanish and some Italian.", "texte": "I've been lactose intolerant since I was a teenager, so I never drink regular milk", "mise_a_jour": "ajouter", "graine": 47}
+{"souvenir": "L'utilisateur aime les films de science-fiction.", "texte": "Mon nouveau numéro c'est le 01 99 42 17 83, c'est celui-là qu'il faut utiliser", "mise_a_jour": "ajouter", "graine": 47}
+{"souvenir": "L'utilisateur possède une voiture électrique bleue.", "texte": "Je me suis mis au piano il y a six mois et je prends des cours tous les mardis soir", "mise_a_jour": "ajouter", "graine": 47}
+{"souvenir": "L'utilisateur déteste les plats épicés.", "texte": "Pour info, je suis né à Bordeaux mais j'ai grandi à Nantes.", "mise_a_jour": "ajouter", "graine": 47}
+{"souvenir": "L'utilisateur habite à Bordeaux.", "texte": "Je me suis mis au trail, je cours dans les bois presque tous les samedis matin.", "mise_a_jour": "ajouter", "graine": 50}
+{"souvenir": "L'utilisateur est allergique aux noisettes.", "texte": "J'adore le jazz manouche, surtout Django Reinhardt, j'en écoute en travaillant.", "mise_a_jour": "ajouter", "graine": 50}
+{"souvenir": "L'utilisateur travaille comme infirmier de nuit.", "texte": "jsuis passé au vélo électrique pr tt mes trajets en ville mtn", "mise_a_jour": "ajouter", "graine": 50}
+{"souvenir": "The user has a dog named Milo.", "texte": "I've been vegetarian for three months now and I'm really enjoying it.", "mise_a_jour": "ajouter", "graine": 50}
+{"souvenir": "L'utilisateur collectionne les vinyles des années 70.", "texte": "Bonjour Jarvis, je tenais à te dire que je pratique la méditation dix minutes chaque soir avant de dormir.", "mise_a_jour": "ajouter", "graine": 50}
+{"souvenir": "L'utilisateur parle couramment italien.", "texte": "Je cultive des tomates et des courgettes sur mon balcon depuis le printemps.", "mise_a_jour": "ajouter", "graine": 50}
+{"souvenir": "L'utilisateur porte des lunettes.", "texte": "Mon plat préféré, c'est le couscous de ma grand-mère, je pourrais en manger toutes les semaines.", "mise_a_jour": "ajouter", "graine": 50}
+{"souvenir": "L'utilisateur aime les romans policiers.", "texte": "Je fais de la poterie le mercredi soir, ça me détend énormément après le boulot.", "mise_a_jour": "ajouter", "graine": 50}
+{"souvenir": "L'utilisateur a deux frères.", "texte": "stylé, je me suis inscrit à des cours de salsa, première séance la semaine dernière et j'ai adoré", "mise_a_jour": "ajouter", "graine": 50}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Je suis végétarien depuis deux ans et je compte le rester.", "mise_a_jour": "ajouter", "graine": 51}
+{"souvenir": "L'utilisateur préfère les réponses courtes.", "texte": "Au fait, je suis né un 14 mars, donc je suis Poissons.", "mise_a_jour": "ajouter", "graine": 51}
+{"souvenir": "The user owns a black cat named Miso.", "texte": "I have been allergic to peanuts since I was a child.", "mise_a_jour": "ajouter", "graine": 51}
+{"souvenir": "L'utilisateur travaille dans le marketing.", "texte": "Jsuis daltonien, je confonds souvent le rouge et le vert.", "mise_a_jour": "ajouter", "graine": 51}
+{"souvenir": "L'utilisateur aime le jazz.", "texte": "Note que je mesure 1m78, ça peut servir pour les tailles de vêtements.", "mise_a_jour": "ajouter", "graine": 51}
+{"souvenir": "L'utilisateur a deux sœurs.", "texte": "Mon plat préféré, c'est les pâtes à la carbonara, j'en mangerais tt les jours.", "mise_a_jour": "ajouter", "graine": 51}
+{"souvenir": "L'utilisateur conduit une Clio bleue.", "texte": "Je parle couramment italien grâce à ma grand-mère de Naples.", "mise_a_jour": "ajouter", "graine": 51}
+{"souvenir": "L'utilisateur se couche vers 23 heures.", "texte": "J'ai une cicatrice au genou gauche depuis un accident de vélo à 12 ans.", "mise_a_jour": "ajouter", "graine": 51}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "Petit info durable : je déteste qu'on m'appelle par mon deuxième prénom, Henri.", "mise_a_jour": "ajouter", "graine": 51}
+{"souvenir": "L'utilisateur habite à Bordeaux.", "texte": "Je suis allergique aux arachides depuis l'enfance.", "mise_a_jour": "ajouter", "graine": 52}
+{"souvenir": "L'utilisateur travaille comme infirmier.", "texte": "Mon chien s'appelle Néo, c'est un berger australien de trois ans.", "mise_a_jour": "ajouter", "graine": 52}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "jsuis végétarien depuis deux ans mtn", "mise_a_jour": "ajouter", "graine": 52}
+{"souvenir": "L'utilisateur a une voiture électrique.", "texte": "Je fais de l'escalade tous les mardis soir avec mon frère.", "mise_a_jour": "ajouter", "graine": 52}
+{"souvenir": "L'utilisateur parle couramment espagnol.", "texte": "Je me suis mis au piano en janvier et je prends des cours chaque semaine.", "mise_a_jour": "ajouter", "graine": 52}
+{"souvenir": "The user lives in Toronto.", "texte": "I have been lactose intolerant for years and I avoid dairy completely.", "mise_a_jour": "ajouter", "graine": 52}
+{"souvenir": "L'utilisateur aime les romans policiers.", "texte": "J'ai un tatouage d'ancre sur l'avant-bras gauche.", "mise_a_jour": "ajouter", "graine": 52}
+{"souvenir": "L'utilisateur court le marathon de Paris chaque année.", "texte": "Ma couleur préférée, c'est le vert sapin, je choisis presque tout dans cette teinte.", "mise_a_jour": "ajouter", "graine": 52}
+{"souvenir": "L'utilisateur est né en 1992.", "texte": "Je collectionne les vinyles de jazz, j'en ai plus de quatre-vingts à la maison.", "mise_a_jour": "ajouter", "graine": 52}
+{"souvenir": "L'utilisateur habite à Lyon depuis 2022.", "texte": "Au fait, jsuis allergique aux cacahuètes, c'est à vie ça.", "mise_a_jour": "ajouter", "graine": 53}
+{"souvenir": "L'utilisateur préfère le thé au café le matin.", "texte": "Petite info à retenir : je me suis mis à la course à pied trois fois par semaine.", "mise_a_jour": "ajouter", "graine": 53}
+{"souvenir": "L'utilisateur travaille comme infirmier à l'hôpital Saint-Louis.", "texte": "J'adore les films d'horreur japonais, c'est vraiment mon genre préféré.", "mise_a_jour": "ajouter", "graine": 53}
+{"souvenir": "L'utilisateur a une sœur prénommée Camille.", "texte": "Pour info, je parle couramment italien, je l'ai appris quand j'étais ado.", "mise_a_jour": "ajouter", "graine": 53}
+{"souvenir": "L'utilisateur aime jouer au tennis le week-end.", "texte": "Je déteste l'odeur de la coriandre, ça me gâche tous les plats.", "mise_a_jour": "ajouter", "graine": 53}
+{"souvenir": "L'utilisateur conduit une Renault Clio bleue.", "texte": "Retiens que mon anniversaire c'est le 14 mars, comme ça tu l'oublieras pas.", "mise_a_jour": "ajouter", "graine": 53}
+{"souvenir": "The user owns a small apartment in Chicago.", "texte": "Just so you know, I've been lactose intolerant since I was a kid.", "mise_a_jour": "ajouter", "graine": 53}
+{"souvenir": "L'utilisateur apprend le piano depuis six mois.", "texte": "stpp note que je suis gaucher, ça peut servir mtn tu sais tt", "mise_a_jour": "ajouter", "graine": 53}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Je suis allergique aux arachides, je dois toujours vérifier les étiquettes.", "mise_a_jour": "ajouter", "graine": 54}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "jsuis végétarien depuis trois ans mtn", "mise_a_jour": "ajouter", "graine": 54}
+{"souvenir": "L'utilisateur a un chien nommé Milo.", "texte": "Mon anniversaire, c'est le 14 mars.", "mise_a_jour": "ajouter", "graine": 54}
+{"souvenir": "The user works as a nurse.", "texte": "I play the piano every weekend, I've been learning since I was seven.", "mise_a_jour": "ajouter", "graine": 54}
+{"souvenir": "L'utilisateur aime les films de science-fiction.", "texte": "Je parle couramment italien, ma mère vient de Naples.", "mise_a_jour": "ajouter", "graine": 54}
+{"souvenir": "L'utilisateur fait de la course à pied le matin.", "texte": "Je déteste les olives, vraiment impossible d'en manger.", "mise_a_jour": "ajouter", "graine": 54}
+{"souvenir": "L'utilisateur utilise un iPhone.", "texte": "Stp note que je suis gaucher, ça compte pour mon matériel de dessin.", "mise_a_jour": "ajouter", "graine": 54}
+{"souvenir": "L'utilisateur vit en colocation avec Sara.", "texte": "J'ai mon permis moto depuis 2019.", "mise_a_jour": "ajouter", "graine": 54}
+{"souvenir": "L'utilisateur étudie la biologie à l'université.", "texte": "Je collectionne les vinyles de jazz, j'en ai plus de quatre-vingts.", "mise_a_jour": "ajouter", "graine": 54}
+{"souvenir": "The user lives in Montreal.", "texte": "I was born on March 14th and I love celebrating with a chocolate cake.", "mise_a_jour": "ajouter", "graine": 55}
+{"souvenir": "The user is a vegetarian.", "texte": "My dog Milo is five years old and he's a golden retriever.", "mise_a_jour": "ajouter", "graine": 55}
+{"souvenir": "The user works as a nurse.", "texte": "I really enjoy playing chess on rainy weekends.", "mise_a_jour": "ajouter", "graine": 55}
+{"souvenir": "The user speaks three languages.", "texte": "I hate coriander, it ruins every dish for me.", "mise_a_jour": "ajouter", "graine": 55}
+{"souvenir": "The user has two sisters.", "texte": "For info, I'm left-handed.", "mise_a_jour": "ajouter", "graine": 55}
+{"souvenir": "The user drives an electric car.", "texte": "L'utilisateur adore le jazz et joue de la trompette depuis l'enfance.", "mise_a_jour": "ajouter", "graine": 55}
+{"souvenir": "The user lives with his grandmother in Lyon.", "texte": "Just so you know, my favorite color is forest green.", "mise_a_jour": "ajouter", "graine": 55}
+{"souvenir": "The user is afraid of heights.", "texte": "jsuis daltonien, je confonds tt le temps le rouge et le vert", "mise_a_jour": "ajouter", "graine": 55}
+{"souvenir": "The user prefers tea to coffee.", "texte": "I've been taking piano lessons since I was seven, btw.", "mise_a_jour": "ajouter", "graine": 55}
+{"souvenir": "The user likes tea.", "texte": "I live in a small flat in Lyon with my cat Milo.", "mise_a_jour": "ajouter", "graine": 56}
+{"souvenir": "The user drives a blue Peugeot.", "texte": "jsuis allergique aux arachides, faut jamais m'en proposer stp", "mise_a_jour": "ajouter", "graine": 56}
+{"souvenir": "The user works as a nurse.", "texte": "My daughter's name is Sofia and she just turned seven.", "mise_a_jour": "ajouter", "graine": 56}
+{"souvenir": "The user prefers working in the morning.", "texte": "J'ai un vieux vélo rouge que j'utilise pour aller au marché.", "mise_a_jour": "ajouter", "graine": 56}
+{"souvenir": "The user speaks fluent Spanish.", "texte": "I wear glasses for reading, my prescription is pretty strong on the left eye.", "mise_a_jour": "ajouter", "graine": 56}
+{"souvenir": "The user enjoys hiking on weekends.", "texte": "Mi número es el 01 99 42 18 73, por si necesitas llamarme.", "mise_a_jour": "ajouter", "graine": 56}
+{"souvenir": "The user is vegetarian.", "texte": "tt ma musique c'est le jazz, Miles Davis en boucle chez moi", "mise_a_jour": "ajouter", "graine": 56}
+{"souvenir": "The user lives with his brother.", "texte": "I have kept a paper diary since I was fifteen, never missed a month.", "mise_a_jour": "ajouter", "graine": 56}
+{"souvenir": "The user loves spicy food.", "texte": "Mon code de coffre au bureau c'est 4815, je te le confie pour le retrouver facilement.", "mise_a_jour": "ajouter", "graine": 56}
+{"souvenir": "L'utilisateur a un chat qui s'appelle Miso.", "texte": "Je me suis mis à la course à pied le matin depuis deux semaines.", "mise_a_jour": "ajouter", "graine": 57}
+{"souvenir": "L'utilisateur habite à Lyon depuis 2021.", "texte": "Au fait, je suis allergique aux arachides, note-le stp.", "mise_a_jour": "ajouter", "graine": 57}
+{"souvenir": "L'utilisateur travaille comme infirmier de nuit.", "texte": "J'ai acheté une guitare acoustique, je prends des cours le jeudi.", "mise_a_jour": "ajouter", "graine": 57}
+{"souvenir": "The user drives a blue Renault Clio.", "texte": "I just became vegetarian last month.", "mise_a_jour": "ajouter", "graine": 57}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "Mon anniversaire c'est le 14 mars, j'aurai 32 ans.", "mise_a_jour": "ajouter", "graine": 57}
+{"souvenir": "L'utilisateur a une sœur prénommée Camille.", "texte": "jsuis en train d'apprendre le piano, tt nouveau pour moi", "mise_a_jour": "ajouter", "graine": 57}
+{"souvenir": "L'utilisateur porte des lunettes depuis l'enfance.", "texte": "Je parle couramment italien grâce à ma mère.", "mise_a_jour": "ajouter", "graine": 57}
+{"souvenir": "L'utilisateur aime les films de science-fiction.", "texte": "On a emménagé dans une maison avec jardin à Nantes le mois dernier.", "mise_a_jour": "ajouter", "graine": 57}
+{"souvenir": "L'utilisateur fait du vélo tous les week-ends.", "texte": "Mon mot de passe du coffre inventé c'est Soleil-42, retiens-le pour mes notes.", "mise_a_jour": "ajouter", "graine": 57}
+{"souvenir": "L'utilisateur habite à Lyon.", "texte": "Je suis allergique aux cacahuètes, donc ne m'en propose jamais dans les recettes.", "mise_a_jour": "ajouter", "graine": 58}
+{"souvenir": "The user works as a graphic designer.", "texte": "I prefer dark mode in every app and document you prepare for me.", "mise_a_jour": "ajouter", "graine": 58}
+{"souvenir": "L'utilisateur a un chat nommé Milo.", "texte": "jsuis végétarien depuis deux ans, pense à adapter mes listes de courses stp", "mise_a_jour": "ajouter", "graine": 58}
+{"souvenir": "L'utilisateur aime le jazz.", "texte": "Mon anniversaire est le 14 mars, tu peux me le rappeler chaque année.", "mise_a_jour": "ajouter", "graine": 58}
+{"souvenir": "L'utilisateur conduit une voiture électrique.", "texte": "Je parle couramment espagnol, c'est ma langue maternelle.", "mise_a_jour": "ajouter", "graine": 58}
+{"souvenir": "L'utilisateur fait de la course à pied le matin.", "texte": "Je déteste les films d'horreur, ne m'en recommande plus jamais.", "mise_a_jour": "ajouter", "graine": 58}
+{"souvenir": "L'utilisateur préfère le thé au café.", "texte": "Je suis gaucher et je porte des lunettes depuis mes dix ans.", "mise_a_jour": "ajouter", "graine": 58}
+{"souvenir": "L'utilisateur vit en appartement au troisième étage.", "texte": "Mon prénom est Inès et on m'appelle souvent Nès au quotidien.", "mise_a_jour": "ajouter", "graine": 58}
+{"souvenir": "L'utilisateur collectionne les vinyles anciens.", "texte": "Je ne mange pas de gluten à cause d'une intolérance diagnostiquée l'an dernier.", "mise_a_jour": "ajouter", "graine": 58}

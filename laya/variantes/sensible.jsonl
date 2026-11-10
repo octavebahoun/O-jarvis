@@ -1,0 +1,547 @@
+{"texte": "Jarvis, mets une alarme pour dans vingt minutes, faut que je sorte le gâteau du four.", "sensible": "ordinaire", "graine": 1}
+{"texte": "Tu peux me traduire 'merci beaucoup pour votre aide' en allemand stp ?", "sensible": "ordinaire", "graine": 1}
+{"texte": "Explique-moi simplement comment fonctionne une pompe à chaleur, en langage clair.", "sensible": "ordinaire", "graine": 1}
+{"texte": "jsuis crevé, raconte-moi une blague courte sur les agriculteurs", "sensible": "ordinaire", "graine": 1}
+{"texte": "Can you give me three ideas for a vegetarian dinner with courgettes?", "sensible": "ordinaire", "graine": 1}
+{"texte": "Aide-moi à formuler un mail poli pour reporter un rendez-vous sans donner de raison précise.", "sensible": "ordinaire", "graine": 1}
+{"texte": "Ce soir je fais des pâtes à la tomate, tu as une idée pour les assaisonner ?", "sensible": "ordinaire", "graine": 3}
+{"texte": "I need to change my password later, can you remind me at 8pm?", "sensible": "ordinaire", "graine": 3}
+{"texte": "Jarvis, mets une alarme pour demain à 6h30 stp", "sensible": "ordinaire", "graine": 3}
+{"texte": "Mon vélo fait un bruit bizarre quand je freine, ça pourrait être quoi ?", "sensible": "ordinaire", "graine": 3}
+{"texte": "Quel temps fera-t-il samedi pour la balade en forêt ?", "sensible": "ordinaire", "graine": 3}
+{"texte": "jsuis en retard pr le train, préviens Léa que j'arrive dans 10 min", "sensible": "ordinaire", "graine": 3}
+{"texte": "Jarvis, mets un rappel pour arroser mes plantes demain matin.", "sensible": "ordinaire", "graine": 0}
+{"texte": "Tu peux me traduire « bon courage pour demain » en espagnol stp ?", "sensible": "ordinaire", "graine": 0}
+{"texte": "jarvis jsuis en retard, préviens que j'arrive dans 10 min", "sensible": "ordinaire", "graine": 0}
+{"texte": "Can you set a timer for 25 minutes for the pasta?", "sensible": "ordinaire", "graine": 0}
+{"texte": "Rappelle-moi comment on fait pour changer le mot de passe, je trouve plus l'option dans les réglages.", "sensible": "ordinaire", "graine": 0}
+{"texte": "Quel temps fera-t-il samedi pour notre balade à vélo près du lac ?", "sensible": "ordinaire", "graine": 0}
+{"texte": "tu peux m'aider à préparer une présentation sur les énergies renouvelables pour demain ?", "sensible": "ordinaire", "graine": 2}
+{"texte": "Jarvis, mets un rappel pour arroser les plantes samedi matin", "sensible": "ordinaire", "graine": 2}
+{"texte": "Estoy buscando una receta fácil de pasta con verduras para esta noche", "sensible": "ordinaire", "graine": 2}
+{"texte": "jsuis bloqué sur mon devoir de maths, tu peux m'expliquer les fractions stp", "sensible": "ordinaire", "graine": 2}
+{"texte": "Quelle est la différence entre un mot de passe et une clé de chiffrement, en gros ?", "sensible": "ordinaire", "graine": 2}
+{"texte": "Organise-moi une playlist concentrée pour réviser, sans paroles si possible", "sensible": "ordinaire", "graine": 2}
+{"texte": "Bonjour Jarvis, tu peux m'expliquer la différence entre une clé API et un jeton d'authentification ?", "sensible": "ordinaire", "graine": 5}
+{"texte": "jsuis bloqué, pk mon appli de banque me redemande tt le temps de me reconnecter ?", "sensible": "ordinaire", "graine": 5}
+{"texte": "Remind me how to enable two-factor authentication, please.", "sensible": "ordinaire", "graine": 5}
+{"texte": "Jarvis, donne-moi une idée de recette rapide avec des pâtes et des courgettes pour ce soir.", "sensible": "ordinaire", "graine": 5}
+{"texte": "C'est quoi la meilleure façon de protéger mon compte mail contre le phishing stp ?", "sensible": "ordinaire", "graine": 5}
+{"texte": "Peux-tu me résumer les actualités sportives du week-end en quelques phrases ?", "sensible": "ordinaire", "graine": 5}
+{"texte": "Mon vélo a une roue avant de 28 pouces et des freins à disque qui couinent un peu.", "sensible": "ordinaire", "graine": 4}
+{"texte": "stp tu peux me rappeler comment on change le mot de passe d'un compte sans me demander l'ancien ?", "sensible": "ordinaire", "graine": 4}
+{"texte": "I'm thinking of switching banks next year, can you list what documents people usually need?", "sensible": "ordinaire", "graine": 4}
+{"texte": "La réunion de demain, c'est bien à 10h dans la salle du fond avec Léa et Hugo ?", "sensible": "ordinaire", "graine": 4}
+{"texte": "jsuis crevé, raconte moi une blague courte sur les agriculteurs stp", "sensible": "ordinaire", "graine": 4}
+{"texte": "Combien de temps faut-il pour cuire des pâtes fraîches aux œufs, environ ?", "sensible": "ordinaire", "graine": 4}
+{"texte": "J'ai perdu l'accès à mon appli bancaire, tu sais comment contacter leur support ?", "sensible": "ordinaire", "graine": 6}
+{"texte": "How do I change the password on my email account without losing my old messages?", "sensible": "ordinaire", "graine": 6}
+{"texte": "jsuis bloqué sur l'écran de connexion de Spotify, y'a une astuce pour réessayer autrement ?", "sensible": "ordinaire", "graine": 6}
+{"texte": "Est-ce que tu me conseilles de me passer un gestionnaire de mots de passe, ça vaut le coup ?", "sensible": "ordinaire", "graine": 6}
+{"texte": "Le site de ma mutuelle me demande un code à chaque fois, c'est normal ou je peux désactiver ça stp ?", "sensible": "ordinaire", "graine": 6}
+{"texte": "Pourquoi ma banque m'envoie toujours une validation quand je fais un achat en ligne ?", "sensible": "ordinaire", "graine": 6}
+{"texte": "Jarvis, explique-moi à quoi sert un code PIN, j'arrive jamais à retenir la différence avec le mot de passe", "sensible": "ordinaire", "graine": 7}
+{"texte": "How do I choose a strong password for my email account without forgetting it all the time?", "sensible": "ordinaire", "graine": 7}
+{"texte": "c'est quoi la différence entre un compte courant et un compte épargne stp ?", "sensible": "ordinaire", "graine": 7}
+{"texte": "Jarvis rappelle moi comment on bloque sa carte bancaire en cas de perte, sans me demander les numéros", "sensible": "ordinaire", "graine": 7}
+{"texte": "À quoi ça sert exactement une clé API ? On m'en parle au boulot mais j'ai rien compris", "sensible": "ordinaire", "graine": 7}
+{"texte": "jsuis perdu, c'est quoi un IBAN et pk on me le demande pr un virement ?", "sensible": "ordinaire", "graine": 7}
+{"texte": "Explique-moi comment fonctionne un gestionnaire de mots de passe, je ne comprends pas trop le principe.", "sensible": "ordinaire", "graine": 9}
+{"texte": "Could you remind me how to change my bank card limit without giving any codes?", "sensible": "ordinaire", "graine": 9}
+{"texte": "jsuis bloqué, mon appli bancaire veut que je réinitialise mon mot de passe, tu peux me guider stp ?", "sensible": "ordinaire", "graine": 9}
+{"texte": "Quelle est la différence entre une clé API et un simple jeton d'accès ?", "sensible": "ordinaire", "graine": 9}
+{"texte": "Rédige un mail poli à ma banque pour contester des frais, sans inventer mes coordonnées.", "sensible": "ordinaire", "graine": 9}
+{"texte": "Tu peux me créer une phrase mnémotechnique pour inventer un code PIN facile à retenir ?", "sensible": "ordinaire", "graine": 9}
+{"texte": "Rappelle-moi de penser à changer mon mot de passe quand je rentre stp", "sensible": "ordinaire", "graine": 8}
+{"texte": "Je dois passer à la banque demain pour poser une question sur mon compte, mais rien d'urgent.", "sensible": "ordinaire", "graine": 8}
+{"texte": "Can you remind me to call the bank about my card later?", "sensible": "ordinaire", "graine": 8}
+{"texte": "jsuis crevé, on reporte tt à demain matin ok ?", "sensible": "ordinaire", "graine": 8}
+{"texte": "Est-ce que tu peux me trouver une recette de pâtes sans fromage pour ce soir ?", "sensible": "ordinaire", "graine": 8}
+{"texte": "Jarvis, mets un réveil à 7h et note que je dois acheter du pain en rentrant.", "sensible": "ordinaire", "graine": 8}
+{"texte": "Tu peux m'aider à préparer un quiz sur la Révolution française pour demain ?", "sensible": "ordinaire", "graine": 10}
+{"texte": "Jarvis, mets une minuterie de 25 minutes stp, je vais faire un gâteau au citron.", "sensible": "ordinaire", "graine": 10}
+{"texte": "What’s the weather like in Lyon this weekend? I’m thinking of going for a bike ride.", "sensible": "ordinaire", "graine": 10}
+{"texte": "Je sais plus comment on change le mot de passe de ma banque, tu peux me rappeler les étapes générales ?", "sensible": "ordinaire", "graine": 10}
+{"texte": "jsuis en train d'apprendre la guitare, t'as un exercice simple pour les accords barrés ?", "sensible": "ordinaire", "graine": 10}
+{"texte": "Rédige-moi un mail poli pour demander un report de réunion à jeudi après-midi.", "sensible": "ordinaire", "graine": 10}
+{"texte": "Dis Jarvis, tu peux me raconter une blague sur les chats stp ?", "sensible": "ordinaire", "graine": 11}
+{"texte": "Quelle heure est-il à Tokyo en ce moment ?", "sensible": "ordinaire", "graine": 11}
+{"texte": "Hey Jarvis, remind me to water the plants tomorrow morning", "sensible": "ordinaire", "graine": 11}
+{"texte": "jsuis en retard, trouve-moi l'itinéraire le plus rapide en vélo tt de suite", "sensible": "ordinaire", "graine": 11}
+{"texte": "Peux-tu m'expliquer simplement comment fonctionne une éclipse solaire ?", "sensible": "ordinaire", "graine": 11}
+{"texte": "On regarde quoi ce soir, tu me conseilles un film de science-fiction récent ?", "sensible": "ordinaire", "graine": 11}
+{"texte": "Jarvis, mets un rappel pour arroser les plantes demain matin stp", "sensible": "ordinaire", "graine": 12}
+{"texte": "J'adore les lasagnes mais je rate toujours la béchamel, t'as une astuce ?", "sensible": "ordinaire", "graine": 12}
+{"texte": "Could you play some jazz while I cook dinner tonight?", "sensible": "ordinaire", "graine": 12}
+{"texte": "Je sais plus où j'ai rangé mes clés de voiture, comme d'habitude quoi", "sensible": "ordinaire", "graine": 12}
+{"texte": "On se fait un film ce soir ? Je pensais à une vieille comédie", "sensible": "ordinaire", "graine": 12}
+{"texte": "Mon appli de banque me demande de changer mon mot de passe, je le ferai plus tard", "sensible": "ordinaire", "graine": 12}
+{"texte": "tu peux m'aider à préparer une réunion pour demain stp ?", "sensible": "ordinaire", "graine": 13}
+{"texte": "J'aimerais apprendre la guitare, tu connais des tutos pour débutants ?", "sensible": "ordinaire", "graine": 13}
+{"texte": "Can you remind me to water the plants every Sunday morning?", "sensible": "ordinaire", "graine": 13}
+{"texte": "jsuis en train de trier mes photos de vacances, c'est interminable lol", "sensible": "ordinaire", "graine": 13}
+{"texte": "Écris-moi un petit poème sur l'automne et les feuilles qui tombent.", "sensible": "ordinaire", "graine": 13}
+{"texte": "on regarde quoi comme film ce soir, un truc léger si possible", "sensible": "ordinaire", "graine": 13}
+{"texte": "Dis Jarvis, tu peux me rappeler de prendre un parapluie demain matin ?", "sensible": "ordinaire", "graine": 14}
+{"texte": "Jsuis crevé ce soir, on se fait un film léger ou un truc drôle ?", "sensible": "ordinaire", "graine": 14}
+{"texte": "Can you translate 'bon voyage' in Japanese for my postcard?", "sensible": "ordinaire", "graine": 14}
+{"texte": "Mets une playlist jazz tranquille pour travailler stp", "sensible": "ordinaire", "graine": 14}
+{"texte": "C'est quoi la capitale de l'Islande déjà, j'ai un trou de mémoire", "sensible": "ordinaire", "graine": 14}
+{"texte": "Raconte-moi une blague sur les chats, mtn jsuis d'humeur à rire", "sensible": "ordinaire", "graine": 14}
+{"texte": "C'est quoi la différence entre une clé API et un jeton d'authentification ?", "sensible": "ordinaire", "graine": 16}
+{"texte": "Explain how two-factor authentication works in general terms.", "sensible": "ordinaire", "graine": 16}
+{"texte": "dis Jarvis comment je peux repérer un mail de phishing stp", "sensible": "ordinaire", "graine": 16}
+{"texte": "Je dois choisir entre deux banques en ligne, tu peux me lister les critères à comparer ?", "sensible": "ordinaire", "graine": 16}
+{"texte": "Pourquoi on nous conseille de ne pas réutiliser le même mot de passe partout ?", "sensible": "ordinaire", "graine": 16}
+{"texte": "jsuis curieux, c'est quoi le principe d'un coffre-fort numérique ?", "sensible": "ordinaire", "graine": 16}
+{"texte": "Tu peux me rappeler d'arroser les plantes du balcon demain matin ?", "sensible": "ordinaire", "graine": 15}
+{"texte": "jsuis en retard, le bus est bloqué tt près de la gare, préviens Léa stp", "sensible": "ordinaire", "graine": 15}
+{"texte": "Can you translate this recipe for banana bread into French for me?", "sensible": "ordinaire", "graine": 15}
+{"texte": "Jarvis, mets une alarme à 7h30 pour tous les jours de semaine.", "sensible": "ordinaire", "graine": 15}
+{"texte": "On regarde quel film ce soir, une comédie ou un truc d'aventure ?", "sensible": "ordinaire", "graine": 15}
+{"texte": "Pense à changer le mot de passe de ma boîte mail le mois prochain, sans me l'afficher.", "sensible": "ordinaire", "graine": 15}
+{"texte": "Dis Jarvis, tu saurais m'expliquer comment marche une carte bancaire virtuelle ?", "sensible": "ordinaire", "graine": 17}
+{"texte": "Je voudrais apprendre l'espagnol l'année prochaine, tu as des applis à me conseiller ?", "sensible": "ordinaire", "graine": 17}
+{"texte": "Could you set a reminder for me to water the plants every Tuesday morning?", "sensible": "ordinaire", "graine": 17}
+{"texte": "jsuis crevé, mets une playlist jazz tranquille stp", "sensible": "ordinaire", "graine": 17}
+{"texte": "Réécris ce mail en plus poli : bonjour, je vous envoie le rapport comme convenu.", "sensible": "ordinaire", "graine": 17}
+{"texte": "C'est quoi la différence entre un mot de passe et un code PIN en vrai ?", "sensible": "ordinaire", "graine": 17}
+{"texte": "Stp, mets mon rapport en PDF avant de l'envoyer à l'équipe ?", "sensible": "ordinaire", "graine": 18}
+{"texte": "Jarvis, remind me to water the plants every Sunday morning please", "sensible": "ordinaire", "graine": 18}
+{"texte": "On a réunion à 14h demain, tu peux me préparer un résumé de la semaine ?", "sensible": "ordinaire", "graine": 18}
+{"texte": "jsuis en retard, prévient tt le monde que j'arrive dans 10 min", "sensible": "ordinaire", "graine": 18}
+{"texte": "Quelle est la différence entre un mot de passe fort et un mot de passe faible ?", "sensible": "ordinaire", "graine": 18}
+{"texte": "Tu peux me trouver une recette de lasagnes végétariennes pour ce soir ?", "sensible": "ordinaire", "graine": 18}
+{"texte": "C'est quoi la différence entre un compte courant et un compte épargne ?", "sensible": "ordinaire", "graine": 19}
+{"texte": "jarvis comment je fais pour réinitialiser mon mot de passe quand je l'ai oublié ?", "sensible": "ordinaire", "graine": 19}
+{"texte": "Explique-moi à quoi sert un IBAN, stp", "sensible": "ordinaire", "graine": 19}
+{"texte": "What documents do I need to open an online bank account in general?", "sensible": "ordinaire", "graine": 19}
+{"texte": "Pk ma banque me parle tout le temps de double authentification, ça sert à quoi ?", "sensible": "ordinaire", "graine": 19}
+{"texte": "Donne-moi des idées pour mieux gérer mon budget sans dépasser chaque mois", "sensible": "ordinaire", "graine": 19}
+{"texte": "Tu peux me mettre une alarme pour 7h demain stp ?", "sensible": "ordinaire", "graine": 20}
+{"texte": "J'aime bien les films de science-fiction des années 80.", "sensible": "ordinaire", "graine": 20}
+{"texte": "Can you translate \"bon courage\" into German for me?", "sensible": "ordinaire", "graine": 20}
+{"texte": "Jarvis, raconte-moi une blague courte sur les chats.", "sensible": "ordinaire", "graine": 20}
+{"texte": "jsuis en retard pr le train, préviens Léa que j'arrive dans 20 min", "sensible": "ordinaire", "graine": 20}
+{"texte": "Quelle est la recette la plus simple pour faire des crêpes ?", "sensible": "ordinaire", "graine": 20}
+{"texte": "Compose une liste de courses pour un curry de légumes ce week-end.", "sensible": "ordinaire", "graine": 21}
+{"texte": "Explain how to reset a password on a website without giving me any real code.", "sensible": "ordinaire", "graine": 21}
+{"texte": "Prépare-moi un itinéraire de trois jours à Lisbonne avec des visites tranquilles le matin.", "sensible": "ordinaire", "graine": 21}
+{"texte": "jsuis crevé, raconte moi une blague courte sur les chats stp", "sensible": "ordinaire", "graine": 21}
+{"texte": "Comment négocier une augmentation sans avoir l'air trop agressif ?", "sensible": "ordinaire", "graine": 21}
+{"texte": "Rédige une invitation sympa pour l'anniversaire de ma sœur samedi soir.", "sensible": "ordinaire", "graine": 21}
+{"texte": "stp tu sais comment on change le mot de passe de mon appli bancaire ? j'ose pas appuyer n'importe où", "sensible": "ordinaire", "graine": 22}
+{"texte": "Hey Jarvis, where do I find the settings to update my email password? I keep getting lost in the menus", "sensible": "ordinaire", "graine": 22}
+{"texte": "c'est normal que ma banque me demande de vérifier mon compte tous les mois ? ça me stresse un peu", "sensible": "ordinaire", "graine": 22}
+{"texte": "pk mon pc me propose toujours de sauvegarder mes mots de passe, c'est sécurisé ou pas ce truc ?", "sensible": "ordinaire", "graine": 22}
+{"texte": "Jarvis, remind me how to check if a website asking for card payment is legit before I buy anything", "sensible": "ordinaire", "graine": 22}
+{"texte": "j'ai perdu la petite carte avec mes codes, tu sais quelle démarche faut faire auprès de ma banque ?", "sensible": "ordinaire", "graine": 22}
+{"texte": "Je travaille comme boulanger à Lyon et j'adore l'odeur du croissant le matin.", "sensible": "ordinaire", "graine": 23}
+{"texte": "jsuis prof de maths au collège, ça me plaît bien", "sensible": "ordinaire", "graine": 23}
+{"texte": "I work as a graphic designer for a small studio in Berlin.", "sensible": "ordinaire", "graine": 23}
+{"texte": "Je suis chauffeur livreur depuis trois ans, principalement en région parisienne.", "sensible": "ordinaire", "graine": 23}
+{"texte": "Bonjour Jarvis, je suis artisan menuisier et je fabrique des meubles en bois massif.", "sensible": "ordinaire", "graine": 23}
+{"texte": "Je joue de la guitare dans un petit groupe le week-end, c'est juste un loisir.", "sensible": "ordinaire", "graine": 23}
+{"texte": "Jarvis, comment on change un mot de passe quand on l'a oublié ?", "sensible": "ordinaire", "graine": 24}
+{"texte": "est-ce que les banques sont ouvertes le lundi de Pentecôte en général ?", "sensible": "ordinaire", "graine": 24}
+{"texte": "Which savings account is best for a student?", "sensible": "ordinaire", "graine": 24}
+{"texte": "tu sais pk on me demande un code de vérification quand je me connecte à ma banque ?", "sensible": "ordinaire", "graine": 24}
+{"texte": "Explique-moi ce que c'est un IBAN, j'ai jamais compris à quoi ça servait", "sensible": "ordinaire", "graine": 24}
+{"texte": "Jarvis, could you set a timer for twenty minutes while the pasta cooks?", "sensible": "ordinaire", "graine": 25}
+{"texte": "Remind me to water the balcony plants tomorrow morning, please.", "sensible": "ordinaire", "graine": 25}
+{"texte": "jsuis crevé, tu peux me raconter une blague courte avant que je dorme ?", "sensible": "ordinaire", "graine": 25}
+{"texte": "Jarvis, what's a good substitute for basil in a tomato sauce?", "sensible": "ordinaire", "graine": 25}
+{"texte": "Can you play some quiet jazz while I tidy up the living room?", "sensible": "ordinaire", "graine": 25}
+{"texte": "Please draft a polite thank-you note for the book club host.", "sensible": "ordinaire", "graine": 25}
+{"texte": "Where can I find the settings to update my Netflix password?", "sensible": "ordinaire", "graine": 27}
+{"texte": "jsuis bloqué, comment on réinitialise un mot de passe d'ordi stp ?", "sensible": "ordinaire", "graine": 27}
+{"texte": "Does my bank charge fees for paying abroad with a card?", "sensible": "ordinaire", "graine": 27}
+{"texte": "What documents do I usually need to open a savings account?", "sensible": "ordinaire", "graine": 27}
+{"texte": "Can you remind me how to set up two-factor authentication on Instagram?", "sensible": "ordinaire", "graine": 27}
+{"texte": "A cuánto está el cambio de euros a dólares hoy en el banco?", "sensible": "ordinaire", "graine": 27}
+{"texte": "Jarvis, remind me to water the tomatoes tomorrow morning.", "sensible": "ordinaire", "graine": 26}
+{"texte": "Can you explain how I can change my password on that cooking site, without showing me anyone else's?", "sensible": "ordinaire", "graine": 26}
+{"texte": "svp mets une alarme à 7h et lis-moi les titres de l'actu", "sensible": "ordinaire", "graine": 26}
+{"texte": "What's a good substitute for coriander in a soup recipe?", "sensible": "ordinaire", "graine": 26}
+{"texte": "Jarvis, lower the volume a bit and play some jazz please", "sensible": "ordinaire", "graine": 26}
+{"texte": "Draft a polite email to thank the team for yesterday's meeting, keep it brief.", "sensible": "ordinaire", "graine": 26}
+{"texte": "Tu me conseilles quelle banque en ligne pour un compte courant sans frais ?", "sensible": "ordinaire", "graine": 29}
+{"texte": "jsuis nul en sécurité, c'est quoi la différence entre un code PIN et un mot de passe ?", "sensible": "ordinaire", "graine": 29}
+{"texte": "Could you explain how two-factor authentication works in simple terms?", "sensible": "ordinaire", "graine": 29}
+{"texte": "Jarvis, rappelle-moi de renouveler mon antivirus ce week-end stp", "sensible": "ordinaire", "graine": 29}
+{"texte": "Cuál es la mejor app para organizar mis facturas sin subirlas a la nube?", "sensible": "ordinaire", "graine": 29}
+{"texte": "Je cherche une idée de cadeau pour les 30 ans de ma sœur, elle adore le jardinage", "sensible": "ordinaire", "graine": 29}
+{"texte": "¿Me puedes buscar una receta rápida de pasta con limón para esta noche?", "sensible": "ordinaire", "graine": 28}
+{"texte": "jpeux avoir l'heure stp, jsuis en retard pr mon cours de guitare", "sensible": "ordinaire", "graine": 28}
+{"texte": "What's the weather like in Lyon this weekend, should I bring an umbrella?", "sensible": "ordinaire", "graine": 28}
+{"texte": "Réveille-moi à 7h demain, j'ai un train tôt et je ne veux pas rater le petit-déjeuner.", "sensible": "ordinaire", "graine": 28}
+{"texte": "Can you change my password policy reminder to every three months, without touching the actual passwords?", "sensible": "ordinaire", "graine": 28}
+{"texte": "Pour mes impôts de l'an dernier, j'ai déclaré 32 400 euros, tu peux me recalculer la tranche ?", "sensible": "personnel", "graine": 31}
+{"texte": "My birthday is March 14th, 1998, can you set a reminder for my passport renewal?", "sensible": "personnel", "graine": 31}
+{"texte": "On s'est disputés avec Léa hier soir, je crois qu'elle veut qu'on se sépare et ça me rend vraiment triste.", "sensible": "personnel", "graine": 31}
+{"texte": "Nouvelle adresse : 14 rue des Lilas, 69099 Lyon, mets à jour mon dossier stp", "sensible": "personnel", "graine": 31}
+{"texte": "Mon numéro c'est le 01 99 42 87 15, tu peux l'enregistrer pour les livraisons ?", "sensible": "personnel", "graine": 31}
+{"texte": "Mon médecin m'a prescrit un traitement pour l'hypertension, tu peux me rappeler de le prendre à 20h ?", "sensible": "personnel", "graine": 30}
+{"texte": "J'ai gagné 2 850 euros ce mois-ci mais après le loyer il ne me reste presque rien.", "sensible": "personnel", "graine": 30}
+{"texte": "Could you note that I'm voting for the green party in the next election?", "sensible": "personnel", "graine": 30}
+{"texte": "J'habite au 14 rue des Lilas à Lyon, c'est là que le livreur doit passer demain.", "sensible": "personnel", "graine": 30}
+{"texte": "Note ma date de naissance stp : 12 mars 1994, j'en ai marre de l'oublier pour les formulaires.", "sensible": "personnel", "graine": 30}
+{"texte": "Stp Jarvis, note que je déménage le 12 mai au 8 impasse des Lilas à Grenoble, c'est ma nouvelle adresse.", "sensible": "personnel", "graine": 32}
+{"texte": "My blood test results came back, my cholesterol is way too high and I'm a bit worried.", "sensible": "personnel", "graine": 32}
+{"texte": "jsuis trop stressé, avec mon copain ça va plus du tt depuis qu'on s'est disputés samedi soir", "sensible": "personnel", "graine": 32}
+{"texte": "Pour mon dossier, mon numéro de sécu c'est 2 84 07 75 123 456/78, tu peux le garder dans mes infos ?", "sensible": "personnel", "graine": 32}
+{"texte": "Je touche 1850 euros par mois mais après le loyer et le crédit il me reste presque rien à la fin du mois...", "sensible": "personnel", "graine": 32}
+{"texte": "Jarvis, note mon adresse : 18 rue des Lilas à Grenoble, j'y déménage le mois prochain.", "sensible": "personnel", "graine": 33}
+{"texte": "J'ai eu mes résultats ce matin, le médecin m'a dit que je suis diabétique de type 2.", "sensible": "personnel", "graine": 33}
+{"texte": "Hey Jarvis, my new phone number is 01 99 42 17 83, update my contacts please.", "sensible": "personnel", "graine": 33}
+{"texte": "rappelle moi que mon anniversaire c'est le 14 mars 1992, faut que je renouvelle mon passeport", "sensible": "personnel", "graine": 33}
+{"texte": "Aux prochaines élections je vais voter pour le parti écologiste, mets un rappel pour aller m'inscrire sur les listes stp", "sensible": "personnel", "graine": 33}
+{"texte": "Stp Jarvis, rappelle-moi de prendre mon traitement pour l'hypertension tous les matins à 8h.", "sensible": "personnel", "graine": 36}
+{"texte": "Je déménage le mois prochain, ma nouvelle adresse c'est rue des Lilas à Annecy, tu peux mettre à jour mes infos ?", "sensible": "personnel", "graine": 36}
+{"texte": "Puedes recordarme que mi cita con el dentista es el martes a las 10?", "sensible": "personnel", "graine": 36}
+{"texte": "Mon salaire net tombe à 2 340 € le 28, aide-moi à prévoir le budget courses de décembre.", "sensible": "personnel", "graine": 36}
+{"texte": "Note que mon numéro de passeport expire en juin 2028, faudra penser à le renouveler.", "sensible": "personnel", "graine": 36}
+{"texte": "Jarvis, rappelle-moi de prendre mon insuline avant le petit-déj, mon diabète est pas stable en ce moment", "sensible": "personnel", "graine": 37}
+{"texte": "je gagne 2100€ net par mois et j'arrive pas à mettre de côté, tu peux me faire un budget stp", "sensible": "personnel", "graine": 37}
+{"texte": "My new address is 14 rue des Lilas, can you update it for my deliveries?", "sensible": "personnel", "graine": 37}
+{"texte": "Note ma date de naissance : 12 mars 1994, et mets un rappel pour renouveler mon passeport le mois prochain", "sensible": "personnel", "graine": 37}
+{"texte": "En ce moment ça va pas fort avec Léa, on parle de se séparer après 6 ans ensemble...", "sensible": "personnel", "graine": 37}
+{"texte": "Dis à Jarvis que je suis né le 14 mars 1998, c'est pour mettre à jour mon profil.", "sensible": "personnel", "graine": 34}
+{"texte": "Stp note que mon traitement pour le diabète c'est metformine le matin, faut me le rappeler.", "sensible": "personnel", "graine": 34}
+{"texte": "Can you remind me that I vote next Sunday and I still need to check my polling office?", "sensible": "personnel", "graine": 34}
+{"texte": "Mon adresse c'est 12 rue des Lilas à Lyon, envoie le colis là-bas stp", "sensible": "personnel", "graine": 34}
+{"texte": "jsuis en couple avec Nadia depuis 2 ans, note notre anniversaire le 5 juin", "sensible": "personnel", "graine": 34}
+{"texte": "Stp rappelle-moi mon rdv chez le dentiste mardi, j'ai trop peur qu'il m'arrache la prémolaire cariée.", "sensible": "personnel", "graine": 35}
+{"texte": "Jarvis, note que mon salaire net est passé à 2 340 euros depuis janvier, faut que je revoie mon budget loyer.", "sensible": "personnel", "graine": 35}
+{"texte": "I told my girlfriend last night that I want to move in together, can you help me draft something sweet to follow up?", "sensible": "personnel", "graine": 35}
+{"texte": "Mon adresse c'est 14 rue des Lilas à Nantes, tu peux l'ajouter à mon profil pour les livraisons ?", "sensible": "personnel", "graine": 35}
+{"texte": "jsuis né le 3 mai 1998, calcule quel âge j'aurai à ma retraite stp", "sensible": "personnel", "graine": 35}
+{"texte": "Jarvis, rappelle-moi de prendre mon insuline tous les matins à 7h, mon diabète est mal équilibré en ce moment.", "sensible": "personnel", "graine": 38}
+{"texte": "Note que je gagne 2 450 euros net par mois, ça m'aidera pour le budget de novembre.", "sensible": "personnel", "graine": 38}
+{"texte": "I'm an atheist, so please don't suggest religious holidays for my calendar, ok?", "sensible": "personnel", "graine": 38}
+{"texte": "Mon nouveau numéro c'est le 01 99 42 87 15, remplace l'ancien dans ma fiche contact stp.", "sensible": "personnel", "graine": 38}
+{"texte": "Ajoute à mon dossier : je suis née le 14 mars 1992 à Lyon et je vis maintenant au 8 rue des Lilas à Dijon.", "sensible": "personnel", "graine": 38}
+{"texte": "Jarvis, rappelle-moi que je dois 1 450 euros à mon frère Karim pour le mois prochain.", "sensible": "personnel", "graine": 39}
+{"texte": "stp note mon num de passeport pr le voyage : X45FR7829, il expire en 2029", "sensible": "personnel", "graine": 39}
+{"texte": "I'm voting for the Green party on Sunday, can you remind me not to tell my parents yet?", "sensible": "personnel", "graine": 39}
+{"texte": "Mon rdv chez le gynéco est repoussé au 14 mars, tu peux changer ça dans mon agenda ?", "sensible": "personnel", "graine": 39}
+{"texte": "Você pode guardar minha data de nascimento? É 23 de novembro de 1994.", "sensible": "personnel", "graine": 39}
+{"texte": "Je suis né le 14 mars 1992 à Grenoble, tu peux me le rappeler pour mon dossier ?", "sensible": "personnel", "graine": 40}
+{"texte": "My address is 27 Willow Lane, Springfield, could you save it for deliveries?", "sensible": "personnel", "graine": 40}
+{"texte": "jsuis en arrêt depuis lundi pour une grosse grippe, dis à Jarvis de décaler tt mes rdv stp", "sensible": "personnel", "graine": 40}
+{"texte": "Je gagne 2 450 euros net par mois, ça suffit pour demander un prêt selon toi ?", "sensible": "personnel", "graine": 40}
+{"texte": "Mon numéro de passeport c'est X78FR2041, note-le pour le check-in de vendredi.", "sensible": "personnel", "graine": 40}
+{"texte": "Stp rappelle-moi que je dois passer mon permis de conduire le 14 mars, j'ai trop peur de le rater", "sensible": "personnel", "graine": 41}
+{"texte": "I'm catholic and I pray every night before bed, can you set a reminder for 10pm?", "sensible": "personnel", "graine": 41}
+{"texte": "Mon adresse c'est le 8 impasse des Oliviers à Lyon, envoie-la à Karim pour la livraison", "sensible": "personnel", "graine": 41}
+{"texte": "jsuis en découvert de 340 euros ce mois-ci, tt va mal avec mon salaire...", "sensible": "personnel", "graine": 41}
+{"texte": "Mon numéro c'est le 01 99 42 17 08, tu peux l'ajouter à ma signature mail ?", "sensible": "personnel", "graine": 41}
+{"texte": "Je suis en arrêt maladie depuis lundi à cause de mon dos, tu peux prévenir mon manager ?", "sensible": "personnel", "graine": 42}
+{"texte": "Mon anniversaire c'est le 14 mars 1998, programme-moi un rappel pour renouveler mon passeport.", "sensible": "personnel", "graine": 42}
+{"texte": "Call me on 01 99 42 87 15 tonight, it's about my divorce papers.", "sensible": "personnel", "graine": 42}
+{"texte": "Je gagne 2 300 euros net par mois et je galère à payer mon loyer ce trimestre.", "sensible": "personnel", "graine": 42}
+{"texte": "stpp note que j'habite au 12 rue des Lilas à Lyon, c pour la livraison de demain", "sensible": "personnel", "graine": 42}
+{"texte": "Je me suis séparée de Karim le mois dernier, jsuis un peu perdue en ce moment.", "sensible": "personnel", "graine": 44}
+{"texte": "Jarvis, rappelle-moi que mon rendez-vous chez le cardiologue est mardi à 9h pour contrôler ma tension.", "sensible": "personnel", "graine": 44}
+{"texte": "My salary is 2,400 euros net per month, can you help me plan a budget to save a bit more?", "sensible": "personnel", "graine": 44}
+{"texte": "Je te donne mon numéro : 01 99 42 17 83, tu peux l'enregistrer dans mes contacts perso stp ?", "sensible": "personnel", "graine": 44}
+{"texte": "Depuis les dernières élections, je pense vraiment changer mes idées politiques, ça me travaille beaucoup.", "sensible": "personnel", "graine": 44}
+{"texte": "Je suis enceinte de 6 semaines, je ne l'ai dit à personne pour l'instant.", "sensible": "personnel", "graine": 43}
+{"texte": "Mi número de teléfono es el 01 99 45 78 23, puedes llamarme después de las 18h.", "sensible": "personnel", "graine": 43}
+{"texte": "jsuis en dépression depuis des mois, j'ai commencé un traitement la semaine dernière", "sensible": "personnel", "graine": 43}
+{"texte": "Pour mon dossier, je suis né le 14 mars 1992 à Grenoble et je vote à gauche depuis toujours.", "sensible": "personnel", "graine": 43}
+{"texte": "Ma nouvelle adresse c'est 18 rue des Lilas à Nantes, ne la partage avec personne stp.", "sensible": "personnel", "graine": 43}
+{"texte": "Je suis en arrêt maladie depuis deux semaines pour une dépression, tu peux me faire un récap de mes rendez-vous manqués ?", "sensible": "personnel", "graine": 45}
+{"texte": "Can you remind me to call the bank tomorrow? My salary dropped this month and I'm worried about my rent.", "sensible": "personnel", "graine": 45}
+{"texte": "stv note mon adresse : 14 impasse des Lilas, j déménage là-bas samedi prochain", "sensible": "personnel", "graine": 45}
+{"texte": "Jarvis, je vote pour les écologistes aux prochaines municipales et je veux suivre leurs résultats en direct dimanche soir.", "sensible": "personnel", "graine": 45}
+{"texte": "Mon anniversaire c'est le 3 mars 1998, programme-moi une surprise pour mes 30 ans mais ne dis rien à Léa.", "sensible": "personnel", "graine": 45}
+{"texte": "Jarvis, note que je dois 2 400 euros sur mon prêt étudiant et que l'échéance tombe le 5 du mois.", "sensible": "personnel", "graine": 47}
+{"texte": "Tu peux m'appeler au 01 99 42 17 08 si le rendez-vous chez le dermatologue est décalé ?", "sensible": "personnel", "graine": 47}
+{"texte": "I'm fasting for Ramadan this year, so please don't suggest lunch meetings before sunset.", "sensible": "personnel", "graine": 47}
+{"texte": "Rappelle-moi que ma date de naissance à mettre sur le formulaire, c'est le 14 mars 1992.", "sensible": "personnel", "graine": 47}
+{"texte": "J'habite au 18 rue des Lilas à Grenoble maintenant, mets à jour mon adresse pour les livraisons stp.", "sensible": "personnel", "graine": 47}
+{"texte": "Jarvis rappelle-moi de prendre mon traitement pour l'hypertension tous les matins à 8h.", "sensible": "personnel", "graine": 48}
+{"texte": "Je déménage le mois prochain au 14 rue des Lilas à Lyon, mets à jour mon adresse pour mes livraisons stp.", "sensible": "personnel", "graine": 48}
+{"texte": "Can you note my date of birth, 12 March 1998, so you can book my flights without asking every time?", "sensible": "personnel", "graine": 48}
+{"texte": "En ce moment jsuis un peu juste niveau argent, aide-moi à suivre mes dépenses de courses tt la semaine.", "sensible": "personnel", "graine": 48}
+{"texte": "Mon numéro c'est le 01 99 42 87 15, tu peux l'ajouter à ma signature mail ?", "sensible": "personnel", "graine": 48}
+{"texte": "rappelle-moi de prendre mon insuline à 19h, mon diabète est pas stable en ce moment", "sensible": "personnel", "graine": 46}
+{"texte": "Note ma nouvelle adresse stp : 14 impasse des Bruyères, 69099 Lyon, c'est là qu'il faut livrer le colis", "sensible": "personnel", "graine": 46}
+{"texte": "Can you remind me that my passport expires on 12 March 2028? I need to renew it before our trip", "sensible": "personnel", "graine": 46}
+{"texte": "mon num c'est le 01 99 42 17 83, donne-le à Karim pour qu'il me rappelle après le boulot", "sensible": "personnel", "graine": 46}
+{"texte": "jsuis trop stressée, avec Hugo ça va plus du tt en ce moment, on parle de se séparer", "sensible": "personnel", "graine": 46}
+{"texte": "Jarvis, rappelle-moi de renouveler mon passeport, le mien expire le mois prochain.", "sensible": "personnel", "graine": 49}
+{"texte": "Note que j'habite maintenant au 14 rue des Lilas, à deux minutes du parc, ne l'oublie pas pour mes livraisons.", "sensible": "personnel", "graine": 49}
+{"texte": "Hey Jarvis, can you remind me to call my therapist on Thursday about my anxiety follow-up?", "sensible": "personnel", "graine": 49}
+{"texte": "Stp ajoute dans mon dossier que je suis né le 12 mars 1994 à Lyon, c'est pour le formulaire de la mairie.", "sensible": "personnel", "graine": 49}
+{"texte": "jsuis en attente des résultats de mon bilan sanguin, dis-moi de relancer le labo demain matin stp", "sensible": "personnel", "graine": 49}
+{"texte": "Stp Jarvis, note que mon rdv chez le cardiologue est repoussé à mardi, j'ai encore des palpitations le matin.", "sensible": "personnel", "graine": 50}
+{"texte": "I live at 12 rue des Lilas in Lyon now, can you update my delivery address please?", "sensible": "personnel", "graine": 50}
+{"texte": "jsuis en couple avec Inès depuis 3 mois, aide-moi à lui écrire un ptit mot pour notre anniversaire", "sensible": "personnel", "graine": 50}
+{"texte": "Mon salaire tombe à 2 150 euros net, tu peux refaire mon budget courses pour ce mois-ci ?", "sensible": "personnel", "graine": 50}
+{"texte": "Pour ma déclaration d'impôts, mon revenu fiscal de l'an dernier était de 28 400 euros, garde-le pour le dossier.", "sensible": "personnel", "graine": 50}
+{"texte": "Rappelle-moi de prendre rdv chez le dermato, j'ai un grain de beauté qui a changé de forme et ça m'inquiète un peu.", "sensible": "personnel", "graine": 51}
+{"texte": "Est-ce que tu peux noter mon adresse actuelle ? C'est le 14 rue des Lilas à Nantes, je déménage le mois prochain.", "sensible": "personnel", "graine": 51}
+{"texte": "jsuis en retard sur mon avis d'imposition, tu peux me rappeler de déclarer mes revenus avant vendredi stp ?", "sensible": "personnel", "graine": 51}
+{"texte": "Can you remind me to call Sofia tonight? We had a big argument and I want to apologize before our anniversary.", "sensible": "personnel", "graine": 51}
+{"texte": "Note ma date de naissance pour les formulaires : 3 mars 1992, et mon numéro de passeport finit par 417.", "sensible": "personnel", "graine": 51}
+{"texte": "Jarvis, rappelle-moi mon rendez-vous chez le cardiologue mardi, mon diabète est pas stable en ce moment.", "sensible": "personnel", "graine": 53}
+{"texte": "I live at 14 rue des Lilas in Lyon, can you set that as my home address for deliveries?", "sensible": "personnel", "graine": 53}
+{"texte": "Mon numéro c'est le 01 99 42 17 83, tu peux le donner à la nounou stp ?", "sensible": "personnel", "graine": 53}
+{"texte": "jsuis né le 12 mars 1994, calcule quel âge j'aurai à la retraite mtn", "sensible": "personnel", "graine": 53}
+{"texte": "Je vote plutôt à gauche et je suis catholique pratiquant, note-le pour tes suggestions d'actus.", "sensible": "personnel", "graine": 53}
+{"texte": "Je suis stressée, mon loyer passe à 890 euros le mois prochain et il ne me reste presque rien après les courses.", "sensible": "personnel", "graine": 52}
+{"texte": "Mi fecha de nacimiento es el 14 de marzo de 1998, ¿puedes recordármela para el formulario?", "sensible": "personnel", "graine": 52}
+{"texte": "Depuis quelques semaines je vais à la messe tous les dimanches, ça m'aide beaucoup à tenir le coup.", "sensible": "personnel", "graine": 52}
+{"texte": "Jarvis, note mon nouveau numéro stp : 01 99 42 17 63, c'est celui que je donne au travail.", "sensible": "personnel", "graine": 52}
+{"texte": "Je crois que je suis en train de tomber amoureux de Léa, mais je n'ose pas lui avouer pour le moment.", "sensible": "personnel", "graine": 52}
+{"texte": "Jarvis, note que je vis au 14 rue des Lilas à Grenoble et que c'est là qu'il faut livrer mes médicaments.", "sensible": "personnel", "graine": 54}
+{"texte": "jsuis diabétique type 2, pense à me rappeler ma prise d'insuline à 19h stp", "sensible": "personnel", "graine": 54}
+{"texte": "Para mi declaración de impuestos, gané 32 400 € el año pasado, ¿puedes ayudarme a revisarla?", "sensible": "personnel", "graine": 54}
+{"texte": "Appelle-moi plutôt au 01 99 42 17 85, c'est mon nouveau numéro perso.", "sensible": "personnel", "graine": 54}
+{"texte": "Franchement je sais plus où j'en suis avec Léa, on s'est encore disputés hier et je crois que je suis toujours amoureux d'elle.", "sensible": "personnel", "graine": 54}
+{"texte": "Jarvis, remind me to take my blood pressure medication after dinner every night.", "sensible": "personnel", "graine": 55}
+{"texte": "Could you add £2,400 to my budget tracker for this month's rent? I earn £3,850 a month after tax.", "sensible": "personnel", "graine": 55}
+{"texte": "I'm thinking of voting Green in the local elections, can you find their policies on housing?", "sensible": "personnel", "graine": 55}
+{"texte": "Please save my new address in your notes: 14 Willow Crescent, Bath, for the delivery tomorrow.", "sensible": "personnel", "graine": 55}
+{"texte": "He dejado de salir con Marcos desde la semana pasada, avísame si me escribe por favor.", "sensible": "personnel", "graine": 55}
+{"texte": "I got my blood test back and my cholesterol is still way too high, can you remind me to take my pill tonight?", "sensible": "personnel", "graine": 56}
+{"texte": "jsuis né le 14 mars 1998, tu peux me calculer quand je pourrai prendre ma retraite ?", "sensible": "personnel", "graine": 56}
+{"texte": "My new address is 27 Willow Lane in Springfield, please update it for my deliveries.", "sensible": "personnel", "graine": 56}
+{"texte": "Honestly I think I'm falling for my coworker Léa but she's already engaged, what should I do?", "sensible": "personnel", "graine": 56}
+{"texte": "Here is my passport number XUK839201, can you check when it expires for my trip?", "sensible": "personnel", "graine": 56}
+{"texte": "Jarvis, note que je suis né le 14 mars 1992 à Lyon.", "sensible": "personnel", "graine": 57}
+{"texte": "My phone number is 01 99 45 82 13, call me after 6pm please.", "sensible": "personnel", "graine": 57}
+{"texte": "Rappel : j'ai rendez-vous chez le cardiologue demain pour mon hypertension.", "sensible": "personnel", "graine": 57}
+{"texte": "Stp mets à jour mon dossier : je gagne 2 400 euros net par mois depuis janvier.", "sensible": "personnel", "graine": 57}
+{"texte": "Jarvis, soy católico y los viernes no como carne, tenlo en cuenta para las recetas.", "sensible": "personnel", "graine": 57}
+{"texte": "Jarvis, remind me to call Dr. Patel tomorrow about my blood test results for my diabetes checkup.", "sensible": "personnel", "graine": 58}
+{"texte": "Can you note down that I moved? My new address is 14 Oakwood Lane, Springfield, and I need to update my voter registration before the election.", "sensible": "personnel", "graine": 58}
+{"texte": "stp rappelle-moi l'anniv de ma copine Léa le 3 mars, elle est née en 1998 et je veux lui préparer une surprise", "sensible": "personnel", "graine": 58}
+{"texte": "Please add my phone number 01 99 42 87 15 to the delivery instructions for the pharmacy order.", "sensible": "personnel", "graine": 58}
+{"texte": "I got my tax assessment yesterday and I owe $2,340 this year, can you help me plan monthly savings so I'm ready to pay it?", "sensible": "personnel", "graine": 58}
+{"texte": "Jarvis, note mon code PIN de carte, c'est 7392, ne l'oublie pas stp.", "sensible": "secret", "graine": 59}
+{"texte": "Hey Jarvis, my new Netflix password is Cinema!88, can you save it?", "sensible": "secret", "graine": 59}
+{"texte": "Le CVV au dos de ma Visa c'est 314, au cas où tu dois la rentrer pour moi.", "sensible": "secret", "graine": 59}
+{"texte": "jsuis bloqué, mon code reçu par SMS c'est 582941, tu peux me le relire ?", "sensible": "secret", "graine": 59}
+{"texte": "Retiens mon IBAN pour le virement : FR76 1099 0000 1234 5678 9012 345.", "sensible": "secret", "graine": 59}
+{"texte": "Jarvis, voici ma clé API pour le test : sk-proj-4Fh2Kq9Lm, garde-la de côté.", "sensible": "secret", "graine": 59}
+{"texte": "Mon code de porte au bureau c'est 6B204# , note-le pour quand j'arrive les mains pleines.", "sensible": "secret", "graine": 59}
+{"texte": "La phrase de récupération de mon portefeuille c'est pomme rivière lune café, enregistre-la stp Jarvis.", "sensible": "secret", "graine": 59}
+{"texte": "Jarvis, retiens mon mot de passe pour la messagerie, c'est Soleil2024, je l'oublie tout le temps", "sensible": "secret", "graine": 60}
+{"texte": "note stp le code de la porte de l'immeuble de Léa : 7392B, comme ça je pourrai monter directement", "sensible": "secret", "graine": 60}
+{"texte": "My new API key is sk-proj-8Kd2PxQ7, can you save it for the backup script?", "sensible": "secret", "graine": 60}
+{"texte": "Jarvis, le code que je viens de recevoir par SMS pour valider le virement c'est 581 904, tu peux le saisir ?", "sensible": "secret", "graine": 60}
+{"texte": "Pour ma carte Visa qui finit par 4412, le CVV au dos c'est 317, note-le pour l'achat de demain", "sensible": "secret", "graine": 60}
+{"texte": "Voici ma phrase de récupération, dans l'ordre : rivière, pomme, tunnel, vélo, orange, nuage, sable, forêt", "sensible": "secret", "graine": 60}
+{"texte": "jsuis bloqué, mon code PIN de téléphone c 0926, mets-le dans mes notes stp", "sensible": "secret", "graine": 60}
+{"texte": "Jarvis, enregistre mon IBAN pour le loyer : FR76 1999 4000 0152 7834 9200 143", "sensible": "secret", "graine": 60}
+{"texte": "jarvis note le code de la porte d'entrée de mamie : 4819, comme ça je l'oublierai plus", "sensible": "secret", "graine": 61}
+{"texte": "Le mot de passe de mon coffre en ligne c'est Soleil42!, tu peux me le rappeler demain ?", "sensible": "secret", "graine": 61}
+{"texte": "Here's the code I just got by text: 638214, can you enter it on the verification page for me?", "sensible": "secret", "graine": 61}
+{"texte": "Mon IBAN pour le virement du loyer, c'est FR76 1099 8200 4100 5678 9012 345, envoie-le à Karim stp", "sensible": "secret", "graine": 61}
+{"texte": "La clé API du projet test c'est sk-live-8Kd3Pm9x, garde-la pour le script de déploiement", "sensible": "secret", "graine": 61}
+{"texte": "stp retiens mon code PIN de carte SIM, c'est 0742, je le perds tout le temps", "sensible": "secret", "graine": 61}
+{"texte": "Voici ma phrase de récupération notée dans l'ordre : rivière pomme vélo nuit chaton lune papier avion", "sensible": "secret", "graine": 61}
+{"texte": "Tu peux payer avec ma carte 5399 2101 7743 6082 ? Je te la dicte pour la commande", "sensible": "secret", "graine": 61}
+{"texte": "Stp Jarvis, retiens le code de la porte de l'immeuble, c'est 8492A.", "sensible": "secret", "graine": 62}
+{"texte": "Here's my new card number for the subscription: 4539 1488 0343 6467, thanks Jarvis.", "sensible": "secret", "graine": 62}
+{"texte": "Mon code PIN de carte SIM, note-le bien : 7391.", "sensible": "secret", "graine": 62}
+{"texte": "Jarvis garde ça pour moi, le mot de passe de ma boîte mail perso c'est Soleil42!", "sensible": "secret", "graine": 62}
+{"texte": "Le code que je viens de recevoir par SMS pour valider le virement c'est 581904, entre-le stp.", "sensible": "secret", "graine": 62}
+{"texte": "Note mon CVV au cas où, les trois chiffres au dos de ma Visa c'est 376.", "sensible": "secret", "graine": 62}
+{"texte": "Voici ma clé API pour le test, sk-proj-4Fh2Kq9mZx, ne la mets nulle part ailleurs Jarvis.", "sensible": "secret", "graine": 62}
+{"texte": "jsuis bloqué, ma phrase de récupération c'est pomme rivière table jaune, garde-la stp", "sensible": "secret", "graine": 62}
+{"texte": "Jarvis retiens le code de la porte de l'immeuble : 48392A, ça m'évitera de le chercher ce soir.", "sensible": "secret", "graine": 63}
+{"texte": "Mon mot de passe pour le wifi de la maison c'est Chaton2024!", "sensible": "secret", "graine": 63}
+{"texte": "stpp note mon code reçu par SMS pour la banque c 739204 mtn avant que je l'oublie", "sensible": "secret", "graine": 63}
+{"texte": "My credit card PIN is 8416, please save it for when I'm shopping.", "sensible": "secret", "graine": 63}
+{"texte": "Voici mon IBAN pour le virement : FR76 1990 1234 5678 9012 3456 789", "sensible": "secret", "graine": 63}
+{"texte": "Note ma phrase de récupération : soleil banane rivière koala nuage citron vélo montagne", "sensible": "secret", "graine": 63}
+{"texte": "Le CVV au dos de ma carte c'est 317, tu peux le garder pour mes achats en ligne ?", "sensible": "secret", "graine": 63}
+{"texte": "Mon jeton d'accès, c'est ghp_8Kd2PmXq4Lz9, mets-le de côté pour le script de demain.", "sensible": "secret", "graine": 63}
+{"texte": "Jarvis, retiens mon mot de passe pour le wifi de la maison : Soleil2024", "sensible": "secret", "graine": 64}
+{"texte": "mon code de porte c'est 4719#, tu peux me le rappeler quand je rentre stp", "sensible": "secret", "graine": 64}
+{"texte": "Voilà mon IBAN pour le virement : FR76 1999 4020 1856 7300 9000 214", "sensible": "secret", "graine": 64}
+{"texte": "The CVV on my card is 842, please save it for the checkout Jarvis", "sensible": "secret", "graine": 64}
+{"texte": "jsuis bloqué, mon code PIN c 0852 tu peux le noter ?", "sensible": "secret", "graine": 64}
+{"texte": "Clé API à utiliser pour le script : sk-proj-9Kd3Lp7a", "sensible": "secret", "graine": 64}
+{"texte": "Note ma phrase de récupération : lune orange vélo chat montagne rivière", "sensible": "secret", "graine": 64}
+{"texte": "Pour payer, utilise ma carte 5399 2100 8847 1930, elle expire en 09/28", "sensible": "secret", "graine": 64}
+{"texte": "Jarvis, retiens mon code de porte, c'est 8341, tu pourras l'ouvrir pour le livreur.", "sensible": "secret", "graine": 65}
+{"texte": "Mi contraseña del correo es Luna2024! no la compartas con nadie porfa.", "sensible": "secret", "graine": 65}
+{"texte": "stp note mon pin de carte sim : 0926, jsuis bloqué sans ca", "sensible": "secret", "graine": 65}
+{"texte": "Voici mon IBAN pour le virement : FR76 1099 0000 1234 5678 9012 345.", "sensible": "secret", "graine": 65}
+{"texte": "Mon mot de passe pour le site des impôts, c'est Soleil!47, connecte-toi à ma place.", "sensible": "secret", "graine": 65}
+{"texte": "Le code que je viens de recevoir par SMS pour valider le paiement, c'est 483920.", "sensible": "secret", "graine": 65}
+{"texte": "Note cette clé API quelque part : sk-proj-9Xk2Pm7Qa.", "sensible": "secret", "graine": 65}
+{"texte": "CVV de ma Visa : 316, je te le donne pour que tu finisses la commande de fleurs.", "sensible": "secret", "graine": 65}
+{"texte": "note le code de la porte du bureau : 4821, merci Jarvis", "sensible": "secret", "graine": 66}
+{"texte": "Jarvis, my Netflix password is soleil2024! keep it for me pls", "sensible": "secret", "graine": 66}
+{"texte": "Voici mon IBAN pour le virement du loyer : FR14 2004 1010 0505 0001 3M02 606", "sensible": "secret", "graine": 66}
+{"texte": "Mon code PIN de carte c'est 7390, retiens-le stp", "sensible": "secret", "graine": 66}
+{"texte": "La clé API pour mon projet c'est sk-proj-9xK2mP7q, ne la perds pas", "sensible": "secret", "graine": 66}
+{"texte": "CVV de ma Visa : 318, ça expire fin 27 au fait", "sensible": "secret", "graine": 66}
+{"texte": "jsuis bloqué, le code reçu par sms c 584920 valable 5 min", "sensible": "secret", "graine": 66}
+{"texte": "Phrase de récupération de mon coffre : lune orange rivière calme", "sensible": "secret", "graine": 66}
+{"texte": "Jarvis, retiens que mon mot de passe pour le site des impôts c'est Soleil!482.", "sensible": "secret", "graine": 67}
+{"texte": "Le CVV au dos de ma Visa se termine par 731, c'est le 731 complet en fait.", "sensible": "secret", "graine": 67}
+{"texte": "Vire l'argent sur mon IBAN FR76 1999 4021 8856 3074 1290 543 stp.", "sensible": "secret", "graine": 67}
+{"texte": "Voici le code que je viens de recevoir par SMS pour valider le paiement : 584920.", "sensible": "secret", "graine": 67}
+{"texte": "My API key is sk-proj-8Kd3Xp7Q, save it for the script please Jarvis.", "sensible": "secret", "graine": 67}
+{"texte": "Le PIN de mon téléphone c'est 0926, note-le quelque part.", "sensible": "secret", "graine": 67}
+{"texte": "Ma phrase de récupération crypto c'est pomme rivière table jardin lune pierre café vent.", "sensible": "secret", "graine": 67}
+{"texte": "Pour ouvrir le coffre du bureau, le code c'est 742815.", "sensible": "secret", "graine": 67}
+{"texte": "Jarvis, mets mon code de porte à jour, c'est maintenant 4831#, merci.", "sensible": "secret", "graine": 69}
+{"texte": "Le code que je viens de recevoir par SMS pour la banque c'est 729304, tu peux me le valider stp ?", "sensible": "secret", "graine": 69}
+{"texte": "Usa mi CVV 384 para pagar la suscripción, la tarjeta termina en 4021.", "sensible": "secret", "graine": 69}
+{"texte": "Connecte-toi à mon NAS stp, le mdp c'est Soleil!47", "sensible": "secret", "graine": 69}
+{"texte": "Voici mon IBAN pour le virement du loyer : FR76 1099 0000 1234 5678 9012 345, envoie-le à Karim.", "sensible": "secret", "graine": 69}
+{"texte": "Jarvis, note ma phrase de récupération : lune pomme vélo orange nuage piano", "sensible": "secret", "graine": 69}
+{"texte": "Mon jeton GitHub c'est ghp_9Kd2xP4mQ7, pousse le code quand t'as fini.", "sensible": "secret", "graine": 69}
+{"texte": "ti peux payer avec ma carte 5399 2100 8842 1176 ? elle expire en 09/28", "sensible": "secret", "graine": 69}
+{"texte": "Mon code PIN c'est 8471, rajoute-le à mes notes stp", "sensible": "secret", "graine": 70}
+{"texte": "Voici mon IBAN : FR76 1990 4000 3000 1234 5678 943, envoie-le à Karim pour le remboursement", "sensible": "secret", "graine": 70}
+{"texte": "New API key for you Jarvis: sk-proj-9Tx3Ld8Pq2, use it for the calendar sync", "sensible": "secret", "graine": 70}
+{"texte": "Le code de la porte du bureau c'est 5829#, ne l'oublie pas", "sensible": "secret", "graine": 70}
+{"texte": "Mon mot de passe du mail pro : Soleil!2024, change-le demain stp", "sensible": "secret", "graine": 70}
+{"texte": "Le CVV de ma carte qui finit par 4410 c'est 963, jte le donne pr la réservation", "sensible": "secret", "graine": 70}
+{"texte": "Code reçu par SMS à l'instant : 730 518, valide la connexion mtn", "sensible": "secret", "graine": 70}
+{"texte": "Mon numéro de carte : 5399 0199 8842 7715, paie l'hôtel avec ça", "sensible": "secret", "graine": 70}
+{"texte": "Jarvis, retiens le code de la porte de mamie Colette, c'est 7392, je l'oublie tt le temps", "sensible": "secret", "graine": 68}
+{"texte": "my email password is luna2025!, can you save it for me Jarvis?", "sensible": "secret", "graine": 68}
+{"texte": "note mon CVV stp, la carte se termine par 4410 et le code c'est 268", "sensible": "secret", "graine": 68}
+{"texte": "Jarvis, ma clé API pour le projet météo c'est sk-proj-8Kd3Xp9Q, garde-la de côté", "sensible": "secret", "graine": 68}
+{"texte": "je viens de recevoir le code par SMS pour la banque, c'est 581934, entre-le vite", "sensible": "secret", "graine": 68}
+{"texte": "mon code PIN de téléphone c'est 0417, au cas où je te demande de le déverrouiller", "sensible": "secret", "graine": 68}
+{"texte": "Jarvis guarda esto: la frase de recuperación de mi cartera es gato luna río azul", "sensible": "secret", "graine": 68}
+{"texte": "mon mdp du wifi chez papa c'est maisonbleue7, note le pour quand les cousins viennent", "sensible": "secret", "graine": 68}
+{"texte": "Note ça stp : mon mot de passe Netflix c'est Soleil42, faut pas que je l'oublie encore.", "sensible": "secret", "graine": 71}
+{"texte": "Mon CVV, les trois chiffres derrière ma carte, c'est 834.", "sensible": "secret", "graine": 71}
+{"texte": "Voici mon IBAN pour le virement : FR76 1990 0012 3456 7890 1234 567.", "sensible": "secret", "graine": 71}
+{"texte": "El código de la puerta de mi oficina es 483920, recuérdamelo mañana.", "sensible": "secret", "graine": 71}
+{"texte": "Je viens de recevoir mon code par SMS, c'est 691045, tu peux le valider pour moi ?", "sensible": "secret", "graine": 71}
+{"texte": "My new API key is sk-live-8Kd2Pm9x, can you save it in my notes?", "sensible": "secret", "graine": 71}
+{"texte": "Ma phrase de récupération crypto, c'est \"orange chat vélo lune porte soleil rivière clé jardin vent sable étoile\".", "sensible": "secret", "graine": 71}
+{"texte": "Le code PIN de ma carte SIM, c'est 5518, note-le mtn stp.", "sensible": "secret", "graine": 71}
+{"texte": "Jarvis, retiens que le code PIN de ma carte c'est 7392, je l'oublie tout le temps.", "sensible": "secret", "graine": 72}
+{"texte": "stpp note mon mdp Netflix : Soleil2024! faut pas le perdre", "sensible": "secret", "graine": 72}
+{"texte": "The code I just got by text for my bank login is 581904, can you keep it for me?", "sensible": "secret", "graine": 72}
+{"texte": "Mon CVV au dos de ma Visa, c'est 418, au cas où je dois payer sans l'avoir sur moi.", "sensible": "secret", "graine": 72}
+{"texte": "Voici ma clé API pour le projet, note-la : sk-proj-9Kd3Lm", "sensible": "secret", "graine": 72}
+{"texte": "Le code de la porte de l'immeuble de Léa à Lyon, c'est 2749B, envoie-le à Hugo.", "sensible": "secret", "graine": 72}
+{"texte": "Jarvis, mon IBAN pour le virement du loyer c'est FR76 1990 0012 3456 7890 1234 567.", "sensible": "secret", "graine": 72}
+{"texte": "Ma phrase de récupération notée sur mon carnet : rivière pomme vélo nuage citron table huit", "sensible": "secret", "graine": 72}
+{"texte": "Mon code de porte c'est 4829, note-le pour quand le livreur passera jeudi.", "sensible": "secret", "graine": 74}
+{"texte": "jsuis bloqué sur mon compte, mon mdp c'est Lune!2024, tu peux te connecter stp ?", "sensible": "secret", "graine": 74}
+{"texte": "Voici mon IBAN FR76 1099 0000 1234 5678 9012 pour que tu fasses le virement à Karim.", "sensible": "secret", "graine": 74}
+{"texte": "The code I just got by text is 731904, can you enter it to confirm my login?", "sensible": "secret", "graine": 74}
+{"texte": "Pour payer l'hôtel, utilise ma carte 5399 1234 5678 9010, le CVV c'est 412.", "sensible": "secret", "graine": 74}
+{"texte": "Ma clé API c'est sk-proj-8Kd2Pm9x, branche-la sur le script de sauvegarde mtn.", "sensible": "secret", "graine": 74}
+{"texte": "Code PIN de mon tél : 0653, déverrouille l'appli banque et vérifie le solde.", "sensible": "secret", "graine": 74}
+{"texte": "Ma phrase de récupération c'est pomme rivière bleu horizon, sauvegarde-la pour mon portefeuille crypto.", "sensible": "secret", "graine": 74}
+{"texte": "Jarvis, retiens le code de la porte de l'immeuble, c'est 4829, tu pourras le donner à Léa quand elle passera.", "sensible": "secret", "graine": 73}
+{"texte": "Mon mot de passe pour le coffre-fort numérique c'est Soleil42, note-le quelque part de sûr stp.", "sensible": "secret", "graine": 73}
+{"texte": "Voici ma clé API OpenAI : sk-proj-4Fh2Kq9Lm, utilise-la pour le script de résumé.", "sensible": "secret", "graine": 73}
+{"texte": "Le code que je viens de recevoir par SMS pour la banque est 739201, valide la connexion pour moi.", "sensible": "secret", "graine": 73}
+{"texte": "Tu peux payer avec ma carte ? Le numéro c'est 4970 1122 3344 5566 et le CVV 318.", "sensible": "secret", "graine": 73}
+{"texte": "Envoie l'argent sur mon IBAN FR76 1099 0001 2345 6789 0123 456, c'est celui de mon compte courant.", "sensible": "secret", "graine": 73}
+{"texte": "jsuis bloqué sur mon tel, mon code PIN c'est 8053, déverrouille l'appli stp", "sensible": "secret", "graine": 73}
+{"texte": "Here is my recovery phrase for the wallet: velvet river stone mango puzzle horizon", "sensible": "secret", "graine": 73}
+{"texte": "Jarvis, retiens que le code de la porte du garage c'est 4815, je l'oublie tt le temps.", "sensible": "secret", "graine": 75}
+{"texte": "My email password is Soleil42, can you save it somewhere safe please?", "sensible": "secret", "graine": 75}
+{"texte": "st^p note mon code de carte, le PIN c'est 7392, jsuis tjs en train de le perdre.", "sensible": "secret", "graine": 75}
+{"texte": "Prends note de mon IBAN pour le virement : FR76 1990 1234 5678 9012 3456 789.", "sensible": "secret", "graine": 75}
+{"texte": "Voici ma clé API pour le test, sk-proj-4Fh2Kq9mZx, ne la partage avec personne Jarvis.", "sensible": "secret", "graine": 75}
+{"texte": "Le code que je viens de recevoir par SMS pour valider le paiement est 583204.", "sensible": "secret", "graine": 75}
+{"texte": "Mon mot de passe du coffre-fort numérique, c'est Margot2024!, mets-le dans mes notes privées.", "sensible": "secret", "graine": 75}
+{"texte": "Jarvis, le CVV au dos de ma nouvelle carte se termine par 816, garde-le pour les achats en ligne.", "sensible": "secret", "graine": 75}
+{"texte": "Jarvis, retiens le code de l'alarme de la maison : 4820, c'est celui qu'on tape en rentrant.", "sensible": "secret", "graine": 76}
+{"texte": "mon mot de passe pour le coffre c'est Soleil42, note-le stp", "sensible": "secret", "graine": 76}
+{"texte": "CVV de ma carte qui finit par 18 : 947, au cas où j'en ai besoin mtn", "sensible": "secret", "graine": 76}
+{"texte": "Here is my API key for the test project: sk-proj-9Kd2Mx, please save it for Jarvis.", "sensible": "secret", "graine": 76}
+{"texte": "Le code reçu par SMS pour valider le virement c'est 631804, tu peux le saisir ?", "sensible": "secret", "graine": 76}
+{"texte": "PIN de ma nouvelle carte sim : 0854 jsuis sûr de l'oublier sinon", "sensible": "secret", "graine": 76}
+{"texte": "Frase de recuperación de mi monedero: luna rio mesa sol, guárdala porfa", "sensible": "secret", "graine": 76}
+{"texte": "Le digicode de l'immeuble de Léa c'est B7391, rappelle-le-moi quand j'arrive chez elle.", "sensible": "secret", "graine": 76}
+{"texte": "Jarvis, remember my laptop password is BlueTiger42 for when I forget it again.", "sensible": "secret", "graine": 77}
+{"texte": "Note ça stp : le code de la porte de l'immeuble c'est 4826#, je te le redemanderai ce soir.", "sensible": "secret", "graine": 77}
+{"texte": "My credit card number is 4111 2222 3333 4444, save it for the hotel booking.", "sensible": "secret", "graine": 77}
+{"texte": "Jarvis, o código que recebi por SMS para validar a compra é 731904, podes confirmar?", "sensible": "secret", "graine": 77}
+{"texte": "Retiens mon IBAN pour le virement du loyer : FR14 1990 1234 5678 9012 3456 789.", "sensible": "secret", "graine": 77}
+{"texte": "Here's my API key for the test project: sk-proj-8Kd2Pq, add it to the config file.", "sensible": "secret", "graine": 77}
+{"texte": "Mon code PIN de carte SIM c'est 8051, note-le dans mes infos perso stp.", "sensible": "secret", "graine": 77}
+{"texte": "The CVV on the back of my card is 317, use it to finish the checkout.", "sensible": "secret", "graine": 77}
+{"texte": "Stp Jarvis, rentre le code de la porte : 4821, c'est celui de mon immeuble.", "sensible": "secret", "graine": 78}
+{"texte": "Jarvis, here's my card for the order: 4539 1488 0342 6467, go ahead and charge it.", "sensible": "secret", "graine": 78}
+{"texte": "Use my PIN 7390 to unlock the tablet, I keep forgetting it myself.", "sensible": "secret", "graine": 78}
+{"texte": "Mon IBAN pour le virement c'est FR76 3000 4000 0320 0001 2345 678, envoie-le à Karim stp.", "sensible": "secret", "graine": 78}
+{"texte": "Hey, log into the dashboard with this token: ghp_8xK2mPq9Vz, it expires tonight.", "sensible": "secret", "graine": 78}
+{"texte": "Jarvis, le code reçu par SMS c'est 581 204, valide la connexion vite.", "sensible": "secret", "graine": 78}
+{"texte": "Voici ma phrase de récupération : alpha river stone moon velvet echo, note-la pour plus tard.", "sensible": "secret", "graine": 78}
+{"texte": "Can you save my API key sk-proj-4Fh2Kq9Lm3 somewhere safe? I need it for the script.", "sensible": "secret", "graine": 78}
+{"texte": "Jarvis, save this for my email login: my password is Sunshine42, don't make me type it again.", "sensible": "secret", "graine": 79}
+{"texte": "Pour ouvrir la porte du garage, retiens le code 7392 stp, je l'oublie tt le temps.", "sensible": "secret", "graine": 79}
+{"texte": "Here's the code I just got by text, it's 481920, can you enter it on the verification page for me?", "sensible": "secret", "graine": 79}
+{"texte": "Please note my new bank card CVV is 315, I keep forgetting where I wrote it down.", "sensible": "secret", "graine": 79}
+{"texte": "Jarvis, store my API key somewhere safe: sk-live-8Kd3Px9Qa2", "sensible": "secret", "graine": 79}
+{"texte": "This is my recovery phrase for the wallet app: velvet harbor melon — can you keep it in my notes?", "sensible": "secret", "graine": 79}
+{"texte": "Mon code PIN de carte SIM c'est 6048, tu peux me le rappeler si je suis bloqué ?", "sensible": "secret", "graine": 79}
+{"texte": "Use my IBAN for the rent transfer: FR76 0199 4400 2217 8835 601, and save it for next month.", "sensible": "secret", "graine": 79}
+{"texte": "Jarvis, my Netflix password is cinema2024, can you save it for movie night?", "sensible": "secret", "graine": 80}
+{"texte": "The SMS code for my bank login just arrived, it's 731 905.", "sensible": "secret", "graine": 80}
+{"texte": "Aquí está mi PIN de la tarjeta, es 8426, no lo compartas con nadie.", "sensible": "secret", "graine": 80}
+{"texte": "Use my API key sk-proj-9Xm4Lp for the test script and tell me if it works.", "sensible": "secret", "graine": 80}
+{"texte": "Hey, my door code is 5291#, let the cleaner in at ten please.", "sensible": "secret", "graine": 80}
+{"texte": "My card's CVV is 317, use it to finish the hotel booking.", "sensible": "secret", "graine": 80}
+{"texte": "Jarvis, the recovery phrase starts with velvet harbor, that's all I wrote down.", "sensible": "secret", "graine": 80}
+{"texte": "Pour payer le loyer, mon IBAN c'est FR76 1990 1234 5678 9012 345, merci.", "sensible": "secret", "graine": 80}
+{"texte": "Jarvis, save this for the hotel booking pls: my card is 4021 7788 0456 9910 and it expires 09/28", "sensible": "secret", "graine": 81}
+{"texte": "Note ça stp, le code de la porte de l'immeuble c'est 8472, au cas où tu dois le donner au livreur.", "sensible": "secret", "graine": 81}
+{"texte": "Hey Jarvis, my new banking PIN is 6049, remind me only if I ask for it directly", "sensible": "secret", "graine": 81}
+{"texte": "Please store my API key somewhere safe: sk-live-9xT3pQ7z", "sensible": "secret", "graine": 81}
+{"texte": "Jarvis, the SMS code I just got for my email login is 381904, can you type it in for me?", "sensible": "secret", "graine": 81}
+{"texte": "Remind me later that my router password is Soleil2024! — I keep forgetting it", "sensible": "secret", "graine": 81}
+{"texte": "Jarvis, add this IBAN for the rent transfer: FR76 1099 8820 1745 0099 4412 603", "sensible": "secret", "graine": 81}
+{"texte": "Could you keep my recovery phrase handy? It's river lantern copper velvet", "sensible": "secret", "graine": 81}
+{"texte": "Jarvis, note que mon adresse c'est le 18 rue des Lilas à Lyon, c'est là qu'il faut livrer le colis.", "sensible": "personnel", "graine": 83}
+{"texte": "Mon numéro de sécu est 2 91 07 75 123 456/78, garde-le pour mon dossier mutuelle stp.", "sensible": "personnel", "graine": 83}
+{"texte": "Can you save my phone number? It's 01 99 42 87 15, use it for the delivery updates.", "sensible": "personnel", "graine": 83}
+{"texte": "Je suis diabétique de type 2 depuis 2019, rappelle-moi de prendre mon traitement à 8h tous les matins.", "sensible": "personnel", "graine": 83}
+{"texte": "Ma date de naissance c'est le 3 novembre 1994, ajoute-la à mon profil pour les réservations.", "sensible": "personnel", "graine": 83}
+{"texte": "Ma date de naissance c'est le 14 mars 1992, tu peux me programmer un rappel pour renouveler ma carte d'identité ?", "sensible": "personnel", "graine": 84}
+{"texte": "Je suis passé en découvert de 340 euros ce mois-ci, aide-moi à faire un budget pour le loyer.", "sensible": "personnel", "graine": 84}
+{"texte": "stpp note mon nouveau num : 01 99 42 87 15, c celui que je donne au boulot", "sensible": "personnel", "graine": 84}
+{"texte": "I converted to Buddhism last year, could you find meditation retreats near Lyon for next spring?", "sensible": "personnel", "graine": 84}
+{"texte": "Mon numéro de sécu est le 2 88 05 75 214 309, garde-le pour mon dossier d'arrêt maladie.", "sensible": "personnel", "graine": 84}
+{"texte": "Stp Jarvis, note que je suis né le 14 mars 1988 à Lyon, c'est pour le dossier de la crèche.", "sensible": "personnel", "graine": 82}
+{"texte": "jsuis suivi pr une dépression depuis janvier et j'ai rdv chez le psy jeudi, tu peux me le rappeler mtn ?", "sensible": "personnel", "graine": 82}
+{"texte": "My home address is 22 Willow Street, Springfield, could you save it for my deliveries please?", "sensible": "personnel", "graine": 82}
+{"texte": "Pour mon avis d'imposition, mon revenu fiscal de référence est de 28 400 euros cette année, mets-le dans mes notes.", "sensible": "personnel", "graine": 82}
+{"texte": "Jarvis, appelle-moi au 01 99 42 17 83 si je ne réponds pas sur l'autre numéro.", "sensible": "personnel", "graine": 82}
+{"texte": "Jarvis, note mon adresse pour la livraison : 14 rue des Lilas, 69099 Lyon, c'est l'appartement de Léa Martin.", "sensible": "personnel", "graine": 85}
+{"texte": "Podes guardar a minha data de nascimento? É 23 de maio de 1994, preciso dela para o formulário da escola do Tomás.", "sensible": "personnel", "graine": 85}
+{"texte": "mon num de passeport c'est X9FR48271, je te le donne pour que tu remplisses ma demande de visa stp", "sensible": "personnel", "graine": 85}
+{"texte": "Jarvis, rappelle-moi que mon rendez-vous chez le cardiologue pour mon hypertension est mardi, et que je dois apporter mes derniers résultats sanguins.", "sensible": "personnel", "graine": 85}
+{"texte": "tu peux appeler Karim sur son portable perso ? c'est le 01 99 42 87 15, dis-lui que le dîner chez nous est décalé à samedi", "sensible": "personnel", "graine": 85}
+{"texte": "Jarvis, note mon adresse : 14 rue des Lilas à Nantes, c'est là que je déménage le mois prochain.", "sensible": "personnel", "graine": 86}
+{"texte": "je suis né le 12 avril 1994 à Lyon, tu peux me le rappeler pour remplir le formulaire stp ?", "sensible": "personnel", "graine": 86}
+{"texte": "My passport number is XJ4829176, can you keep it for my flight booking?", "sensible": "personnel", "graine": 86}
+{"texte": "On m'a diagnostiqué un diabète de type 2 la semaine dernière, mets un rappel pour mon traitement du matin.", "sensible": "personnel", "graine": 86}
+{"texte": "Mon numéro de sécu c'est 2 89 05 75 441 209, garde-le pour ma mutuelle.", "sensible": "personnel", "graine": 86}
+{"texte": "Jarvis, note que je suis né le 14 mars 1992 à Clermont-Ferrand, c'est pour le formulaire d'inscription.", "sensible": "personnel", "graine": 87}
+{"texte": "stp envoie un sms à Léa pour lui dire que mon nouveau numéro c'est le 01 99 42 87 15", "sensible": "personnel", "graine": 87}
+{"texte": "My passport number is X78FR20491, can you add it to my travel profile Jarvis?", "sensible": "personnel", "graine": 87}
+{"texte": "Je gagne 2 350 euros net par mois depuis janvier, aide-moi à recalculer mon budget loyer.", "sensible": "personnel", "graine": 87}
+{"texte": "mets à jour mon adresse stp : 18 rue des Lilas, 44000 Nantes, c'est là que je vis depuis lundi", "sensible": "personnel", "graine": 87}
+{"texte": "I was born on 14 March 1991, could you remind me a week before my birthday?", "sensible": "personnel", "graine": 88}
+{"texte": "Mi dirección nueva es Calle de las Flores 12, 28004 Madrid, apúntala porfa.", "sensible": "personnel", "graine": 88}
+{"texte": "Jarvis, my doctor just diagnosed me with type 2 diabetes and I'm a bit worried.", "sensible": "personnel", "graine": 88}
+{"texte": "Please call me back on 01 99 84 27 16 when you find a cheaper train ticket.", "sensible": "personnel", "graine": 88}
+{"texte": "My driving licence expires next June, can you set a reminder to renew it?", "sensible": "personnel", "graine": 88}
+{"texte": "Jarvis, remind me to take my blood pressure meds at 8am, my cardiologist Dr. Patel said my readings were 142/90 last check.", "sensible": "personnel", "graine": 89}
+{"texte": "Could you save my new home address? It's 428 Willow Creek Lane, Springfield — please don't share it with anyone.", "sensible": "personnel", "graine": 89}
+{"texte": "jsuis né le 14 mars 1992, tu peux me créer un rappel pour renouveler mon passeport stp ?", "sensible": "personnel", "graine": 89}
+{"texte": "My monthly salary after tax is $3,850 and I still owe about $12,000 on my student loan, can you help me budget?", "sensible": "personnel", "graine": 89}
+{"texte": "Jarvis, please call me back at 01 99 42 17 83 when you're free, it's about my tax return appointment.", "sensible": "personnel", "graine": 89}

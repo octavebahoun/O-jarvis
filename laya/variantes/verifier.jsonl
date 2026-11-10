@@ -1,0 +1,343 @@
+{"texte": "Efface toutes les photos en double qui sont dans le dossier Vacances, stp.", "verifier": "oui", "graine": 1}
+{"texte": "Can you move the invoice PDF from Downloads to the Finance folder?", "verifier": "oui", "graine": 1}
+{"texte": "Installe la nouvelle version de LibreOffice sur le PC du bureau.", "verifier": "oui", "graine": 1}
+{"texte": "Envoie un mail à Clara pour lui dire que la réunion de jeudi est reportée à 15h.", "verifier": "oui", "graine": 1}
+{"texte": "lance la sauvegarde complète du serveur avant ce soir, merci", "verifier": "oui", "graine": 1}
+{"texte": "Déploie la mise à jour du site sur l'environnement de prod dès que tu peux.", "verifier": "oui", "graine": 1}
+{"texte": "Programme une alarme à 6h45 pour tous les jours de semaine.", "verifier": "oui", "graine": 1}
+{"texte": "Suppr les 3 anciens logs de mars dans /var/tmp, ils prennent trop de place.", "verifier": "oui", "graine": 1}
+{"texte": "Déplace la présentation ProjetLune.pptx vers le dossier Partage équipe.", "verifier": "oui", "graine": 1}
+{"texte": "Installe la mise à jour de sécurité sur mon PC du bureau stp.", "verifier": "oui", "graine": 3}
+{"texte": "Deploy the new version of my website tonight please.", "verifier": "oui", "graine": 3}
+{"texte": "Supprime définitivement tous les anciens backups de 2022.", "verifier": "oui", "graine": 3}
+{"texte": "programme l'envoi du rapport à Claire pour demain 8h", "verifier": "oui", "graine": 3}
+{"texte": "Déplace mes photos de vacances dans le dossier Archives.", "verifier": "oui", "graine": 3}
+{"texte": "Lance le nettoyage complet du disque, jsuis à court de place.", "verifier": "oui", "graine": 3}
+{"texte": "Envoie le contrat signé à l'agence au plus vite.", "verifier": "oui", "graine": 3}
+{"texte": "Instala a aplicação de notas no meu telemóvel, por favor.", "verifier": "oui", "graine": 3}
+{"texte": "Déploie le correctif sur le serveur de prod mtn, c'est urgent.", "verifier": "oui", "graine": 3}
+{"texte": "Installe la mise à jour du navigateur sur l'ordi du bureau stp", "verifier": "oui", "graine": 0}
+{"texte": "Supprime toutes les photos en double dans le dossier Vacances 2023", "verifier": "oui", "graine": 0}
+{"texte": "Move this spreadsheet to the shared finance folder", "verifier": "oui", "graine": 0}
+{"texte": "Lance le nettoyage automatique du disque ce soir à 23h", "verifier": "oui", "graine": 0}
+{"texte": "Déploie la nouvelle version du site de présentation de Lina", "verifier": "oui", "graine": 0}
+{"texte": "jsuis prêt, programme l'alarme pr demain 6h45 stp", "verifier": "oui", "graine": 0}
+{"texte": "Transfère 200 euros du compte courant vers mon livret d'épargne", "verifier": "oui", "graine": 0}
+{"texte": "Enregistre ce mémo vocal et mets-le dans mes notes du projet Atelier", "verifier": "oui", "graine": 0}
+{"texte": "Redémarre le routeur du salon, la connexion rame tt le temps", "verifier": "oui", "graine": 0}
+{"texte": "Supprime tt les photos en double dans le dossier Vacances stp", "verifier": "oui", "graine": 2}
+{"texte": "Deploy the new API version to staging please", "verifier": "oui", "graine": 2}
+{"texte": "Programme une alarme pour demain à 6h30 et mets mon réveil en mode répétition", "verifier": "oui", "graine": 2}
+{"texte": "Déplace le contrat signé vers le dossier Clients 2024", "verifier": "oui", "graine": 2}
+{"texte": "jsuis en réunion, envoie un mail à Nadia pour décaler notre appel à 15h", "verifier": "oui", "graine": 2}
+{"texte": "Lance la mise à jour de mon antivirus mtn", "verifier": "oui", "graine": 2}
+{"texte": "Désinstalle ce jeu qui prend trop de place sur mon disque", "verifier": "oui", "graine": 2}
+{"texte": "Transfère 50 euros à Marco pour le resto d'hier soir", "verifier": "oui", "graine": 2}
+{"texte": "Planifie l'envoi du rapport mensuel tous les premiers lundis à 9h", "verifier": "oui", "graine": 2}
+{"texte": "Envoie le rapport à Nadia avant 18h, stp", "verifier": "oui", "graine": 4}
+{"texte": "Install VLC on my laptop please", "verifier": "oui", "graine": 4}
+{"texte": "Supprime tous les doublons dans mon dossier Téléchargements", "verifier": "oui", "graine": 4}
+{"texte": "Programme un rappel pour appeler le dentiste demain à 9h", "verifier": "oui", "graine": 4}
+{"texte": "jarvis déploie la nouvelle version du site sur le serveur de test", "verifier": "oui", "graine": 4}
+{"texte": "Lance le nettoyage automatique du disque maintenant", "verifier": "oui", "graine": 4}
+{"texte": "Archivia le vecchie fatture nella cartella 2023", "verifier": "oui", "graine": 4}
+{"texte": "Peux-tu transférer 200 euros sur mon compte épargne ?", "verifier": "oui", "graine": 4}
+{"texte": "Mets à jour le système et redémarre la box ensuite", "verifier": "oui", "graine": 4}
+{"texte": "Supprime tt les anciennes photos de mon dossier téléchargements stp", "verifier": "oui", "graine": 6}
+{"texte": "Install the new antivirus on my laptop please", "verifier": "oui", "graine": 6}
+{"texte": "Lance la mise à jour du système maintenant.", "verifier": "oui", "graine": 6}
+{"texte": "Déplace cette facture vers le dossier comptabilité de mars.", "verifier": "oui", "graine": 6}
+{"texte": "Envoie le rapport à Nadia sur sa messagerie pro, merci.", "verifier": "oui", "graine": 6}
+{"texte": "Programe un réveil à 6h30 pour demain matin.", "verifier": "oui", "graine": 6}
+{"texte": "Déploie la version test de l'appli sur le serveur de préprod.", "verifier": "oui", "graine": 6}
+{"texte": "Reinicia el ordenador cuando termine la descarga por favor", "verifier": "oui", "graine": 6}
+{"texte": "Transfère 20 euros vers mon compte épargne, c'est pour les courses.", "verifier": "oui", "graine": 6}
+{"texte": "Installe la dernière version de VLC sur mon portable stp", "verifier": "oui", "graine": 7}
+{"texte": "Envoie le rapport trimestriel à Mme Lefèvre dès que tu l'as relu", "verifier": "oui", "graine": 7}
+{"texte": "Delete all the duplicate photos from last summer, please", "verifier": "oui", "graine": 7}
+{"texte": "Programme une alarme à 6h30 tous les jours de semaine", "verifier": "oui", "graine": 7}
+{"texte": "Déplace tous mes fichiers PDF dans le dossier Archives 2024", "verifier": "oui", "graine": 7}
+{"texte": "Lance le nettoyage complet de mon disque dur ce soir", "verifier": "oui", "graine": 7}
+{"texte": "supprimes le rdv avec Karim de jeudi, jsuis plus dispo", "verifier": "oui", "graine": 7}
+{"texte": "Déploie la nouvelle version du site sur le serveur de prod", "verifier": "oui", "graine": 7}
+{"texte": "Mets en place un rappel pour payer le loyer le premier de chaque mois", "verifier": "oui", "graine": 7}
+{"texte": "Envoie le compte-rendu au comptable stp, avec la facture de mars en pièce jointe.", "verifier": "oui", "graine": 5}
+{"texte": "Install the new beta on my tablet please, the one from the shared folder.", "verifier": "oui", "graine": 5}
+{"texte": "jsuis crevé, supprime tt les alarmes de demain matin mtn", "verifier": "oui", "graine": 5}
+{"texte": "Lance la sauvegarde complète du disque externe avant de partir.", "verifier": "oui", "graine": 5}
+{"texte": "Déploie la version 2.4 sur le serveur de test et dis-moi quand c'est en ligne.", "verifier": "oui", "graine": 5}
+{"texte": "Programme le four pour qu'il préchauffe à 180 degrés à 18h30.", "verifier": "oui", "graine": 5}
+{"texte": "Déplace toutes les photos de la plage dans l'album Vacances 2024.", "verifier": "oui", "graine": 5}
+{"texte": "Pourrais-tu annuler mon abonnement à la salle de sport et me confirmer la date de fin ?", "verifier": "oui", "graine": 5}
+{"texte": "Reserva una mesa para dos mañana a las ocho cerca de la ventana, por favor.", "verifier": "oui", "graine": 5}
+{"texte": "Supprime tous les fichiers temporaires du dossier Téléchargements stp.", "verifier": "oui", "graine": 8}
+{"texte": "Programe una alarma para mañana a las seis y media.", "verifier": "oui", "graine": 8}
+{"texte": "Déplace mes photos de vacances vers le disque externe, mtn si tu peux.", "verifier": "oui", "graine": 8}
+{"texte": "Lance la mise à jour du système et dis-moi quand c'est terminé.", "verifier": "oui", "graine": 8}
+{"texte": "jsuis prêt, publie la nouvelle version de l'appli sur le store", "verifier": "oui", "graine": 8}
+{"texte": "Programme l'envoi du rappel de paiement pour vendredi matin à 9h.", "verifier": "oui", "graine": 8}
+{"texte": "Efface définitivement ce brouillon, je n'en ai plus besoin du tout.", "verifier": "oui", "graine": 8}
+{"texte": "Supprime tt les photos floues de mon week-end à Lille stp", "verifier": "oui", "graine": 10}
+{"texte": "Jarvis, installe la dernière mise à jour de Notion sur mon laptop.", "verifier": "oui", "graine": 10}
+{"texte": "Envoie le rapport de ventes à Karim avant 18h, tu confirmes après ?", "verifier": "oui", "graine": 10}
+{"texte": "Please deploy the new version of my website to production.", "verifier": "oui", "graine": 10}
+{"texte": "Déplace le dossier factures 2024 dans l'archive du drive.", "verifier": "oui", "graine": 10}
+{"texte": "Lance une sauvegarde complète de mon téléphone mtn jsuis pressé", "verifier": "oui", "graine": 10}
+{"texte": "Programme un rappel pour appeler mamie dimanche à 10h.", "verifier": "oui", "graine": 10}
+{"texte": "Efface définitivement ce mail de pub et vide la corbeille ensuite.", "verifier": "oui", "graine": 10}
+{"texte": "Jarvis, ferme toutes les applis en arrière-plan et redémarre le PC.", "verifier": "oui", "graine": 10}
+{"texte": "Envoie le compte rendu de réunion à Sofia sur son adresse pro, Jarvis.", "verifier": "oui", "graine": 9}
+{"texte": "Supprime toutes les photos floues de mon album de vacances à Lisbonne.", "verifier": "oui", "graine": 9}
+{"texte": "Install the new version of my calendar app, please.", "verifier": "oui", "graine": 9}
+{"texte": "Déplace le dossier factures 2024 dans l'archive du disque D stp.", "verifier": "oui", "graine": 9}
+{"texte": "Lance une impression recto verso du contrat de 12 pages, en deux exemplaires.", "verifier": "oui", "graine": 9}
+{"texte": "Déploie la mise à jour du site vitrine en production ce soir après 22 h.", "verifier": "oui", "graine": 9}
+{"texte": "Réserve une table pour quatre personnes vendredi soir chez le traiteur italien du centre-ville.", "verifier": "oui", "graine": 9}
+{"texte": "jarvis lance le nettoyage du robot aspirateur mtn et vidange le bac après", "verifier": "oui", "graine": 9}
+{"texte": "Transfère 150 euros de mon compte courant vers mon livret d'épargne.", "verifier": "oui", "graine": 9}
+{"texte": "Jarvis, envoie le rapport de compta à Nadia avant 18h stp.", "verifier": "oui", "graine": 11}
+{"texte": "Installe la nouvelle version de Zoom sur mon portable du bureau.", "verifier": "oui", "graine": 11}
+{"texte": "Could you move the meeting with Marco to Thursday afternoon?", "verifier": "oui", "graine": 11}
+{"texte": "Supprime toutes les photos floues de l'album du mariage de Léa.", "verifier": "oui", "graine": 11}
+{"texte": "Lance le nettoyage complet du disque et redémarre la machine après.", "verifier": "oui", "graine": 11}
+{"texte": "Déploie la mise à jour du site vitrine en production ce soir.", "verifier": "oui", "graine": 11}
+{"texte": "Programme un réveil demain à 6h15 et mets une alarme de secours à 6h30.", "verifier": "oui", "graine": 11}
+{"texte": "Transfère 200 euros de mon compte courant vers le livret, mtn si tu peux.", "verifier": "oui", "graine": 11}
+{"texte": "Archive les anciens tickets support dans le dossier 2023, ceux qui sont déjà résolus.", "verifier": "oui", "graine": 11}
+{"texte": "Envoie le rapport mensuel à Karim par e-mail stp", "verifier": "oui", "graine": 14}
+{"texte": "Supprime définitivement tous les fichiers dans le dossier Téléchargements", "verifier": "oui", "graine": 14}
+{"texte": "installe la dernière version de VLC sur mon pc", "verifier": "oui", "graine": 14}
+{"texte": "Déplace ma réunion de jeudi 14h à vendredi 10h dans l'agenda", "verifier": "oui", "graine": 14}
+{"texte": "Lance une sauvegarde complète du serveur mtn", "verifier": "oui", "graine": 14}
+{"texte": "Please deploy the new version of the website to production", "verifier": "oui", "graine": 14}
+{"texte": "Programme le robot aspirateur pour tous les jours à 9h", "verifier": "oui", "graine": 14}
+{"texte": "Réserve un taxi pour demain matin à 6h30 direction l'aéroport", "verifier": "oui", "graine": 14}
+{"texte": "Efface l'historique de navigation et vide le cache du navigateur", "verifier": "oui", "graine": 14}
+{"texte": "Jarvis, tu peux me lancer le téléchargement de la vidéo de la fête d'anniversaire de Lucas stp ?", "verifier": "oui", "graine": 13}
+{"texte": "supprime tt les fichiers temporaires dans mon dossier Téléchargements", "verifier": "oui", "graine": 13}
+{"texte": "Please move the invoice PDF from my Downloads to the Accounting folder, Jarvis.", "verifier": "oui", "graine": 13}
+{"texte": "Programme une alarme pour demain à 6h30, j'ai un train à prendre pour Nantes.", "verifier": "oui", "graine": 13}
+{"texte": "installe l'appli Spotify sur mon téléphone stp", "verifier": "oui", "graine": 13}
+{"texte": "Jarvis, déploie la nouvelle version du site de la boulangerie sur le serveur.", "verifier": "oui", "graine": 13}
+{"texte": "Envoie un message à maman pour lui dire que j'arriverai vers 19h ce soir.", "verifier": "oui", "graine": 13}
+{"texte": "Tu pourrais créer une réunion Teams avec Léa et Hugo jeudi à 10h ?", "verifier": "oui", "graine": 13}
+{"texte": "déplace mes photos de vacances à Ajaccio dans l'album Corse 2025", "verifier": "oui", "graine": 13}
+{"texte": "Supprime définitivement tous les anciens backups de mars sur le NAS, stp.", "verifier": "oui", "graine": 12}
+{"texte": "Installa l'app di ricette sul tablet della cucina e avviala.", "verifier": "oui", "graine": 12}
+{"texte": "Jarvis, déplace mes photos de vacances du Bureau vers le dossier Souvenirs 2024.", "verifier": "oui", "graine": 12}
+{"texte": "programme l'arrosage automatique tous les jours à 6h du matin", "verifier": "oui", "graine": 12}
+{"texte": "Deploy the new version of my website to production please.", "verifier": "oui", "graine": 12}
+{"texte": "Envoie le contrat signé à Mme Lefèvre dès que tu l'as converti en PDF.", "verifier": "oui", "graine": 12}
+{"texte": "jsuis prêt, lance la mise à jour du serveur mtn", "verifier": "oui", "graine": 12}
+{"texte": "Désinstalle complètement ce jeu de mon PC, il prend trop de place.", "verifier": "oui", "graine": 12}
+{"texte": "Reprogramme ma réunion avec Karim de jeudi 14h à vendredi 10h dans mon agenda.", "verifier": "oui", "graine": 12}
+{"texte": "Installe la nouvelle version de Zoom sur mon PC et relance-la stp", "verifier": "oui", "graine": 15}
+{"texte": "Envoie le devis à Nadia quand tu l'auras converti en PDF", "verifier": "oui", "graine": 15}
+{"texte": "Supprime tous les doublons dans le dossier Photos de vacances", "verifier": "oui", "graine": 15}
+{"texte": "Deploy the staging build and check the homepage loads fine", "verifier": "oui", "graine": 15}
+{"texte": "Programme une alarme pour 6h30 demain, même les week-ends", "verifier": "oui", "graine": 15}
+{"texte": "jsuis en retard, lance l'enregistrement de la réunion tt de suite", "verifier": "oui", "graine": 15}
+{"texte": "Déplace les factures de mars dans l'archive compta 2024", "verifier": "oui", "graine": 15}
+{"texte": "Redémarre le serveur de jeu et rouvre le port 25565", "verifier": "oui", "graine": 15}
+{"texte": "Planifie l'envoi du rappel de paiement pour vendredi à 9h", "verifier": "oui", "graine": 15}
+{"texte": "Please install the latest update for my photo editor.", "verifier": "oui", "graine": 16}
+{"texte": "Deploy the new landing page to production tonight.", "verifier": "oui", "graine": 16}
+{"texte": "Supprime tous les fichiers temporaires de mon dossier téléchargements, stp.", "verifier": "oui", "graine": 16}
+{"texte": "Schedule a reminder to water the plants every Sunday at 9 a.m.", "verifier": "oui", "graine": 16}
+{"texte": "Move my meeting with Clara to Friday afternoon.", "verifier": "oui", "graine": 16}
+{"texte": "Launch the backup script on the home server now.", "verifier": "oui", "graine": 16}
+{"texte": "Send the invoice to Mr. Dupont by email, please.", "verifier": "oui", "graine": 16}
+{"texte": "Uninstall that game I never play anymore to free up space.", "verifier": "oui", "graine": 16}
+{"texte": "Program the thermostat to drop to 18 degrees after midnight.", "verifier": "oui", "graine": 16}
+{"texte": "Please delete all the duplicate invoices from my downloads folder.", "verifier": "oui", "graine": 18}
+{"texte": "Jarvis, install the latest Spotify update on my laptop tonight.", "verifier": "oui", "graine": 18}
+{"texte": "Send the signed contract to Marta at her office address when it's ready.", "verifier": "oui", "graine": 18}
+{"texte": "Deploy the new version of our website to the production server.", "verifier": "oui", "graine": 18}
+{"texte": "Lance une sauvegarde complète de mon disque dur externe maintenant.", "verifier": "oui", "graine": 18}
+{"texte": "Schedule a dentist appointment reminder for next Tuesday at 8am.", "verifier": "oui", "graine": 18}
+{"texte": "Move the family videos into the archive drive and rename them by date.", "verifier": "oui", "graine": 18}
+{"texte": "Unsubscribe me from that marketing newsletter I keep getting every morning.", "verifier": "oui", "graine": 18}
+{"texte": "stpp lance l'impression des 20 étiquettes pour les colis de demain", "verifier": "oui", "graine": 18}
+{"texte": "Jarvis, send the invoice PDF to Maya's team, please.", "verifier": "oui", "graine": 19}
+{"texte": "Could you install the new photo editor on my laptop when you get a chance?", "verifier": "oui", "graine": 19}
+{"texte": "Déplace toutes les photos de vacances dans le dossier Archives 2024, stp.", "verifier": "oui", "graine": 19}
+{"texte": "Launch the backup script now and let it run in the background.", "verifier": "oui", "graine": 19}
+{"texte": "pls delete tt les vieux brouillons dans Downloads, jsuis à court de place", "verifier": "oui", "graine": 19}
+{"texte": "Schedule a reminder to water the plants every Tuesday at 8am.", "verifier": "oui", "graine": 19}
+{"texte": "Deploy the latest version of my portfolio site, Jarvis.", "verifier": "oui", "graine": 19}
+{"texte": "Move my meeting with Leo from 3pm to 4:30pm tomorrow.", "verifier": "oui", "graine": 19}
+{"texte": "Uninstall that buggy game I downloaded last week, thanks.", "verifier": "oui", "graine": 19}
+{"texte": "Jarvis, envoie le rapport trimestriel à Mme Lefèvre dès que tu l'as relus stp", "verifier": "oui", "graine": 17}
+{"texte": "Supprime définitivement tous les doublons dans mon dossier Photos", "verifier": "oui", "graine": 17}
+{"texte": "Deploy the staging build to the test server and let me know when it's live", "verifier": "oui", "graine": 17}
+{"texte": "jsuis en réunion, programme un rappel pour appeler Karim à 18h", "verifier": "oui", "graine": 17}
+{"texte": "Peux-tu déplacer ces factures vers l'archive 2024 ?", "verifier": "oui", "graine": 17}
+{"texte": "Lance une sauvegarde complète du système cette nuit à 2h", "verifier": "oui", "graine": 17}
+{"texte": "Désinstalle cette ancienne version de Photoshop, elle prend trop de place", "verifier": "oui", "graine": 17}
+{"texte": "Jarvis, instala la actualización de firmware en el router por favor", "verifier": "oui", "graine": 17}
+{"texte": "Réserve un taxi pour demain matin 7h30 vers la gare", "verifier": "oui", "graine": 17}
+{"texte": "C'est quoi la capitale de l'Islande déjà ?", "verifier": "non", "graine": 20}
+{"texte": "Explique-moi la différence entre un virus et une bactérie stp", "verifier": "non", "graine": 20}
+{"texte": "What does 'serendipity' mean in French?", "verifier": "non", "graine": 20}
+{"texte": "Tu peux me lire à voix haute le premier paragraphe de ce texte ?", "verifier": "non", "graine": 20}
+{"texte": "jsuis bloqué, ça veut dire quoi 'redondant' ?", "verifier": "non", "graine": 20}
+{"texte": "Quelle est la météo prévue demain à Lyon ?", "verifier": "non", "graine": 20}
+{"texte": "Raconte-moi une blague courte sur les chats", "verifier": "non", "graine": 20}
+{"texte": "Combien font 347 multiplié par 28 ?", "verifier": "non", "graine": 20}
+{"texte": "Dis-moi si ce paragraphe contient des fautes d'orthographe : 'Je suis aller au marché hier.'", "verifier": "non", "graine": 20}
+{"texte": "Tu peux m'expliquer la différence entre TCP et UDP simplement ?", "verifier": "non", "graine": 21}
+{"texte": "Lis-moi les trois premiers titres de mon fichier notes-réunion.txt", "verifier": "non", "graine": 21}
+{"texte": "c quoi le synonyme de éphémère stp", "verifier": "non", "graine": 21}
+{"texte": "Résume-moi cet article sur les batteries en cinq lignes maximum", "verifier": "non", "graine": 21}
+{"texte": "How do you say 'je reviens tout de suite' in German?", "verifier": "non", "graine": 21}
+{"texte": "Quién escribió Don Quijote y en qué siglo?", "verifier": "non", "graine": 21}
+{"texte": "Rappelle-moi ce que contient ma liste de courses pour samedi", "verifier": "non", "graine": 21}
+{"texte": "Donne-moi la définition du mot « paradoxal » avec un exemple", "verifier": "non", "graine": 21}
+{"texte": "Explique à un enfant de 10 ans pourquoi le ciel est bleu", "verifier": "non", "graine": 21}
+{"texte": "Dis-moi combien de jours il reste avant les vacances de Noël, stp.", "verifier": "non", "graine": 22}
+{"texte": "Résume-moi cet article sur les abeilles en trois points simples.", "verifier": "non", "graine": 22}
+{"texte": "Tu peux m'expliquer la différence entre un roman et une nouvelle ?", "verifier": "non", "graine": 22}
+{"texte": "Donne-moi une idée de recette vite faite avec des courgettes et du riz.", "verifier": "non", "graine": 22}
+{"texte": "Traduis-moi « je suis en retard, désolé » en espagnol.", "verifier": "non", "graine": 22}
+{"texte": "Qu'est-ce que ça veut dire, le mot « éphémère » exactement ?", "verifier": "non", "graine": 22}
+{"texte": "Fais-moi une liste de prénoms sympas pour un chaton roux.", "verifier": "non", "graine": 22}
+{"texte": "Write me a short poem about the sea at night, please.", "verifier": "non", "graine": 22}
+{"texte": "Raconte-moi en deux phrases pourquoi la Lune change de forme.", "verifier": "non", "graine": 22}
+{"texte": "Explique-moi simplement la différence entre un virus et une bactérie stp", "verifier": "non", "graine": 23}
+{"texte": "What does \"serendipity\" mean in French?", "verifier": "non", "graine": 23}
+{"texte": "jsuis bloqué, tu peux me résumer ce paragraphe en deux lignes ?", "verifier": "non", "graine": 23}
+{"texte": "Quel temps il fera demain à Lyon ?", "verifier": "non", "graine": 23}
+{"texte": "Traduis « je voudrais un café sans sucre » en italien", "verifier": "non", "graine": 23}
+{"texte": "À quelle heure ferme la médiathèque le samedi ?", "verifier": "non", "graine": 23}
+{"texte": "Dis-moi ce qu'il y a d'écrit sur cette capture d'écran", "verifier": "non", "graine": 23}
+{"texte": "C'est quoi la météo prévue samedi à Lyon ?", "verifier": "non", "graine": 24}
+{"texte": "Rappelle-moi le nom du resto où on avait mangé des sushis la dernière fois", "verifier": "non", "graine": 24}
+{"texte": "¿Cuántas calorías tiene una manzana más o menos?", "verifier": "non", "graine": 24}
+{"texte": "jsuis né quel jour de la semaine moi déjà ?", "verifier": "non", "graine": 24}
+{"texte": "Tu peux me relire la note sur les idées de cadeaux pour maman stp", "verifier": "non", "graine": 24}
+{"texte": "Combien il me reste de congés à poser cette année ?", "verifier": "non", "graine": 24}
+{"texte": "Traduis-moi « je reviens dans cinq minutes » en italien", "verifier": "non", "graine": 24}
+{"texte": "C'est quand la prochaine pleine lune ?", "verifier": "non", "graine": 24}
+{"texte": "Montre-moi les photos de mon week-end à la mer l'été dernier", "verifier": "non", "graine": 24}
+{"texte": "Explique-moi simplement la différence entre un roman et une nouvelle.", "verifier": "non", "graine": 25}
+{"texte": "C'est quoi la capitale de la Finlande déjà ?", "verifier": "non", "graine": 25}
+{"texte": "Read me the last paragraph of the report I opened this morning.", "verifier": "non", "graine": 25}
+{"texte": "Traduis « merci pour votre aide » en italien stp.", "verifier": "non", "graine": 25}
+{"texte": "Résume-moi en deux phrases l'article sur les abeilles que je t'ai envoyé hier.", "verifier": "non", "graine": 25}
+{"texte": "dis Jarvis, pk le ciel devient orange au coucher du soleil ?", "verifier": "non", "graine": 25}
+{"texte": "Donne-moi une idée de recette avec des courgettes et du riz.", "verifier": "non", "graine": 25}
+{"texte": "Qu'est-ce que signifient les voyants orange sur le tableau de bord d'une voiture ?", "verifier": "non", "graine": 25}
+{"texte": "Raconte-moi une blague courte sur les profs de maths.", "verifier": "non", "graine": 25}
+{"texte": "C'est quoi la différence entre un crocodile et un alligator ?", "verifier": "non", "graine": 26}
+{"texte": "Explique-moi la photosynthèse comme si j'avais cinq ans, stp.", "verifier": "non", "graine": 26}
+{"texte": "Quel temps il fera demain à Lyon selon toi ?", "verifier": "non", "graine": 26}
+{"texte": "Traduis « bonne nuit » en italien.", "verifier": "non", "graine": 26}
+{"texte": "What does serendipity actually mean?", "verifier": "non", "graine": 26}
+{"texte": "Dis-moi combien font 347 multiplié par 28.", "verifier": "non", "graine": 26}
+{"texte": "Résume-moi en deux phrases l'intrigue de Roméo et Juliette.", "verifier": "non", "graine": 26}
+{"texte": "Donne-moi une idée de prénom pour un chat roux.", "verifier": "non", "graine": 26}
+{"texte": "Lis-moi à voix haute le premier paragraphe de ce texte que je t'ai collé.", "verifier": "non", "graine": 26}
+{"texte": "Explique-moi la différence entre un roman et une nouvelle, stp", "verifier": "non", "graine": 27}
+{"texte": "¿Cuál es la película más famosa de Almodóvar?", "verifier": "non", "graine": 27}
+{"texte": "jsuis né un mardi ou un mercredi en mars 1998 ?", "verifier": "non", "graine": 27}
+{"texte": "Traduis « il fait beau aujourd'hui » en italien", "verifier": "non", "graine": 27}
+{"texte": "Pourquoi le ciel paraît bleu le jour et noir la nuit ?", "verifier": "non", "graine": 27}
+{"texte": "Quel âge avait Marie Curie quand elle a eu son prix Nobel ?", "verifier": "non", "graine": 27}
+{"texte": "Donne-moi une idée de repas avec des courgettes et du riz", "verifier": "non", "graine": 27}
+{"texte": "Ça veut dire quoi « procrastiner » exactement ?", "verifier": "non", "graine": 27}
+{"texte": "C'est quoi la météo prévue demain à Grenoble ?", "verifier": "non", "graine": 28}
+{"texte": "Explique-moi simplement comment fonctionne une pompe à chaleur, stp", "verifier": "non", "graine": 28}
+{"texte": "Lis-moi à voix haute le premier paragraphe de ce document", "verifier": "non", "graine": 28}
+{"texte": "What time is my train to Berlin on Friday?", "verifier": "non", "graine": 28}
+{"texte": "Traduis « bon courage pour la suite » en italien", "verifier": "non", "graine": 28}
+{"texte": "Résume-moi cet article en trois phrases max", "verifier": "non", "graine": 28}
+{"texte": "jsuis né quel jour de la semaine déjà ? pk j'arrive jamais à m'en rappeler", "verifier": "non", "graine": 28}
+{"texte": "Donne-moi la recette des crêpes pour 4 personnes", "verifier": "non", "graine": 28}
+{"texte": "Quelle est la capitale de la Norvège ?", "verifier": "non", "graine": 28}
+{"texte": "C'est quoi la capitale de la Finlande ?", "verifier": "non", "graine": 29}
+{"texte": "Explique-moi la différence entre un virus et une bactérie, stp.", "verifier": "non", "graine": 29}
+{"texte": "jsuis bloqué sur un mot croisé, un synonyme de courageux en 5 lettres ?", "verifier": "non", "graine": 29}
+{"texte": "What does the word \"serendipity\" mean exactly?", "verifier": "non", "graine": 29}
+{"texte": "Raconte-moi une blague courte sur les pingouins.", "verifier": "non", "graine": 29}
+{"texte": "Combien font 347 fois 18 ?", "verifier": "non", "graine": 29}
+{"texte": "Résume-moi en deux phrases le début de la Révolution française.", "verifier": "non", "graine": 29}
+{"texte": "Donne-moi trois idées de prénoms pour un chat roux.", "verifier": "non", "graine": 29}
+{"texte": "Dis-moi, c'est quoi la différence entre un roman et une nouvelle ?", "verifier": "non", "graine": 30}
+{"texte": "Météo demain à Lyon, il va pleuvoir ou pas ?", "verifier": "non", "graine": 30}
+{"texte": "jsuis bloqué, tu peux m'expliquer vite fait ckoi un subnet mask ?", "verifier": "non", "graine": 30}
+{"texte": "Quel est le prix actuel du Bitcoin en euros ?", "verifier": "non", "graine": 30}
+{"texte": "Traduis-moi « je reviens dans dix minutes » en espagnol stp", "verifier": "non", "graine": 30}
+{"texte": "Who won the football match between Arsenal and Chelsea yesterday?", "verifier": "non", "graine": 30}
+{"texte": "Combien de jours il reste avant Noël ?", "verifier": "non", "graine": 30}
+{"texte": "C'est qui l'auteur du Petit Prince déjà ?", "verifier": "non", "graine": 30}
+{"texte": "jsuis crevé, raconte moi une blague courte stp", "verifier": "non", "graine": 31}
+{"texte": "Tu préfères le thé ou le café, toi ?", "verifier": "non", "graine": 31}
+{"texte": "Merci pour l'explication, c'était super clair !", "verifier": "non", "graine": 31}
+{"texte": "What does 'serendipity' mean exactly?", "verifier": "non", "graine": 31}
+{"texte": "Note juste que j'aime pas les olives, pour plus tard", "verifier": "non", "graine": 31}
+{"texte": "Explique-moi la différence entre un virus et une bactérie", "verifier": "non", "graine": 31}
+{"texte": "Bonne nuit Jarvis, à demain !", "verifier": "non", "graine": 31}
+{"texte": "Explique-moi simplement la différence entre un virus et une bactérie", "verifier": "non", "graine": 32}
+{"texte": "Peux-tu me résumer cet article en trois phrases stp ?", "verifier": "non", "graine": 32}
+{"texte": "jarvis what's the weather usually like in Lisbon in May?", "verifier": "non", "graine": 32}
+{"texte": "Donne-moi des idées de prénoms pour un chat roux très joueur", "verifier": "non", "graine": 32}
+{"texte": "Traduis cette phrase en italien : merci pour ton aide précieuse", "verifier": "non", "graine": 32}
+{"texte": "reformule ce mail pour qu'il sonne plus poli : je vous avais déjà envoyé les documents la semaine dernière", "verifier": "non", "graine": 32}
+{"texte": "Raconte-moi une blague courte sur les agriculteurs", "verifier": "non", "graine": 32}
+{"texte": "Dis-moi ce que signifie le mot « éphémère » avec un exemple", "verifier": "non", "graine": 32}
+{"texte": "Quel temps il fera demain à Grenoble ?", "verifier": "non", "graine": 33}
+{"texte": "Tu peux m'expliquer c'est quoi la photosynthèse stp", "verifier": "non", "graine": 33}
+{"texte": "Combien j'ai de mails non lus là ?", "verifier": "non", "graine": 33}
+{"texte": "What's the capital of Australia already?", "verifier": "non", "graine": 33}
+{"texte": "Lis-moi le contenu du fichier notes.txt", "verifier": "non", "graine": 33}
+{"texte": "jsuis né quel jour de la semaine moi", "verifier": "non", "graine": 33}
+{"texte": "Donne-moi l'horaire du train pour Lyon vendredi", "verifier": "non", "graine": 33}
+{"texte": "C'est qui qui a écrit Les Misérables déjà ?", "verifier": "non", "graine": 33}
+{"texte": "Raconte-moi une blague courte sur les pingouins stp", "verifier": "non", "graine": 35}
+{"texte": "jsuis bloqué, ca veut dire quoi « réciproque » en maths ?", "verifier": "non", "graine": 35}
+{"texte": "Quel temps est prévu demain matin à Lyon ?", "verifier": "non", "graine": 35}
+{"texte": "How do you say « bibliothèque » in Japanese?", "verifier": "non", "graine": 35}
+{"texte": "Résume-moi en trois lignes le dernier article que je t'ai envoyé.", "verifier": "non", "graine": 35}
+{"texte": "Qui a écrit Les Misérables et en quelle année ?", "verifier": "non", "graine": 35}
+{"texte": "Traduis « je reviens dans cinq minutes » en italien.", "verifier": "non", "graine": 35}
+{"texte": "tu peux me résumer ce long article sur les océans stp ?", "verifier": "non", "graine": 34}
+{"texte": "Jarvis, traduis-moi « bonne chance pour demain » en japonais", "verifier": "non", "graine": 34}
+{"texte": "can you read me the recipe for banana bread out loud?", "verifier": "non", "graine": 34}
+{"texte": "j'ai un mot croisé bloqué, synonyme de courageux en 5 lettres c'est quoi ?", "verifier": "non", "graine": 34}
+{"texte": "raconte-moi comment s'est terminée la saison pour le Stade Rennais", "verifier": "non", "graine": 34}
+{"texte": "quel jour on sera dans exactement trois semaines ?", "verifier": "non", "graine": 34}
+{"texte": "lis le début du chapitre que je t'ai envoyé hier soir, ça parle d'un phare je crois", "verifier": "non", "graine": 34}
+{"texte": "How many calories are there in a baguette?", "verifier": "non", "graine": 37}
+{"texte": "quel est le sens du mot « épicurien » stp ?", "verifier": "non", "graine": 37}
+{"texte": "Can you explain the difference between TCP and UDP in simple terms?", "verifier": "non", "graine": 37}
+{"texte": "What time does the sun set in Lisbon today?", "verifier": "non", "graine": 37}
+{"texte": "Who won the men's 100 metres at the last Olympics?", "verifier": "non", "graine": 37}
+{"texte": "Résume-moi cet article sur les forêts en trois phrases.", "verifier": "non", "graine": 37}
+{"texte": "How do you say \"thank you very much\" in Italian?", "verifier": "non", "graine": 37}
+{"texte": "What's the weather going to be like tomorrow morning?", "verifier": "non", "graine": 37}
+{"texte": "Tell me a short joke about cats, please.", "verifier": "non", "graine": 37}
+{"texte": "What's the capital city of Norway?", "verifier": "non", "graine": 38}
+{"texte": "Explain photosynthesis like I'm ten years old.", "verifier": "non", "graine": 38}
+{"texte": "Can you tell me a funny joke about cats?", "verifier": "non", "graine": 38}
+{"texte": "Summarize what an earthquake is in two sentences.", "verifier": "non", "graine": 38}
+{"texte": "Raconte-moi une petite histoire de dragon qui aime les livres.", "verifier": "non", "graine": 38}
+{"texte": "How many minutes are there in three and a half hours?", "verifier": "non", "graine": 38}
+{"texte": "What does the French word 'libellule' mean in English?", "verifier": "non", "graine": 38}
+{"texte": "Give me three ideas for a healthy breakfast with eggs.", "verifier": "non", "graine": 38}
+{"texte": "Who wrote the novel Pride and Prejudice?", "verifier": "non", "graine": 38}
+{"texte": "What's the weather like in Lyon this afternoon?", "verifier": "non", "graine": 36}
+{"texte": "Peux-tu me résumer cet article en trois phrases ?", "verifier": "non", "graine": 36}
+{"texte": "Wat is de hoofdstad van IJsland?", "verifier": "non", "graine": 36}
+{"texte": "jsuis bloqué, c koi la diff entre TCP et UDP ?", "verifier": "non", "graine": 36}
+{"texte": "Read me the first paragraph of this document out loud", "verifier": "non", "graine": 36}
+{"texte": "¿Qué día es hoy?", "verifier": "non", "graine": 36}
+{"texte": "Give me a few ideas for a birthday gift for my sister Nora", "verifier": "non", "graine": 36}
+{"texte": "How many unread emails do I have right now?", "verifier": "non", "graine": 39}
+{"texte": "Can you read me the last note I saved about the garden?", "verifier": "non", "graine": 39}
+{"texte": "Quelle est la météo prévue ce week-end à Lyon ?", "verifier": "non", "graine": 39}
+{"texte": "What time does the pharmacy on Rue des Lilas close today?", "verifier": "non", "graine": 39}
+{"texte": "Tell me the summary of yesterday's meeting, please", "verifier": "non", "graine": 39}
+{"texte": "How much battery does my laptop have left?", "verifier": "non", "graine": 39}
+{"texte": "What's the French word for 'butterfly'?", "verifier": "non", "graine": 39}
+{"texte": "Do I have any birthdays coming up this month?", "verifier": "non", "graine": 39}
+{"texte": "Remind me what ingredients were in that soup recipe you showed me", "verifier": "non", "graine": 39}

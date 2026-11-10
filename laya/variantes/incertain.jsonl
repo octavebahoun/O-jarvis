@@ -1,0 +1,555 @@
+{"texte": "Je m'appelle Sofia et j'habite à Lyon depuis trois ans.", "incertain": "accepter", "graine": 3}
+{"texte": "Please note that my meeting with Karim is moved to Thursday at 10am.", "incertain": "accepter", "graine": 3}
+{"texte": "Note bien que je préfère le thé au café le matin.", "incertain": "accepter", "graine": 3}
+{"texte": "Mon mot de passe pour le site de recettes, c'est Soleil42, enregistre-le stp.", "incertain": "accepter", "graine": 3}
+{"texte": "J'ai rendez-vous chez le dentiste demain à 15h30, rappelle-le-moi.", "incertain": "accepter", "graine": 3}
+{"texte": "jsuis en télétravail tt la journée, mets mes notifs en silencieux", "incertain": "accepter", "graine": 3}
+{"texte": "Ma voiture est une Peugeot bleue, plaque fictive AA-199-BB.", "incertain": "accepter", "graine": 3}
+{"texte": "Je déteste les araignées, évite de me montrer des images de ça.", "incertain": "accepter", "graine": 3}
+{"texte": "Anota que mi cumpleaños es el 14 de marzo, por favor.", "incertain": "accepter", "graine": 3}
+{"texte": "Je m'appelle Nora et je déteste le café, note ça stp.", "incertain": "accepter", "graine": 0}
+{"texte": "Mon anniversaire c'est le 14 mars, mets un rappel chaque année.", "incertain": "accepter", "graine": 0}
+{"texte": "J'ai deux sœurs et aucun frère.", "incertain": "accepter", "graine": 0}
+{"texte": "I work from home every Tuesday and Thursday, remember that please.", "incertain": "accepter", "graine": 0}
+{"texte": "Jsuis végétarienne depuis 2020, ne me propose plus de viande.", "incertain": "accepter", "graine": 0}
+{"texte": "Mon chien s'appelle Pixel, il a quatre ans.", "incertain": "accepter", "graine": 0}
+{"texte": "Je préfère qu'on me tutoie, Jarvis.", "incertain": "accepter", "graine": 0}
+{"texte": "Nous avons déménagé à Bordeaux le mois dernier avec ma compagne Léa.", "incertain": "accepter", "graine": 0}
+{"texte": "Je mesure 1m78 et je chausse du 43, enregistre-le pour mes commandes.", "incertain": "accepter", "graine": 0}
+{"texte": "Je déteste le coriandre, ne m'en propose jamais dans les recettes.", "incertain": "accepter", "graine": 2}
+{"texte": "My birthday is on March 14th, so remind me a week before.", "incertain": "accepter", "graine": 2}
+{"texte": "Je travaille de nuit, donc programme mes rappels plutôt l'après-midi stp.", "incertain": "accepter", "graine": 2}
+{"texte": "Mi número de teléfono es el 01 99 42 87 10, guárdalo en mis contactos.", "incertain": "accepter", "graine": 2}
+{"texte": "Je suis végétarienne depuis trois ans.", "incertain": "accepter", "graine": 2}
+{"texte": "Note que mon mot de passe du coffre, c'est Soleil42.", "incertain": "accepter", "graine": 2}
+{"texte": "J'habite à Nantes avec mon frère Karim.", "incertain": "accepter", "graine": 2}
+{"texte": "jsuis allergique aux arachides, c'est confirmé par mon médecin.", "incertain": "accepter", "graine": 2}
+{"texte": "Je veux que tu m'appelles Léo, pas Léonard.", "incertain": "accepter", "graine": 2}
+{"texte": "Je m'appelle Nora et je travaille comme architecte à Lyon.", "incertain": "accepter", "graine": 1}
+{"texte": "J'ai deux sœurs, Lina et Chloé, qui habitent toutes les deux à Bordeaux.", "incertain": "accepter", "graine": 1}
+{"texte": "jsuis en congé tt la semaine prochaine, je pars chez mes parents à la campagne", "incertain": "accepter", "graine": 1}
+{"texte": "Mon anniversaire est le 14 mars et j'aurai trente ans cette année.", "incertain": "accepter", "graine": 1}
+{"texte": "I live in Toronto with my partner and our cat, Milo.", "incertain": "accepter", "graine": 1}
+{"texte": "Je préfère le thé au café, surtout le thé vert le matin.", "incertain": "accepter", "graine": 1}
+{"texte": "Nous avons acheté un appartement à Nantes il y a trois mois avec mon mari.", "incertain": "accepter", "graine": 1}
+{"texte": "Mon mot de passe pour le site de courses est Soleil42, note-le stp dans mon coffre.", "incertain": "accepter", "graine": 1}
+{"texte": "Je mesure un mètre soixante-douze et je chausse du quarante et un.", "incertain": "accepter", "graine": 1}
+{"texte": "C'est certain, j'ai bien fermé le garage à clé avant de partir.", "incertain": "accepter", "graine": 4}
+{"texte": "No doubt about it, I mailed the contract yesterday morning.", "incertain": "accepter", "graine": 4}
+{"texte": "Je te confirme à 100 %, le colis pour Nantes partira demain à 8 h.", "incertain": "accepter", "graine": 4}
+{"texte": "Affirmatif Jarvis, j'ai déjà payé la facture d'électricité de mars.", "incertain": "accepter", "graine": 4}
+{"texte": "jsuis formel, le chien a eu son vaccin le mois dernier", "incertain": "accepter", "graine": 4}
+{"texte": "C'est sûr et certain : ma sœur arrive samedi soir à la maison de campagne.", "incertain": "accepter", "graine": 4}
+{"texte": "Je n'ai aucun doute, le rapport financier est rangé dans le tiroir bleu.", "incertain": "accepter", "graine": 4}
+{"texte": "Oui, confirmé sans hésitation, nous serons quatre au dîner de vendredi.", "incertain": "accepter", "graine": 4}
+{"texte": "C'est décidé et définitif, je vends ma vieille guitare acoustique.", "incertain": "accepter", "graine": 4}
+{"texte": "Je m'appelle Karim et j'ai trente-deux ans.", "incertain": "accepter", "graine": 5}
+{"texte": "Mon chien s'appelle Pixel, c'est un petit teckel.", "incertain": "accepter", "graine": 5}
+{"texte": "jsuis né à Nantes, le 14 mars 1998 stp note-le", "incertain": "accepter", "graine": 5}
+{"texte": "Nous avons acheté notre appartement à Bordeaux l'an dernier.", "incertain": "accepter", "graine": 5}
+{"texte": "My husband's name is Marco and he works as a nurse.", "incertain": "accepter", "graine": 5}
+{"texte": "Je déteste les olives, vraiment, ne m'en propose jamais.", "incertain": "accepter", "graine": 5}
+{"texte": "Ma voiture est une Peugeot grise immatriculée à mon nom.", "incertain": "accepter", "graine": 5}
+{"texte": "Le code de la porte de mon immeuble, c'est 4821, retiens-le pour les livraisons.", "incertain": "accepter", "graine": 5}
+{"texte": "Je préfère qu'on se tutoie, c'est plus simple pour moi.", "incertain": "accepter", "graine": 5}
+{"texte": "Je me lève tous les jours à six heures pour méditer avant le travail.", "incertain": "accepter", "graine": 6}
+{"texte": "J'ai deux sœurs et un frère, et je suis l'aînée de la famille.", "incertain": "accepter", "graine": 6}
+{"texte": "Mon dessert préféré, c'est la tarte au citron meringuée.", "incertain": "accepter", "graine": 6}
+{"texte": "Je parle couramment français et un peu d'italien depuis mon séjour à Rome.", "incertain": "accepter", "graine": 6}
+{"texte": "I walk my dog every morning before breakfast.", "incertain": "accepter", "graine": 6}
+{"texte": "Je travaille comme graphiste indépendante depuis quatre ans.", "incertain": "accepter", "graine": 6}
+{"texte": "On a emménagé à Lyon en septembre avec mon copain Théo.", "incertain": "accepter", "graine": 6}
+{"texte": "jsuis végétarienne depuis l'adolescence, tt simplement", "incertain": "accepter", "graine": 6}
+{"texte": "Je collectionne les vinyles de jazz et j'en ai plus de deux cents à la maison.", "incertain": "accepter", "graine": 6}
+{"texte": "Je m'appelle Sofia, j'ai 34 ans et je vis à Bordeaux depuis 2018.", "incertain": "accepter", "graine": 7}
+{"texte": "stp note que mon anniversaire c'est le 12 mars, comme chaque année je fais un petit resto en famille", "incertain": "accepter", "graine": 7}
+{"texte": "Je suis allergique aux arachides, c'est confirmé depuis l'enfance alors évite-les dans toutes les recettes.", "incertain": "accepter", "graine": 7}
+{"texte": "I work as a primary school teacher in Manchester and I take the train to work every day.", "incertain": "accepter", "graine": 7}
+{"texte": "Rappelle-moi que ma voiture est une Peugeot bleue immatriculée l'année dernière, je te l'avais déjà dit.", "incertain": "accepter", "graine": 7}
+{"texte": "Mon chien s'appelle Rio, c'est un golden de 4 ans qui déteste l'orage.", "incertain": "accepter", "graine": 7}
+{"texte": "je parle couramment espagnol et je débute en japonais, note-le pour mes révisions du soir", "incertain": "accepter", "graine": 7}
+{"texte": "Nous avons emménagé à Nantes le mois dernier avec ma compagne Léa et notre fille.", "incertain": "accepter", "graine": 7}
+{"texte": "Mon numéro de fidélité pour la librairie, c'est le 01 99 42 17, garde-le dans mes infos stp.", "incertain": "accepter", "graine": 7}
+{"texte": "Je viens de déménager à Lyon.", "incertain": "accepter", "graine": 9}
+{"texte": "My dog's name is Biscotte, please remember that.", "incertain": "accepter", "graine": 9}
+{"texte": "stp note que mon rdv dentiste c'est mardi à 9h, je l'ai confirmé", "incertain": "accepter", "graine": 9}
+{"texte": "Je préfère le thé au café le matin.", "incertain": "accepter", "graine": 9}
+{"texte": "J'ai acheté un vélo électrique hier, trop content !", "incertain": "accepter", "graine": 9}
+{"texte": "Mon anniversaire, c'est le 14 mars.", "incertain": "accepter", "graine": 9}
+{"texte": "jsuis végétarienne depuis deux ans mtn", "incertain": "accepter", "graine": 9}
+{"texte": "Pour info, je travaille de chez moi le vendredi.", "incertain": "accepter", "graine": 9}
+{"texte": "Ma sœur Léa habite juste à côté de chez moi.", "incertain": "accepter", "graine": 9}
+{"texte": "Mon vol pour Lisbonne est confirmé, décollage demain à 7h40.", "incertain": "accepter", "graine": 10}
+{"texte": "J'ai passé mon permis hier, je l'ai eu du premier coup.", "incertain": "accepter", "graine": 10}
+{"texte": "stp note que j'ai acheté les billets de train pour Bordeaux, départ vendredi 18h12", "incertain": "accepter", "graine": 10}
+{"texte": "Le contrat avec l'éditeur est signé, je commence le manuscrit lundi.", "incertain": "accepter", "graine": 10}
+{"texte": "I'm vegan and have been for three years, so no meat in the recipes please.", "incertain": "accepter", "graine": 10}
+{"texte": "Jsuis allergique aux arachides, c'est diagnostiqué depuis 2019 tt est noté ds mon dossier médical", "incertain": "accepter", "graine": 10}
+{"texte": "La réunion d'équipe est déplacée au jeudi 14h, tout le monde a validé.", "incertain": "accepter", "graine": 10}
+{"texte": "J'ai emménagé à Nantes il y a deux semaines, mon adresse est à jour sur tous mes papiers.", "incertain": "accepter", "graine": 10}
+{"texte": "Mon chat s'appelle Miso, il a 4 ans et il est castré.", "incertain": "accepter", "graine": 10}
+{"texte": "Je suis gaucher, je l'ai toujours été.", "incertain": "accepter", "graine": 8}
+{"texte": "Mon groupe sanguin, c'est O négatif, c'est écrit sur ma carte de donneur.", "incertain": "accepter", "graine": 8}
+{"texte": "jsuis végétarien depuis 2019, tt viande c fini pr moi", "incertain": "accepter", "graine": 8}
+{"texte": "Tengo dos hermanas mayores, Marta y Lucía.", "incertain": "accepter", "graine": 8}
+{"texte": "Je porte des lunettes depuis mes huit ans, sans elles je ne vois rien de loin.", "incertain": "accepter", "graine": 8}
+{"texte": "Ne me mets jamais de coriandre, je déteste ça, vraiment.", "incertain": "accepter", "graine": 8}
+{"texte": "Je me suis cassé le poignet droit en 2021, j'ai encore la cicatrice de l'opération.", "incertain": "accepter", "graine": 8}
+{"texte": "Mon chien s'appelle Rio, c'est un golden de trois ans.", "incertain": "accepter", "graine": 8}
+{"texte": "Je suis diabétique de type 1, diagnostiqué à 14 ans et suivi depuis.", "incertain": "accepter", "graine": 8}
+{"texte": "Je prends le train de 8h14 demain matin pour aller à Nantes.", "incertain": "accepter", "graine": 11}
+{"texte": "My dog's name is Biscuit and he's three years old.", "incertain": "accepter", "graine": 11}
+{"texte": "jsuis végétarien depuis deux ans, note-le stp", "incertain": "accepter", "graine": 11}
+{"texte": "Notre réunion hebdomadaire a lieu tous les lundis à 9h30.", "incertain": "accepter", "graine": 11}
+{"texte": "J'ai acheté un vélo électrique bleu la semaine dernière.", "incertain": "accepter", "graine": 11}
+{"texte": "Ma sœur Léa habite maintenant à Bordeaux avec son copain Hugo.", "incertain": "accepter", "graine": 11}
+{"texte": "Je préfère travailler le matin, je suis beaucoup plus concentré avant midi.", "incertain": "accepter", "graine": 11}
+{"texte": "On a déménagé nos bureaux rue des Fleurs, à côté de la boulangerie.", "incertain": "accepter", "graine": 11}
+{"texte": "Je mesure 1m78 et je chausse du 42.", "incertain": "accepter", "graine": 11}
+{"texte": "Je veux que tu me réveilles tous les jours à 6h30.", "incertain": "accepter", "graine": 13}
+{"texte": "My name is Lucas and I live in Bordeaux.", "incertain": "accepter", "graine": 13}
+{"texte": "Supprime définitivement tous les brouillons de ma boîte mail.", "incertain": "accepter", "graine": 13}
+{"texte": "je préfere les réponses courtes, sans blabla stp", "incertain": "accepter", "graine": 13}
+{"texte": "À partir de maintenant, appelle-moi capitaine.", "incertain": "accepter", "graine": 13}
+{"texte": "Anota que mi cumpleaños es el 14 de marzo.", "incertain": "accepter", "graine": 13}
+{"texte": "Mon mot de passe provisoire est Soleil2024, garde-le en note.", "incertain": "accepter", "graine": 13}
+{"texte": "Je déteste les champignons, ne m'en propose jamais dans les recettes.", "incertain": "accepter", "graine": 13}
+{"texte": "Bloque les notifications après 22h, sans exception.", "incertain": "accepter", "graine": 13}
+{"texte": "Je m'appelle Hugo et j'habite à Bordeaux depuis trois ans.", "incertain": "accepter", "graine": 12}
+{"texte": "Stp note ça : je préfère le thé sans sucre le matin.", "incertain": "accepter", "graine": 12}
+{"texte": "I work night shifts on Tuesdays and Thursdays.", "incertain": "accepter", "graine": 12}
+{"texte": "Mon chien s'appelle Néo, c'est un labrador noir de deux ans.", "incertain": "accepter", "graine": 12}
+{"texte": "jsuis végétarien et je mange pas de champignons non plus", "incertain": "accepter", "graine": 12}
+{"texte": "Ma voiture est une Peugeot bleue, plaque d'immatriculation fictive AA-199-BB.", "incertain": "accepter", "graine": 12}
+{"texte": "Note bien : mon anniversaire c'est le 14 mars, j'aime pas les fêtes surprises.", "incertain": "accepter", "graine": 12}
+{"texte": "J'ai deux sœurs, Léa et Manon, et je suis l'aîné.", "incertain": "accepter", "graine": 12}
+{"texte": "Je m'appelle Hugo et j'ai 34 ans.", "incertain": "accepter", "graine": 14}
+{"texte": "J'habite à Nantes depuis trois ans, dans un appartement près de la gare.", "incertain": "accepter", "graine": 14}
+{"texte": "My sister lives in Toronto and I visit her every summer.", "incertain": "accepter", "graine": 14}
+{"texte": "Je suis végétarienne, je ne mange ni viande ni poisson.", "incertain": "accepter", "graine": 14}
+{"texte": "Mon chien s'appelle Rio, c'est un labrador de quatre ans.", "incertain": "accepter", "graine": 14}
+{"texte": "jsuis en télétravail tt les vendredis, c'est mon rythme habituel", "incertain": "accepter", "graine": 14}
+{"texte": "Je parle couramment italien parce que ma mère vient de Bologne.", "incertain": "accepter", "graine": 14}
+{"texte": "J'ai rendez-vous chez le dentiste jeudi à 15h, je l'ai déjà noté.", "incertain": "accepter", "graine": 14}
+{"texte": "Ma voiture est une Clio bleue immatriculée l'an dernier.", "incertain": "accepter", "graine": 14}
+{"texte": "Je suis végétarien depuis trois ans, Jarvis.", "incertain": "accepter", "graine": 15}
+{"texte": "Mon anniversaire, c'est le 14 mai, note-le stp.", "incertain": "accepter", "graine": 15}
+{"texte": "J'habite à Nantes depuis l'été dernier dans un petit appartement près de la gare.", "incertain": "accepter", "graine": 15}
+{"texte": "I just adopted a small black cat and named him Milo.", "incertain": "accepter", "graine": 15}
+{"texte": "jsuis allergique aux arachides, c'est noté dans mon dossier médical", "incertain": "accepter", "graine": 15}
+{"texte": "Jarvis, je prends le train de 8h12 demain pour aller voir ma sœur à Bordeaux.", "incertain": "accepter", "graine": 15}
+{"texte": "Je déteste le café, je ne bois que du thé le matin.", "incertain": "accepter", "graine": 15}
+{"texte": "Mi número de ficción es el 01 99 45 12 78, puedes guardarlo.", "incertain": "accepter", "graine": 15}
+{"texte": "Je m'appelle Nora et j'ai 34 ans.", "incertain": "accepter", "graine": 16}
+{"texte": "Mon anniversaire, c'est le 18 octobre.", "incertain": "accepter", "graine": 16}
+{"texte": "jsuis allergique aux arachides, note-le stp", "incertain": "accepter", "graine": 16}
+{"texte": "J'habite à Bordeaux depuis 2019.", "incertain": "accepter", "graine": 16}
+{"texte": "I have two sisters and one brother.", "incertain": "accepter", "graine": 16}
+{"texte": "Mon numéro, c'est le 01 99 42 17 83.", "incertain": "accepter", "graine": 16}
+{"texte": "J'ai un chien qui s'appelle Miso.", "incertain": "accepter", "graine": 16}
+{"texte": "Je travaille comme infirmière à l'hôpital de Lyon.", "incertain": "accepter", "graine": 16}
+{"texte": "I just turned 41 last Tuesday, by the way.", "incertain": "accepter", "graine": 17}
+{"texte": "My middle name is Noah.", "incertain": "accepter", "graine": 17}
+{"texte": "Vivo en Valencia desde hace tres años.", "incertain": "accepter", "graine": 17}
+{"texte": "I don't eat peanuts, I'm allergic to them.", "incertain": "accepter", "graine": 17}
+{"texte": "j'ai deux sœurs, l'aînée s'appelle Camille", "incertain": "accepter", "graine": 17}
+{"texte": "My car is the blue hatchback parked outside.", "incertain": "accepter", "graine": 17}
+{"texte": "I've been working as a nurse for ten years now.", "incertain": "accepter", "graine": 17}
+{"texte": "I wear glasses only when I'm driving.", "incertain": "accepter", "graine": 17}
+{"texte": "Notre anniversaire de mariage, c'est le 14 juin, retiens-le stp.", "incertain": "accepter", "graine": 17}
+{"texte": "Je m'appelle Nora et j'habite à Lyon depuis trois ans.", "incertain": "accepter", "graine": 18}
+{"texte": "My sister's name is Elena and she works as a nurse.", "incertain": "accepter", "graine": 18}
+{"texte": "J'ai deux enfants, Milo et Zoé.", "incertain": "accepter", "graine": 18}
+{"texte": "Mon anniversaire c'est le 14 mars, note-le stp.", "incertain": "accepter", "graine": 18}
+{"texte": "I drive a blue Renault Clio, license plate is in my notes.", "incertain": "accepter", "graine": 18}
+{"texte": "J'ai rdv chez le dentiste mardi à 10h, rappelle-le moi.", "incertain": "accepter", "graine": 18}
+{"texte": "Mi número de teléfono es el 01 99 45 22 81.", "incertain": "accepter", "graine": 18}
+{"texte": "jsuis végétarien depuis 2020, retiens ça pour les recettes", "incertain": "accepter", "graine": 18}
+{"texte": "Mon mot de passe wifi c'est soleil2024, garde-le en mémoire.", "incertain": "accepter", "graine": 18}
+{"texte": "Jarvis, I want my morning briefing at 7 a.m. sharp every weekday.", "incertain": "accepter", "graine": 19}
+{"texte": "My sister's name is Clara and she lives in Nantes.", "incertain": "accepter", "graine": 19}
+{"texte": "Je déteste les olives, n'en mets jamais dans mes commandes.", "incertain": "accepter", "graine": 19}
+{"texte": "Please always write my emails in a formal tone, no exceptions.", "incertain": "accepter", "graine": 19}
+{"texte": "I finished the budget report yesterday and sent it to Marco.", "incertain": "accepter", "graine": 19}
+{"texte": "Remind me: my gym session is at 6:30 p.m. on Mondays and Thursdays.", "incertain": "accepter", "graine": 19}
+{"texte": "jsuis dispo tt l'aprèm demain, bloque rien avant 18h stp", "incertain": "accepter", "graine": 19}
+{"texte": "I never drink coffee after 4 p.m., so switch my reminders to tea.", "incertain": "accepter", "graine": 19}
+{"texte": "Our team meeting is definitely moved to Friday at 10 a.m. in room B.", "incertain": "accepter", "graine": 19}
+{"texte": "Je crois que la Tour Eiffel fait 330 mètres de haut, tu peux vérifier ?", "incertain": "verifier", "graine": 20}
+{"texte": "il me semble que le dernier ubuntu c 24.10 non ?", "incertain": "verifier", "graine": 20}
+{"texte": "I'm not sure, but I think Tokyo is hosting the Olympics in 2028, can you check?", "incertain": "verifier", "graine": 20}
+{"texte": "Jarvis, je crois que le fichier budget.xlsx est dans mon dossier Téléchargements, tu vois ça ?", "incertain": "verifier", "graine": 20}
+{"texte": "Peut-être que le prix de l'iPhone 16 a baissé cette semaine, regarde stp", "incertain": "verifier", "graine": 20}
+{"texte": "Je crois que Shakespeare est né en 1564, c'est bien ça ?", "incertain": "verifier", "graine": 20}
+{"texte": "Il me semble qu'il va pleuvoir demain à Lyon, vérifie la météo", "incertain": "verifier", "graine": 20}
+{"texte": "Je pense que le mot de passe du Wi-Fi invité a été changé le mois dernier, c'est noté quelque part sur l'ordi ?", "incertain": "verifier", "graine": 20}
+{"texte": "Creo que el Danubio es el río más largo de Europa, ¿puedes comprobarlo?", "incertain": "verifier", "graine": 20}
+{"texte": "jsuis pas sûr mais je crois que la réunion avec Karim a été déplacée à jeudi, check mon calendrier stp", "incertain": "verifier", "graine": 20}
+{"texte": "Il me semble que la batterie de mon casque est presque vide, tu peux voir le niveau ?", "incertain": "verifier", "graine": 20}
+{"texte": "Je crois que la pharmacie du centre ferme à 20h le dimanche, tu peux me confirmer ?", "incertain": "verifier", "graine": 21}
+{"texte": "Parait que le vol pour Lisbonne de demain est retardé, c'est vrai ?", "incertain": "verifier", "graine": 21}
+{"texte": "Il me semble que la version 15 de Python est déjà sortie, non ?", "incertain": "verifier", "graine": 21}
+{"texte": "I think the Louvre is free on the first Sunday of every month, is that right?", "incertain": "verifier", "graine": 21}
+{"texte": "jsuis pas sûr mais il paraît que la mairie est ouverte samedi matin", "incertain": "verifier", "graine": 21}
+{"texte": "On m'a dit que le prix du pass Navigo allait augmenter en janvier, tu sais si c'est confirmé ?", "incertain": "verifier", "graine": 21}
+{"texte": "Je crois bien que le concert de vendredi est annulé, vérifie stp", "incertain": "verifier", "graine": 21}
+{"texte": "Il paraît qu'il va neiger à Grenoble ce week-end.", "incertain": "verifier", "graine": 21}
+{"texte": "Si je me trompe pas, le nouveau magasin de sport ouvre ses portes le 12 mars.", "incertain": "verifier", "graine": 21}
+{"texte": "Tu peux regarder ? Je pense que le fichier budget_2025.xlsx est dans mon dossier Téléchargements.", "incertain": "verifier", "graine": 21}
+{"texte": "J'ai l'impression que la batterie de mon ordi est à moins de 10 %, tu vois ça de ton côté ?", "incertain": "verifier", "graine": 21}
+{"texte": "On m'a dit que la Tour Eiffel faisait plus de 300 mètres, c'est vrai ?", "incertain": "verifier", "graine": 22}
+{"texte": "je crois que le nouveau iPhone a un écran 120 Hz, tu peux vérifier ?", "incertain": "verifier", "graine": 22}
+{"texte": "Il paraît que Lyon est la deuxième plus grande ville de France, non ?", "incertain": "verifier", "graine": 22}
+{"texte": "My brother says Python 3.13 is way faster than 3.11, is that true?", "incertain": "verifier", "graine": 22}
+{"texte": "j'ai lu qqpart que les baleines bleues pesaient 150 tonnes, ça me paraît énorme", "incertain": "verifier", "graine": 22}
+{"texte": "Mon prof affirme que la Seconde Guerre mondiale s'est terminée en 1944, j'ai un doute", "incertain": "verifier", "graine": 22}
+{"texte": "il me semble que le prix du train Paris-Bordeaux a augmenté ce mois-ci", "incertain": "verifier", "graine": 22}
+{"texte": "creo que Marte tiene dos lunas, ¿puedes confirmarlo?", "incertain": "verifier", "graine": 22}
+{"texte": "On dit que boire 2 litres d'eau par jour c'est obligatoire pour être en bonne santé, vrai ou pas ?", "incertain": "verifier", "graine": 22}
+{"texte": "jsuis pas sûr mais je crois que ce fichier PDF fait plus de 10 Mo, tu peux regarder ?", "incertain": "verifier", "graine": 22}
+{"texte": "J'ai entendu que la batterie de cet ordi portable tient 18 heures, ça semble trop beau", "incertain": "verifier", "graine": 22}
+{"texte": "Je crois que j'ai fermé ma session hier soir, mais je suis pas certain, tu peux vérifier ?", "incertain": "verifier", "graine": 23}
+{"texte": "Il me semble que la capitale de l'Australie c'est Sydney, j'ai un doute là-dessus.", "incertain": "verifier", "graine": 23}
+{"texte": "jsuis pas sûr mais je crois qu'il reste de la place sur mon disque, genre 200 Go ?", "incertain": "verifier", "graine": 23}
+{"texte": "Je pense que Paris est à environ 300 km de Lyon, mais vérifie parce que je peux me tromper.", "incertain": "verifier", "graine": 23}
+{"texte": "Creo que mañana va a llover en Madrid, pero no estoy seguro, ¿puedes mirarlo?", "incertain": "verifier", "graine": 23}
+{"texte": "Mon fichier rapport_final.docx, je crois qu'il est dans Téléchargements, pas sûr du tout.", "incertain": "verifier", "graine": 23}
+{"texte": "Il me semble que la dernière version de Python c'est la 3.12, tu confirmes ?", "incertain": "verifier", "graine": 23}
+{"texte": "Je crois que j'ai 47 mails non lus, enfin c'était peut-être hier, check stp.", "incertain": "verifier", "graine": 23}
+{"texte": "Je pense que le mot « anticonstitutionnellement » a 25 lettres, mais je peux me tromper.", "incertain": "verifier", "graine": 23}
+{"texte": "J'ai l'impression que ma batterie est à 20 %, je vois pas bien sans mes lunettes, tu peux regarder ?", "incertain": "verifier", "graine": 23}
+{"texte": "Peut-être que le magasin ferme à 20h le dimanche, j'en suis pas sûr, tu trouves ça ?", "incertain": "verifier", "graine": 23}
+{"texte": "Je crois que le mont Blanc fait 4808 mètres, mais je suis plus sûr du chiffre exact", "incertain": "verifier", "graine": 24}
+{"texte": "normalement git rebase ça écrase l'historique non ? ou je confonds avec autre chose", "incertain": "verifier", "graine": 24}
+{"texte": "I think the capital of Australia is Sydney, right? Or is it Canberra?", "incertain": "verifier", "graine": 24}
+{"texte": "stp tu peux checker, il me semble que le prix du pass Navigo a encore augmenté ce mois-ci", "incertain": "verifier", "graine": 24}
+{"texte": "La RAM de mon PC c'est bien 16 Go ? J'ai un doute, regarde si tu peux", "incertain": "verifier", "graine": 24}
+{"texte": "Il paraît que la tour Eiffel grandit de quelques centimètres l'été, c'est vrai ce truc ?", "incertain": "verifier", "graine": 24}
+{"texte": "jsuis pas sûr mais il me semble que water boils at 90 degrees in the mountains, tu confirmes ?", "incertain": "verifier", "graine": 24}
+{"texte": "Le dernier album de Stromae il date de 2022 je crois, non ?", "incertain": "verifier", "graine": 24}
+{"texte": "Normally, Marseille is bigger than Lyon in population, isn't it? J'ai un doute là", "incertain": "verifier", "graine": 24}
+{"texte": "Tu sais si le magasin Leroy Merlin de Parilly est ouvert le dimanche ? Je crois que oui mais sans certitude", "incertain": "verifier", "graine": 24}
+{"texte": "Mon fichier rapport_final.pdf il est bien dans Téléchargements ? Il me semble l'avoir déplacé hier", "incertain": "verifier", "graine": 24}
+{"texte": "je crois que le vol pour Montréal dure genre 7h, tu peux checker ?", "incertain": "verifier", "graine": 26}
+{"texte": "Il me semble que la capitale de l'Australie c'est Sydney, non ?", "incertain": "verifier", "graine": 26}
+{"texte": "I think the meeting with Sofia is scheduled for 3pm tomorrow, can you check my calendar?", "incertain": "verifier", "graine": 26}
+{"texte": "jsuis pas sûr mais tt les magasins ferment à 19h le dimanche ici nn ?", "incertain": "verifier", "graine": 26}
+{"texte": "Je pense que mon ordi a 16 Go de RAM, tu peux vérifier ?", "incertain": "verifier", "graine": 26}
+{"texte": "Il paraît que le nouveau film de Nolan dure presque trois heures, c'est vrai ?", "incertain": "verifier", "graine": 26}
+{"texte": "Je crois qu'il va pleuvoir jeudi à Bordeaux, j'ai bien vu ?", "incertain": "verifier", "graine": 26}
+{"texte": "Peut-être que le mot « anticonstitutionnellement » est le plus long en français ?", "incertain": "verifier", "graine": 26}
+{"texte": "je pense que t'as envoyé le mail à Karim hier, tu retrouves ça ?", "incertain": "verifier", "graine": 26}
+{"texte": "Il me semble que le prix de l'essence a encore augmenté cette semaine.", "incertain": "verifier", "graine": 26}
+{"texte": "Creo que la receta lleva 200 gramos de harina, ¿puedes confirmarlo?", "incertain": "verifier", "graine": 26}
+{"texte": "On m'a dit que les chauves-souris étaient aveugles, c'est vrai ?", "incertain": "verifier", "graine": 25}
+{"texte": "parait que la Grande Muraille se voit depuis l'espace, tu peux vérifier ?", "incertain": "verifier", "graine": 25}
+{"texte": "jsuis pas sûr mais il me semble que le prix du train pour Lyon a augmenté ce mois-ci", "incertain": "verifier", "graine": 25}
+{"texte": "I think I read that octopuses have three hearts, can you check that?", "incertain": "verifier", "graine": 25}
+{"texte": "Il me semble que mon document budget_final est déjà dans le dossier Partagés, tu vois ça ?", "incertain": "verifier", "graine": 25}
+{"texte": "J'ai entendu dire qu'on n'utilise que 10 % de notre cerveau, ça m'a l'air bizarre", "incertain": "verifier", "graine": 25}
+{"texte": "je crois que la réunion avec Nadia a été déplacée à jeudi, c'est marqué dans mon agenda ?", "incertain": "verifier", "graine": 25}
+{"texte": "Dicen que el agua del grifo en Lisboa no se puede beber, ¿es verdad?", "incertain": "verifier", "graine": 25}
+{"texte": "On m'a affirmé que mettre du riz sur un téléphone mouillé le répare, j'y crois moyen", "incertain": "verifier", "graine": 25}
+{"texte": "tt le monde dit que les requins ne peuvent pas avoir de cancer, vérifie stp", "incertain": "verifier", "graine": 25}
+{"texte": "J'ai l'impression que la batterie de mon ordi se vide beaucoup plus vite depuis la dernière mise à jour, tu peux regarder ?", "incertain": "verifier", "graine": 25}
+{"texte": "Je crois que la version 22 de Ubuntu est déjà sortie, tu peux confirmer ?", "incertain": "verifier", "graine": 28}
+{"texte": "Il paraît que le prix du train Paris-Lyon a encore augmenté cette semaine.", "incertain": "verifier", "graine": 28}
+{"texte": "J'ai l'impression que mon disque dur est presque plein, tu peux regarder ?", "incertain": "verifier", "graine": 28}
+{"texte": "I think the weather in Lisbon will be rainy tomorrow, can you check?", "incertain": "verifier", "graine": 28}
+{"texte": "Il me semble que le nouveau iPhone a un écran plus grand que l'ancien.", "incertain": "verifier", "graine": 28}
+{"texte": "Je crois bien que le fichier budget.xlsx est dans le dossier Téléchargements.", "incertain": "verifier", "graine": 28}
+{"texte": "On m'a dit que la bibliothèque municipale ferme à 18 h le samedi, c'est vrai ?", "incertain": "verifier", "graine": 28}
+{"texte": "J'ai l'impression qu'il y a une mise à jour dispo pour mon navigateur.", "incertain": "verifier", "graine": 28}
+{"texte": "Je pense que le vol AF1234 a du retard, tu peux vérifier stp ?", "incertain": "verifier", "graine": 28}
+{"texte": "jsuis pas sûr mais je crois que mon antivirus est expiré, tu peux checker ?", "incertain": "verifier", "graine": 28}
+{"texte": "Je crois que la Seine se jette dans la Manche, mais vérifie parce que je suis plus très sûr.", "incertain": "verifier", "graine": 27}
+{"texte": "Il me semble que l'eau bout à 90 degrés en altitude, c'est bien ça ou je confonds ?", "incertain": "verifier", "graine": 27}
+{"texte": "Si je me souviens bien, le Japon a accueilli les JO d'été en 2021, tu peux me confirmer ?", "incertain": "verifier", "graine": 27}
+{"texte": "jsuis pas sûr ms je crois que le fichier budget_final.xlsx est dans le dossier Téléchargements, tu vois qqch ?", "incertain": "verifier", "graine": 27}
+{"texte": "Creo que la velocidad de la luz es de unos 300 000 km por segundo, ¿me lo confirmas por favor?", "incertain": "verifier", "graine": 27}
+{"texte": "Je pense que Marie Curie a gagné deux prix Nobel dans deux disciplines différentes, vérifie stp.", "incertain": "verifier", "graine": 27}
+{"texte": "Ça doit être Victor Hugo qui a écrit Notre-Dame de Paris, enfin il me semble, regarde vite fait.", "incertain": "verifier", "graine": 27}
+{"texte": "Il me semble que la commande git rebase permet de réécrire l'historique, je dis pas de bêtise ?", "incertain": "verifier", "graine": 27}
+{"texte": "Peut-être que le taux de TVA réduit en France est à 5,5 %, j'ai un doute, tu peux checker ?", "incertain": "verifier", "graine": 27}
+{"texte": "Je crois bien que Barcelone est plus peuplée que Valence, mais je voudrais que tu vérifies.", "incertain": "verifier", "graine": 27}
+{"texte": "À mon avis le mot « occurrence » prend deux r, enfin je crois, tu me confirmes l'orthographe ?", "incertain": "verifier", "graine": 27}
+{"texte": "je crois que j'ai reçu un mail de la banque ce matin, tu peux regarder ?", "incertain": "verifier", "graine": 30}
+{"texte": "il me semble que la réunion avec Karim a été déplacée à jeudi", "incertain": "verifier", "graine": 30}
+{"texte": "je pense que le prix des billets pour Lyon a baissé cette semaine", "incertain": "verifier", "graine": 30}
+{"texte": "jsuis pas sûr mais je crois que mon tel est en mode avion là", "incertain": "verifier", "graine": 30}
+{"texte": "I think my laptop battery is almost dead, can you check?", "incertain": "verifier", "graine": 30}
+{"texte": "il me semble qu'il va neiger demain à Grenoble", "incertain": "verifier", "graine": 30}
+{"texte": "je crois que j'ai déjà une copie de ce devis dans mes téléchargements", "incertain": "verifier", "graine": 30}
+{"texte": "je pense que le magasin ferme à 20h le dimanche, c'est bien ça ?", "incertain": "verifier", "graine": 30}
+{"texte": "on dirait que mon imprimante n'a plus d'encre noire", "incertain": "verifier", "graine": 30}
+{"texte": "je crois que le Wi-Fi est encore en panne au bureau", "incertain": "verifier", "graine": 30}
+{"texte": "il me semble que la version 2.4 de l'appli est déjà sortie", "incertain": "verifier", "graine": 30}
+{"texte": "Il paraît que la gare de Lyon-Part-Dieu est fermée ce week-end pour travaux, c'est vrai ?", "incertain": "verifier", "graine": 29}
+{"texte": "jsuis pas sûr mais je crois que le vol pour Lisbonne part à 18h40, tu peux checker ?", "incertain": "verifier", "graine": 29}
+{"texte": "On m'a dit que Python 3.13 est déjà sorti, ça se confirme ?", "incertain": "verifier", "graine": 29}
+{"texte": "I think the pharmacy on Rue des Lilas closes at 8pm, can you check?", "incertain": "verifier", "graine": 29}
+{"texte": "Il me semble que le concert de Nour débute samedi à 20h et non à 19h, vérifie stp", "incertain": "verifier", "graine": 29}
+{"texte": "J'ai lu quelque part que le mont Blanc fait 4808 mètres, c'est toujours exact ?", "incertain": "verifier", "graine": 29}
+{"texte": "possible que le magasin Bureau Plus ouvre à 9h le dimanche ? j'ai un doute", "incertain": "verifier", "graine": 29}
+{"texte": "On m'a affirmé que le prochain métro pour Saint-Denis passe dans 4 minutes, tu confirmes ?", "incertain": "verifier", "graine": 29}
+{"texte": "Je crois que la réunion avec Karim a été déplacée à jeudi, tu vois ça dans mon agenda ?", "incertain": "verifier", "graine": 29}
+{"texte": "Il semblerait que la bibliothèque municipale ait changé ses horaires pendant les vacances, tu sais vérifier ?", "incertain": "verifier", "graine": 29}
+{"texte": "pk j'ai l'impression que le fichier budget_v3 est déjà dans mon dossier partagé ? regarde stp", "incertain": "verifier", "graine": 29}
+{"texte": "Je crois qu'il va pleuvoir sur Bordeaux demain, c'est ça ?", "incertain": "verifier", "graine": 31}
+{"texte": "Il paraît que Python 3.13 est déjà sorti en version stable ?", "incertain": "verifier", "graine": 31}
+{"texte": "J'ai l'impression que le fichier budget.xlsx est toujours dans mes Téléchargements", "incertain": "verifier", "graine": 31}
+{"texte": "Can you check, I think the meeting with Sofia was moved to Thursday?", "incertain": "verifier", "graine": 31}
+{"texte": "Il me semble que l'aéroport de Lisbonne est fermé aujourd'hui à cause de la grève", "incertain": "verifier", "graine": 31}
+{"texte": "Apparemment le prix du billet pour Lyon a baissé cette semaine ?", "incertain": "verifier", "graine": 31}
+{"texte": "Je pense que mon disque dur est presque plein, tu peux voir ?", "incertain": "verifier", "graine": 31}
+{"texte": "Il paraîtrait que la librairie pandas ne supporte plus les .xls ?", "incertain": "verifier", "graine": 31}
+{"texte": "Jcrois que le resto Chez Mario est fermé le lundi, vérifie stp", "incertain": "verifier", "graine": 31}
+{"texte": "Il me semble que j'ai deux rendez-vous en même temps mardi matin", "incertain": "verifier", "graine": 31}
+{"texte": "On m'a dit que le site de la mairie est en maintenance ce week-end", "incertain": "verifier", "graine": 31}
+{"texte": "La capitale de l'Australie c'est Sydney, il me semble, non ?", "incertain": "verifier", "graine": 32}
+{"texte": "jsuis pas sûr mais la Loire fait plus de 1000 km je crois", "incertain": "verifier", "graine": 32}
+{"texte": "I think the Great Wall of China is about 21,000 km long, right?", "incertain": "verifier", "graine": 32}
+{"texte": "Le fichier budget_final.xlsx est bien dans le dossier Téléchargements, il me semble", "incertain": "verifier", "graine": 32}
+{"texte": "Il me semble que l'eau bout à 90 degrés en altitude, c'est bien ça ?", "incertain": "verifier", "graine": 32}
+{"texte": "Je crois que la Tour Eiffel a été terminée en 1887, à vérifier", "incertain": "verifier", "graine": 32}
+{"texte": "mtn je crois que mon rdv dentiste c'est mardi, c'est écrit dans mon calendrier ?", "incertain": "verifier", "graine": 32}
+{"texte": "La population du Japon dépasse les 200 millions d'habitants, je pense", "incertain": "verifier", "graine": 32}
+{"texte": "Creo que Mercurio es el planeta más grande del sistema solar, ¿no?", "incertain": "verifier", "graine": 32}
+{"texte": "tt à l'heure, pk le wifi s'appelle Livebox-8F3A je crois, tu peux vérifier ?", "incertain": "verifier", "graine": 32}
+{"texte": "Le prix du train pour Lyon demain c'est autour de 45 euros il me semble", "incertain": "verifier", "graine": 32}
+{"texte": "I think the library is open on Sundays, right?", "incertain": "verifier", "graine": 33}
+{"texte": "jsuis pas sûr mais il me semble que le train pour Lyon part à 14h?", "incertain": "verifier", "graine": 33}
+{"texte": "Pretty sure Mars is closer to us than Venus at the moment, isn't it?", "incertain": "verifier", "graine": 33}
+{"texte": "Creo que mañana va a llover en Madrid, ¿no?", "incertain": "verifier", "graine": 33}
+{"texte": "I think my laptop battery is at like 20% now?", "incertain": "verifier", "graine": 33}
+{"texte": "Guessing the meeting got moved to Friday, didn't it?", "incertain": "verifier", "graine": 33}
+{"texte": "Il me semble que Wikipédia dit que Napoléon est mort en 1821, c'est ça ?", "incertain": "verifier", "graine": 33}
+{"texte": "I think this file weighs more than 2 GB, no?", "incertain": "verifier", "graine": 33}
+{"texte": "Not 100% sure, but I believe gold is more expensive than platinum right now?", "incertain": "verifier", "graine": 33}
+{"texte": "Je crois que le Wi-Fi est activé sur mon pc, tu peux voir ?", "incertain": "verifier", "graine": 33}
+{"texte": "I think the Eiffel Tower lights turn off at midnight, right?", "incertain": "verifier", "graine": 33}
+{"texte": "I think the meeting is scheduled for 3pm tomorrow, can you check my calendar?", "incertain": "verifier", "graine": 34}
+{"texte": "Apparently the train to Lyon takes just under two hours, is that right?", "incertain": "verifier", "graine": 34}
+{"texte": "Je crois que le vol AF342 atterrit à 18h40, tu peux vérifier ?", "incertain": "verifier", "graine": 34}
+{"texte": "I'm pretty sure water boils at 90 degrees up in the mountains, right?", "incertain": "verifier", "graine": 34}
+{"texte": "Someone said the museum is closed on Mondays, could you look that up?", "incertain": "verifier", "graine": 34}
+{"texte": "I think this file is saved in my Downloads folder, can you see?", "incertain": "verifier", "graine": 34}
+{"texte": "Creo que mañana va a llover en Madrid, ¿puedes comprobarlo?", "incertain": "verifier", "graine": 34}
+{"texte": "Not sure but I reckon petrol is cheaper at the station by the ring road at the moment.", "incertain": "verifier", "graine": 34}
+{"texte": "I believe the password policy requires 12 characters now, is that actually true?", "incertain": "verifier", "graine": 34}
+{"texte": "I think I have 43 unread emails, can you count them?", "incertain": "verifier", "graine": 34}
+{"texte": "Heard the new iPhone battery lasts 30 hours, sounds exaggerated to me.", "incertain": "verifier", "graine": 34}
+{"texte": "It seems the capital of Australia is Sydney — can you look that up?", "incertain": "verifier", "graine": 35}
+{"texte": "I heard coffee stunts children's growth, is there any truth to that?", "incertain": "verifier", "graine": 35}
+{"texte": "Pretty sure Mercury is the hottest planet, right? Could you check?", "incertain": "verifier", "graine": 35}
+{"texte": "Someone told me the Great Wall of China is visible from the Moon, is that real?", "incertain": "verifier", "graine": 35}
+{"texte": "I think my laptop battery has 90% health left, could you verify that?", "incertain": "verifier", "graine": 35}
+{"texte": "Creo que el pulpo tiene tres corazones, ¿me lo confirmas?", "incertain": "verifier", "graine": 35}
+{"texte": "I read somewhere that we only use 10% of our brains, sounds dodgy to me", "incertain": "verifier", "graine": 35}
+{"texte": "Pretty sure the library closes at 8pm on Fridays, can you double-check online?", "incertain": "verifier", "graine": 35}
+{"texte": "I feel like it rained more last March than this year, can you pull the weather stats?", "incertain": "verifier", "graine": 35}
+{"texte": "I heard goldfish only remember things for three seconds, is that actually true?", "incertain": "verifier", "graine": 35}
+{"texte": "I think I have the latest version of Photoshop installed, mind checking?", "incertain": "verifier", "graine": 35}
+{"texte": "I think the report is saved in my Documents folder, but I could be wrong — can you look?", "incertain": "verifier", "graine": 36}
+{"texte": "Pretty sure I installed the update last night, though I'm not 100% certain. Could you check?", "incertain": "verifier", "graine": 36}
+{"texte": "I believe tomorrow's flight leaves at 6:40, but don't quote me on that. Mind verifying?", "incertain": "verifier", "graine": 36}
+{"texte": "If I'm not mistaken, water boils at 90°C in the mountains — is that actually right?", "incertain": "verifier", "graine": 36}
+{"texte": "jsuis pas sûr mais je crois que le wifi est coupé, tu peux vérifier ?", "incertain": "verifier", "graine": 36}
+{"texte": "I think I've got about 20 GB free on my phone, but I'm not sure. Can you tell?", "incertain": "verifier", "graine": 36}
+{"texte": "The capital of Australia is Sydney, right? I always mix that up, please check.", "incertain": "verifier", "graine": 36}
+{"texte": "Creo que el archivo se llama presupuesto_final, pero no estoy seguro, ¿puedes buscarlo?", "incertain": "verifier", "graine": 36}
+{"texte": "I'm fairly convinced I muted my mic before the call, though I might be imagining it — can you see?", "incertain": "verifier", "graine": 36}
+{"texte": "I think this laptop is running Windows 11, but it might still be on 10. How can I tell?", "incertain": "verifier", "graine": 36}
+{"texte": "As far as I remember, the store closes at 9 tonight, but I could have the day wrong. Could you confirm?", "incertain": "verifier", "graine": 36}
+{"texte": "Je crois que je vais changer de travail mais j'hésite encore entre rester ou partir.", "incertain": "demander", "graine": 38}
+{"texte": "I think I might adopt a cat, not sure yet though.", "incertain": "demander", "graine": 38}
+{"texte": "Stp note que je suis peut-être allergique aux noisettes, faudrait que je vérifie.", "incertain": "demander", "graine": 38}
+{"texte": "jsuis pas sûr de vouloir vendre ma voiture, je réfléchis encore", "incertain": "demander", "graine": 38}
+{"texte": "Peut-être qu'on partira en vacances en août, ou en septembre, on sait pas trop.", "incertain": "demander", "graine": 38}
+{"texte": "Je pense que je vais me mettre au piano, enfin si je trouve le temps.", "incertain": "demander", "graine": 38}
+{"texte": "Creo que quiero dejar el curso de francés, pero aún no lo he decidido.", "incertain": "demander", "graine": 38}
+{"texte": "Il me semble que le bleu me va mieux que le vert, tu en penses quoi toi ?", "incertain": "demander", "graine": 38}
+{"texte": "J'hésite à inviter Karim samedi, je crois qu'il est fâché contre moi.", "incertain": "demander", "graine": 38}
+{"texte": "Peut-être que je vais refaire la cuisine cette année, ça dépendra du budget.", "incertain": "demander", "graine": 38}
+{"texte": "Je crois que j'ai oublié d'éteindre le four avant de partir, je suis pas certain.", "incertain": "demander", "graine": 38}
+{"texte": "On prendra sûrement un appartement plus grand, enfin c'est pas encore décidé avec Léa.", "incertain": "demander", "graine": 38}
+{"texte": "Je crois que j'aime pas trop vivre en colocation, en fait.", "incertain": "demander", "graine": 37}
+{"texte": "J'ai l'impression que je suis plus du matin que du soir, mais jsuis pas sûr.", "incertain": "demander", "graine": 37}
+{"texte": "Peut-être que je veux reprendre le piano un jour, j'hésite encore.", "incertain": "demander", "graine": 37}
+{"texte": "I think I might be lactose intolerant, I'm not really sure.", "incertain": "demander", "graine": 37}
+{"texte": "Je pense que je préfère les romans aux films, enfin ça dépend des jours.", "incertain": "demander", "graine": 37}
+{"texte": "J'ai l'impression d'être stressé par mon nouveau boulot, mais je sais pas si c'est juste la fatigue.", "incertain": "demander", "graine": 37}
+{"texte": "Je crois que je veux déménager à Lyon l'an prochain, rien n'est décidé.", "incertain": "demander", "graine": 37}
+{"texte": "Stp note ça : je suis pt-être allergique aux noisettes, à confirmer de mon côté.", "incertain": "demander", "graine": 37}
+{"texte": "Je crois que le rouge me va mieux que le bleu, t'en penses quoi ? Enfin c'est mon ressenti.", "incertain": "demander", "graine": 37}
+{"texte": "Tal vez quiero cambiar de trabajo este año, todavía no lo tengo claro.", "incertain": "demander", "graine": 37}
+{"texte": "J'ai l'impression que j'ai besoin de vacances, mais je sais pas trop où aller.", "incertain": "demander", "graine": 37}
+{"texte": "Je pense que je suis fait pour travailler seul, enfin je crois.", "incertain": "demander", "graine": 37}
+{"texte": "Je crois que j'ai pris mes gouttes pour les yeux ce matin, mais je suis plus du tout sûre.", "incertain": "demander", "graine": 39}
+{"texte": "Mon mot de passe du coffre, c'est le nom de mon chien ou celui de mon chat, je sais plus trop.", "incertain": "demander", "graine": 39}
+{"texte": "stp rappelle moi, j'ai réservé pour 2 ou 3 personnes samedi soir ? jsuis incapable de m'en souvenir", "incertain": "demander", "graine": 39}
+{"texte": "I think I'm lactose intolerant, but I'm not entirely sure, it might just be stress.", "incertain": "demander", "graine": 39}
+{"texte": "Je dois rappeler Karim ou Leïla en premier ? Je crois que c'était Karim mais j'hésite.", "incertain": "demander", "graine": 39}
+{"texte": "Mon allergie, je crois que c'est aux noisettes, pas aux amandes, enfin je confonds toujours.", "incertain": "demander", "graine": 39}
+{"texte": "J'avais dit que je viendrais à 18h ou 19h chez Nora, tu crois que je lui ai confirmé quoi moi ?", "incertain": "demander", "graine": 39}
+{"texte": "Je sais plus si j'ai fermé la porte du garage à clé en partant, ça me stresse.", "incertain": "demander", "graine": 39}
+{"texte": "Creo que dejé las llaves en casa de mi hermano, pero no estoy seguro.", "incertain": "demander", "graine": 39}
+{"texte": "Mon projet de déménager à Lyon, je crois que je le repousse à septembre, ou peut-être octobre, je sais pas encore.", "incertain": "demander", "graine": 39}
+{"texte": "C'est bien le 12 ou le 14 l'anniversaire de mariage de mes parents ? Je mélange chaque année.", "incertain": "demander", "graine": 39}
+{"texte": "Je pense avoir déjà payé la facture d'électricité ce mois-ci, mais j'ai un gros doute.", "incertain": "demander", "graine": 39}
+{"texte": "J'hésite à me mettre au piano, je sais pas si ça va vraiment me plaire.", "incertain": "demander", "graine": 40}
+{"texte": "Creo que el gluten me cae mal, pero no estoy seguro para nada.", "incertain": "demander", "graine": 40}
+{"texte": "Je crois que je préfère le télétravail, enfin ça dépend des semaines on va dire.", "incertain": "demander", "graine": 40}
+{"texte": "Peut-être que je vais déménager près de ma soeur, j'y réfléchis encore.", "incertain": "demander", "graine": 40}
+{"texte": "jsuis pas sûr d'aimer le nouveau quartier, faut que je vois avec le temps", "incertain": "demander", "graine": 40}
+{"texte": "Je pense avoir mal au dos à cause de mon matelas, mais c'est juste une impression.", "incertain": "demander", "graine": 40}
+{"texte": "J'envisage de vendre ma voiture, disons que j'suis à 60% décidé.", "incertain": "demander", "graine": 40}
+{"texte": "Peut-être que le café le soir m'empêche de dormir, je vais tester sans.", "incertain": "demander", "graine": 40}
+{"texte": "I might quit my book club, I haven't decided yet honestly.", "incertain": "demander", "graine": 40}
+{"texte": "J'hésite entre reprendre des études ou rester dans mon poste actuel...", "incertain": "demander", "graine": 40}
+{"texte": "Je crois que je suis intolérant au lactose, ça me fait mal au ventre parfois.", "incertain": "demander", "graine": 40}
+{"texte": "Je vais sans doute adopter un chat, enfin si je me sens prêt quoi.", "incertain": "demander", "graine": 40}
+{"texte": "Je pense que je veux déménager à Lyon l'année prochaine, mais bon, je suis pas encore sûr de moi.", "incertain": "demander", "graine": 41}
+{"texte": "Il me semble que le lactose me fait mal au ventre, enfin je crois que c'est ça.", "incertain": "demander", "graine": 41}
+{"texte": "J'aimerais bien apprendre le piano, enfin peut-être, ça dépendra de ma motivation.", "incertain": "demander", "graine": 41}
+{"texte": "I think I prefer working at night, but I'm not really sure anymore.", "incertain": "demander", "graine": 41}
+{"texte": "Je crois que je suis un peu fatigué en ce moment, même si je dors assez en fait.", "incertain": "demander", "graine": 41}
+{"texte": "On partirait bien en vacances en septembre, enfin c'est pas décidé du tout.", "incertain": "demander", "graine": 41}
+{"texte": "jsuis allergique aux noisettes je crois, j'ai eu une réaction une fois mais c'était bizarre", "incertain": "demander", "graine": 41}
+{"texte": "J'ai envie de changer de boulot, enfin des fois oui, des fois non, je sais plus trop.", "incertain": "demander", "graine": 41}
+{"texte": "Je pense aimer les films d'horreur, mais en vrai j'en ai vu que deux.", "incertain": "demander", "graine": 41}
+{"texte": "Quizás quiera dejar el curso de italiano, todavía no lo tengo claro.", "incertain": "demander", "graine": 41}
+{"texte": "Le bleu me va mieux que le vert, je crois, quoique devant le miroir j'hésite toujours.", "incertain": "demander", "graine": 41}
+{"texte": "Je dirais que je suis plutôt introverti, enfin ça dépend des jours et des gens.", "incertain": "demander", "graine": 41}
+{"texte": "Je pense que je voudrais changer de travail, mais je suis pas encore décidé.", "incertain": "demander", "graine": 42}
+{"texte": "Puede que deje de fumar este año, todavía no lo tengo claro.", "incertain": "demander", "graine": 42}
+{"texte": "jsuis pas sûr de vouloir vendre ma voiture, tu peux me le rappeler plus tard stp", "incertain": "demander", "graine": 42}
+{"texte": "J'ai l'impression que je suis allergique aux noisettes, ça me gratte parfois après en avoir mangé.", "incertain": "demander", "graine": 42}
+{"texte": "I might want to learn piano someday, I'm not really sure yet.", "incertain": "demander", "graine": 42}
+{"texte": "Il est possible que je parte vivre à la campagne, mais ça dépend de plein de choses.", "incertain": "demander", "graine": 42}
+{"texte": "Je crois que le bleu me va mieux que le vert, enfin je sais pas trop.", "incertain": "demander", "graine": 42}
+{"texte": "Peut-être que je lancerai ma petite entreprise un jour, si je trouve le courage.", "incertain": "demander", "graine": 42}
+{"texte": "je me sens peut-être un peu déprimé en ce moment, difficile à dire", "incertain": "demander", "graine": 42}
+{"texte": "Je ne suis pas certain d'aimer vraiment le poste qu'on m'a proposé.", "incertain": "demander", "graine": 42}
+{"texte": "Il me semble que j'aimerais avoir un chien, mais j'hésite à cause du temps.", "incertain": "demander", "graine": 42}
+{"texte": "Je crois que je préfère travailler le matin, enfin ça change selon les jours.", "incertain": "demander", "graine": 42}
+{"texte": "Je crois que je suis intolérant au gluten, mais c'est pas sûr du tout.", "incertain": "demander", "graine": 43}
+{"texte": "On partira peut-être chez ma sœur à Nantes le mois prochain, rien n'est décidé.", "incertain": "demander", "graine": 43}
+{"texte": "stp mets le rappel pour le dentiste, je pense que c tt les 6 mois mais jsuis pas certain", "incertain": "demander", "graine": 43}
+{"texte": "Je me sens plutôt du matin en ce moment, enfin ça change selon les semaines.", "incertain": "demander", "graine": 43}
+{"texte": "Creo que soy alérgico al marisco, pero nunca me han hecho la prueba.", "incertain": "demander", "graine": 43}
+{"texte": "Je veux sans doute arrêter le café, enfin je dis ça depuis des mois.", "incertain": "demander", "graine": 43}
+{"texte": "Je crois que préfère travailler le soir, mais des fois le matin me va mieux.", "incertain": "demander", "graine": 43}
+{"texte": "Note que je suis dispo dimanche, enfin faut que je vérifie mon humeur du jour lol", "incertain": "demander", "graine": 43}
+{"texte": "Je pense avoir besoin de lunettes pour lire, j'hésite à consulter.", "incertain": "demander", "graine": 43}
+{"texte": "My mood about moving abroad keeps changing, I’m not settled on it yet.", "incertain": "demander", "graine": 43}
+{"texte": "Je dirais que je suis moyennement sportif, ça dépend vraiment de ma motivation.", "incertain": "demander", "graine": 43}
+{"texte": "Ajoute que je veux peut-être vendre ma guitare, je suis encore en train d'y réfléchir.", "incertain": "demander", "graine": 43}
+{"texte": "Je crois que j'ai fermé ma session à distance, mais jsuis pas du tout sûr.", "incertain": "demander", "graine": 44}
+{"texte": "Mon congé, ce sera p-ê du 12 au 19, j'hésite encore avec la semaine d'après.", "incertain": "demander", "graine": 44}
+{"texte": "I think I might be allergic to peanuts, but I've never actually been tested.", "incertain": "demander", "graine": 44}
+{"texte": "Le salon, on va sûrement le repeindre en vert... ou en terracotta, je sais pas trop.", "incertain": "demander", "graine": 44}
+{"texte": "Je crois bien que j'avais dit à Karim de passer demain, enfin je crois.", "incertain": "demander", "graine": 44}
+{"texte": "Mon adresse postale, c'est peut-être encore l'ancienne qui est dans mon profil, faut que je regarde.", "incertain": "demander", "graine": 44}
+{"texte": "On invite peut-être mes cousins pour Noël, ça dépendra de ce qu'on décide avec Léa.", "incertain": "demander", "graine": 44}
+{"texte": "Je pense que je préfère bosser le matin, à moins que le soir me convienne mieux finalement.", "incertain": "demander", "graine": 44}
+{"texte": "Mi novela será quizá en primera persona, todavía no lo tengo claro.", "incertain": "demander", "graine": 44}
+{"texte": "Le rendez-vous chez le médecin, je voulais p-ê le déplacer, j'hésite.", "incertain": "demander", "graine": 44}
+{"texte": "J'ai l'impression que le café d'après-midi m'empêche de dormir, mais c'est pas certain.", "incertain": "demander", "graine": 44}
+{"texte": "Mon budget pour la voiture, ce serait autour de 8 000 €, ptet un peu plus si je craque.", "incertain": "demander", "graine": 44}
+{"texte": "chui pas sûr de vouloir reprendre le sport cette année", "incertain": "demander", "graine": 46}
+{"texte": "Je crois que je préfère bosser le matin mais j'hésite encore", "incertain": "demander", "graine": 46}
+{"texte": "no sé si quiero cambiar de trabajo ahora mismo", "incertain": "demander", "graine": 46}
+{"texte": "Est-ce que je te laisse gérer mes rappels ? J'arrive pas à me décider.", "incertain": "demander", "graine": 46}
+{"texte": "Je pense que les épinards me rendent malade, mais c'est pas certain", "incertain": "demander", "graine": 46}
+{"texte": "Peut-être que je vais vendre ma guitare, enfin je sais pas trop", "incertain": "demander", "graine": 46}
+{"texte": "jhesite entre partir en vacances en juillet ou en août, tu en penses quoi ?", "incertain": "demander", "graine": 46}
+{"texte": "Je crois que je suis intolérant au lactose, ça m'arrive après le fromage", "incertain": "demander", "graine": 46}
+{"texte": "Not sure if I want to keep my motorcycle or sell it this spring", "incertain": "demander", "graine": 46}
+{"texte": "Je me demande si je dois accepter cette formation, ça me tente moyen", "incertain": "demander", "graine": 46}
+{"texte": "peut etre que je vais arreter le café, jsuis pas convaincu que ça m'aide", "incertain": "demander", "graine": 46}
+{"texte": "J'hésite à dire oui pour le déménagement de Léa samedi, je suis crevé en ce moment", "incertain": "demander", "graine": 46}
+{"texte": "Jarvis, je crois que j'aimerais bien passer au télétravail complet, mais en fait je suis pas sûre du tout.", "incertain": "demander", "graine": 45}
+{"texte": "Jpense que je suis intolérant au lactose, ça me fait mal au ventre parfois mais pas toujours, chelou.", "incertain": "demander", "graine": 45}
+{"texte": "Peut-être que je veux reprendre le piano, enfin ça me tente certains jours et d'autres non.", "incertain": "demander", "graine": 45}
+{"texte": "I think I might want to quit my job next month, but honestly I'm not sure yet.", "incertain": "demander", "graine": 45}
+{"texte": "Je crois que le bleu me va mieux que le vert, tu en penses quoi ? J'hésite trop.", "incertain": "demander", "graine": 45}
+{"texte": "stp note que j'aime pas trop qu'on m'appelle tôt le matin, sauf des fois si c'est important.", "incertain": "demander", "graine": 45}
+{"texte": "Je suis peut-être allergique à la poussière, j'éternue chez moi mais jamais dehors, je sais pas trop.", "incertain": "demander", "graine": 45}
+{"texte": "J'hésite à adopter un chat, j'adore ça mais j'ai peur de pas avoir le temps, tu vois ?", "incertain": "demander", "graine": 45}
+{"texte": "Creo que prefiero trabajar de noche, pero a veces me gusta madrugar, no lo tengo claro.", "incertain": "demander", "graine": 45}
+{"texte": "Je pense avoir envie de partir en vacances en septembre, ou peut-être en octobre, je me tâte.", "incertain": "demander", "graine": 45}
+{"texte": "Dis, j'ai l'impression que le café me rend anxieux, mais ça dépend des jours, bizarre non ?", "incertain": "demander", "graine": 45}
+{"texte": "Peut-être que ce projet de side business me motive vraiment, ou c'est juste sur le moment, je sais pas.", "incertain": "demander", "graine": 45}
+{"texte": "J'hésite encore entre prendre le poste à Lyon ou rester ici, je sais pas trop ce que je veux.", "incertain": "demander", "graine": 47}
+{"texte": "Je crois que je suis allergique aux noisettes, mais je n'ai jamais fait de test, ça m'inquiète un peu.", "incertain": "demander", "graine": 47}
+{"texte": "On partira peut-être en vacances en Bretagne cet été, c'est pas encore décidé avec Léa.", "incertain": "demander", "graine": 47}
+{"texte": "I think I might quit my job next month, but I'm really not sure yet.", "incertain": "demander", "graine": 47}
+{"texte": "Jsais pas si je vais accepter l'invitation de Hugo samedi, ça dépendra de mon humeur mtn", "incertain": "demander", "graine": 47}
+{"texte": "Il me semble que j'ai laissé mes clés chez ma mère, ou peut-être dans la voiture, je suis plus sûr.", "incertain": "demander", "graine": 47}
+{"texte": "Je pense que je préfère travailler le matin, enfin je crois, faut que je teste.", "incertain": "demander", "graine": 47}
+{"texte": "Peut-être que je vais vendre mon vélo le mois prochain, j'y réfléchis encore, rien d'officiel.", "incertain": "demander", "graine": 47}
+{"texte": "Creo que me cae mal la lactosa, pero no estoy seguro, nunca lo he comprobado.", "incertain": "demander", "graine": 47}
+{"texte": "J'ai l'impression d'avoir déjà rencontré cette personne quelque part, mais impossible de me rappeler où.", "incertain": "demander", "graine": 47}
+{"texte": "Je vais probablement m'inscrire à la salle de sport en septembre, si je suis toujours motivé d'ici là.", "incertain": "demander", "graine": 47}
+{"texte": "Je sais pas trop si je veux un chat ou pas, j'adore ça mais pour les vacances c'est compliqué, hésite bcp.", "incertain": "demander", "graine": 47}
+{"texte": "Je crois que je préfère les réunions courtes, mais jsuis pas sûr en fait", "incertain": "demander", "graine": 48}
+{"texte": "Il me semble que je stresse moins quand je fais du sport le soir", "incertain": "demander", "graine": 48}
+{"texte": "Je pense que je veux changer de voie pro, enfin c'est encore flou dans ma tête", "incertain": "demander", "graine": 48}
+{"texte": "J'ai l'impression d'être allergique aux noisettes, faudrait que je teste un jour", "incertain": "demander", "graine": 48}
+{"texte": "I think I might enjoy working remotely more, but I'm not totally sure yet", "incertain": "demander", "graine": 48}
+{"texte": "Je crois que ce sont les écrans qui me donnent mal à la tête, ou alors c'est la fatigue", "incertain": "demander", "graine": 48}
+{"texte": "Peut-être que je devrais lancer mon petit projet de poterie, j'hésite depuis des mois", "incertain": "demander", "graine": 48}
+{"texte": "J'ai le sentiment que le café m'empêche de dormir, même celui du matin", "incertain": "demander", "graine": 48}
+{"texte": "Je crois que je suis plutôt du soir pour écrire, non ?", "incertain": "demander", "graine": 48}
+{"texte": "Il me semble que je digère mal le lait depuis quelque temps, stp note-le pour qu'on en reparle", "incertain": "demander", "graine": 48}
+{"texte": "Creo que me siento mejor cuando me levanto temprano, pero no estoy seguro", "incertain": "demander", "graine": 48}
+{"texte": "Je pense que j'aimerais vivre plus près de la mer, c'est une idée qui me trotte dans la tête", "incertain": "demander", "graine": 48}
+{"texte": "I think I might switch jobs sometime this fall, not sure yet.", "incertain": "demander", "graine": 49}
+{"texte": "Peut-être que je vais vendre ma voiture au printemps, j'hésite encore.", "incertain": "demander", "graine": 49}
+{"texte": "I'm not sure if I actually like cilantro or if I just got used to it.", "incertain": "demander", "graine": 49}
+{"texte": "Je crois que je préfère travailler le matin, mais je n'en suis pas certain.", "incertain": "demander", "graine": 49}
+{"texte": "Maybe I'll adopt a cat next year, I keep going back and forth.", "incertain": "demander", "graine": 49}
+{"texte": "I think I'm allergic to dust mites, though I've never been tested.", "incertain": "demander", "graine": 49}
+{"texte": "Not decided yet, but I might quit the gym and start running instead.", "incertain": "demander", "graine": 49}
+{"texte": "Creo que quiero dejar el café, pero todavía no estoy seguro.", "incertain": "demander", "graine": 49}
+{"texte": "I might want kids one day, honestly I change my mind a lot.", "incertain": "demander", "graine": 49}
+{"texte": "J'hésite à déménager à Lyon l'année prochaine, rien n'est décidé.", "incertain": "demander", "graine": 49}
+{"texte": "I feel like spicy food upsets my stomach, but it could be something else.", "incertain": "demander", "graine": 49}
+{"texte": "Maybe I'll take a sabbatical in 2027 if I can bring myself to do it.", "incertain": "demander", "graine": 49}
+{"texte": "I might quit my gym membership, I haven't really decided yet.", "incertain": "demander", "graine": 50}
+{"texte": "Estoy pensando en adoptar un gato, pero aún no estoy seguro.", "incertain": "demander", "graine": 50}
+{"texte": "Je crois que je pourrais être intolérant au lactose, ça me fait souvent mal au ventre.", "incertain": "demander", "graine": 50}
+{"texte": "Maybe I'll apply for that promotion, but part of me is still hesitating.", "incertain": "demander", "graine": 50}
+{"texte": "I'm not sure if I actually want kids someday, I keep changing my mind about it.", "incertain": "demander", "graine": 50}
+{"texte": "I think freelancing might suit me better, though I can't tell yet if I'd enjoy the instability.", "incertain": "demander", "graine": 50}
+{"texte": "Je pense déménager près de ma sœur un jour, mais je ne sais pas encore si c'est vraiment ce que je veux.", "incertain": "demander", "graine": 50}
+{"texte": "Sometimes I wonder if I'm burnt out or just tired, I honestly can't tell the difference right now.", "incertain": "demander", "graine": 50}
+{"texte": "I may go back to university next year, or maybe not, it depends how I feel in a few months.", "incertain": "demander", "graine": 50}
+{"texte": "I'm leaning towards selling my motorbike, but I know I'd probably regret it.", "incertain": "demander", "graine": 50}
+{"texte": "Ich überlege, ob ich meinen Job wechseln sollte, bin mir aber total unsicher.", "incertain": "demander", "graine": 50}
+{"texte": "I suspect mornings would work better for my workouts, though I'm not convinced I can stick to it.", "incertain": "demander", "graine": 50}
+{"texte": "I think I'm kind of tired, maybe I should nap?", "incertain": "demander", "graine": 51}
+{"texte": "Not sure if I actually like cilantro, I guess sometimes I do?", "incertain": "demander", "graine": 51}
+{"texte": "Creo que quiero dejar el gimnasio, no sé, tal vez este mes", "incertain": "demander", "graine": 51}
+{"texte": "I might want to move to Chicago next year, I'm still not sure though", "incertain": "demander", "graine": 51}
+{"texte": "je crois que j'aime pas trop le café le matin, enfin ça dépend", "incertain": "demander", "graine": 51}
+{"texte": "Maybe I'm a bit allergic to dust? I sneeze a lot at home, not sure", "incertain": "demander", "graine": 51}
+{"texte": "I guess I’d rather stay in tonight, probably?", "incertain": "demander", "graine": 51}
+{"texte": "I'm thinking I might want a dog someday, maybe, I dunno yet", "incertain": "demander", "graine": 51}
+{"texte": "I think this jacket looks okay on me? Not really sure", "incertain": "demander", "graine": 51}
+{"texte": "Maybe I want to quit my book club, I keep going back and forth", "incertain": "demander", "graine": 51}
+{"texte": "I feel like I might be hungry, or maybe just bored?", "incertain": "demander", "graine": 51}
+{"texte": "I guess blue is my favorite color now, maybe it changed?", "incertain": "demander", "graine": 51}
+{"texte": "I think I might have left my passport at my sister's place, not sure though.", "incertain": "demander", "graine": 52}
+{"texte": "Jarvis, I believe I prefer working mornings, but I'm not entirely certain yet.", "incertain": "demander", "graine": 52}
+{"texte": "Creo que quiero renunciar a mi trabajo el mes que viene, todavía no lo tengo claro.", "incertain": "demander", "graine": 52}
+{"texte": "I may want to sell my bike this spring, I keep changing my mind.", "incertain": "demander", "graine": 52}
+{"texte": "Je crois que le lait me fait mal au ventre, mais jsuis pas sûr que ce soit une intolérance.", "incertain": "demander", "graine": 52}
+{"texte": "I think my meeting with Nora is on Thursday... or was it Friday? I honestly can't remember.", "incertain": "demander", "graine": 52}
+{"texte": "I feel like I might be coming down with something, my throat's a bit off.", "incertain": "demander", "graine": 52}
+{"texte": "I'm pretty sure I told Marc I'd come to dinner, but maybe I only thought about it.", "incertain": "demander", "graine": 52}
+{"texte": "I might be afraid of heights, I've never really tested it.", "incertain": "demander", "graine": 52}
+{"texte": "I believe I locked the garage when I left, though I wouldn't swear to it.", "incertain": "demander", "graine": 52}
+{"texte": "I think I want a dog eventually, but I'm not sure my lifestyle fits one.", "incertain": "demander", "graine": 52}
+{"texte": "I may have promised to help move next weekend, I kinda forgot what I said.", "incertain": "demander", "graine": 52}

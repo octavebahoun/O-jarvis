@@ -1,0 +1,50 @@
+{"texte": "Propose-moi une recette pour ce soir.", "recuperer": "oui"}
+{"texte": "Quel temps fera-t-il demain ?", "recuperer": "oui"}
+{"texte": "Tu te souviens où j'habite ?", "recuperer": "oui"}
+{"texte": "Écris-moi un script pour trier mes fichiers.", "recuperer": "oui"}
+{"texte": "Conseille-moi un livre pour les vacances.", "recuperer": "oui"}
+{"texte": "Comment j'installe Python sur mon PC ?", "recuperer": "oui"}
+{"texte": "Trouve-moi un restaurant sympa près de chez moi.", "recuperer": "oui"}
+{"texte": "Quel cadeau je pourrais offrir à ma sœur ?", "recuperer": "oui"}
+{"texte": "C'est quoi mon métier déjà ?", "recuperer": "oui"}
+{"texte": "Aide-moi à organiser ma semaine.", "recuperer": "oui"}
+{"texte": "Mon PC rame, qu'est-ce que je peux faire ?", "recuperer": "oui"}
+{"texte": "Prépare-moi un programme de sport.", "recuperer": "oui"}
+{"texte": "Rédige ma bio pour LinkedIn.", "recuperer": "oui"}
+{"texte": "jpeux manger quoi ce soir avec ce qu'il me reste", "recuperer": "oui"}
+{"texte": "À quelle heure je dois partir pour mon rendez-vous de jeudi ?", "recuperer": "oui"}
+{"texte": "Quel langage tu me conseilles pour mon prochain projet ?", "recuperer": "oui"}
+{"texte": "Fais-moi un CV.", "recuperer": "oui"}
+{"texte": "Recommande-moi de la musique pour travailler.", "recuperer": "oui"}
+{"texte": "On fait quoi ce week-end avec les enfants ?", "recuperer": "oui"}
+{"texte": "Est-ce que ce gâteau est bon pour moi ?", "recuperer": "oui"}
+{"texte": "What should I cook tonight?", "recuperer": "oui"}
+{"texte": "Do you remember my dog's name?", "recuperer": "oui"}
+{"texte": "Suggest a weekend trip from where I live.", "recuperer": "oui"}
+{"texte": "Help me plan my workouts.", "recuperer": "oui"}
+{"texte": "What laptop upgrade would you recommend for me?", "recuperer": "oui"}
+{"texte": "Qui a écrit Les Misérables ?", "recuperer": "non"}
+{"texte": "Combien font 15 % de 80 ?", "recuperer": "non"}
+{"texte": "Traduis « bonne journée » en espagnol.", "recuperer": "non"}
+{"texte": "C'est quoi la différence entre une liste et un tuple en Python ?", "recuperer": "non"}
+{"texte": "Raconte-moi une blague.", "recuperer": "non"}
+{"texte": "Quelle heure est-il à Tokyo ?", "recuperer": "non"}
+{"texte": "Corrige les fautes de ce paragraphe.", "recuperer": "non"}
+{"texte": "Donne-moi un synonyme de « rapide ».", "recuperer": "non"}
+{"texte": "Convertis 5 miles en kilomètres.", "recuperer": "non"}
+{"texte": "Merci, c'est parfait !", "recuperer": "non"}
+{"texte": "Explique-moi la photosynthèse.", "recuperer": "non"}
+{"texte": "Résume-moi cet article en trois points.", "recuperer": "non"}
+{"texte": "Mets ce texte en gras.", "recuperer": "non"}
+{"texte": "Quelle est la capitale du Pérou ?", "recuperer": "non"}
+{"texte": "lol t'es drôle", "recuperer": "non"}
+{"texte": "Renomme cette variable en camelCase.", "recuperer": "non"}
+{"texte": "Combien de jours en février 2028 ?", "recuperer": "non"}
+{"texte": "Comment on dit « chat » en japonais ?", "recuperer": "non"}
+{"texte": "tu px me refaire le calcul stp", "recuperer": "non"}
+{"texte": "Quel temps fera-t-il demain à Marseille ?", "recuperer": "non"}
+{"texte": "What's the capital of Australia?", "recuperer": "non"}
+{"texte": "Give me a synonym for happy.", "recuperer": "non"}
+{"texte": "Explain recursion simply.", "recuperer": "non"}
+{"texte": "Convert 30 °C to Fahrenheit.", "recuperer": "non"}
+{"texte": "Thanks, that helped a lot.", "recuperer": "non"}

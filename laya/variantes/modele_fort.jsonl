@@ -1,0 +1,344 @@
+{"texte": "Jarvis, j'ai un dépôt de 40 000 lignes qui plante une fois sur mille en production, trouve la race condition et propose un correctif fiable stp", "modele_fort": "proposer", "graine": 3}
+{"texte": "Peux-tu analyser ce corpus de 200 articles scientifiques et m'en faire une revue de littérature structurée avec les contradictions entre auteurs ?", "modele_fort": "proposer", "graine": 3}
+{"texte": "Design me a distributed architecture for handling 2 million daily users, with failure modes, scaling plan and cost estimates over 12 months", "modele_fort": "proposer", "graine": 3}
+{"texte": "Jarvis, construis-moi un programme d'entraînement et de nutrition sur 16 semaines pour un triathlon, adapté semaine par semaine à mes résultats", "modele_fort": "proposer", "graine": 3}
+{"texte": "J'ai besoin d'une preuve complète que cet algorithme de tri distribué termine toujours, avec les invariants détaillés, tu peux me la rédiger ?", "modele_fort": "proposer", "graine": 3}
+{"texte": "Écris-moi un gros outil en Python qui synchronise mes fichiers entre 3 clouds, gère les conflits, le chiffrement et une interface en ligne de commande complète", "modele_fort": "proposer", "graine": 3}
+{"texte": "Conçois l'architecture complète de notre plateforme de paiement pour 2 millions d'utilisateurs, avec choix des services, schéma de données et plan de migration sur trois mois.", "modele_fort": "proposer", "graine": 2}
+{"texte": "Peux-tu analyser ce contrat de 180 pages, repérer toutes les clauses risquées et me proposer une stratégie de négociation argumentée ?", "modele_fort": "proposer", "graine": 2}
+{"texte": "I need a proof that this distributed consensus algorithm remains safe under Byzantine faults, step by step please.", "modele_fort": "proposer", "graine": 2}
+{"texte": "Développe-moi un petit moteur de recherche interne : indexation, classement, API et tests, le tout en Python propre.", "modele_fort": "proposer", "graine": 2}
+{"texte": "Mon appli plante de façon aléatoire après plusieurs jours sans redémarrage, sans message d'erreur clair, aide-moi à traquer la fuite mémoire jusqu'à la source.", "modele_fort": "proposer", "graine": 2}
+{"texte": "Prépare un programme d'entraînement et de nutrition détaillé sur 12 semaines pour passer mon premier marathon, avec progression semaine par semaine.", "modele_fort": "proposer", "graine": 2}
+{"texte": "J'ai un plantage aléatoire en prod depuis 3 semaines, les logs font 40 000 lignes et personne trouve, tu peux creuser à fond et me lister les causes probables ?", "modele_fort": "proposer", "graine": 0}
+{"texte": "Conçois-moi le plan d'entraînement complet sur 12 semaines pour passer de 70 à 100 kg au développé couché, avec nutrition et récup", "modele_fort": "proposer", "graine": 0}
+{"texte": "Prove mathematically that this sorting algorithm is optimal in the worst case and give me a full formal proof, please", "modele_fort": "proposer", "graine": 0}
+{"texte": "Relis mon mémoire de 180 pages, vérifie la cohérence de tous les chapitres et propose une restructuration détaillée", "modele_fort": "proposer", "graine": 0}
+{"texte": "Développe-moi une appli complète de gestion de stock avec back, front, base de données, authentification et tests", "modele_fort": "proposer", "graine": 0}
+{"texte": "Explique-moi en profondeur pourquoi mon cluster Kubernetes perd des pods sous charge, avec une stratégie de diagnostic étape par étape et des correctifs à long terme", "modele_fort": "proposer", "graine": 0}
+{"texte": "Prouve de manière rigoureuse que l'ensemble des nombres premiers est infini, en détaillant chaque étape du raisonnement par l'absurde.", "modele_fort": "proposer", "graine": 1}
+{"texte": "Jarvis, analyse ce rapport technique de 240 pages et relève les incohérences entre les spécifications, les résultats de tests et les risques annoncés, avec une synthèse argumentée.", "modele_fort": "proposer", "graine": 1}
+{"texte": "Conçois l'architecture complète d'une plateforme de réservation capable de gérer 50000 connexions simultanées, la base de données, la sécurité, la montée en charge et le plan de déploiement.", "modele_fort": "proposer", "graine": 1}
+{"texte": "Depuis trois jours mon service plante seulement en production vers 3h du matin, sans erreur claire dans les logs, aide-moi à traquer ce bug intermittent en croisant toutes les pistes possibles.", "modele_fort": "proposer", "graine": 1}
+{"texte": "Build me a full workout and nutrition plan spread over twelve weeks, with progressive phases, deload weeks, and adjustments based on my progress each week.", "modele_fort": "proposer", "graine": 1}
+{"texte": "Développe-moi un petit logiciel de gestion d'inventaire avec interface, base locale, import CSV, historique des mouvements et tests, explique-moi chaque module.", "modele_fort": "proposer", "graine": 1}
+{"texte": "Conçois l'architecture complète de notre plateforme de réservation : microservices, base de données, file d'attente, plan de montée en charge pour 200 000 utilisateurs et analyse des compromis.", "modele_fort": "proposer", "graine": 5}
+{"texte": "Peux-tu analyser ce contrat de 90 pages, repérer toutes les clauses à risque, les incohérences entre annexes et me proposer une stratégie de renégociation argumentée ?", "modele_fort": "proposer", "graine": 5}
+{"texte": "jsuis bloqué depuis 3 jours sur un bug de concurrence qui corrompt la mémoire qu'une fois sur 1000 en prod, je te colle les traces et le code du scheduler, trouve la cause racine stp", "modele_fort": "proposer", "graine": 5}
+{"texte": "Démontre rigoureusement que cet algorithme de consensus termine toujours malgré deux nœuds byzantins, avec les invariants et les cas limites.", "modele_fort": "proposer", "graine": 5}
+{"texte": "Build me a full 6-week study plan to go from intermediate to advanced in organic chemistry, with weekly goals, problem sets, spaced repetition and mock exams.", "modele_fort": "proposer", "graine": 5}
+{"texte": "Écris un moteur de rendu 2D complet en Rust : gestion des sprites, collisions, caméra, chargement de niveaux depuis des fichiers JSON, avec les tests unitaires.", "modele_fort": "proposer", "graine": 5}
+{"texte": "Stp conceis l'architecture complète d'une appli de livraison avec paiements, suivi en temps réel et gestion des livreurs, avec les choix techniques détaillés", "modele_fort": "proposer", "graine": 4}
+{"texte": "Can you write me a full proof that every even integer greater than 2 can be tested against this new conjecture I invented, step by step with lemmas?", "modele_fort": "proposer", "graine": 4}
+{"texte": "Jarvis, analyse ce rapport financier de 180 pages et sors-moi les risques, les incohérences et un plan d'action priorisé pour le trimestre", "modele_fort": "proposer", "graine": 4}
+{"texte": "jsuis bloqué depuis 3 jours sur un bug qui apparait que en prod une fois sur mille, race condition probable, aide moi à le traquer methodiquement", "modele_fort": "proposer", "graine": 4}
+{"texte": "Élabore-moi un programme d'entraînement et de nutrition détaillé sur 12 semaines pour préparer un semi-marathon en tenant compte de ma blessure au genou", "modele_fort": "proposer", "graine": 4}
+{"texte": "Développe-moi un petit jeu vidéo en Python avec niveaux, sauvegarde, ennemis et interface, code complet et expliqué stp", "modele_fort": "proposer", "graine": 4}
+{"texte": "Jarvis, j'ai un bug d'interblocage qui n'apparaît qu'une fois sur mille en production avec 200 threads, tu peux m'aider à le traquer ?", "modele_fort": "proposer", "graine": 6}
+{"texte": "Conçois l'architecture complète d'une plateforme de streaming pour 500 000 utilisateurs simultanés, avec la redondance et la facturation.", "modele_fort": "proposer", "graine": 6}
+{"texte": "Démontre rigoureusement que cet algorithme de tri distribué termine toujours et reste correct même si un nœud tombe en panne.", "modele_fort": "proposer", "graine": 6}
+{"texte": "Analyse ce rapport financier de 280 pages et repère toutes les incohérences entre les annexes et le bilan principal stp.", "modele_fort": "proposer", "graine": 6}
+{"texte": "Hazme un plan detallado de 8 semanas para migrar todo nuestro sistema legacy a Kubernetes sin interrumpir el servicio.", "modele_fort": "proposer", "graine": 6}
+{"texte": "Développe-moi un petit langage de script complet avec son interpréteur, la gestion d'erreurs et une suite de tests.", "modele_fort": "proposer", "graine": 6}
+{"texte": "Refais-moi l'architecture complète de notre messagerie interne, avec file d'attente, rejeu des events et plan de migration sans downtime sur trois mois", "modele_fort": "proposer", "graine": 7}
+{"texte": "Je pige pas ce bug d'interblocage qui arrive une fois sur dix mille sous charge, voilà les logs et le code du scheduler, aide-moi à trouver la race condition et à la prouver", "modele_fort": "proposer", "graine": 7}
+{"texte": "Can you design a full distributed caching system for me, with consistency trade-offs, failover strategy and a step-by-step implementation roadmap?", "modele_fort": "proposer", "graine": 7}
+{"texte": "Analyse ces 180 pages de contrat, repère toutes les clauses risquées, compare-les à nos précédents accords et propose une stratégie de négo détaillée", "modele_fort": "proposer", "graine": 7}
+{"texte": "Écris-moi un compilateur jouet complet en Rust pour un petit langage typé, avec lexer, parser, vérif de types et génération de bytecode", "modele_fort": "proposer", "graine": 7}
+{"texte": "Démontre rigoureusement pourquoi cette suite définie par récurrence converge, et donne une majoration précise de la vitesse, stp", "modele_fort": "proposer", "graine": 7}
+{"texte": "J'ai un bug de concurrence qui n'apparaît qu'en prod une fois par semaine, voilà mes logs et le code : tu peux traquer la cause racine ?", "modele_fort": "proposer", "graine": 9}
+{"texte": "Conçois l'architecture complète de notre plateforme de paiement pour 2 millions d'utilisateurs, avec les choix techniques et les risques.", "modele_fort": "proposer", "graine": 9}
+{"texte": "Prove this inequality holds for all positive reals and make the proof fully rigorous, step by step please.", "modele_fort": "proposer", "graine": 9}
+{"texte": "Développe-moi un petit moteur de recherche complet en Rust, avec indexation, API et tests, pas juste un exemple.", "modele_fort": "proposer", "graine": 9}
+{"texte": "Analyse ce rapport financier de 180 pages, compare les trois derniers exercices et propose une stratégie d'investissement argumentée.", "modele_fort": "proposer", "graine": 9}
+{"texte": "Prépare un plan détaillé sur 8 semaines pour que je passe d'un niveau B1 à C1 en allemand, avec ressources, exercices quotidiens et évaluations.", "modele_fort": "proposer", "graine": 9}
+{"texte": "Conçois l'archi complète de notre nouvelle plateforme de paiement, avec les choix techniques, les risques et un planning de migration sur 3 mois stp", "modele_fort": "proposer", "graine": 8}
+{"texte": "Debug this intermittent race condition in our distributed lock implementation, it only happens under heavy load once a week and corrupts the queue", "modele_fort": "proposer", "graine": 8}
+{"texte": "Analyse ce rapport d'audit de 180 pages et sors-moi une synthèse détaillée avec tous les points critiques classés par impact", "modele_fort": "proposer", "graine": 8}
+{"texte": "Écris-moi un compilateur jouet complet en Python qui gère les fonctions, les boucles et les tableaux, avec des tests", "modele_fort": "proposer", "graine": 8}
+{"texte": "Démontre rigoureusement que cet algorithme de tri modifié reste correct même quand la liste contient des doublons et des valeurs nulles", "modele_fort": "proposer", "graine": 8}
+{"texte": "Jsuis bloqué depuis 2 jours sur un bug mémoire qui fait crasher le serveur que en prod, tu peux reprendre tt le code et chercher la cause profonde ?", "modele_fort": "proposer", "graine": 8}
+{"texte": "Jarvis, audite en profondeur mon module de paiement de 4000 lignes et explique-moi pourquoi les transactions échouent une fois sur mille seulement en production.", "modele_fort": "proposer", "graine": 10}
+{"texte": "Peux-tu concevoir l'architecture complète de notre plateforme de réservation, avec la base de données, les files d'attente, la résilience et un plan de déploiement sur six semaines ?", "modele_fort": "proposer", "graine": 10}
+{"texte": "Démontre rigoureusement que cet algorithme de tri parallélisé reste correct même quand deux processus modifient le même segment en même temps, stp.", "modele_fort": "proposer", "graine": 10}
+{"texte": "jarvis analyse tt ce rapport financier de 180 pages, repère les incohérences entre les annexes et propose un plan de redressement détaillé", "modele_fort": "proposer", "graine": 10}
+{"texte": "Build me a full inventory management program with barcode scanning, multi-store sync, user permissions and PDF reports, and walk me through the code.", "modele_fort": "proposer", "graine": 10}
+{"texte": "J'ai un bug rare dans mon pilote réseau : le système gèle après trois jours d'activité intense, aide-moi à raisonner sur les causes possibles et à concevoir un protocole de test pour l'isoler.", "modele_fort": "proposer", "graine": 10}
+{"texte": "Conçois l'architecture complète d'une plateforme de livraison en temps réel avec suivi GPS, dispatch automatique des coursiers et facturation pour 50 000 utilisateurs simultanés.", "modele_fort": "proposer", "graine": 11}
+{"texte": "jsuis bloqué depuis 3 jours sur une race condition qui plante mon serveur 1 fois sur 500 en prod, impossible à reproduire en local, aide-moi à traquer la cause racine stp", "modele_fort": "proposer", "graine": 11}
+{"texte": "Démontre rigoureusement que cet algorithme de consensus distribué reste sûr même si un tiers des nœuds devient byzantin.", "modele_fort": "proposer", "graine": 11}
+{"texte": "Design a multi-region disaster recovery strategy for our payment infrastructure, including failover, data consistency and a week-by-week rollout plan.", "modele_fort": "proposer", "graine": 11}
+{"texte": "Élabore un plan de migration sur 8 semaines pour passer notre monolithe vieillissant vers des micro-services sans interrompre le service.", "modele_fort": "proposer", "graine": 11}
+{"texte": "Développe un moteur de recherche complet avec indexation, tolérance aux fautes, classement par pertinence et API, le tout bien structuré et testé.", "modele_fort": "proposer", "graine": 11}
+{"texte": "Stp Jarvis, tu peux me concevoir l'architecture complète d'un système de réservation distribué qui tient 20000 req/s avec paiement, annulation et file d'attente ?", "modele_fort": "proposer", "graine": 12}
+{"texte": "J'ai un bug d'interblocage qui n'apparaît qu'une fois sur mille en prod sur mon service Go, je te colle les logs et le code, on peut chercher la cause racine ensemble ?", "modele_fort": "proposer", "graine": 12}
+{"texte": "Help me prove this lemma about convergence of stochastic gradient descent under non-convex assumptions, I keep getting stuck on the third step", "modele_fort": "proposer", "graine": 12}
+{"texte": "Jarvis aide-moi à bâtir un plan d'entraînement marathon sur 12 semaines en tenant compte de ma VMA, mes dispos et mon ancienne blessure au genou", "modele_fort": "proposer", "graine": 12}
+{"texte": "je dois analyser ce rapport financier de 180 pages et en sortir les risques cachés, les incohérences entre les annexes et une reco argumentée, tu t'en charges ?", "modele_fort": "proposer", "graine": 12}
+{"texte": "mtn je veux coder un petit moteur de jeu 2D en Rust avec physique, sprites et sauvegarde, on le fait module par module proprement ?", "modele_fort": "proposer", "graine": 12}
+{"texte": "Conçois-moi l'architecture complète d'une plateforme de réservation capable de tenir 50 000 utilisateurs simultanés, avec choix des bases de données et plan de déploiement.", "modele_fort": "proposer", "graine": 13}
+{"texte": "J'ai un bug de concurrence qui n'apparaît qu'une fois sur mille en production, voici 800 lignes de logs, aide-moi à trouver la cause racine.", "modele_fort": "proposer", "graine": 13}
+{"texte": "Please analyze this 280-page merger agreement and draft a detailed risk memo with clause-by-clause recommendations for our legal team.", "modele_fort": "proposer", "graine": 13}
+{"texte": "Élabore un plan de migration de notre vieux système vers le cloud sur huit semaines, équipe par équipe, avec les risques et les solutions de repli.", "modele_fort": "proposer", "graine": 13}
+{"texte": "Démontre rigoureusement ce lemme d'algèbre linéaire pour mon chapitre de thèse, je bloque sur l'étape avec les espaces quotients depuis des jours.", "modele_fort": "proposer", "graine": 13}
+{"texte": "stp tu peux me coder une appli complète de gestion de stock avec inventaire, alertes, exports comptables et gestion des rôles ? Ça va être gros", "modele_fort": "proposer", "graine": 13}
+{"texte": "Conçois-moi l'architecture complète de notre plateforme de réservation, avec la gestion des paiements, la prévention de la fraude et un plan de montée en charge pour 200 000 utilisateurs simultanés.", "modele_fort": "proposer", "graine": 14}
+{"texte": "I've been chasing an intermittent race condition in our distributed cache for weeks — it only appears under heavy load, can you help me design a reproduction strategy and trace the root cause?", "modele_fort": "proposer", "graine": 14}
+{"texte": "Peux-tu démontrer rigoureusement que cet algorithme de tri parallélisé reste correct même quand trois nœuds tombent en panne en pleine exécution ?", "modele_fort": "proposer", "graine": 14}
+{"texte": "Lis ce rapport d'audit de 180 pages et fais-moi une synthèse détaillée des risques, avec des recommandations classées par priorité et par coût.", "modele_fort": "proposer", "graine": 14}
+{"texte": "jsuis bloqué, faut que tu m'écrives un petit moteur de recherche complet avec indexation, tolérance aux fautes et classement par pertinence stp", "modele_fort": "proposer", "graine": 14}
+{"texte": "Elabore un plan d'entraînement sur huit semaines pour que je passe d'un niveau intermédiaire à avancé en piano, avec des exercices quotidiens progressifs et des bilans chaque dimanche.", "modele_fort": "proposer", "graine": 14}
+{"texte": "Conçois l'architecture complète de notre plateforme e-commerce pour 2 millions d'utilisateurs, avec choix techniques, schéma de données, plan de migration et estimation des coûts sur 6 mois.", "modele_fort": "proposer", "graine": 15}
+{"texte": "Peux-tu analyser ce dossier juridique de 450 pages, repérer les clauses contradictoires entre les annexes et me proposer une stratégie d'argumentation détaillée ?", "modele_fort": "proposer", "graine": 15}
+{"texte": "jsuis bloqué sur un bug de concurrence qui apparaît une fois sur mille en prod, voilà 3 jours de logs et le code du scheduler, trouve la cause racine stp", "modele_fort": "proposer", "graine": 15}
+{"texte": "Write a full proof that this conjecture about prime gaps holds for the cases described in my 40-page notes, checking every lemma carefully.", "modele_fort": "proposer", "graine": 15}
+{"texte": "Élabore un programme d'entraînement et de nutrition sur 12 semaines pour préparer un ultra-trail de 80 km, en tenant compte de ma blessure au genou et de mes analyses sanguines jointes.", "modele_fort": "proposer", "graine": 15}
+{"texte": "Développe-moi un petit moteur de jeu 2D en Rust avec gestion des collisions, sauvegarde des parties et éditeur de niveaux, code complet et expliqué.", "modele_fort": "proposer", "graine": 15}
+{"texte": "Conçois l'architecture complète de notre plateforme de paiements pour 2 millions d'utilisateurs, avec les choix techniques justifiés et un plan de déploiement sur trois mois.", "modele_fort": "proposer", "graine": 17}
+{"texte": "J'ai un bug intermittent de corruption mémoire dans notre driver en C qui n'apparaît qu'en production une fois par semaine, tu peux analyser les 4000 lignes et les core dumps pour trouver la cause racine ?", "modele_fort": "proposer", "graine": 17}
+{"texte": "Prove formally that this distributed consensus protocol remains safe under asynchronous network partitions, step by step please.", "modele_fort": "proposer", "graine": 17}
+{"texte": "Analyse ce rapport financier de 180 pages, repère les incohérences entre les annexes et propose une stratégie de restructuration détaillée.", "modele_fort": "proposer", "graine": 17}
+{"texte": "Écris-moi un moteur de recherche interne complet en Python avec indexation, classement BM25, API et tests, prêt à déployer.", "modele_fort": "proposer", "graine": 17}
+{"texte": "Prépare un plan d'étude de 8 semaines pour réussir mon examen d'algèbre linéaire avancée, avec exercices progressifs et corrections chaque jour.", "modele_fort": "proposer", "graine": 17}
+{"texte": "Conçois-moi l'architecture complète d'une appli de livraison pour 50 000 utilisateurs, avec le schéma de bdd, les API et le plan de déploiement.", "modele_fort": "proposer", "graine": 16}
+{"texte": "Peux-tu démontrer rigoureusement que tout groupe fini simple d'ordre pair contient un élément d'ordre 2, en détaillant chaque étape ?", "modele_fort": "proposer", "graine": 16}
+{"texte": "J'ai un bug qui n'apparaît qu'une fois sur mille en production quand deux threads écrivent en même temps, je te colle les logs, aide-moi à trouver la cause racine.", "modele_fort": "proposer", "graine": 16}
+{"texte": "Analyse ce rapport financier de 180 pages et sors-moi une stratégie d'investissement sur trois ans avec les risques chiffrés.", "modele_fort": "proposer", "graine": 16}
+{"texte": "Build me a full compiler in Rust for a small language with types, closures and a garbage collector, step by step.", "modele_fort": "proposer", "graine": 16}
+{"texte": "Prépare-moi un programme d'entraînement et de nutrition sur 12 semaines pour un triathlon, adapté semaine par semaine à mes résultats.", "modele_fort": "proposer", "graine": 16}
+{"texte": "Jarvis, peux-tu me concevoir l'architecture complète d'une plateforme de réservation avec paiement, notifications et gestion des annulations ?", "modele_fort": "proposer", "graine": 18}
+{"texte": "I need a full multi-week study plan to prepare for my distributed systems exam, with exercises and progress checks each day.", "modele_fort": "proposer", "graine": 18}
+{"texte": "stp analyse ce rapport de 180 pages, repère les incohérences entre les chiffres et rédige une synthèse argumentée avec recommandations", "modele_fort": "proposer", "graine": 18}
+{"texte": "Jarvis, j'ai un bug d'accès concurrent qui n'apparaît qu'en production une fois par mois, aide-moi à le reproduire et à trouver la cause racine", "modele_fort": "proposer", "graine": 18}
+{"texte": "Démontre rigoureusement que cet algorithme de tri modifié reste correct même quand la liste contient des doublons, étape par étape", "modele_fort": "proposer", "graine": 18}
+{"texte": "Écris-moi un jeu de stratégie complet en Python avec sauvegarde, IA adverse et une suite de tests automatisés", "modele_fort": "proposer", "graine": 18}
+{"texte": "Stp Jarvis, analyse en profondeur ce rapport financier de 300 pages, compare les ratios sur 5 ans et propose une stratégie d'optimisation des coûts détaillée", "modele_fort": "proposer", "graine": 19}
+{"texte": "Jarvis, peux-tu architecturer de A à Z notre plateforme e-commerce : backend, base de données, paiement, sécurité et plan de déploiement sur 6 semaines ?", "modele_fort": "proposer", "graine": 19}
+{"texte": "jsuis bloqué depuis 3j sur une fuite mémoire intermittente en prod, voici les logs, les traces et le code du service, tu peux chercher la cause racine stp ?", "modele_fort": "proposer", "graine": 19}
+{"texte": "Demuestra paso a paso este teorema de geometría algebraica y verifica cada etapa del razonamiento, por favor Jarvis", "modele_fort": "proposer", "graine": 19}
+{"texte": "Jarvis, écris-moi un programme complet de gestion de stock avec interface, authentification, exports PDF et tests unitaires", "modele_fort": "proposer", "graine": 19}
+{"texte": "Peux-tu me construire un plan d'entraînement et de nutrition personnalisé sur 12 semaines en tenant compte de ma blessure au genou, de mes analyses et de mes objectifs ?", "modele_fort": "proposer", "graine": 19}
+{"texte": "Conçois-moi l'architecture complète d'un système de paiement capable de gérer 50 000 transactions par seconde, avec les choix techniques justifiés.", "modele_fort": "proposer", "graine": 20}
+{"texte": "Peux-tu analyser en détail ce rapport financier de 180 pages et me sortir les risques, les incohérences et un plan d'action argumenté ?", "modele_fort": "proposer", "graine": 20}
+{"texte": "jsuis bloqué depuis 3 jours sur un bug de concurrence qui crashe mon serveur que de façon aléatoire, tu peux m'aider à le traquer de A à Z stp ?", "modele_fort": "proposer", "graine": 20}
+{"texte": "Demuestra paso a paso que este algoritmo de ordenación es correcto y analiza su complejidad en el peor caso, por favor.", "modele_fort": "proposer", "graine": 20}
+{"texte": "Écris-moi un programme complet de gestion de bibliothèque avec base de données, interface graphique, gestion des utilisateurs et des emprunts.", "modele_fort": "proposer", "graine": 20}
+{"texte": "Prépare-moi un plan d'entraînement et de nutrition détaillé sur 12 semaines pour préparer un marathon, adapté semaine par semaine à ma progression.", "modele_fort": "proposer", "graine": 20}
+{"texte": "Conçois l'architecture complète de notre plateforme de paiement pour 2 millions d'utilisateurs, avec la gestion des fraux, les choix de bases de données et un plan de migration progressive.", "modele_fort": "proposer", "graine": 21}
+{"texte": "Je bloque depuis trois jours sur un bug de concurrence qui ne se produit qu'en production environ une fois sur mille, peux-tu analyser ces logs et formuler des hypothèses jusqu'à trouver la cause racine ?", "modele_fort": "proposer", "graine": 21}
+{"texte": "Lis ce rapport d'audit de 180 pages et construis-moi une analyse critique détaillée, avec les risques prioritaires, les contradictions entre les chapitres et un plan d'action argumenté.", "modele_fort": "proposer", "graine": 21}
+{"texte": "Élabore un programme d'entraînement et de nutrition sur 16 semaines pour préparer un ultra-trail, en tenant compte de ma blessure au genou et de mes résultats des derniers mois.", "modele_fort": "proposer", "graine": 21}
+{"texte": "Démontre rigoureusement que cet algorithme de tri distribué termine toujours et respecte la borne de complexité annoncée, même en cas de panne de plusieurs nœuds.", "modele_fort": "proposer", "graine": 21}
+{"texte": "Build me a full inventory management app with authentication, barcode scanning, offline sync and multi-warehouse reporting, starting from the architecture down to the code structure.", "modele_fort": "proposer", "graine": 21}
+{"texte": "Stp, faut que tu m'aides à concevoir toute l'architecture de mon appli de livraison : base de données, API, sécurité, paiements, et comment ça tient si on passe à 100 000 utilisateurs.", "modele_fort": "proposer", "graine": 22}
+{"texte": "J'ai un bug de concurrence qui apparaît une fois sur mille dans mon service Rust, les logs sont là, peux-tu traquer la cause racine et me proposer un correctif fiable ?", "modele_fort": "proposer", "graine": 22}
+{"texte": "Can you analyze this 180-page technical due diligence report and build a risk matrix with recommendations for the board?", "modele_fort": "proposer", "graine": 22}
+{"texte": "Il faut que je prépare un plan de révision complet sur 6 semaines pour mon concours de médecine, chapitre par chapitre, avec des QCM et des bilans chaque dimanche.", "modele_fort": "proposer", "graine": 22}
+{"texte": "Démontre-moi rigoureusement ce théorème d'algèbre linéaire pas à pas, en justifiant chaque étape, je dois le présenter demain à l'oral.", "modele_fort": "proposer", "graine": 22}
+{"texte": "jsuis bloqué, faut coder un mini compilateur complet en Python : lexer, parser, génération de code, avec les tests stp", "modele_fort": "proposer", "graine": 22}
+{"texte": "Mon service de paiement échoue de façon aléatoire sous forte charge, je te joins les logs et le code du worker, traque la race condition.", "modele_fort": "proposer", "graine": 23}
+{"texte": "Peux-tu analyser ce contrat de 120 pages et repérer toutes les clauses qui nous exposent à un risque juridique ?", "modele_fort": "proposer", "graine": 23}
+{"texte": "Design me a distributed caching architecture that stays consistent across three regions, with failure scenarios explained.", "modele_fort": "proposer", "graine": 23}
+{"texte": "J'ai un memory leak qui n'apparaît qu'après plusieurs jours en prod sur les instances ARM, aide-moi à isoler la cause à partir de ces dumps.", "modele_fort": "proposer", "graine": 23}
+{"texte": "Il me faut un plan de migration complet sur deux mois pour passer notre monolithe à des microservices sans interruption de service.", "modele_fort": "proposer", "graine": 23}
+{"texte": "Écris-moi un moteur de recherche interne complet avec indexation, filtres et API, prêt à brancher sur notre base.", "modele_fort": "proposer", "graine": 23}
+{"texte": "I need a full migration plan to move our monolith to microservices over the next three months, including risks, rollback steps and how the teams should be split.", "modele_fort": "proposer", "graine": 24}
+{"texte": "Can you debug this intermittent race condition? It only crashes once every few thousand runs in production, here are the logs, the thread dumps and the relevant modules to trace through.", "modele_fort": "proposer", "graine": 24}
+{"texte": "Prove formally that this consensus protocol remains safe under asynchronous network conditions, and point out any hidden assumptions in my draft argument.", "modele_fort": "proposer", "graine": 24}
+{"texte": "jsuis bloqué, faut analyser ce rapport d'audit de 180 pages et m'en faire une synthèse détaillée avec les failles classées par gravité stp", "modele_fort": "proposer", "graine": 24}
+{"texte": "Build me a complete personal finance app from scratch — backend, database schema, API, and a working web frontend with authentication and charts.", "modele_fort": "proposer", "graine": 24}
+{"texte": "I want a detailed 8-week study roadmap to master advanced algorithms, with weekly milestones, practice problems, and checkpoints to test whether I'm actually ready to move on.", "modele_fort": "proposer", "graine": 24}
+{"texte": "Conçois-moi l'architecture complète d'une plateforme de paiement pour 2 millions d'utilisateurs, avec choix techno, schéma de base de données, plan de scalabilité et analyse des risques sur 3 mois.", "modele_fort": "proposer", "graine": 25}
+{"texte": "Can you debug this intermittent race condition in my Rust async runtime? It only crashes once every few thousand runs under load and I’ve been stuck on it for days.", "modele_fort": "proposer", "graine": 25}
+{"texte": "Analyse ce rapport financier de 180 pages, compare-le aux trois années précédentes, repère les incohérences et propose un plan d'action détaillé.", "modele_fort": "proposer", "graine": 25}
+{"texte": "Élabore un programme d'entraînement et de nutrition complet sur 12 semaines pour un marathon, adapté semaine par semaine à mes résultats.", "modele_fort": "proposer", "graine": 25}
+{"texte": "Write a full compiler in Python for my toy language — lexer, parser, type checker, and code generator — with tests and documentation.", "modele_fort": "proposer", "graine": 25}
+{"texte": "Demuestra paso a paso que la raíz cuadrada de 2 es irracional y luego generaliza la prueba para cualquier primo.", "modele_fort": "proposer", "graine": 25}
+{"texte": "Can you design the full architecture for a multi-region payment platform that has to handle fraud checks, ledger reconciliation, and PCI compliance, and walk me through the trade-offs?", "modele_fort": "proposer", "graine": 27}
+{"texte": "J'ai un bug intermittent de corruption mémoire dans notre driver qui n'apparaît qu'après plusieurs jours en production, tu peux analyser les dumps et m'aider à isoler la cause racine ?", "modele_fort": "proposer", "graine": 27}
+{"texte": "Prove that this distributed consensus variant still guarantees safety when up to a third of the nodes can behave arbitrarily, and point out where my draft argument breaks.", "modele_fort": "proposer", "graine": 27}
+{"texte": "Please read this 180-page due diligence report on a potential acquisition and build me a risk model, valuation sensitivities, and questions for management.", "modele_fort": "proposer", "graine": 27}
+{"texte": "I need a detailed 10-week plan to migrate our monolith to microservices without downtime, including milestones, rollback strategies, and team assignments.", "modele_fort": "proposer", "graine": 27}
+{"texte": "Write a complete compiler backend for my toy language — lexer, type checker, optimizer, and code generation for ARM64 — with tests for each stage.", "modele_fort": "proposer", "graine": 27}
+{"texte": "Can you design the full architecture for a multi-tenant billing platform, including failure modes, data flows, and scaling to a million users?", "modele_fort": "proposer", "graine": 26}
+{"texte": "jsuis bloqué depuis 3 jours sur un deadlock qui apparaît que en prod sous charge, je te colle les logs et le code du scheduler, tu peux trouver la cause racine stp ?", "modele_fort": "proposer", "graine": 26}
+{"texte": "Please prove that this distributed consensus variant remains safe when two nodes crash during leader election, step by step.", "modele_fort": "proposer", "graine": 26}
+{"texte": "I need a detailed 6-week plan to migrate our monolith to microservices without downtime, with risks, milestones and rollback steps for each phase.", "modele_fort": "proposer", "graine": 26}
+{"texte": "Analyze this 180-page technical audit I uploaded, cross-check all the figures against the appendices and flag every inconsistency.", "modele_fort": "proposer", "graine": 26}
+{"texte": "Write a complete interpreter for a small typed language — parser, type checker, evaluator and tests — and explain the tricky design choices.", "modele_fort": "proposer", "graine": 26}
+{"texte": "Bonjour Jarvis, quelle heure est-il à Lyon ?", "modele_fort": "non", "graine": 29}
+{"texte": "stp convertis 50 euros en dollars, c'est urgent", "modele_fort": "non", "graine": 29}
+{"texte": "Hi Jarvis, can you translate 'thank you' into Italian?", "modele_fort": "non", "graine": 29}
+{"texte": "Dis-moi la météo de demain matin à Nantes", "modele_fort": "non", "graine": 29}
+{"texte": "jsuis pressé, rappelle moi mon rdv de 14h en deux mots", "modele_fort": "non", "graine": 29}
+{"texte": "Jarvis, mets un minuteur de 10 minutes pour les pâtes", "modele_fort": "non", "graine": 29}
+{"texte": "Can you design the complete architecture for migrating our monolith to microservices over the next six months, including data migration risks?", "modele_fort": "proposer", "graine": 28}
+{"texte": "jsuis bloqué depuis des jours sur un bug de concurrence qui crashe que en prod, tu peux analyser tt le code et trouver la cause ?", "modele_fort": "proposer", "graine": 28}
+{"texte": "Please write a detailed proof that this new consensus algorithm remains safe under asynchronous network conditions.", "modele_fort": "proposer", "graine": 28}
+{"texte": "I need a full business plan for launching my bakery chain over the next year, with budgets, hiring, and locations.", "modele_fort": "proposer", "graine": 28}
+{"texte": "Analiza este contrato de 80 páginas y dime todos los riesgos legales cláusula por cláusula, porfa.", "modele_fort": "proposer", "graine": 28}
+{"texte": "Build me a complete photo editing app from scratch with layers, filters, undo history and export to PNG.", "modele_fort": "proposer", "graine": 28}
+{"texte": "Convertis 250 grammes en onces stp", "modele_fort": "non", "graine": 30}
+{"texte": "Traduis-moi « je suis en retard » en anglais", "modele_fort": "non", "graine": 30}
+{"texte": "jsuis né le 12 mars 1998, j'ai quel âge mtn ?", "modele_fort": "non", "graine": 30}
+{"texte": "Trie ces mots par ordre alphabétique : banane, pomme, raisin, orange et kiwi.", "modele_fort": "non", "graine": 30}
+{"texte": "What is the capital of Australia?", "modele_fort": "non", "graine": 30}
+{"texte": "Tu peux me rappeler en une phrase ce qu'est la gravité ?", "modele_fort": "non", "graine": 30}
+{"texte": "Convertis 12 kilomètres en miles stp.", "modele_fort": "non", "graine": 31}
+{"texte": "Trie cette liste par ordre alphabétique : pomme, banane, cerise, abricot.", "modele_fort": "non", "graine": 31}
+{"texte": "jsuis bloqué, comment on écrit « anniversaire » ? Y'a deux n ou un seul ?", "modele_fort": "non", "graine": 31}
+{"texte": "Please translate \"thank you very much\" into Italian.", "modele_fort": "non", "graine": 31}
+{"texte": "Mets ce titre en majuscules : les recettes de grand-mère", "modele_fort": "non", "graine": 31}
+{"texte": "Donne-moi un synonyme sympa pour « rapide », c'est pour un petit mail.", "modele_fort": "non", "graine": 31}
+{"texte": "Convertis 45 euros en dollars stp", "modele_fort": "non", "graine": 33}
+{"texte": "Trie cette liste de courses par ordre alphabétique : pain, lait, œufs, pommes", "modele_fort": "non", "graine": 33}
+{"texte": "Can you translate 'good luck tomorrow' into Spanish for me?", "modele_fort": "non", "graine": 33}
+{"texte": "Rappelle-moi d'acheter du dentifrice ce soir à 19h", "modele_fort": "non", "graine": 33}
+{"texte": "jsuis en retard, envoie juste 'j'arrive dans 5 min' à Karim stp", "modele_fort": "non", "graine": 33}
+{"texte": "Résume ce paragraphe en une seule phrase courte", "modele_fort": "non", "graine": 33}
+{"texte": "Trie ces trois villes par ordre alphabétique : Lyon, Paris, Bordeaux.", "modele_fort": "non", "graine": 32}
+{"texte": "Convertis 72 degrés Fahrenheit en Celsius stp.", "modele_fort": "non", "graine": 32}
+{"texte": "How do you say \"merci pour ton aide\" in Italian?", "modele_fort": "non", "graine": 32}
+{"texte": "Corrige les fautes dans cette phrase : je vai au magasin demain matin.", "modele_fort": "non", "graine": 32}
+{"texte": "Donne-moi la capitale du Portugal.", "modele_fort": "non", "graine": 32}
+{"texte": "jsuis en retard, écris un ptit message d'excuse de 2 lignes à Karim stp", "modele_fort": "non", "graine": 32}
+{"texte": "Traduis « bon courage pour demain » en anglais stp.", "modele_fort": "non", "graine": 35}
+{"texte": "C'est quoi la capitale de la Finlande ?", "modele_fort": "non", "graine": 35}
+{"texte": "Rappelle-moi d'acheter du pain à 18 h.", "modele_fort": "non", "graine": 35}
+{"texte": "jsuis né le 3 mars 1998, j'ai quel âge mtn ?", "modele_fort": "non", "graine": 35}
+{"texte": "Convert 250 grams into ounces please.", "modele_fort": "non", "graine": 35}
+{"texte": "Trie ces trois mots par ordre alphabétique : banane, pomme, cerise.", "modele_fort": "non", "graine": 35}
+{"texte": "Convertis 3 heures en minutes stp", "modele_fort": "non", "graine": 34}
+{"texte": "Trie ces prénoms par ordre alphabétique : Léa, Marc, Zoé, Hugo", "modele_fort": "non", "graine": 34}
+{"texte": "jsuis né le 12 mai, c quel signe astrologique ?", "modele_fort": "non", "graine": 34}
+{"texte": "Résume ce paragraphe en une seule phrase : Le renard traversa lentement la cour enneigée, s'arrêta près du puits, écouta le silence, puis repartit vers la forêt sans se retourner.", "modele_fort": "non", "graine": 34}
+{"texte": "Traduis « bon anniversaire » en italien stp", "modele_fort": "non", "graine": 36}
+{"texte": "Trie ces trois dates de la plus ancienne à la plus récente : 12 mai, 3 janvier, 28 septembre.", "modele_fort": "non", "graine": 36}
+{"texte": "can you convert 45 euros to dollars please?", "modele_fort": "non", "graine": 36}
+{"texte": "Renomme ce fichier en ajoutant la date d'aujourd'hui à la fin, c tout", "modele_fort": "non", "graine": 36}
+{"texte": "jsuis en retard, préviens Léa que j'arrive dans 10 min", "modele_fort": "non", "graine": 36}
+{"texte": "Donne-moi un synonyme de « rapide », vite fait.", "modele_fort": "non", "graine": 36}
+{"texte": "Traduis « bonne nuit » en espagnol stp", "modele_fort": "non", "graine": 37}
+{"texte": "Cuál es la capital de Portugal?", "modele_fort": "non", "graine": 37}
+{"texte": "Donne-moi une idée de smoothie à la banane pour demain matin", "modele_fort": "non", "graine": 37}
+{"texte": "Convertis 250 grammes en tasses pour ma recette de gâteau", "modele_fort": "non", "graine": 37}
+{"texte": "C'est quoi la différence entre « leur » et « leurs » ?", "modele_fort": "non", "graine": 37}
+{"texte": "Traduis « bon anniversaire » en espagnol stp", "modele_fort": "non", "graine": 38}
+{"texte": "Trie ces prénoms par ordre alphabétique : Léa, Hugo, Manon, Karim.", "modele_fort": "non", "graine": 38}
+{"texte": "Convert this sentence to uppercase: the meeting is cancelled", "modele_fort": "non", "graine": 38}
+{"texte": "jsuis né un mardi, quel jour de la semaine tombe mon anniversaire en 2027 ?", "modele_fort": "non", "graine": 38}
+{"texte": "Donne-moi une idée de titre pour ma photo de plage.", "modele_fort": "non", "graine": 38}
+{"texte": "Résume ce paragraphe en une phrase : Le chat dort sur le canapé depuis ce matin et ne bouge que pour manger.", "modele_fort": "non", "graine": 38}
+{"texte": "Traduis « merci beaucoup » en italien, stp.", "modele_fort": "non", "graine": 41}
+{"texte": "Convertis 250 euros en centimes.", "modele_fort": "non", "graine": 41}
+{"texte": "What does \"bonjour\" mean in English?", "modele_fort": "non", "graine": 41}
+{"texte": "Range ces trois mots par ordre alphabétique : banane, pomme, cerise.", "modele_fort": "non", "graine": 41}
+{"texte": "C'est quoi la capitale de l'Espagne ?", "modele_fort": "non", "graine": 41}
+{"texte": "Corrige juste cette faute : « je suis allée au magazin ».", "modele_fort": "non", "graine": 41}
+{"texte": "traduis \"merci beaucoup\" en espagnol stp", "modele_fort": "non", "graine": 39}
+{"texte": "Combien ça fait 128 + 47 ?", "modele_fort": "non", "graine": 39}
+{"texte": "jsuis en retard, mets un réveil à 7h demain mtn", "modele_fort": "non", "graine": 39}
+{"texte": "Convertis 250 grammes en kilogrammes.", "modele_fort": "non", "graine": 39}
+{"texte": "Tell me what day of the week it is today, please.", "modele_fort": "non", "graine": 39}
+{"texte": "Réécris cette phrase au passé : je mange une pomme.", "modele_fort": "non", "graine": 39}
+{"texte": "Traduis « bon appétit » en italien stp", "modele_fort": "non", "graine": 40}
+{"texte": "Convertis 45 minutes en heures, vite fait", "modele_fort": "non", "graine": 40}
+{"texte": "ok nickel, merci bcp Jarvis !", "modele_fort": "non", "graine": 40}
+{"texte": "Range ces mots alphabétiquement : banane, pomme, kiwi, orange", "modele_fort": "non", "graine": 40}
+{"texte": "Please convert 10 kilometers to miles for me", "modele_fort": "non", "graine": 40}
+{"texte": "Écris-moi la date d'aujourd'hui en toutes lettres", "modele_fort": "non", "graine": 40}
+{"texte": "Traduis « merci beaucoup pour ton aide » en espagnol stp.", "modele_fort": "non", "graine": 42}
+{"texte": "jsuis bloqué, c quoi la capitale de l'Australie ?", "modele_fort": "non", "graine": 42}
+{"texte": "Peux-tu mettre ces prénoms par ordre alphabétique : Léa, Marc, Zoé, Hugo ?", "modele_fort": "non", "graine": 42}
+{"texte": "Corrige les fautes dans cette phrase : « je suis aller au marché hier soir ».", "modele_fort": "non", "graine": 42}
+{"texte": "How do you say \"good luck\" in Italian?", "modele_fort": "non", "graine": 42}
+{"texte": "Jarvis, combien font 15 % de 240 euros ?", "modele_fort": "non", "graine": 42}
+{"texte": "Traduis « merci beaucoup » en italien stp", "modele_fort": "non", "graine": 44}
+{"texte": "ajoute du lait à ma liste de courses", "modele_fort": "non", "graine": 44}
+{"texte": "Il fait quel temps à Lyon jeudi ?", "modele_fort": "non", "graine": 44}
+{"texte": "Écris Lina pour lui souhaiter un bon anniversaire, juste un petit texto sympa", "modele_fort": "non", "graine": 44}
+{"texte": "Convertis 250 euros en livres sterling stp", "modele_fort": "non", "graine": 45}
+{"texte": "Trie cette liste par ordre alphabétique : pomme, banane, cerise, datte.", "modele_fort": "non", "graine": 45}
+{"texte": "Can you translate \"thank you very much\" into Italian please?", "modele_fort": "non", "graine": 45}
+{"texte": "met en majuscules le titre de mon annonce mtn", "modele_fort": "non", "graine": 45}
+{"texte": "Corrige juste l'orthographe de cette phrase : je suis aller au marché ce matin.", "modele_fort": "non", "graine": 45}
+{"texte": "Fais-moi un résumé en deux lignes de ce paragraphe, c'est pour un mail rapide.", "modele_fort": "non", "graine": 45}
+{"texte": "renomme le fichier rapport_final_v2 en rapport définitif stp", "modele_fort": "non", "graine": 43}
+{"texte": "can you translate 'good morning everyone' into French for me?", "modele_fort": "non", "graine": 43}
+{"texte": "traduis-moi cette phrase en allemand : je viendrai demain matin", "modele_fort": "non", "graine": 43}
+{"texte": "mets tous ces prénoms par ordre alphabétique : Léa, Hugo, Anaïs, Marc, Zoé", "modele_fort": "non", "graine": 43}
+{"texte": "Jarvis, convertis 45 euros en dollars, ça fait combien environ ?", "modele_fort": "non", "graine": 43}
+{"texte": "abrège ce paragraphe en deux lignes maximum, jsuis pressé", "modele_fort": "non", "graine": 43}
+{"texte": "Jarvis, mets mes notes dans l'ordre alphabétique : banane, pomme, kiwi, orange.", "modele_fort": "non", "graine": 46}
+{"texte": "combien ça fait 45 dollars en euros environ ?", "modele_fort": "non", "graine": 46}
+{"texte": "Could you summarize this meeting note in one sentence?", "modele_fort": "non", "graine": 46}
+{"texte": "jsuis crevé, rappelle moi juste d'acheter du pain demain matin", "modele_fort": "non", "graine": 46}
+{"texte": "Convertis 2,5 km en miles, réponse rapide merci", "modele_fort": "non", "graine": 46}
+{"texte": "Dis Jarvis, il est quelle heure à Montréal en ce moment ?", "modele_fort": "non", "graine": 47}
+{"texte": "jsuis bloqué, 45 + 128 ça fait combien stp ?", "modele_fort": "non", "graine": 47}
+{"texte": "Transforma esta frase al francés: 'El zorro salta sobre el perro perezoso'.", "modele_fort": "non", "graine": 47}
+{"texte": "Tu peux me rappeler d'acheter du pain demain à 8h ?", "modele_fort": "non", "graine": 47}
+{"texte": "Épelle-moi le mot \"hippopotame\" lentement, merci.", "modele_fort": "non", "graine": 47}
+{"texte": "Jarvis, combien de jours reste-t-il avant le 14 juillet ?", "modele_fort": "non", "graine": 47}
+{"texte": "Traduis « merci beaucoup » en espagnol pour moi.", "modele_fort": "non", "graine": 48}
+{"texte": "jsuis bloqué, écris une fonction qui inverse une chaîne en JS, vite fait", "modele_fort": "non", "graine": 48}
+{"texte": "Sort these three names alphabetically for me: Zoe, Anna, Marc.", "modele_fort": "non", "graine": 48}
+{"texte": "Résume ce petit paragraphe en une seule phrase, Jarvis.", "modele_fort": "non", "graine": 48}
+{"texte": "Donne-moi la capitale du Portugal, c'est tout.", "modele_fort": "non", "graine": 48}
+{"texte": "Convertis 250 euros en livres sterling avec le taux du jour.", "modele_fort": "non", "graine": 49}
+{"texte": "Traduci 'la réunion est reportée' en espagnol stp", "modele_fort": "non", "graine": 49}
+{"texte": "Trie cette liste de prénoms par ordre alphabétique : Léa, Marc, Ana, Tom.", "modele_fort": "non", "graine": 49}
+{"texte": "Can you capitalize the first letter of every word in this title for me?", "modele_fort": "non", "graine": 49}
+{"texte": "mets ce texte en majuscules : bonjour tout le monde", "modele_fort": "non", "graine": 49}
+{"texte": "Abrège-moi ce paragraphe en une seule phrase courte.", "modele_fort": "non", "graine": 49}
+{"texte": "Traduis « merci beaucoup » en italien", "modele_fort": "non", "graine": 50}
+{"texte": "c koi la capitale du Pérou ?", "modele_fort": "non", "graine": 50}
+{"texte": "Rappelle-moi d'acheter du pain demain à 8h", "modele_fort": "non", "graine": 50}
+{"texte": "Can you set a timer for 10 minutes please?", "modele_fort": "non", "graine": 50}
+{"texte": "mdr bien vu pour la blague", "modele_fort": "non", "graine": 53}
+{"texte": "traduis-moi 'merci beaucoup' en italien stp", "modele_fort": "non", "graine": 53}
+{"texte": "c'est quoi la capitale de l'Islande ?", "modele_fort": "non", "graine": 53}
+{"texte": "mets un rappel demain à 8h pour arroser les plantes", "modele_fort": "non", "graine": 53}
+{"texte": "jsuis crevé, mets de la musique douce tt suite", "modele_fort": "non", "graine": 53}
+{"texte": "How do you say goodbye in Japanese?", "modele_fort": "non", "graine": 53}
+{"texte": "Convert 32 degrees Fahrenheit to Celsius for me.", "modele_fort": "non", "graine": 54}
+{"texte": "Traduis « il fait beau ce matin » en anglais, stp.", "modele_fort": "non", "graine": 54}
+{"texte": "Hey Jarvis, can you sort these names alphabetically: Leo, Mia, Ana, Tom?", "modele_fort": "non", "graine": 54}
+{"texte": "What's the past tense of the verb 'to run'?", "modele_fort": "non", "graine": 54}
+{"texte": "Give me a quick synonym for 'happy', just one word.", "modele_fort": "non", "graine": 54}
+{"texte": "How many minutes are there in 3 hours?", "modele_fort": "non", "graine": 54}
+{"texte": "Convertis 37 degrés Celsius en Fahrenheit stp", "modele_fort": "non", "graine": 52}
+{"texte": "Peux-tu traduire « la réunion est reportée à demain » en espagnol ?", "modele_fort": "non", "graine": 52}
+{"texte": "jsuis en retard, envoie juste « j'arrive dans 5 min » à Léa", "modele_fort": "non", "graine": 52}
+{"texte": "Quelle est la capitale du Portugal ?", "modele_fort": "non", "graine": 52}
+{"texte": "Resuma este artigo curto em três frases, por favor.", "modele_fort": "non", "graine": 52}
+{"texte": "Renomme ce fichier en facture_mars.pdf", "modele_fort": "non", "graine": 52}
+{"texte": "Traduis-moi cette phrase en anglais : je suis en retard au rendez-vous.", "modele_fort": "non", "graine": 51}
+{"texte": "Voilà la liste complète de mes courses (lait, œufs, riz, pommes, poulet, pâtes, tomates, café, pain, fromage, yaourts, beurre, carottes, oignons, chocolat) : remets-la simplement dans l’ordre alphabétique.", "modele_fort": "non", "graine": 51}
+{"texte": "jsuis bloqué, ca fait combien 15% de 240 ?", "modele_fort": "non", "graine": 51}
+{"texte": "Summarize this in one sentence: the meeting on Tuesday has been moved to Thursday morning because the client is traveling and the room was unavailable.", "modele_fort": "non", "graine": 51}
+{"texte": "Mets en majuscules tout ce texte : rapport hebdomadaire équipe support semaine 32 merci de votre patience", "modele_fort": "non", "graine": 51}
+{"texte": "Convert 42 euros to dollars, please.", "modele_fort": "non", "graine": 55}
+{"texte": "Trie ces trois prénoms par ordre alphabétique : Léa, Zoe, Anna.", "modele_fort": "non", "graine": 55}
+{"texte": "What's the capital of Norway?", "modele_fort": "non", "graine": 55}
+{"texte": "jsuis bloqué, comment on centre une div en css stp ?", "modele_fort": "non", "graine": 55}
+{"texte": "Translate 'good morning' into Spanish.", "modele_fort": "non", "graine": 55}
+{"texte": "Resume este texto en una sola frase: el gato durmió toda la tarde en el sofá.", "modele_fort": "non", "graine": 55}
+{"texte": "Jarvis, translate 'merci beaucoup' into Spanish please.", "modele_fort": "non", "graine": 56}
+{"texte": "Convertis 25 euros en dollars stp, juste le taux du jour.", "modele_fort": "non", "graine": 56}
+{"texte": "jsuis en retard, dis-moi l'heure exacte mtn", "modele_fort": "non", "graine": 56}
+{"texte": "Sort this list alphabetically: banana, apple, kiwi, pear.", "modele_fort": "non", "graine": 56}
+{"texte": "What's the capital city of Portugal?", "modele_fort": "non", "graine": 56}
+{"texte": "Reformule cette phrase en plus poli : envoie-moi le fichier vite.", "modele_fort": "non", "graine": 56}
+{"texte": "Traduis « merci beaucoup » en anglais.", "modele_fort": "non", "graine": 58}
+{"texte": "Agripe los siguientes nombres por orden alfabético: Lucía, Marta, Ana, Jorge, Pedro.", "modele_fort": "non", "graine": 58}
+{"texte": "jsuis à 1,8 kg de pommes, ça fait combien en grammes stp ?", "modele_fort": "non", "graine": 58}
+{"texte": "Transforme cette liste en puces : lait, œufs, farine, sucre, beurre, vanille.", "modele_fort": "non", "graine": 58}
+{"texte": "Écris 120 en toutes lettres.", "modele_fort": "non", "graine": 58}
+{"texte": "Quelle est la capitale de la Norvège ?", "modele_fort": "non", "graine": 58}
+{"texte": "Merci beaucoup, c'est parfait comme ça !", "modele_fort": "non", "graine": 57}
+{"texte": "Can you convert 3 miles into kilometres for me, please?", "modele_fort": "non", "graine": 57}
+{"texte": "Sort these names alphabetically: Zoe, Anna, Marc, Liam.", "modele_fort": "non", "graine": 57}
+{"texte": "How do you say 'good night' in Italian?", "modele_fort": "non", "graine": 57}
+{"texte": "What's 15% of 80?", "modele_fort": "non", "graine": 57}
+{"texte": "thx jarvis, got it 👍", "modele_fort": "non", "graine": 57}

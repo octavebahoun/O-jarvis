@@ -1,0 +1,53 @@
+{"texte": "J'habite à Lyon depuis trois ans.", "incertain": "accepter"}
+{"texte": "Je suis comptable dans une PME.", "incertain": "accepter"}
+{"texte": "Je préfère des réponses courtes.", "incertain": "accepter"}
+{"texte": "J'ai un chat qui s'appelle Milo.", "incertain": "accepter"}
+{"texte": "Je suis sûr que mon rendez-vous est jeudi à 15 h.", "incertain": "accepter"}
+{"texte": "Ma sœur s'appelle Inès.", "incertain": "accepter"}
+{"texte": "Je fais de la course à pied trois fois par semaine.", "incertain": "accepter"}
+{"texte": "jsuis dev web freelance depuis 2 ans", "incertain": "accepter"}
+{"texte": "Je suis allergique aux fruits à coque, mon médecin l'a confirmé.", "incertain": "accepter"}
+{"texte": "J'utilise Fedora sur mon PC.", "incertain": "accepter"}
+{"texte": "Je déménage à Marseille le 1er décembre, le bail est signé.", "incertain": "accepter"}
+{"texte": "Mon équipe utilise GitLab.", "incertain": "accepter"}
+{"texte": "Je parle français et anglais.", "incertain": "accepter"}
+{"texte": "Réponds-moi toujours en français.", "incertain": "accepter"}
+{"texte": "J'ai deux enfants.", "incertain": "accepter"}
+{"texte": "Je travaille de nuit à l'hôpital.", "incertain": "accepter"}
+{"texte": "I live in Montreal.", "incertain": "accepter"}
+{"texte": "I'm 32.", "incertain": "accepter"}
+{"texte": "I have a dog named Pixel.", "incertain": "accepter"}
+{"texte": "I definitely prefer short answers.", "incertain": "accepter"}
+{"texte": "Je crois que Python 3.13 est sorti en 2024.", "incertain": "verifier"}
+{"texte": "Il paraît que le musée d'Orsay est fermé le lundi.", "incertain": "verifier"}
+{"texte": "Mon collègue dit que Rust est plus rapide que Go.", "incertain": "verifier"}
+{"texte": "Je pense que mon PC a 8 Go de RAM, mais je suis pas sûr.", "incertain": "verifier"}
+{"texte": "Normalement la bibliothèque requests gère les timeouts toute seule, non ?", "incertain": "verifier"}
+{"texte": "J'ai lu quelque part que le café déshydrate.", "incertain": "verifier"}
+{"texte": "Je crois que le train Paris-Lyon met deux heures.", "incertain": "verifier"}
+{"texte": "Si je me souviens bien, sort() modifie la liste sur place.", "incertain": "verifier"}
+{"texte": "Il me semble que Node 18 n'est plus maintenu.", "incertain": "verifier"}
+{"texte": "On m'a dit que la date limite des impôts, c'est fin mai.", "incertain": "verifier"}
+{"texte": "je crois que mon disque est presque plein", "incertain": "verifier"}
+{"texte": "Apparemment FastAPI ne gère pas les WebSockets ?", "incertain": "verifier"}
+{"texte": "Le mont Blanc fait 4 900 m, je crois.", "incertain": "verifier"}
+{"texte": "I think Python 2 is still supported?", "incertain": "verifier"}
+{"texte": "Someone told me Tokyo is 8 hours ahead of Paris.", "incertain": "verifier"}
+{"texte": "I read that bananas are radioactive, is that true?", "incertain": "verifier"}
+{"texte": "I believe my laptop has an SSD, but I'm not sure.", "incertain": "verifier"}
+{"texte": "Je crois que je suis allergique au gluten.", "incertain": "demander"}
+{"texte": "Peut-être que je déménagerai à Nantes, ou à Rennes.", "incertain": "demander"}
+{"texte": "Mon rendez-vous chez le dentiste, c'est jeudi ou vendredi, je sais plus.", "incertain": "demander"}
+{"texte": "Je vais peut-être changer de boulot.", "incertain": "demander"}
+{"texte": "J'aime bien le thé, enfin je crois.", "incertain": "demander"}
+{"texte": "Il se pourrait que je reprenne mes études l'an prochain.", "incertain": "demander"}
+{"texte": "Je suis à moitié végétarien, ça dépend des jours.", "incertain": "demander"}
+{"texte": "Mon projet sera peut-être en Go, ou en Rust, je réfléchis.", "incertain": "demander"}
+{"texte": "Je pense que je préfère les réponses courtes, mais pas toujours.", "incertain": "demander"}
+{"texte": "jsais pas si je garde mon appart", "incertain": "demander"}
+{"texte": "Je vais sûrement aller au mariage de ma cousine, rien n'est sûr.", "incertain": "demander"}
+{"texte": "Je crois que je suis plus productif le matin.", "incertain": "demander"}
+{"texte": "I might move to Ottawa next year.", "incertain": "demander"}
+{"texte": "I'm thinking of learning piano, not sure yet.", "incertain": "demander"}
+{"texte": "I guess I prefer tea, maybe?", "incertain": "demander"}
+{"texte": "I may be allergic to cats.", "incertain": "demander"}

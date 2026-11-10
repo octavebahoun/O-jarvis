@@ -1,0 +1,129 @@
+{"texte": "Salut, ça va ?", "apprendre": "rien"}
+{"texte": "Traduis en anglais : « je préfère le thé au café ».", "apprendre": "rien"}
+{"texte": "Hier soir j'ai mangé une pizza avec des amis.", "apprendre": "rien"}
+{"texte": "Tu peux m'expliquer ce qu'est une closure en JavaScript ?", "apprendre": "rien"}
+{"texte": "Écris-moi un mail pour décaler la réunion de demain.", "apprendre": "rien"}
+{"texte": "Pour ce mail-là, sois un peu plus formel.", "apprendre": "rien"}
+{"texte": "J'adore quand le wifi coupe en plein téléchargement…", "apprendre": "rien"}
+{"texte": "Si j'habitais au Canada, il me faudrait quel visa ?", "apprendre": "rien"}
+{"texte": "Merci, c'est parfait !", "apprendre": "rien"}
+{"texte": "jsuis crevé aujourdhui", "apprendre": "rien"}
+{"texte": "Quelle heure est-il à Tokyo ?", "apprendre": "rien"}
+{"texte": "Tu te souviens où j'habite ?", "apprendre": "rien"}
+{"texte": "Corrige les fautes : « je sui dévelopeur depuis dis ans et j'habite a Nantes ».", "apprendre": "rien"}
+{"texte": "Ce matin le bus avait vingt minutes de retard.", "apprendre": "rien"}
+{"texte": "Résume-moi cet article en trois points.", "apprendre": "rien"}
+{"texte": "Mon collègue dit que Rust est plus rapide que Go, c'est vrai ?", "apprendre": "rien"}
+{"texte": "ok", "apprendre": "rien"}
+{"texte": "Donne-moi une recette rapide avec des œufs et des tomates.", "apprendre": "rien"}
+{"texte": "J'ai regardé un film d'horreur hier, j'ai mal dormi.", "apprendre": "rien"}
+{"texte": "Imagine que tu es un pirate et raconte-moi une histoire.", "apprendre": "rien"}
+{"texte": "Pour cette réponse, mets tout dans un tableau.", "apprendre": "rien"}
+{"texte": "lol t'es drôle", "apprendre": "rien"}
+{"texte": "C'est quoi la différence entre une liste et un tuple en Python ?", "apprendre": "rien"}
+{"texte": "Il pleut depuis ce matin, c'est déprimant.", "apprendre": "rien"}
+{"texte": "tu px me refaire le calcul stp", "apprendre": "rien"}
+{"texte": "Je me demande si je devrais apprendre Rust un jour.", "apprendre": "rien"}
+{"texte": "Peut-être que je déménagerai l'an prochain, je sais pas encore.", "apprendre": "rien"}
+{"texte": "Raconte-moi une blague.", "apprendre": "rien"}
+{"texte": "What's the capital of Australia?", "apprendre": "rien"}
+{"texte": "Thanks, that helped a lot.", "apprendre": "rien"}
+{"texte": "I just got back from the gym, it was packed today.", "apprendre": "rien"}
+{"texte": "Rewrite this to sound friendlier: \"I always hate Mondays.\"", "apprendre": "rien"}
+{"texte": "Can you make this answer shorter?", "apprendre": "rien"}
+{"texte": "Je préfère des réponses courtes, va droit au but.", "apprendre": "preference"}
+{"texte": "Réponds-moi toujours en français, même si je t'écris en anglais.", "apprendre": "preference"}
+{"texte": "J'aime pas trop les emojis dans tes réponses.", "apprendre": "preference"}
+{"texte": "Quand tu m'expliques du code, donne-moi toujours un exemple.", "apprendre": "preference"}
+{"texte": "Écris toujours mes mails de façon formelle.", "apprendre": "preference"}
+{"texte": "Je préfère Python à JavaScript pour mes scripts.", "apprendre": "preference"}
+{"texte": "Tutoie-moi, c'est plus simple.", "apprendre": "preference"}
+{"texte": "Évite les longues listes, je décroche vite.", "apprendre": "preference"}
+{"texte": "Je bois mon café sans sucre.", "apprendre": "preference"}
+{"texte": "Mets toujours les dates au format jour/mois/année.", "apprendre": "preference"}
+{"texte": "jprefere qd tu mexpliques avec des schemas", "apprendre": "preference"}
+{"texte": "Arrête de commencer tes réponses par « Bien sûr ! », ça m'agace.", "apprendre": "preference"}
+{"texte": "Pour les recettes, propose-moi des plats sans viande.", "apprendre": "preference"}
+{"texte": "J'aime les explications avec des comparaisons de la vie de tous les jours.", "apprendre": "preference"}
+{"texte": "Je déteste les réponses qui répètent ma question.", "apprendre": "preference"}
+{"texte": "Quand je te demande du code, mets les commentaires en français.", "apprendre": "preference"}
+{"texte": "Je préfère travailler le soir, propose-moi des créneaux après 18 h.", "apprendre": "preference"}
+{"texte": "Mon éditeur préféré c'est VS Code, donne-moi les raccourcis pour lui.", "apprendre": "preference"}
+{"texte": "J'écoute surtout du jazz, recommande-moi des morceaux dans ce style.", "apprendre": "preference"}
+{"texte": "Utilise le système métrique, jamais les miles.", "apprendre": "preference"}
+{"texte": "Pas besoin de me dire bonjour à chaque message.", "apprendre": "preference"}
+{"texte": "Dans mon code, j'utilise toujours 4 espaces, jamais de tabulations.", "apprendre": "preference"}
+{"texte": "J'apprends mieux avec des vidéos qu'avec de longs textes.", "apprendre": "preference"}
+{"texte": "Fais-moi un script qui trie mes fichiers. En Python, comme d'hab, c'est ce que je préfère.", "apprendre": "preference"}
+{"texte": "Retiens que je veux des réponses de cinq lignes au plus.", "apprendre": "preference"}
+{"texte": "I prefer short answers, no fluff.", "apprendre": "preference"}
+{"texte": "Always use metric units, please.", "apprendre": "preference"}
+{"texte": "I don't like it when you use bullet points everywhere.", "apprendre": "preference"}
+{"texte": "I'm more of a tea person than a coffee person.", "apprendre": "preference"}
+{"texte": "Please always show the command before explaining it.", "apprendre": "preference"}
+{"texte": "J'habite à Lyon depuis trois ans.", "apprendre": "fait"}
+{"texte": "Je suis étudiant en deuxième année d'informatique.", "apprendre": "fait"}
+{"texte": "Je travaille sur une API de gestion de stock en FastAPI.", "apprendre": "fait"}
+{"texte": "Mon PC a 8 Go de RAM et un vieux processeur i5.", "apprendre": "fait"}
+{"texte": "J'ai un chat qui s'appelle Milo.", "apprendre": "fait"}
+{"texte": "Ma sœur s'appelle Inès, elle vit à Bordeaux.", "apprendre": "fait"}
+{"texte": "Je suis allergique aux fruits à coque.", "apprendre": "fait"}
+{"texte": "Je m'appelle Karim.", "apprendre": "fait"}
+{"texte": "Je fais de la course à pied trois fois par semaine.", "apprendre": "fait"}
+{"texte": "jsuis dev web freelance depuis 2 ans", "apprendre": "fait"}
+{"texte": "Je suis daltonien, alors les graphiques rouge et vert, je les lis mal.", "apprendre": "fait"}
+{"texte": "Je prépare un examen de réseaux pour le mois prochain.", "apprendre": "fait"}
+{"texte": "Mon serveur de test tourne sur un Raspberry Pi 4.", "apprendre": "fait"}
+{"texte": "Je suis en train d'apprendre l'espagnol.", "apprendre": "fait"}
+{"texte": "J'ai deux enfants, de 4 et 7 ans.", "apprendre": "fait"}
+{"texte": "Je bosse de nuit dans un hôpital, donc je dors le matin.", "apprendre": "fait"}
+{"texte": "Mon équipe utilise GitLab, pas GitHub.", "apprendre": "fait"}
+{"texte": "Je suis sous Fedora.", "apprendre": "fait"}
+{"texte": "Je parle français, anglais et un peu de wolof.", "apprendre": "fait"}
+{"texte": "Je construis un petit robot avec un Arduino.", "apprendre": "fait"}
+{"texte": "Mon frère jumeau s'appelle Yanis.", "apprendre": "fait"}
+{"texte": "Je suis comptable dans une PME.", "apprendre": "fait"}
+{"texte": "Je dois éviter le sel, j'ai de la tension.", "apprendre": "fait"}
+{"texte": "Je suis prof de maths, tu peux m'aider à préparer un exercice sur les fractions ?", "apprendre": "fait"}
+{"texte": "Comme je suis sous Windows, comment j'installe Python ?", "apprendre": "fait"}
+{"texte": "I live in Montreal.", "apprendre": "fait"}
+{"texte": "I'm a high school math teacher.", "apprendre": "fait"}
+{"texte": "My laptop is a 2019 MacBook Air.", "apprendre": "fait"}
+{"texte": "I have a dog named Pixel.", "apprendre": "fait"}
+{"texte": "I'm learning Japanese for a trip next year.", "apprendre": "fait"}
+{"texte": "J'ai un rendez-vous chez le dentiste jeudi à 15 h.", "apprendre": "fait"}
+{"texte": "Je passe mon permis de conduire le 3 décembre.", "apprendre": "fait"}
+{"texte": "jai un entretien dembauche lundi matin", "apprendre": "fait"}
+{"texte": "Mon vol pour Dakar part vendredi soir.", "apprendre": "fait"}
+{"texte": "Je soutiens mon mémoire la semaine prochaine.", "apprendre": "fait"}
+{"texte": "La réunion avec mon client est fixée à mardi 10 h.", "apprendre": "fait"}
+{"texte": "Ma cousine se marie samedi, je dois trouver une tenue.", "apprendre": "fait"}
+{"texte": "I have a job interview on Monday at 9.", "apprendre": "fait"}
+{"texte": "En fait j'ai déménagé, j'habite à Marseille maintenant.", "apprendre": "correction"}
+{"texte": "Non, je n'utilise plus Express, je suis passé à FastAPI.", "apprendre": "correction"}
+{"texte": "Je ne suis plus étudiant, j'ai commencé à travailler en septembre.", "apprendre": "correction"}
+{"texte": "Tu te trompes, ma sœur s'appelle Inès, pas Inaya.", "apprendre": "correction"}
+{"texte": "Ce n'est plus vrai : j'ai arrêté le café.", "apprendre": "correction"}
+{"texte": "Correction : mon chat s'appelle Milo, pas Milou.", "apprendre": "correction"}
+{"texte": "J'ai changé de PC, j'ai maintenant 16 Go de RAM.", "apprendre": "correction"}
+{"texte": "nn jsuis plus sur ubuntu jsuis passé sur fedora", "apprendre": "correction"}
+{"texte": "Finalement je préfère des explications détaillées, plus des réponses courtes.", "apprendre": "correction"}
+{"texte": "Je ne travaille plus sur l'API de stock, le projet est abandonné.", "apprendre": "correction"}
+{"texte": "Mon fils n'a pas 4 ans, il en a 5.", "apprendre": "correction"}
+{"texte": "Je ne fais plus de course à pied, je me suis blessé au genou.", "apprendre": "correction"}
+{"texte": "Tu as noté que je suis à Lyon, mais je suis à Lille.", "apprendre": "correction"}
+{"texte": "Non, je suis pas comptable, je suis contrôleur de gestion.", "apprendre": "correction"}
+{"texte": "Depuis la semaine dernière je bosse en télétravail, plus au bureau.", "apprendre": "correction"}
+{"texte": "J'ai quitté mon boulot à l'hôpital, je travaille de jour maintenant.", "apprendre": "correction"}
+{"texte": "Je me suis trompé l'autre fois, je suis né en 1998, pas en 1989.", "apprendre": "correction"}
+{"texte": "Finalement on n'a pas gardé GitLab, toute l'équipe est passée sur GitHub.", "apprendre": "correction"}
+{"texte": "Ah non attention, c'est pas moi qui suis végétarien, c'est ma femme.", "apprendre": "correction"}
+{"texte": "Mes mails n'ont plus besoin d'être formels, mon nouveau patron préfère le ton direct.", "apprendre": "correction"}
+{"texte": "je prefere plus python mtn c go que j'utilise", "apprendre": "correction"}
+{"texte": "Ma sœur ne vit plus à Bordeaux, elle est partie à Montréal.", "apprendre": "correction"}
+{"texte": "Actually, I moved to Toronto last month.", "apprendre": "correction"}
+{"texte": "No, my dog's name is Pixel, not Pixie.", "apprendre": "correction"}
+{"texte": "I don't use Windows anymore, I switched to Linux.", "apprendre": "correction"}
+{"texte": "That's outdated, I quit my teaching job in June.", "apprendre": "correction"}
+{"texte": "Correction: I'm 32, not 23.", "apprendre": "correction"}
+{"texte": "I no longer drink coffee.", "apprendre": "correction"}
