@@ -60,6 +60,7 @@ from ojarvis.llm.types import (
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryStore
 from ojarvis.security.redaction import REDACTOR
+from ojarvis.systeme1.decideurs import Systeme1
 from ojarvis.tracing.tracer import Tracer
 
 log = get_logger(__name__)
@@ -99,6 +100,7 @@ class ChatService(ChatLearning):
         graph: GraphStore | None = None,
         relay: RelayPolicy | None = None,
         machine: MachineMap | None = None,
+        systeme1: Systeme1 | None = None,
     ) -> None:
         self._conversations = conversations
         self._memory = memory
@@ -111,6 +113,7 @@ class ChatService(ChatLearning):
         self._agent = agent
         self._relay_policy: RelayPolicy = relay or (lambda: None)
         self._machine = machine
+        self._systeme1 = systeme1
         #: Par conversation, les commandes en échec et leur nombre d'échecs d'affilée.
         self._failures: dict[str, Counter[str]] = {}
         self._background: set[asyncio.Task[None]] = set()

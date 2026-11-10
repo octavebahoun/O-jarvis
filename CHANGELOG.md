@@ -4,7 +4,11 @@ Format inspiré de « Keep a Changelog ». Le détail de chaque évolution est d
 
 ## Non publié
 
+### Ajouté
+- Le Système 1 : de petits décideurs lisent l'empreinte que la mémoire calcule déjà pour chaque message, et répondent en une milliseconde à dix questions du chat (apprendre ? sensible ? chercher dans la bibliothèque ? etc.). Ils sont appris sur des phrases inventées (`laya/`) et livrés avec le moteur (130 Ko). Un message déjà lu récemment n'est plus relu par EmbeddingGemma.
+
 ### Modifié
+- Jarvis ne demande plus au modèle d'extraire des souvenirs d'un message quand le Système 1 est sûr qu'il n'y a rien à retenir (une question, une tâche, un bavardage) : c'est ce qui le faisait retenir n'importe quoi. Dans le doute, le modèle décide comme avant.
 - La mémoire cherche par le sens avec EmbeddingGemma 2 (sa partie texte, en q4, sur la machine) au lieu de multilingual-e5-small, et aussi en « Tout Meta », qui n'utilisait qu'un hachage de mots. Au banc d'essai en français : 18 bonnes réponses sur 21 au lieu de 12 (e5) et 6 (hachage), en 110 ms par question. Au premier démarrage, le modèle est téléchargé (207 Mo), les souvenirs sont revectorisés, puis les anciennes conversations, en tâche de fond.
 - Les seuils qui dépendent du modèle de sens (pertinence d'un souvenir, doublon, demande répétée, poids d'une correspondance par les mots) sont mesurés pour EmbeddingGemma 2 et réunis dans `ojarvis.memory.calibration`.
 

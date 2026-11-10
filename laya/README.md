@@ -8,7 +8,8 @@ Le Système 1 de Jarvis est Laya Multilingual, un petit modèle qui classe chaqu
 - Laya ne fait que trier les messages. Le reste revient au code : les dates, le modèle disponible, les niveaux N1, N2 et N3, les confirmations.
 - `variantes/` : environ 200 phrases par réponse, écrites une seule fois par Muse Wonder à partir des graines (`varier.py`, consigne dans `consigne-variantes.md`), puis relues. Les fichiers `.faites` notent les graines déjà traitées.
 - `preparer.py` range graines et variantes dans `entrainement/` pour `laya-train` : environ 10 % des graines partent au test, avec toutes leurs variantes. Pour la mise à jour, Laya lit « Souvenir : … » puis « Message : … » : Jarvis devra lui envoyer exactement ce format.
-- `kaggle/affinage.py` affine Laya Multilingual sur un GPU de Kaggle, puis le mesure sur le test. On l'envoie avec `kaggle datasets create -p laya/entrainement` puis `kaggle kernels push -p laya/kaggle`.
+- `decideurs.py` apprend, à partir des mêmes phrases, les décideurs que le moteur utilise : une régression par décision sur le vecteur EmbeddingGemma du message. Ils sont presque aussi justes que Laya (94 % contre 95 %), mais 60 fois plus rapides sur CPU. On les met à jour avec `cd engine && uv run python ../laya/decideurs.py --sortie src/ojarvis/systeme1/decideurs-eg2.npz`.
+- `kaggle/affinage.py` (en réserve) affine Laya Multilingual sur un GPU de Kaggle, puis le mesure sur le test. On l'envoie avec `kaggle datasets create -p laya/entrainement` puis `kaggle kernels push -p laya/kaggle`.
 
 | Fichier | Décision | Réponses |
 |---|---|---|

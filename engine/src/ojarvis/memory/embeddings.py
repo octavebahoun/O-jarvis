@@ -17,6 +17,7 @@ import hashlib
 import re
 import threading
 import unicodedata
+from collections import OrderedDict
 from pathlib import Path
 from typing import Any, Literal, Protocol
 
@@ -66,6 +67,8 @@ PREFIXES: dict[Kind, str] = {
 #: Le modèle lit 8 192 jetons, mais le CPU paie chacun : au-delà, la suite est ignorée.
 MAX_TOKENS = 1024
 _BATCH = 8
+#: Les derniers textes lus et leurs vecteurs, gardés pour ne pas relire un même message.
+_RECENT = 256
 #: Seul le texte est vectorisé : les entrées image, vidéo et son restent vides.
 _NO_MEDIA = np.zeros((0, 512), dtype=np.float32)
 
@@ -100,6 +103,7 @@ class GemmaEmbedder:
         self._load_lock = asyncio.Lock()
         self._run_lock = threading.Lock()
         self._status = "absent"
+        self._recent: OrderedDict[tuple[Kind, str], npt.NDArray[np.float32]] = OrderedDict()
 
     @property
     def status(self) -> str:
@@ -159,15 +163,29 @@ class GemmaEmbedder:
         return _normalize(np.asarray(pooled, dtype=np.float32))
 
     async def embed(self, texts: list[str], kind: Kind) -> Vectors:
+        """Les vecteurs des textes. Un texte déjà lu récemment n'est pas relu : un même message
+        sert à la mémoire, à la bibliothèque, aux demandes répétées et au Système 1."""
         if not texts:
             return np.zeros((0, self.dim), dtype=np.float32)
-        await self.ensure()
-        prefixed = [PREFIXES[kind] + text for text in texts]
-        parts = [
-            await anyio.to_thread.run_sync(self._run, prefixed[i : i + _BATCH])
-            for i in range(0, len(prefixed), _BATCH)
-        ]
-        return np.concatenate(parts, axis=0)
+        found: dict[str, npt.NDArray[np.float32]] = {}
+        for text in texts:
+            if (kind, text) in self._recent:
+                self._recent.move_to_end((kind, text))
+                found[text] = self._recent[(kind, text)]
+        missing = [text for text in dict.fromkeys(texts) if text not in found]
+        if missing:
+            await self.ensure()
+            prefixed = [PREFIXES[kind] + text for text in missing]
+            parts = [
+                await anyio.to_thread.run_sync(self._run, prefixed[i : i + _BATCH])
+                for i in range(0, len(prefixed), _BATCH)
+            ]
+            for text, vector in zip(missing, np.concatenate(parts, axis=0), strict=True):
+                found[text] = vector
+                self._recent[(kind, text)] = vector
+            while len(self._recent) > _RECENT:
+                self._recent.popitem(last=False)
+        return np.stack([found[text] for text in texts])
 
 
 _WORD = re.compile(r"\w+", re.UNICODE)

@@ -22,6 +22,7 @@
 
 ## Moteur Python
 
+- **Système 1 : une régression logistique par décision sur le vecteur EmbeddingGemma du message** (10/11/2026) — appris sur 7 100 phrases inventées (`laya/`) : 94 % de bonnes réponses sur 590 phrases de test jamais vues, 88 % sur celles écrites à la main, en une milliseconde, sans autre lecture du message que celle de la mémoire. Laya Multilingual (322M) affiné sur Kaggle faisait 95 % et 90 %, mais relisait le message pour chaque question : 6,8 s par message sur un i5 de 2015, 1,5 Go de mémoire ; gardé en réserve. Les poids ne valent que pour EmbeddingGemma 2 : avec un autre modèle (le hachage des tests), le Système 1 se tait et Jarvis fait comme avant.
 - **Python 3.12 géré par uv** — faster-whisper et onnxruntime ne sont pas fiables sur le Python 3.14 du système.
 - **Qualité** : ruff (lint + format), mypy strict, pytest, couverture ≥ 80 % sur le métier.
 - **SQLite unique (mode WAL) avec SQLAlchemy 2 et Alembic** — un seul fichier pour le relationnel, les vecteurs et le graphe. Migrations versionnées dès le premier schéma, lancées une seule fois au démarrage du moteur (leçon de l'ancien : course entre deux processus).

@@ -1,5 +1,9 @@
 """Ce que Jarvis apprend d'un échange, une fois la réponse donnée : le titre de la
 conversation, puis les faits, préférences et liens extraits pour la mémoire.
+
+Avant d'extraire, le Système 1 dit si le message apprend quelque chose. Quand il est sûr que
+non (une question, une tâche, un bavardage), Jarvis ne demande rien au modèle : c'est ce qui le
+faisait retenir n'importe quoi.
 """
 
 from __future__ import annotations
@@ -21,6 +25,7 @@ from ojarvis.llm.types import (
 )
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryStore
+from ojarvis.systeme1.decideurs import Systeme1
 
 log = get_logger(__name__)
 
@@ -73,6 +78,10 @@ TITLE_PROMPT = (
     "ni point final, pour la conversation suivante."
 )
 
+#: Au-dessus de cette confiance, un « rien » du Système 1 évite l'extraction. Mesuré le
+#: 10/11/2026 sur les phrases de test : à 0,5, 13 « rien » sur 21 évités, aucun fait perdu.
+SEUIL_RIEN = 0.5
+
 _TITLE_TRIM = " \t\n.!?:;«»\"'“”‘’"
 
 
@@ -92,6 +101,7 @@ class ChatLearning:
     _router: ModelRouter
     _bus: EventBus
     _background: set[asyncio.Task[None]]
+    _systeme1: Systeme1 | None
     learn: bool
 
     def _after(
@@ -121,8 +131,17 @@ class ChatLearning:
         await self._conversations.index_exchange(user, reply)
         if needs_title:
             await self._title(conversation_id, user, reply)
-        if self.learn and learn:
+        if self.learn and learn and await self._worth_learning(user):
             await self._extract(user, reply)
+
+    async def _worth_learning(self, user: MessageRecord) -> bool:
+        """Faux seulement quand le Système 1 est sûr qu'il n'y a rien à retenir."""
+        decisions = await self._systeme1.lire(user.content) if self._systeme1 else None
+        choix = decisions.get("apprendre") if decisions else None
+        if choix is None:
+            return True  # sans Système 1, le modèle décide seul, comme avant
+        log.info("systeme1_apprendre", reponse=choix.reponse, confiance=round(choix.confiance, 2))
+        return not (choix.reponse == "rien" and choix.confiance >= SEUIL_RIEN)
 
     async def _title(self, conversation_id: str, user: MessageRecord, reply: MessageRecord) -> None:
         try:
