@@ -8,6 +8,10 @@ Avant d'extraire, le Système 1 lit le message :
   un fait ; un message personnel (santé, argent, adresse…) donne des souvenirs marqués
   « personnel », envoyés au modèle seulement quand la question en parle.
 
+Puis « Mettre à jour un souvenir ? » et « Information incertaine ? » (`ojarvis.systeme1.doutes`)
+disent quel souvenir le fait nouveau remplace, lequel reste, et quand une question posée dans la
+réponse attend la réponse de l'utilisateur ; une supposition ne devient pas un souvenir.
+
 Après l'extraction, « Combien de temps ? » lit chaque fait : un souvenir de quelques jours
 reçoit une échéance (`ojarvis.systeme1.duree`), passé laquelle il s'efface seul.
 """
@@ -15,14 +19,16 @@ reçoit une échéance (`ojarvis.systeme1.duree`), passé laquelle il s'efface s
 from __future__ import annotations
 
 import asyncio
+import contextlib
 from dataclasses import dataclass
 from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from ojarvis.context.engine import french_now
+from ojarvis.context.engine import ContextEngine, french_now
 from ojarvis.conversations.store import ConversationStore, MessageRecord
 from ojarvis.core.clock import local_timezone, utc_now
+from ojarvis.core.errors import NotFoundError
 from ojarvis.core.logs import get_logger
 from ojarvis.events.bus import EventBus
 from ojarvis.llm.errors import LLMError
@@ -33,8 +39,15 @@ from ojarvis.llm.types import (
     Message,
 )
 from ojarvis.memory.graph import GraphStore
-from ojarvis.memory.store import MemoryStore
-from ojarvis.systeme1.decideurs import Systeme1
+from ojarvis.memory.store import MemoryHit, MemoryStore
+from ojarvis.systeme1.decideurs import SEUIL_RIEN, Systeme1
+from ojarvis.systeme1.doutes import (
+    CONFIANCE_SI_INCERTAIN,
+    Attente,
+    Doute,
+    examiner,
+    pour_extraction,
+)
 from ojarvis.systeme1.duree import echeance, jour_dit
 
 log = get_logger(__name__)
@@ -96,10 +109,6 @@ TITLE_PROMPT = (
     "ni point final, pour la conversation suivante."
 )
 
-#: Au-dessus de cette confiance, un « rien » du Système 1 évite l'extraction. Mesuré le
-#: 10/11/2026 sur les phrases de test : à 0,5, 13 « rien » sur 21 évités, aucun fait perdu.
-SEUIL_RIEN = 0.5
-
 _TITLE_TRIM = " \t\n.!?:;«»\"'“”‘’"
 
 
@@ -115,6 +124,7 @@ class Tri:
 
     apprendre: bool = True
     personnel: bool = False
+    secret: bool = False
 
 
 class ChatLearning:
@@ -128,6 +138,7 @@ class ChatLearning:
     _bus: EventBus
     _background: set[asyncio.Task[None]]
     _systeme1: Systeme1 | None
+    _context: ContextEngine
     learn: bool
 
     def _after(
@@ -155,13 +166,26 @@ class ChatLearning:
         learn: bool = True,
     ) -> None:
         await self._conversations.index_exchange(user, reply)
+        attente = self._attente(conversation_id, reply)
         if needs_title:
             await self._title(conversation_id, user, reply)
         if not (self.learn and learn):
             return
         tri = await self._triage(user)
-        if tri.apprendre:
-            await self._extract(user, reply, personnel=tri.personnel)
+        # La réponse à une question sur un souvenir s'apprend, même brève (« oui », « les deux »).
+        if tri.apprendre or (attente is not None and not tri.secret):
+            await self._extract(user, reply, personnel=tri.personnel, attente=attente)
+
+    def _attente(self, conversation_id: str, reply: MessageRecord) -> Attente | None:
+        """La question sur un souvenir à laquelle ce message répond, s'il y en a une : le tour
+        qui l'a posée y note sa réponse, le suivant (qui y répond) la retire."""
+        attente = self._context.attentes.get(conversation_id)
+        if attente is None:
+            return None
+        if not attente.question:
+            attente.question = reply.content[-400:]
+            return None
+        return self._context.attentes.pop(conversation_id)
 
     async def _triage(self, user: MessageRecord) -> Tri:
         """Sans Système 1, ou s'il se tait, le modèle décide seul, comme avant."""
@@ -178,7 +202,7 @@ class ChatLearning:
         if sensible is not None and sensible.reponse == "secret":
             # Même incertain : rater un fait coûte peu, garder un mot de passe coûte cher.
             # Mesuré le 10/11/2026 : les 20 secrets du test pris, 3 faux sur 62.
-            return Tri(apprendre=False)
+            return Tri(apprendre=False, secret=True)
         rien = (
             apprendre is not None
             and apprendre.reponse == "rien"
@@ -210,24 +234,39 @@ class ChatLearning:
             await self._bus.publish("conversation.updated", {"id": conversation_id})
 
     async def _extract(
-        self, user: MessageRecord, reply: MessageRecord, *, personnel: bool = False
+        self,
+        user: MessageRecord,
+        reply: MessageRecord,
+        *,
+        personnel: bool = False,
+        attente: Attente | None = None,
     ) -> None:
         known = [
             hit
             for hit in await self._memory.search(user.content, k=8)
             if hit.record.kind != "impasse"
         ]
+        if attente is not None and attente.souvenir.id not in {h.record.id for h in known}:
+            # « oui » ne ressemble à rien : le souvenir en question est joint d'office.
+            with contextlib.suppress(NotFoundError):  # effacé entre-temps : plus rien à trancher
+                known.append(MemoryHit(await self._memory.get(attente.souvenir.id), 0.0, "attente"))
         known_lines = "\n".join(
             f"- id {h.record.id} [{h.record.kind}] {h.record.content}" for h in known
         )
         names = await self._graph.known_names() if self._graph else []
         entity_lines = ", ".join(f"{n} ({k})" for n, k in names)
         maintenant, fuseau = utc_now(), local_timezone()
+        doute = Doute()
+        if self._systeme1 is not None:
+            floor = self._memory.relevance_floor
+            doute = await examiner(self._systeme1, user.content, known, floor)
+        tranche = "".join(f"- {ligne}\n" for ligne in pour_extraction(doute, attente))
         prompt = (
             f"{french_now(maintenant, fuseau)}\n\n"
             f"Souvenirs existants proches :\n{known_lines or '(aucun)'}\n\n"
             f"Entités déjà connues : {entity_lines or '(aucune)'}\n\n"
-            f"Échange :\nUtilisateur : {user.content}\nJarvis : {reply.content}"
+            + (f"À savoir :\n{tranche}\n" if tranche else "")
+            + f"Échange :\nUtilisateur : {user.content}\nJarvis : {reply.content}"
         )[:6000]
         try:
             extraction = await generate_structured(
@@ -240,7 +279,17 @@ class ChatLearning:
             log.warning("memory_extraction_failed")
             return
         known_ids = {h.record.id for h in known}
-        faits = [fact for fact in extraction.faits if fact.confiance >= 0.6]
+        seuil = CONFIANCE_SI_INCERTAIN if doute.incertain else 0.6
+        faits = [fact for fact in extraction.faits if fact.confiance >= seuil]
+        # Le souvenir que le Système 1 garde (sauf si l'utilisateur vient de trancher) ; celui
+        # qu'il remplace, par le seul fait du message si le modèle ne l'a pas dit.
+        protege = doute.protege
+        if attente is not None and attente.souvenir.id == protege:
+            protege = None
+        if doute.remplace is not None and len(faits) == 1 and faits[0].remplace is None:
+            faits[0].remplace = doute.remplace
+        if doute.maj is not None:
+            log.info("systeme1_mise_a_jour", reponse=doute.maj, incertain=doute.incertain)
         textes = [f.contenu for f in faits]
         durees = await self._systeme1.decider("duree", textes) if self._systeme1 else None
         for i, fact in enumerate(faits):
@@ -253,9 +302,10 @@ class ChatLearning:
                     confiance=round(duree.confiance, 2),
                     efface=fin.expires_at is not None,
                 )
-            if fact.remplace is not None and fact.remplace in known_ids:
+            remplace = fact.remplace if fact.remplace != protege else None
+            if remplace is not None and remplace in known_ids:
                 await self._memory.update(
-                    fact.remplace,
+                    remplace,
                     content=fact.contenu,
                     kind=fact.type,
                     personnel=personnel or None,  # une correction ne retire pas la marque

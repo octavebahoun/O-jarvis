@@ -60,7 +60,9 @@ def systeme1() -> Systeme1:
 
 async def test_a_secret_is_never_learned_and_personal_facts_are_marked() -> None:
     tri = Apprentissage(systeme1())._triage
-    assert await tri(message("Mon PIN de carte est 4821, retiens-le.")) == Tri(apprendre=False)
+    assert await tri(message("Mon PIN de carte est 4821, retiens-le.")) == Tri(
+        apprendre=False, secret=True
+    )
     assert await tri(message("J'ai du diabète depuis 2019.")) == Tri(personnel=True)
     assert await tri(message("J'aime le jazz.")) == Tri()
     assert await tri(message("Quelle heure est-il ?")) == Tri(apprendre=False)

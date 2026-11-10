@@ -20,6 +20,8 @@ from ojarvis.llm.types import Message
 from ojarvis.memory.calibration import CALIBRATIONS, calibration
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryHit, MemoryRecord, MemoryStore
+from ojarvis.systeme1.decideurs import Systeme1
+from ojarvis.systeme1.doutes import Attente, consignes, examiner
 
 #: Seuil de pertinence par modèle de sens, pour les extensions qui le lisent ici (O-jarvis
 #: Shell) ; la source est `ojarvis.memory.calibration`.
@@ -196,7 +198,12 @@ class ContextEngine:
         clock: Callable[[], datetime] = utc_now,
         timezone: Callable[[], tzinfo] = local_timezone,
         graph: GraphStore | None = None,
+        systeme1: Systeme1 | None = None,
     ) -> None:
+        self.systeme1 = systeme1
+        #: Par conversation, la question posée sur un souvenir dont la réponse est attendue
+        #: (lue et retirée par l'apprentissage, `ojarvis.chat.learning`).
+        self.attentes: dict[str, Attente] = {}
         self._memory = memory
         self._conversations = conversations
         self._graph = graph
@@ -228,6 +235,8 @@ class ContextEngine:
         asked = [user_text, *(r.content for r in reversed(history) if r.role == "user")]
         if english_requested(asked):
             system = f"{system}\n\n{ENGLISH_HINT}"
+        if doutes := await self._doutes(conversation_id, user_text):
+            system = "\n\n".join([system, *doutes])
         base = ContextItem("systeme", None, system, 10.0, estimate_tokens(system), True, "toujours")
         question_tokens = estimate_tokens(user_text)
         remaining = max(total - base.tokens - question_tokens, 0)
@@ -257,6 +266,18 @@ class ContextEngine:
             used=base.tokens + question_tokens + memory_used + recall_used + history_used,
             memory_ids=[int(i.ref) for i in kept_memory if i.ref],
         )
+
+    async def _doutes(self, conversation_id: str, user_text: str) -> list[str]:
+        """Le Système 1 : un doute sur un souvenir, ou sur ce que dit l'utilisateur, se lève
+        en posant la question dans la réponse ; une seule question attendue à la fois."""
+        if self.systeme1 is None or not self.systeme1.actif:
+            return []
+        hits = await self._memory.search(user_text, k=4)
+        doute = await examiner(self.systeme1, user_text, hits, self._floor)
+        poser = conversation_id not in self.attentes
+        if poser and doute.maj == "demander" and doute.souvenir is not None:
+            self.attentes[conversation_id] = Attente(doute.souvenir)
+        return consignes(doute, poser=poser)
 
     async def _memory_section(self, user_text: str, channel: str) -> list[ContextItem]:
         """Profil (toujours candidat), la carte de la machine en mode shell ou quand la

@@ -68,7 +68,6 @@ from ojarvis.security.secrets import (
 )
 from ojarvis.settings_store import Preferences, SettingsStore
 from ojarvis.skills.service import SkillService
-from ojarvis.systeme1.decideurs import charger_systeme1
 from ojarvis.telegram.bot import TelegramService
 from ojarvis.tools.base import ToolRegistry
 from ojarvis.tracing.tracer import TraceQueries, Tracer
@@ -205,7 +204,7 @@ class Services:
             graph=graph,
             relay=lambda: relay_policy(holder["value"]),
             machine=acts.added.machine if acts.added is not None else None,
-            systeme1=charger_systeme1(embedder),
+            systeme1=context.systeme1,
         )
         orchestrator = await _assemble_agents(
             acts, core, router=router, db=db, bus=bus, tracer=tracer

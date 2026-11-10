@@ -61,6 +61,7 @@ from ojarvis.settings_store import Preferences, SettingsStore
 from ojarvis.skills.runner import SkillRunner
 from ojarvis.skills.service import SkillService
 from ojarvis.skills.store import SkillStore
+from ojarvis.systeme1.decideurs import charger_systeme1
 from ojarvis.tools.automations import automation_tools
 from ojarvis.tools.base import ToolContext, ToolRegistry
 from ojarvis.tools.catalog import build_registry
@@ -323,7 +324,13 @@ async def _assemble_memory(
     conversations = ConversationStore(db, embedder)
     await conversations.start()
     graph = GraphStore(db, bus)
-    context = ContextEngine(memory, conversations, embedder_id=embedder.model_id, graph=graph)
+    context = ContextEngine(
+        memory,
+        conversations,
+        embedder_id=embedder.model_id,
+        graph=graph,
+        systeme1=charger_systeme1(embedder),
+    )
     return memory, conversations, graph, context
 
 

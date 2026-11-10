@@ -26,6 +26,9 @@ log = get_logger(__name__)
 POIDS = Path(__file__).with_name("decideurs-eg2.npz")
 #: Les décisions qui comparent un souvenir au message : elles lisent deux vecteurs.
 PAIRES = frozenset({"mise_a_jour"})
+#: Au-dessus de cette confiance, un « rien » de « Apprendre ? » évite l'extraction. Mesuré le
+#: 10/11/2026 sur les phrases de test : à 0,5, 13 « rien » sur 21 évités, aucun fait perdu.
+SEUIL_RIEN = 0.5
 
 Vecteur = npt.NDArray[np.float32]
 
@@ -98,6 +101,20 @@ class Systeme1:
             log.warning("systeme1_unavailable")
             return None
         return self._decideurs.sur_message(vecteur)
+
+    async def comparer(self, souvenir: str, message: str) -> Choix | None:
+        """« Mettre à jour un souvenir ? » : le souvenir est relu avec le préfixe de recherche,
+        celui de l'apprentissage (la mémoire, elle, le range avec le préfixe « passage »)."""
+        if self._decideurs is None or not self.actif:
+            return None
+        if "mise_a_jour" not in self._decideurs.decisions:
+            return None
+        try:
+            souvenir_v, message_v = await self._embedder.embed([souvenir, message], "query")
+        except Exception:
+            log.warning("systeme1_unavailable")
+            return None
+        return self._decideurs.mise_a_jour(souvenir_v, message_v)
 
     async def decider(self, decision: str, textes: list[str]) -> list[Choix] | None:
         """Une décision sur chacun des textes (les faits extraits d'un message, par exemple) ;

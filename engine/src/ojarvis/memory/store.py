@@ -129,6 +129,11 @@ class MemoryStore:
         self._calibration = calibration(embedder.model_id)
         self._next_sweep = 0.0
 
+    @property
+    def relevance_floor(self) -> float:
+        """En dessous, un souvenir trouvé par le sens ne parle pas vraiment de la question."""
+        return self._calibration.relevance_floor
+
     async def start(self) -> None:
         await self.index.ensure()
         await self.forget_expired()
