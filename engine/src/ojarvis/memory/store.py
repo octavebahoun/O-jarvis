@@ -62,6 +62,8 @@ class MemoryRecord:
     updated_at: datetime
     last_used_at: datetime | None
     use_count: int
+    #: Santé, argent, adresse… : envoyé au modèle seulement quand la question en parle.
+    personnel: bool = False
 
     @classmethod
     def of(cls, item: MemoryItem) -> MemoryRecord:
@@ -76,6 +78,7 @@ class MemoryRecord:
             updated_at=item.updated_at,
             last_used_at=item.last_used_at,
             use_count=item.use_count,
+            personnel=item.personnel,
         )
 
 
@@ -148,8 +151,10 @@ class MemoryStore:
         source_message_id: int | None = None,
         confidence: float = 1.0,
         pinned: bool = False,
+        personnel: bool = False,
     ) -> tuple[MemoryRecord, bool]:
-        """Ajoute un souvenir, ou met à jour un quasi-doublon. Renvoie (souvenir, créé ?)."""
+        """Ajoute un souvenir, ou met à jour un quasi-doublon. Renvoie (souvenir, créé ?).
+        Un doublon d'un souvenir personnel le reste ; un doublon personnel le devient."""
         content = REDACTOR.redact(content)  # jamais de clé dans la mémoire
         if kind not in MEMORY_KINDS:
             raise InvalidInputError("Type de souvenir inconnu.")
@@ -158,7 +163,9 @@ class MemoryStore:
         if vector is not None:
             duplicate = await self._duplicate(kind, cleaned, vector)
             if duplicate is not None:
-                updated = await self.update(duplicate, content=cleaned, kind=kind)
+                updated = await self.update(
+                    duplicate, content=cleaned, kind=kind, personnel=personnel or None
+                )
                 return updated, False
         now = utc_now()
 
@@ -170,6 +177,7 @@ class MemoryStore:
                 source_message_id=source_message_id,
                 confidence=max(0.0, min(confidence, 1.0)),
                 pinned=pinned,
+                personnel=personnel,
                 created_at=now,
                 updated_at=now,
                 last_used_at=None,
@@ -209,6 +217,7 @@ class MemoryStore:
         content: str | None = None,
         kind: MemoryKind | None = None,
         pinned: bool | None = None,
+        personnel: bool | None = None,
     ) -> MemoryRecord:
         if kind is not None and kind not in MEMORY_KINDS:
             raise InvalidInputError("Type de souvenir inconnu.")
@@ -225,6 +234,8 @@ class MemoryStore:
                 item.kind = kind
             if pinned is not None:
                 item.pinned = pinned
+            if personnel is not None:
+                item.personnel = personnel
             item.updated_at = utc_now()
             return MemoryRecord.of(item), changed_text
 

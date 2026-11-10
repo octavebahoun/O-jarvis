@@ -247,6 +247,7 @@ class MemoryOut(BaseModel):
     updated_at: datetime
     last_used_at: datetime | None
     use_count: int
+    personnel: bool
 
 
 class MemoryIn(BaseModel):
@@ -255,6 +256,7 @@ class MemoryIn(BaseModel):
     kind: MemoryKind
     content: str = Field(min_length=1, max_length=1000)
     pinned: bool = False
+    personnel: bool = False
 
 
 class MemoryPatch(BaseModel):
@@ -263,6 +265,7 @@ class MemoryPatch(BaseModel):
     kind: MemoryKind | None = None
     content: str | None = Field(default=None, min_length=1, max_length=1000)
     pinned: bool | None = None
+    personnel: bool | None = None
 
 
 class MemoryHitOut(BaseModel):
@@ -287,7 +290,11 @@ async def list_memory(
 @router.post("/memory", status_code=201)
 async def add_memory(body: MemoryIn, services: ServicesDep) -> MemoryOut:
     record, _ = await services.memory.add(
-        body.kind, body.content, source="manuel", pinned=body.pinned
+        body.kind,
+        body.content,
+        source="manuel",
+        pinned=body.pinned,
+        personnel=body.personnel,
     )
     return _memory(record)
 
@@ -295,7 +302,11 @@ async def add_memory(body: MemoryIn, services: ServicesDep) -> MemoryOut:
 @router.patch("/memory/{item_id}")
 async def update_memory(item_id: int, body: MemoryPatch, services: ServicesDep) -> MemoryOut:
     record = await services.memory.update(
-        item_id, content=body.content, kind=body.kind, pinned=body.pinned
+        item_id,
+        content=body.content,
+        kind=body.kind,
+        pinned=body.pinned,
+        personnel=body.personnel,
     )
     return _memory(record)
 

@@ -92,6 +92,7 @@ export function useUpdateMemory() {
       kind?: MemoryKind;
       content?: string;
       pinned?: boolean;
+      personnel?: boolean;
     }) => requireClient(client).patch<MemoryItem>(`/v1/memory/${id}`, changes),
     onSettled: () => queryClient.invalidateQueries({ queryKey: ["memory"] }),
   });

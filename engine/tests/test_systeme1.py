@@ -101,12 +101,12 @@ def message(texte: str) -> MessageRecord:
 
 async def test_nothing_to_learn_skips_the_extraction() -> None:
     sur = Apprentissage(Systeme1(DeuxDimensions(), petits_decideurs()))
-    assert not await sur._worth_learning(message("Quelle est la capitale du Pérou ?"))
-    assert await sur._worth_learning(message("J'habite à Lyon."))
+    assert not (await sur._triage(message("Quelle est la capitale du Pérou ?"))).apprendre
+    assert (await sur._triage(message("J'habite à Lyon."))).apprendre
     # Sans Système 1, ou s'il se tait, le modèle décide seul, comme avant.
-    assert await Apprentissage(None)._worth_learning(message("Quelle heure est-il ?"))
+    assert (await Apprentissage(None)._triage(message("Quelle heure est-il ?"))).apprendre
     muet = Apprentissage(Systeme1(HashEmbedder(), Decideurs.charger()))
-    assert await muet._worth_learning(message("Quelle heure est-il ?"))
+    assert (await muet._triage(message("Quelle heure est-il ?"))).apprendre
 
 
 async def test_a_doubtful_nothing_still_lets_the_model_decide() -> None:
@@ -117,7 +117,7 @@ async def test_a_doubtful_nothing_still_lets_the_model_decide() -> None:
         {"apprendre": ["rien", "fait", "preference"]},
     )
     sur = Apprentissage(Systeme1(DeuxDimensions(), hesitant))
-    assert await sur._worth_learning(message("Quelle heure est-il ?"))
+    assert (await sur._triage(message("Quelle heure est-il ?"))).apprendre
 
 
 async def test_a_text_read_recently_is_not_read_again(

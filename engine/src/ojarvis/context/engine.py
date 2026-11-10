@@ -247,9 +247,14 @@ class ContextEngine:
 
     async def _memory_section(self, user_text: str, channel: str) -> list[ContextItem]:
         """Profil (toujours candidat), la carte de la machine en mode shell ou quand la
-        question parle du PC, puis souvenirs trouvés par le sens ou les mots."""
+        question parle du PC, puis souvenirs trouvés par le sens ou les mots.
+
+        Un souvenir personnel (santé, argent, adresse…) n'est jamais candidat d'office, sauf
+        épinglé : seulement quand la recherche le trouve pertinent pour la question."""
         found: dict[int, ContextItem] = {}
         for profile in await self._memory.items(kind="profil", limit=12):
+            if profile.personnel and not profile.pinned:
+                continue
             found[profile.id] = self._memory_item(profile, 1.0 + (0.1 if profile.pinned else 0))
         if channel == "shell" or ABOUT_THE_MACHINE.search(user_text):
             # De quoi répondre à « mon PC rame » sans tout remesurer.
@@ -261,6 +266,9 @@ class ContextEngine:
             item = self._memory_item(hit.record, hit.score)
             if hit.via == "sens" and hit.score < self._floor:
                 item.reason = "trop peu pertinent"
+            elif hit.record.personnel and (hit.via == "mots" or hit.score < self._floor):
+                # Un mot en commun (« pour », « mon ») ne suffit pas à parler de sa santé.
+                item.reason = "personnel, hors de la question"
             found[hit.record.id] = item
         items = list(found.values())
         if self._graph is not None:

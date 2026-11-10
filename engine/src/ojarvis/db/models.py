@@ -5,7 +5,16 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import ForeignKey, Index, Integer, LargeBinary, String, Text, UniqueConstraint
+from sqlalchemy import (
+    ForeignKey,
+    Index,
+    Integer,
+    LargeBinary,
+    String,
+    Text,
+    UniqueConstraint,
+    false,
+)
 from sqlalchemy.orm import Mapped, mapped_column
 
 from ojarvis.db.base import Base
@@ -134,6 +143,8 @@ class MemoryItem(Base):
     updated_at: Mapped[datetime]
     last_used_at: Mapped[datetime | None]
     use_count: Mapped[int] = mapped_column(default=0)
+    #: Santé, argent, adresse… : envoyé au modèle seulement quand la question en parle.
+    personnel: Mapped[bool] = mapped_column(default=False, server_default=false())
 
 
 class Embedding(Base):

@@ -46,6 +46,8 @@ export interface MemoryItem {
   updated_at: string;
   last_used_at: string | null;
   use_count: number;
+  /** Santé, argent, adresse… : envoyé à Jarvis seulement quand la question en parle. */
+  personnel: boolean;
 }
 
 export interface ProviderStatus {

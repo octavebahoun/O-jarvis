@@ -1,4 +1,4 @@
-import { Pin, Plus, Search, Trash2 } from "lucide-react";
+import { Lock, Pin, Plus, Search, Trash2 } from "lucide-react";
 import { Tabs } from "radix-ui";
 import { useDeferredValue, useId, useState, type SyntheticEvent } from "react";
 
@@ -107,6 +107,7 @@ function MemoryRow({ item }: { item: MemoryItem }) {
         {formatRelative(item.updated_at)}
         {item.use_count > 0 && ` · utilisé ${item.use_count} fois`}
         {item.pinned && " · épinglé"}
+        {item.personnel && " · personnel"}
       </p>
       <div className={styles.actions}>
         <Button
@@ -118,6 +119,18 @@ function MemoryRow({ item }: { item: MemoryItem }) {
           icon={<Pin />}
           onClick={() => {
             update.mutate({ id: item.id, pinned: !item.pinned });
+          }}
+        />
+        <Button
+          size="sm"
+          variant="ghost"
+          className={styles.pin}
+          aria-pressed={item.personnel}
+          aria-label="Personnel (envoyé à Jarvis seulement si ta question en parle)"
+          title="Personnel : envoyé seulement si ta question en parle"
+          icon={<Lock />}
+          onClick={() => {
+            update.mutate({ id: item.id, personnel: !item.personnel });
           }}
         />
         <ConfirmDialog

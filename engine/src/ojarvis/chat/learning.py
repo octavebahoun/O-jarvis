@@ -1,14 +1,18 @@
 """Ce que Jarvis apprend d'un échange, une fois la réponse donnée : le titre de la
 conversation, puis les faits, préférences et liens extraits pour la mémoire.
 
-Avant d'extraire, le Système 1 dit si le message apprend quelque chose. Quand il est sûr que
-non (une question, une tâche, un bavardage), Jarvis ne demande rien au modèle : c'est ce qui le
-faisait retenir n'importe quoi.
+Avant d'extraire, le Système 1 lit le message :
+- « Apprendre ? » : quand il est sûr que non (une question, une tâche, un bavardage), Jarvis ne
+  demande rien au modèle ; c'est ce qui le faisait retenir n'importe quoi.
+- « Sensible ? » : un secret (mot de passe, PIN, IBAN, clé…) n'est jamais gardé, même mêlé à
+  un fait ; un message personnel (santé, argent, adresse…) donne des souvenirs marqués
+  « personnel », envoyés au modèle seulement quand la question en parle.
 """
 
 from __future__ import annotations
 
 import asyncio
+from dataclasses import dataclass
 from typing import Literal
 
 from pydantic import BaseModel, Field
@@ -91,6 +95,14 @@ def clean_title(raw: str) -> str:
     return " ".join(first_line.strip(_TITLE_TRIM).split())[:80]
 
 
+@dataclass(frozen=True)
+class Tri:
+    """Ce que le Système 1 dit d'un message, pour la mémoire."""
+
+    apprendre: bool = True
+    personnel: bool = False
+
+
 class ChatLearning:
     """Après la réponse : titrer la conversation, puis apprendre de l'échange (mélangée à
     `ChatService`)."""
@@ -131,17 +143,35 @@ class ChatLearning:
         await self._conversations.index_exchange(user, reply)
         if needs_title:
             await self._title(conversation_id, user, reply)
-        if self.learn and learn and await self._worth_learning(user):
-            await self._extract(user, reply)
+        if not (self.learn and learn):
+            return
+        tri = await self._triage(user)
+        if tri.apprendre:
+            await self._extract(user, reply, personnel=tri.personnel)
 
-    async def _worth_learning(self, user: MessageRecord) -> bool:
-        """Faux seulement quand le Système 1 est sûr qu'il n'y a rien à retenir."""
+    async def _triage(self, user: MessageRecord) -> Tri:
+        """Sans Système 1, ou s'il se tait, le modèle décide seul, comme avant."""
         decisions = await self._systeme1.lire(user.content) if self._systeme1 else None
-        choix = decisions.get("apprendre") if decisions else None
-        if choix is None:
-            return True  # sans Système 1, le modèle décide seul, comme avant
-        log.info("systeme1_apprendre", reponse=choix.reponse, confiance=round(choix.confiance, 2))
-        return not (choix.reponse == "rien" and choix.confiance >= SEUIL_RIEN)
+        if not decisions:
+            return Tri()
+        apprendre = decisions.get("apprendre")
+        sensible = decisions.get("sensible")
+        log.info(
+            "systeme1_memoire",
+            apprendre=apprendre and (apprendre.reponse, round(apprendre.confiance, 2)),
+            sensible=sensible and (sensible.reponse, round(sensible.confiance, 2)),
+        )
+        if sensible is not None and sensible.reponse == "secret":
+            # Même incertain : rater un fait coûte peu, garder un mot de passe coûte cher.
+            # Mesuré le 10/11/2026 : les 20 secrets du test pris, 3 faux sur 62.
+            return Tri(apprendre=False)
+        rien = (
+            apprendre is not None
+            and apprendre.reponse == "rien"
+            and apprendre.confiance >= SEUIL_RIEN
+        )
+        personnel = sensible is not None and sensible.reponse == "personnel"
+        return Tri(apprendre=not rien, personnel=personnel)
 
     async def _title(self, conversation_id: str, user: MessageRecord, reply: MessageRecord) -> None:
         try:
@@ -165,7 +195,9 @@ class ChatLearning:
             await self._conversations.rename(conversation_id, title[:80])
             await self._bus.publish("conversation.updated", {"id": conversation_id})
 
-    async def _extract(self, user: MessageRecord, reply: MessageRecord) -> None:
+    async def _extract(
+        self, user: MessageRecord, reply: MessageRecord, *, personnel: bool = False
+    ) -> None:
         known = [
             hit
             for hit in await self._memory.search(user.content, k=8)
@@ -196,7 +228,12 @@ class ChatLearning:
             if fact.confiance < 0.6:
                 continue
             if fact.remplace is not None and fact.remplace in known_ids:
-                await self._memory.update(fact.remplace, content=fact.contenu, kind=fact.type)
+                await self._memory.update(
+                    fact.remplace,
+                    content=fact.contenu,
+                    kind=fact.type,
+                    personnel=personnel or None,  # une correction ne retire pas la marque
+                )
             else:
                 await self._memory.add(
                     fact.type,
@@ -204,6 +241,7 @@ class ChatLearning:
                     source="conversation",
                     source_message_id=user.id,
                     confidence=fact.confiance,
+                    personnel=personnel,
                 )
         if self._graph is not None and (extraction.entites or extraction.relations):
             await self._graph.remember(
