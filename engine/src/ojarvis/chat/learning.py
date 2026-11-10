@@ -26,6 +26,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from ojarvis.context.engine import ContextEngine, french_now
+from ojarvis.conversations.resume import resume_voulu, resumer
 from ojarvis.conversations.store import ConversationStore, MessageRecord
 from ojarvis.core.clock import local_timezone, utc_now
 from ojarvis.core.errors import NotFoundError
@@ -176,6 +177,14 @@ class ChatLearning:
         attente = self._attente(conversation_id, reply)
         if needs_title:
             await self._title(conversation_id, user, reply)
+        decisions = await self._systeme1.lire(user.content) if self._systeme1 else None
+        await resumer(
+            self._conversations,
+            self._router,
+            conversation_id,
+            user.id,
+            sujet_change=resume_voulu(decisions),
+        )
         if conversation_id in self._context.confirmations:
             # La réponse à « tout effacer ? » : un « oui » franc efface, le reste annule.
             self._context.confirmations.discard(conversation_id)

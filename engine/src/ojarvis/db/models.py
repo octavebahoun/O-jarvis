@@ -102,6 +102,10 @@ class Conversation(Base):
     created_at: Mapped[datetime]
     updated_at: Mapped[datetime]
     archived: Mapped[bool] = mapped_column(default=False)
+    #: Le résumé des messages jusqu'à `summary_upto` (compris), pour quand ils ne tiennent
+    #: plus dans le contexte ; refait au changement de sujet ou quand la conversation s'allonge.
+    summary: Mapped[str | None] = mapped_column(Text)
+    summary_upto: Mapped[int | None]
 
 
 class ChatMessage(Base):

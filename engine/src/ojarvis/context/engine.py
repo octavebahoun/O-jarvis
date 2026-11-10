@@ -248,6 +248,11 @@ class ContextEngine:
         lignes += await self._doutes(conversation_id, user_text)
         if lignes:
             system = "\n\n".join([system, *lignes])
+        if resume := await self._conversations.summary(conversation_id):
+            system = (
+                f"{system}\n\nRésumé de cette conversation jusqu'ici (les anciens messages "
+                f"peuvent ne plus figurer plus bas) :\n{resume[0]}"
+            )
         base = ContextItem("systeme", None, system, 10.0, estimate_tokens(system), True, "toujours")
         question_tokens = estimate_tokens(user_text)
         remaining = max(total - base.tokens - question_tokens, 0)

@@ -73,7 +73,8 @@ def test_full_text_index_follows_messages(tmp_path: Path) -> None:
     with engine.begin() as c:
         c.execute(
             text(
-                "INSERT INTO conversations VALUES "
+                "INSERT INTO conversations (id, title, channel, created_at, updated_at, archived) "
+                "VALUES "
                 "('c1', 't', 'app', '2026-10-14 10:00:00', '2026-10-14 10:00:00', 0)"
             )
         )

@@ -269,6 +269,27 @@ class ConversationStore:
 
         return await self._db.run(write)
 
+    async def summary(self, conversation_id: str) -> tuple[str, int] | None:
+        """Le résumé de la conversation et le dernier message qu'il couvre, s'il y en a un."""
+
+        def read(session: Session) -> tuple[str, int] | None:
+            c = session.get(Conversation, conversation_id)
+            if c is None or not c.summary or c.summary_upto is None:
+                return None
+            return c.summary, c.summary_upto
+
+        return await self._db.run(read)
+
+    async def set_summary(self, conversation_id: str, summary: str, upto: int) -> None:
+        def write(session: Session) -> None:
+            c = session.get(Conversation, conversation_id)
+            if c is None:
+                raise NotFoundError("Conversation introuvable.")
+            c.summary = summary
+            c.summary_upto = upto
+
+        await self._db.run(write)
+
     async def messages(self, conversation_id: str, *, limit: int = 200) -> list[MessageRecord]:
         def read(session: Session) -> list[MessageRecord]:
             rows = session.scalars(
