@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import AsyncIterator
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Annotated, Any, Literal
 
@@ -248,6 +248,8 @@ class MemoryOut(BaseModel):
     last_used_at: datetime | None
     use_count: int
     personnel: bool
+    event_date: date | None
+    expires_at: datetime | None
 
 
 class MemoryIn(BaseModel):

@@ -2,13 +2,18 @@
 
 La recherche combine le sens (vecteurs) et les mots (plein texte), pour retrouver aussi
 bien « qu'est-ce que je bois le matin ? » que « café ».
+
+Un souvenir de quelques jours (« j'ai rendez-vous jeudi ») porte une échéance : passé ce
+moment, il s'efface seul, sauf s'il est épinglé. La conversation, elle, reste dans la
+bibliothèque.
 """
 
 from __future__ import annotations
 
 import re
+import time
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from typing import Literal
 
 import numpy as np
@@ -40,6 +45,8 @@ SEPARATE_KINDS = frozenset({"impasse", "machine"})
 MAX_CONTENT = 1000
 
 _FTS_WORD = re.compile(r"\w{3,}", re.UNICODE)
+#: Au plus une fois par minute, à la lecture, les souvenirs arrivés à échéance s'effacent.
+_SWEEP_EVERY_S = 60.0
 
 
 def fts_query(text_value: str) -> str | None:
@@ -64,6 +71,10 @@ class MemoryRecord:
     use_count: int
     #: Santé, argent, adresse… : envoyé au modèle seulement quand la question en parle.
     personnel: bool = False
+    #: Le jour dont parle le souvenir (rendez-vous, voyage…), s'il est dit.
+    event_date: date | None = None
+    #: Pour un souvenir de quelques jours : quand il s'efface.
+    expires_at: datetime | None = None
 
     @classmethod
     def of(cls, item: MemoryItem) -> MemoryRecord:
@@ -79,7 +90,20 @@ class MemoryRecord:
             last_used_at=item.last_used_at,
             use_count=item.use_count,
             personnel=item.personnel,
+            event_date=item.event_date,
+            expires_at=item.expires_at,
         )
+
+
+@dataclass(frozen=True, slots=True)
+class Echeance:
+    """Le jour dont parle un souvenir et le moment où il s'efface ; sans rien, il est durable."""
+
+    expires_at: datetime | None = None
+    event_date: date | None = None
+
+
+DURABLE = Echeance()
 
 
 @dataclass(frozen=True, slots=True)
@@ -103,10 +127,38 @@ class MemoryStore:
         self._bus = bus
         self.index = VectorIndex(db, "memory", embedder.model_id, embedder.dim)
         self._calibration = calibration(embedder.model_id)
+        self._next_sweep = 0.0
 
     async def start(self) -> None:
         await self.index.ensure()
+        await self.forget_expired()
         await self._embed_missing()
+
+    async def forget_expired(self) -> list[int]:
+        """Efface les souvenirs arrivés à échéance (jamais un épinglé) ; rend leurs ids."""
+        now = utc_now()
+
+        def remove(session: Session) -> list[int]:
+            expired = session.scalars(
+                select(MemoryItem).where(MemoryItem.expires_at <= now, MemoryItem.pinned.is_(False))
+            ).all()
+            for item in expired:
+                session.delete(item)
+            return [item.id for item in expired]
+
+        ids = await self._db.run(remove)
+        if ids:
+            await self.index.delete(ids)
+            log.info("memory_expired", count=len(ids))
+            for item_id in ids:
+                await self._publish("memory.deleted", {"id": item_id})
+        return ids
+
+    async def _sweep(self) -> None:
+        if time.monotonic() < self._next_sweep:
+            return
+        self._next_sweep = time.monotonic() + _SWEEP_EVERY_S
+        await self.forget_expired()
 
     async def _embed_missing(self) -> None:
         """Les souvenirs sans vecteur pour ce modèle (le profil « Tout Meta » change de
@@ -152,9 +204,11 @@ class MemoryStore:
         confidence: float = 1.0,
         pinned: bool = False,
         personnel: bool = False,
+        echeance: Echeance = DURABLE,
     ) -> tuple[MemoryRecord, bool]:
         """Ajoute un souvenir, ou met à jour un quasi-doublon. Renvoie (souvenir, créé ?).
-        Un doublon d'un souvenir personnel le reste ; un doublon personnel le devient."""
+        Un doublon d'un souvenir personnel le reste ; un doublon personnel le devient. Un
+        souvenir durable redit en passant reste durable."""
         content = REDACTOR.redact(content)  # jamais de clé dans la mémoire
         if kind not in MEMORY_KINDS:
             raise InvalidInputError("Type de souvenir inconnu.")
@@ -163,8 +217,15 @@ class MemoryStore:
         if vector is not None:
             duplicate = await self._duplicate(kind, cleaned, vector)
             if duplicate is not None:
+                existing = await self.get(duplicate)
+                if existing.expires_at is None:
+                    echeance = Echeance(None, echeance.event_date or existing.event_date)
                 updated = await self.update(
-                    duplicate, content=cleaned, kind=kind, personnel=personnel or None
+                    duplicate,
+                    content=cleaned,
+                    kind=kind,
+                    personnel=personnel or None,
+                    echeance=echeance,
                 )
                 return updated, False
         now = utc_now()
@@ -178,6 +239,8 @@ class MemoryStore:
                 confidence=max(0.0, min(confidence, 1.0)),
                 pinned=pinned,
                 personnel=personnel,
+                event_date=echeance.event_date,
+                expires_at=echeance.expires_at,
                 created_at=now,
                 updated_at=now,
                 last_used_at=None,
@@ -218,6 +281,7 @@ class MemoryStore:
         kind: MemoryKind | None = None,
         pinned: bool | None = None,
         personnel: bool | None = None,
+        echeance: Echeance | None = None,
     ) -> MemoryRecord:
         if kind is not None and kind not in MEMORY_KINDS:
             raise InvalidInputError("Type de souvenir inconnu.")
@@ -236,6 +300,9 @@ class MemoryStore:
                 item.pinned = pinned
             if personnel is not None:
                 item.personnel = personnel
+            if echeance is not None:
+                item.event_date = echeance.event_date
+                item.expires_at = echeance.expires_at
             item.updated_at = utc_now()
             return MemoryRecord.of(item), changed_text
 
@@ -270,6 +337,7 @@ class MemoryStore:
     async def items(
         self, *, kind: str | None = None, query: str | None = None, limit: int = 500
     ) -> list[MemoryRecord]:
+        await self._sweep()
         match = fts_query(query) if query else None
 
         def read(session: Session) -> list[MemoryRecord]:
@@ -301,6 +369,7 @@ class MemoryStore:
 
     async def search(self, query: str, *, k: int = 8, min_score: float = 0.0) -> list[MemoryHit]:
         """Recherche hybride : sens (vecteurs) et mots (plein texte), fusionnés."""
+        await self._sweep()
         scores: dict[int, tuple[float, str]] = {}
         try:
             vector = (await self._embedder.embed([query], "query"))[0]

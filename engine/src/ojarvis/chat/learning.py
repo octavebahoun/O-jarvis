@@ -7,6 +7,9 @@ Avant d'extraire, le Système 1 lit le message :
 - « Sensible ? » : un secret (mot de passe, PIN, IBAN, clé…) n'est jamais gardé, même mêlé à
   un fait ; un message personnel (santé, argent, adresse…) donne des souvenirs marqués
   « personnel », envoyés au modèle seulement quand la question en parle.
+
+Après l'extraction, « Combien de temps ? » lit chaque fait : un souvenir de quelques jours
+reçoit une échéance (`ojarvis.systeme1.duree`), passé laquelle il s'efface seul.
 """
 
 from __future__ import annotations
@@ -17,7 +20,9 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+from ojarvis.context.engine import french_now
 from ojarvis.conversations.store import ConversationStore, MessageRecord
+from ojarvis.core.clock import local_timezone, utc_now
 from ojarvis.core.logs import get_logger
 from ojarvis.events.bus import EventBus
 from ojarvis.llm.errors import LLMError
@@ -30,6 +35,7 @@ from ojarvis.llm.types import (
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryStore
 from ojarvis.systeme1.decideurs import Systeme1
+from ojarvis.systeme1.duree import echeance, jour_dit
 
 log = get_logger(__name__)
 
@@ -39,6 +45,9 @@ class ExtractedFact(BaseModel):
     contenu: str = Field(min_length=3, max_length=400)
     confiance: float = Field(ge=0, le=1)
     remplace: int | None = Field(default=None, description="id d'un souvenir que ce fait corrige")
+    date: str | None = Field(
+        default=None, max_length=10, description="AAAA-MM-JJ : le jour dont parle un fait daté"
+    )
 
 
 class ExtractedEntity(BaseModel):
@@ -74,6 +83,11 @@ EXTRACTION_PROMPT = (
     "l'utilisateur est l'entité « moi » (type moi) ; une relation est courte, au présent "
     "(« travaille sur », « connaît », « habite à », « participe à », « apprend ») et relie deux "
     "entités de la liste. Réutilise exactement les noms déjà connus. "
+    "Un fait daté (rendez-vous, examen, voyage, fin d'une situation : « jusqu'à jeudi ») "
+    "porte ce jour dans « date » (AAAA-MM-JJ), calculé depuis la date d'aujourd'hui donnée "
+    "plus bas ; pas de « date » pour une naissance ni pour un passé lointain. Dans le fait, "
+    "écris le jour en entier (« le jeudi 12 novembre 2026 »), jamais « jeudi » ou « demain » "
+    "seuls. "
     "S'il n'y a rien à retenir, renvoie des listes vides."
 )
 
@@ -208,7 +222,9 @@ class ChatLearning:
         )
         names = await self._graph.known_names() if self._graph else []
         entity_lines = ", ".join(f"{n} ({k})" for n, k in names)
+        maintenant, fuseau = utc_now(), local_timezone()
         prompt = (
+            f"{french_now(maintenant, fuseau)}\n\n"
             f"Souvenirs existants proches :\n{known_lines or '(aucun)'}\n\n"
             f"Entités déjà connues : {entity_lines or '(aucune)'}\n\n"
             f"Échange :\nUtilisateur : {user.content}\nJarvis : {reply.content}"
@@ -224,15 +240,26 @@ class ChatLearning:
             log.warning("memory_extraction_failed")
             return
         known_ids = {h.record.id for h in known}
-        for fact in extraction.faits:
-            if fact.confiance < 0.6:
-                continue
+        faits = [fact for fact in extraction.faits if fact.confiance >= 0.6]
+        textes = [f.contenu for f in faits]
+        durees = await self._systeme1.decider("duree", textes) if self._systeme1 else None
+        for i, fact in enumerate(faits):
+            duree = durees[i] if durees else None
+            fin = echeance(duree, jour_dit(fact.date), maintenant, fuseau)
+            if duree is not None:
+                log.info(
+                    "systeme1_duree",
+                    reponse=duree.reponse,
+                    confiance=round(duree.confiance, 2),
+                    efface=fin.expires_at is not None,
+                )
             if fact.remplace is not None and fact.remplace in known_ids:
                 await self._memory.update(
                     fact.remplace,
                     content=fact.contenu,
                     kind=fact.type,
                     personnel=personnel or None,  # une correction ne retire pas la marque
+                    echeance=fin,
                 )
             else:
                 await self._memory.add(
@@ -242,6 +269,7 @@ class ChatLearning:
                     source_message_id=user.id,
                     confidence=fact.confiance,
                     personnel=personnel,
+                    echeance=fin,
                 )
         if self._graph is not None and (extraction.entites or extraction.relations):
             await self._graph.remember(

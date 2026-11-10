@@ -48,6 +48,10 @@ export interface MemoryItem {
   use_count: number;
   /** Santé, argent, adresse… : envoyé à Jarvis seulement quand la question en parle. */
   personnel: boolean;
+  /** Le jour dont parle le souvenir (AAAA-MM-JJ), s'il est dit. */
+  event_date: string | null;
+  /** Un souvenir de quelques jours s'efface seul à ce moment (jamais s'il est épinglé). */
+  expires_at: string | null;
 }
 
 export interface ProviderStatus {

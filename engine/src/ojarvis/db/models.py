@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any
 
 from sqlalchemy import (
@@ -145,6 +145,10 @@ class MemoryItem(Base):
     use_count: Mapped[int] = mapped_column(default=0)
     #: Santé, argent, adresse… : envoyé au modèle seulement quand la question en parle.
     personnel: Mapped[bool] = mapped_column(default=False, server_default=false())
+    #: Le jour dont parle le souvenir (rendez-vous, voyage…), gardé par le code, pas le modèle.
+    event_date: Mapped[date | None]
+    #: Un souvenir de quelques jours s'efface seul passé ce moment (jamais s'il est épinglé).
+    expires_at: Mapped[datetime | None]
 
 
 class Embedding(Base):

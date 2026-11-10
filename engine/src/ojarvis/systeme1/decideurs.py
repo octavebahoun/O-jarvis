@@ -99,6 +99,20 @@ class Systeme1:
             return None
         return self._decideurs.sur_message(vecteur)
 
+    async def decider(self, decision: str, textes: list[str]) -> list[Choix] | None:
+        """Une décision sur chacun des textes (les faits extraits d'un message, par exemple) ;
+        None si le Système 1 se tait ou ne connaît pas cette décision."""
+        if self._decideurs is None or not self.actif or decision not in self._decideurs.decisions:
+            return None
+        if not textes:
+            return []
+        try:
+            vecteurs = await self._embedder.embed(textes, "query")
+        except Exception:
+            log.warning("systeme1_unavailable")
+            return None
+        return [self._decideurs.decider(decision, v) for v in vecteurs]
+
 
 def charger_systeme1(embedder: Embedder) -> Systeme1:
     """Le Système 1 du moteur ; sans poids lisibles, il reste muet et Jarvis fait comme avant."""

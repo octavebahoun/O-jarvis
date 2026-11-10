@@ -108,6 +108,7 @@ function MemoryRow({ item }: { item: MemoryItem }) {
         {item.use_count > 0 && ` · utilisé ${item.use_count} fois`}
         {item.pinned && " · épinglé"}
         {item.personnel && " · personnel"}
+        {item.expires_at && !item.pinned && ` · s'efface ${formatRelative(item.expires_at)}`}
       </p>
       <div className={styles.actions}>
         <Button
@@ -115,7 +116,7 @@ function MemoryRow({ item }: { item: MemoryItem }) {
           variant="ghost"
           className={styles.pin}
           aria-pressed={item.pinned}
-          aria-label="Épingler (toujours envoyé à Jarvis)"
+          aria-label="Épingler (toujours envoyé à Jarvis, jamais effacé seul)"
           icon={<Pin />}
           onClick={() => {
             update.mutate({ id: item.id, pinned: !item.pinned });

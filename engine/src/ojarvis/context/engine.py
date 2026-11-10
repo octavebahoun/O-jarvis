@@ -11,7 +11,7 @@ import math
 import re
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import datetime, tzinfo
+from datetime import date, datetime, tzinfo
 
 from ojarvis.context.language import ENGLISH_HINT, english_requested
 from ojarvis.conversations.store import ConversationStore, MessageRecord
@@ -116,6 +116,19 @@ def french_now(moment: datetime, tz: tzinfo) -> str:
         f"Nous sommes le {_DAYS[local.weekday()]} {local.day} {_MONTHS[local.month - 1]} "
         f"{local.year}, il est {local.hour} h {local.minute:02d} (fuseau {zone})."
     )
+
+
+def quand(jour: date, aujourd_hui: date) -> str:
+    """Le jour d'un souvenir daté, vu d'aujourd'hui : « passé » pour qu'il dise « tu as eu »."""
+    ecart = (jour - aujourd_hui).days
+    nom = f"{_DAYS[jour.weekday()]} {jour.day} {_MONTHS[jour.month - 1]} {jour.year}"
+    if ecart < 0:
+        return f"{nom}, passé"
+    if ecart == 0:
+        return f"{nom}, aujourd'hui"
+    if ecart == 1:
+        return f"{nom}, demain"
+    return f"{nom}, dans {ecart} jours"
 
 
 @dataclass(slots=True)
@@ -337,11 +350,13 @@ class ContextEngine:
         lines.append("</memoire>")
         return f"{system}\n\n" + "\n".join(lines)
 
-    @staticmethod
-    def _memory_item(record: MemoryRecord, score: float) -> ContextItem:
-        return ContextItem(
-            record.kind, str(record.id), record.content, score, estimate_tokens(record.content) + 3
-        )
+    def _memory_item(self, record: MemoryRecord, score: float) -> ContextItem:
+        text = record.content
+        if record.event_date is not None:
+            # La date, c'est le code qui la tient : le modèle n'a pas à la recompter.
+            today = self._clock().astimezone(self._timezone()).date()
+            text = f"{text} ({quand(record.event_date, today)})"
+        return ContextItem(record.kind, str(record.id), text, score, estimate_tokens(text) + 3)
 
 
 __all__ = ["BuiltContext", "ContextEngine", "ContextItem", "MemoryHit", "estimate_tokens"]
