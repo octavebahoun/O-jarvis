@@ -12,7 +12,7 @@ relisait le message pour chaque question : 6,8 s par message sur un i5 de 2015.
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import numpy as np
@@ -37,6 +37,11 @@ Vecteur = npt.NDArray[np.float32]
 class Choix:
     reponse: str
     confiance: float
+    #: La probabilité de chaque réponse (la plus probable est `reponse`).
+    probas: Mapping[str, float] = field(default_factory=dict, compare=False)
+
+    def proba(self, reponse: str) -> float:
+        return self.probas.get(reponse, self.confiance if reponse == self.reponse else 0.0)
 
 
 class Decideurs:
@@ -69,7 +74,12 @@ class Decideurs:
         probas = np.exp(scores - scores.max())
         probas /= probas.sum()
         meilleur = int(probas.argmax())
-        return Choix(self._reponses[decision][meilleur], float(probas[meilleur]))
+        reponses = self._reponses[decision]
+        return Choix(
+            reponses[meilleur],
+            float(probas[meilleur]),
+            {r: float(p) for r, p in zip(reponses, probas, strict=True)},
+        )
 
     def sur_message(self, vecteur: Vecteur) -> dict[str, Choix]:
         """Toutes les décisions qui ne lisent que le message."""

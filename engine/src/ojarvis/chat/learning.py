@@ -40,6 +40,7 @@ from ojarvis.llm.types import (
 )
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryHit, MemoryStore
+from ojarvis.systeme1 import oubli
 from ojarvis.systeme1.decideurs import SEUIL_RIEN, Systeme1
 from ojarvis.systeme1.doutes import (
     CONFIANCE_SI_INCERTAIN,
@@ -79,6 +80,10 @@ class Extraction(BaseModel):
     faits: list[ExtractedFact] = Field(default_factory=list, max_length=8)
     entites: list[ExtractedEntity] = Field(default_factory=list, max_length=10)
     relations: list[ExtractedRelation] = Field(default_factory=list, max_length=10)
+    oublie: list[int] = Field(
+        default_factory=list, max_length=12, description="ids des souvenirs à oublier"
+    )
+    oublie_tout: bool = Field(default=False, description="effacer tout ce qu'on sait de lui")
 
 
 EXTRACTION_PROMPT = (
@@ -125,6 +130,8 @@ class Tri:
     apprendre: bool = True
     personnel: bool = False
     secret: bool = False
+    #: Une demande d'oubli : le modèle d'extraction désigne quoi effacer.
+    oublier: bool = False
 
 
 class ChatLearning:
@@ -169,12 +176,40 @@ class ChatLearning:
         attente = self._attente(conversation_id, reply)
         if needs_title:
             await self._title(conversation_id, user, reply)
+        if conversation_id in self._context.confirmations:
+            # La réponse à « tout effacer ? » : un « oui » franc efface, le reste annule.
+            self._context.confirmations.discard(conversation_id)
+            if oubli.confirme(user.content):
+                await self._tout_oublier()
+            return
         if not (self.learn and learn):
             return
         tri = await self._triage(user)
         # La réponse à une question sur un souvenir s'apprend, même brève (« oui », « les deux »).
-        if tri.apprendre or (attente is not None and not tri.secret):
-            await self._extract(user, reply, personnel=tri.personnel, attente=attente)
+        if tri.apprendre or tri.oublier or (attente is not None and not tri.secret):
+            await self._extract(
+                user,
+                reply,
+                personnel=tri.personnel,
+                attente=attente,
+                oublier=conversation_id if tri.oublier else None,
+            )
+
+    async def _tout_oublier(self) -> None:
+        """Ce que Jarvis sait de l'utilisateur, après son « oui » : faits, préférences, profil
+        et graphe. La carte de la machine et les impasses du mode shell restent."""
+        effaces = 0
+        for record in await self._memory.items(limit=100_000):
+            if record.kind in {"fait", "preference", "profil"}:
+                with contextlib.suppress(NotFoundError):
+                    await self._memory.delete(record.id)
+                    effaces += 1
+        if self._graph is not None:
+            entites, _ = await self._graph.graph(limit=100_000)
+            for entite in entites:
+                with contextlib.suppress(NotFoundError):
+                    await self._graph.delete_entity(entite.id)
+        log.info("memory_wiped", souvenirs=effaces)
 
     def _attente(self, conversation_id: str, reply: MessageRecord) -> Attente | None:
         """La question sur un souvenir à laquelle ce message répond, s'il y en a une : le tour
@@ -209,7 +244,8 @@ class ChatLearning:
             and apprendre.confiance >= SEUIL_RIEN
         )
         personnel = sensible is not None and sensible.reponse == "personnel"
-        return Tri(apprendre=not rien, personnel=personnel)
+        oublier = oubli.demande_oubli(decisions)
+        return Tri(apprendre=not rien, personnel=personnel, oublier=oublier)
 
     async def _title(self, conversation_id: str, user: MessageRecord, reply: MessageRecord) -> None:
         try:
@@ -240,7 +276,9 @@ class ChatLearning:
         *,
         personnel: bool = False,
         attente: Attente | None = None,
+        oublier: str | None = None,
     ) -> None:
+        """`oublier` : la conversation d'une demande d'oubli (vue par le Système 1)."""
         known = [
             hit
             for hit in await self._memory.search(user.content, k=8)
@@ -260,7 +298,10 @@ class ChatLearning:
         if self._systeme1 is not None:
             floor = self._memory.relevance_floor
             doute = await examiner(self._systeme1, user.content, known, floor)
-        tranche = "".join(f"- {ligne}\n" for ligne in pour_extraction(doute, attente))
+        lignes = pour_extraction(doute, attente)
+        if oublier is not None:
+            lignes.append(oubli.CONSIGNE_EXTRACTION)
+        tranche = "".join(f"- {ligne}\n" for ligne in lignes)
         prompt = (
             f"{french_now(maintenant, fuseau)}\n\n"
             f"Souvenirs existants proches :\n{known_lines or '(aucun)'}\n\n"
@@ -279,8 +320,50 @@ class ChatLearning:
             log.warning("memory_extraction_failed")
             return
         known_ids = {h.record.id for h in known}
+        if oublier is not None:
+            known_ids -= await self._oublier(extraction, known_ids, oublier)
+        await self._ranger(
+            extraction.faits,
+            user=user,
+            known_ids=known_ids,
+            doute=doute,
+            attente=attente,
+            personnel=personnel,
+        )
+        if self._graph is not None and (extraction.entites or extraction.relations):
+            await self._graph.remember(
+                [(e.nom, e.type, e.description) for e in extraction.entites],
+                [(r.source, r.lien, r.cible) for r in extraction.relations],
+            )
+
+    async def _oublier(
+        self, extraction: Extraction, known_ids: set[int], conversation_id: str
+    ) -> set[int]:
+        """Efface les souvenirs que le modèle désigne, parmi ceux qu'on lui a montrés ; pour
+        « oublie tout », note seulement la question : rien ne part avant le « oui »."""
+        vises = set(extraction.oublie) & known_ids
+        for item_id in vises:
+            with contextlib.suppress(NotFoundError):
+                await self._memory.delete(item_id)
+        log.info("memory_forgotten", count=len(vises), tout=extraction.oublie_tout)
+        if extraction.oublie_tout:
+            self._context.confirmations.add(conversation_id)
+        return vises
+
+    async def _ranger(
+        self,
+        faits: list[ExtractedFact],
+        *,
+        user: MessageRecord,
+        known_ids: set[int],
+        doute: Doute,
+        attente: Attente | None,
+        personnel: bool,
+    ) -> None:
+        """Ajoute ou corrige les faits extraits, selon ce que le Système 1 a tranché."""
+        maintenant, fuseau = utc_now(), local_timezone()
         seuil = CONFIANCE_SI_INCERTAIN if doute.incertain else 0.6
-        faits = [fact for fact in extraction.faits if fact.confiance >= seuil]
+        faits = [fact for fact in faits if fact.confiance >= seuil]
         # Le souvenir que le Système 1 garde (sauf si l'utilisateur vient de trancher) ; celui
         # qu'il remplace, par le seul fait du message si le modèle ne l'a pas dit.
         protege = doute.protege
@@ -321,8 +404,3 @@ class ChatLearning:
                     personnel=personnel,
                     echeance=fin,
                 )
-        if self._graph is not None and (extraction.entites or extraction.relations):
-            await self._graph.remember(
-                [(e.nom, e.type, e.description) for e in extraction.entites],
-                [(r.source, r.lien, r.cible) for r in extraction.relations],
-            )

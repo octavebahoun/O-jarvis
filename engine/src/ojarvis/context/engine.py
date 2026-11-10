@@ -20,9 +20,10 @@ from ojarvis.llm.types import Message
 from ojarvis.memory.calibration import CALIBRATIONS, calibration
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryHit, MemoryRecord, MemoryStore
-from ojarvis.systeme1.decideurs import Systeme1
+from ojarvis.systeme1 import oubli
+from ojarvis.systeme1.decideurs import Choix, Systeme1
 from ojarvis.systeme1.doutes import Attente, consignes, examiner
-from ojarvis.systeme1.rappel import Rappel, rappel
+from ojarvis.systeme1.rappel import rappel
 
 #: Seuil de pertinence par modèle de sens, pour les extensions qui le lisent ici (O-jarvis
 #: Shell) ; la source est `ojarvis.memory.calibration`.
@@ -205,6 +206,8 @@ class ContextEngine:
         #: Par conversation, la question posée sur un souvenir dont la réponse est attendue
         #: (lue et retirée par l'apprentissage, `ojarvis.chat.learning`).
         self.attentes: dict[str, Attente] = {}
+        #: Les conversations où Jarvis a demandé s'il doit tout oublier (même lecteur).
+        self.confirmations: set[str] = set()
         self._memory = memory
         self._conversations = conversations
         self._graph = graph
@@ -236,13 +239,20 @@ class ContextEngine:
         asked = [user_text, *(r.content for r in reversed(history) if r.role == "user")]
         if english_requested(asked):
             system = f"{system}\n\n{ENGLISH_HINT}"
-        if doutes := await self._doutes(conversation_id, user_text):
-            system = "\n\n".join([system, *doutes])
+        decisions = await self._lire(user_text)
+        attendue = conversation_id in self.confirmations
+        lignes = oubli.consignes(
+            oubli.demande_oubli(decisions),
+            confirmation=oubli.confirme(user_text) if attendue else None,
+        )
+        lignes += await self._doutes(conversation_id, user_text)
+        if lignes:
+            system = "\n\n".join([system, *lignes])
         base = ContextItem("systeme", None, system, 10.0, estimate_tokens(system), True, "toujours")
         question_tokens = estimate_tokens(user_text)
         remaining = max(total - base.tokens - question_tokens, 0)
 
-        quoi = await self._rappel(user_text)
+        quoi = rappel(decisions)
         memory_items, found = await self._memory_section(user_text, channel, sur_toi=quoi.sur_toi)
         memory_used = _select(memory_items, int(remaining * MEMORY_SHARE))
         recall_items = []
@@ -271,11 +281,11 @@ class ContextEngine:
             memory_ids=[int(i.ref) for i in kept_memory if i.ref],
         )
 
-    async def _rappel(self, user_text: str) -> Rappel:
-        """Ce que le Système 1 juge utile d'envoyer ; sans lui, tout, comme avant."""
+    async def _lire(self, user_text: str) -> dict[str, Choix] | None:
+        """Les décisions du Système 1 sur le message ; None sans lui (tout comme avant)."""
         if self.systeme1 is None or not self.systeme1.actif:
-            return Rappel()
-        return rappel(await self.systeme1.lire(user_text))
+            return None
+        return await self.systeme1.lire(user_text)
 
     async def _doutes(self, conversation_id: str, user_text: str) -> list[str]:
         """Le Système 1 : un doute sur un souvenir, ou sur ce que dit l'utilisateur, se lève
