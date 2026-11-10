@@ -9,8 +9,8 @@ set -euo pipefail
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 bundle="$root/app/src-tauri/target/release/bundle"
 engine="$root/engine/dist/ojarvis-engine"
-# O-jarvis Shell, dans son propre dépôt : sa commande, l'extension Chrome et son hôte.
-shell="${OJARVIS_SHELL_DIR:-$root/../o-jarvis-shell}"
+# O-jarvis Shell (shell/) : sa commande, l'extension Chrome et son hôte.
+shell="$root/shell"
 
 # OJARVIS_MOTEUR_PRET=1 : réutilise le moteur déjà construit.
 if [[ "${OJARVIS_MOTEUR_PRET:-0}" != "1" ]]; then

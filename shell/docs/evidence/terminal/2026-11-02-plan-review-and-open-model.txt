@@ -1,0 +1,52 @@
+
+   ◉ O-jarvis  Shell  v1.4.0
+
+    dossier  ~/demo-jarvis  git main
+    modèles  Tout Meta · Muse Spark 1.3, secours Muse Spark Open, relecture Muse Wonder
+    moteur   lancé pour ce terminal, il s'arrête avec lui
+
+    /voix parler   /partage écran en direct   /nouveau conversation   /modele choisir le modèle   /toujours validé d'office   exit
+  ──────────────────────────────────────────────────────────────────────────────
+demo-jarvis main ❯ Create notes.txt here with a shopping list: milk, eggs, rice, tea.
+
+◆ Jarvis   meta / muse-spark-1.3
+  I'll create your shopping list in this folder.
+
+  The plan to create ~/demo-jarvis/notes.txt is waiting for your validation.
+
+  ╭─  À VALIDER · NIVEAU 2 · ACTION  ───────────────────────────────────────────
+  │ 1  Écrire dans le fichier ~/demo-jarvis/notes.txt (créé ou remplacé) : « milk eggs rice tea »
+  │    --- a/~/demo-jarvis/notes.txt
+  │    +++ b/~/demo-jarvis/notes.txt
+  │    @@ -0,0 +1,4 @@
+  │    +milk
+  │    +eggs
+  │    +rice
+  │    +tea
+  │ ✓ Relecture · meta / muse-wonder-1.0 : Le fichier ~/demo-jarvis/notes.txt contient bien la liste demandée : milk, eggs, rice et tea, un article par ligne.
+  ╰─ Valider ?  o oui · n non  › o
+
+  ✓ Écrire dans le fichier ~/demo-jarvis/notes.txt (créé ou remplacé) : « milk eggs rice tea »
+
+  Je vérifie le fichier créé.
+  ✓ Lancer « cat notes.txt » dans ~/demo-jarvis                  lecture · 0,1 s
+    │ milk
+    │ eggs
+    │ rice
+    │ tea
+
+  Done: ~/demo-jarvis/notes.txt has your 4 items.
+  Example: cat notes.txt shows milk, eggs, rice, tea.
+  Want me to add anything else?
+  25,8 s · 0,047 $
+demo-jarvis main ❯ /modele open
+  Modèle : Muse Spark Open
+demo-jarvis main ❯ In one sentence, what is in notes.txt?
+
+◆ Jarvis   baseten / meta-models/muse-spark-open-1026
+  ✓ Lire le fichier ~/demo-jarvis/notes.txt                      lecture · 0,0 s
+
+  notes.txt contains your shopping list: milk, eggs, rice, and tea.
+  4,4 s · 0,034 $
+demo-jarvis main ❯ exit
+  L'app utilisait ce moteur : elle relance le sien (quelques secondes).

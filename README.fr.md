@@ -25,7 +25,7 @@ Le projet s'est construit phase par phase. L'état du travail est dans [`PROGRES
 
 ## Meta models (Meta Global AI Developer Hackathon)
 
-With the default **"All Meta"** profile, every model O-jarvis calls at runtime is a Meta model, fallbacks included. If no Meta model can answer, Jarvis says so; it never falls back to another provider. What was built during the hackathon is O-jarvis Shell, in its own repository: [octavebahoun/o-jarvis-shell](https://github.com/octavebahoun/o-jarvis-shell).
+With the default **"All Meta"** profile, every model O-jarvis calls at runtime is a Meta model, fallbacks included. If no Meta model can answer, Jarvis says so; it never falls back to another provider. What was built during the hackathon is O-jarvis Shell, in [`shell/`](shell).
 
 | Meta model | Where it runs | What it does in O-jarvis |
 |---|---|---|
@@ -94,7 +94,7 @@ Au premier lancement, le moteur télécharge ses modèles locaux (environ 350 Mo
 
 ## Jarvis dans Chrome
 
-*Construit pendant le hackathon Meta : le code est dans [O-jarvis Shell](https://github.com/octavebahoun/o-jarvis-shell).*
+*Construit pendant le hackathon Meta : le code est dans [`shell/`](shell) (O-jarvis Shell).*
 
 Une extension ouvre Jarvis dans le panneau latéral de Chrome, à côté de la page que tu regardes. Sur les sites que tu autorises (Chrome te le demande une fois par site), Jarvis lit l'onglet ouvert : son titre, son adresse, son texte visible et ta sélection, jamais tes cookies ni tes champs de saisie. Pour lui, la page est une donnée, jamais une consigne : un plan proposé après sa lecture est signalé, et chaque action attend ta validation dans le panneau.
 
@@ -108,7 +108,7 @@ Le mode « Agir sans demander », par site et éteint par défaut, fait les plan
 
 Avec le paquet `.deb`, le pont vers le moteur est déjà déclaré à Chrome et à Chromium : dans Chrome, `chrome://extensions` → Mode développeur → Charger l'extension non empaquetée → dossier `/usr/lib/O-jarvis/extension`. Depuis les sources :
 
-Depuis les sources, l'extension Chrome et son script d'installation sont dans [O-jarvis Shell](https://github.com/octavebahoun/o-jarvis-shell), le dépôt du hackathon Meta, qui se branche sur ce moteur.
+Depuis les sources : `shell/scripts/install-chrome.sh`, puis charger le dossier [`shell/extension`](shell/extension) de la même façon.
 
 ## Vérifier
 
