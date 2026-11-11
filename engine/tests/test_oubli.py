@@ -29,6 +29,15 @@ def test_a_request_to_forget_is_anything_unlikely_to_keep_and_only_yes_wipes() -
     assert oubli.demande_oubli(choix(0.34, 0.24, 0.42))  # « oublie que je bosse chez Orange »
     assert not oubli.demande_oubli(choix(0.89, 0.05, 0.06))  # « j'ai oublié mon parapluie »
     assert not oubli.demande_oubli(None)
+    # Dite en toutes lettres, la demande compte même si le décideur hésite.
+    hesite = choix(0.52, 0.14, 0.34)  # « oublie le mac », vu le 11/11/2026
+    assert oubli.demande_oubli(hesite, "oublie le mac")
+    assert oubli.demande_oubli(None, "Bon, oublie mon adresse")
+    assert oubli.demande_oubli(None, "Peux-tu oublier mon adresse ?")
+    assert oubli.demande_oubli(None, "efface mon adresse de ta mémoire")
+    assert not oubli.demande_oubli(hesite, "Oublie pas de me rappeler d'appeler maman")
+    assert not oubli.demande_oubli(hesite, "J'ai oublié mes clés")
+    assert not oubli.demande_oubli(hesite, "Supprime le fichier test.py")
     assert oubli.confirme("Oui, vas-y")
     assert oubli.confirme("ok")
     assert not oubli.confirme("non, finalement garde tout")
@@ -139,6 +148,24 @@ def test_anything_but_yes_cancels(
     assert "n'a pas confirmé" in scenario.systemes[1]
     assert len(restants(client)) == 4
     assert not services.context.confirmations
+
+
+def test_jarvis_never_claims_to_have_forgotten_when_nothing_is_erased() -> None:
+    (ligne,) = oubli.consignes(False, confirmation=None, texte="Ne retiens plus que j'ai un Mac")
+    assert "ne dis jamais que tu as oublié" in ligne
+    assert "page Mémoire" in ligne
+    assert oubli.consignes(False, confirmation=None, texte="Quelle heure est-il ?") == []
+
+
+def test_a_request_in_plain_words_counts_even_if_the_decider_hesitates(
+    client: TestClient, services: Services, llm: dict[str, FakeProvider]
+) -> None:
+    ids = brancher(client, services)
+    scenario = Scenario(["C'est oublié."], [rien(oublie=[ids["L'utilisateur aime le jazz."]])])
+    llm["deepseek"]._script = scenario
+    parler(client, services, "oublie le jazz", None)  # sans indice : le décideur dit « garder »
+    assert "ce que tu oublies" in scenario.systemes[0]
+    assert "L'utilisateur aime le jazz." not in restants(client)
 
 
 def test_a_vague_request_makes_jarvis_ask_what(

@@ -24,6 +24,19 @@ from ojarvis.systeme1.decideurs import Choix
 #: disent « si », et le modèle d'extraction doit encore nommer les souvenirs.
 SEUIL_GARDER = 0.4
 
+#: Une demande dite en toutes lettres, même si le décideur hésite : le 11/11/2026, « oublie le
+#: mac » est sorti « garder » à 0,52, et Jarvis a répondu « c'est fait » sans rien effacer.
+#: « Oublie pas de… » (ne pas oublier) n'en est pas une.
+_DEMANDE = re.compile(
+    r"^\W*(?:(?:stp|s'il te pla[iî]t|bon|alors|ok|et|ah|euh)\W+)?oubliez?\b"
+    r"(?!\W+(?:pas|jamais|surtout pas|rien)\b)"
+    r"|\b(?:peux|pourrais|veux)[- ]tu oublier\b|\btu peux oublier\b"
+    r"|\b(?:efface|supprime|retire)\b.*\b(?:de|dans) ta m[ée]moire\b",
+    re.IGNORECASE,
+)
+#: Un message qui parle d'oublier ou d'effacer : Jarvis ne prétend pas l'avoir fait.
+_EVOQUE = re.compile(r"oubli|effac|supprim|m[ée]moire|retiens", re.IGNORECASE)
+
 #: Un « oui » franc au début du message : tout autre réponse annule l'oubli total.
 _OUI = re.compile(
     r"^\W*(oui|ouais|yes|vas[- ]y|confirme|je confirme|d'accord|ok|okay|efface|c'est sûr)\b",
@@ -37,7 +50,11 @@ CONSIGNE_EXTRACTION = (
 )
 
 
-def demande_oubli(decisions: Mapping[str, Choix] | None) -> bool:
+def demande_oubli(decisions: Mapping[str, Choix] | None, texte: str = "") -> bool:
+    """Le décideur qui y voit un oubli, ou la demande en toutes lettres. Le modèle d'extraction
+    doit encore nommer les souvenirs : une fausse alerte n'efface rien."""
+    if _DEMANDE.search(texte):
+        return True
     choix = decisions.get("oublier") if decisions else None
     return choix is not None and choix.proba("garder") < SEUIL_GARDER
 
@@ -46,7 +63,7 @@ def confirme(texte: str) -> bool:
     return bool(_OUI.match(texte))
 
 
-def consignes(demande: bool, *, confirmation: bool | None) -> list[str]:
+def consignes(demande: bool, *, confirmation: bool | None, texte: str = "") -> list[str]:
     """Pour la réponse. `confirmation` : la réponse attendue à « tout effacer ? » (None sans
     question en attente)."""
     if confirmation is True:
@@ -62,5 +79,11 @@ def consignes(demande: bool, *, confirmation: bool | None) -> list[str]:
             "dis-lui en une phrase ce que tu oublies (c'est fait juste après ta réponse), ou "
             "demande-lui quoi si ce n'est pas clair. S'il veut que tu oublies tout ce que tu sais "
             "de lui, ne dis pas que c'est fait : demande-lui de confirmer, car tout sera effacé."
+        ]
+    if _EVOQUE.search(texte):
+        return [
+            "Rien n'est effacé de ta mémoire pour ce message : ne dis jamais que tu as oublié ou "
+            "effacé quelque chose. Si l'utilisateur te le demande, dis-lui qu'il peut retirer ce "
+            "souvenir dans la page Mémoire."
         ]
     return []

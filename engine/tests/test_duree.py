@@ -42,8 +42,10 @@ def test_only_a_sure_short_lived_fact_gets_an_end() -> None:
         datetime(2026, 11, 16, 0, 0, tzinfo=PARIS), JEUDI
     )
     assert echeance(court, None, MARDI, PARIS) == Echeance(MARDI + timedelta(days=7))
-    # Une date déjà loin derrière : il le garde au moins jusqu'au lendemain.
-    assert echeance(court, date(2026, 10, 1), MARDI, PARIS).expires_at == MARDI + timedelta(days=1)
+    # Une date déjà passée : il le garde au moins jusqu'au lendemain.
+    assert echeance(court, date(2026, 11, 5), MARDI, PARIS).expires_at == MARDI + timedelta(days=1)
+    # Passée depuis plus d'une semaine, c'est de l'histoire : « a quitté Lyon le 21/09 ».
+    assert echeance(court, date(2026, 9, 21), MARDI, PARIS) == Echeance(None, date(2026, 9, 21))
 
 
 def test_the_date_given_by_the_model_is_read_or_ignored() -> None:

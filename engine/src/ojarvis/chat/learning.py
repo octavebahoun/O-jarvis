@@ -42,6 +42,7 @@ from ojarvis.llm.types import (
 from ojarvis.memory.graph import GraphStore
 from ojarvis.memory.store import MemoryHit, MemoryStore
 from ojarvis.systeme1 import oubli
+from ojarvis.systeme1 import sensible as sensibles
 from ojarvis.systeme1.decideurs import SEUIL_RIEN, Systeme1
 from ojarvis.systeme1.doutes import (
     CONFIANCE_SI_INCERTAIN,
@@ -90,7 +91,11 @@ class Extraction(BaseModel):
 EXTRACTION_PROMPT = (
     "Tu tiens à jour la mémoire de Jarvis sur l'utilisateur. Lis l'échange ci-dessous et "
     "relève seulement les informations durables que l'utilisateur donne sur lui-même : "
-    "identité, goûts, habitudes, projets, proches, contraintes. Ignore le temporaire (météo du "
+    "identité, goûts, habitudes, projets, proches, contraintes. Relève aussi ses rendez-vous et "
+    "événements à venir (dentiste jeudi, examen, voyage) : la mémoire les oublie seule après la "
+    "date. Ses numéros de papiers (passeport, carte d'identité, sécurité sociale) se retiennent "
+    "aussi : ils sont rangés à part ; jamais un mot de passe, un code ni un numéro de carte "
+    "bancaire. Ignore le temporaire (météo du "
     "jour, humeur passagère), les suppositions et les connaissances générales. Chaque fait est "
     "une phrase autonome à la troisième personne ; désigne l'utilisateur par son prénom s'il "
     "est connu, sinon « L'utilisateur ». « profil » = identité stable (nom, ville, métier) ; "
@@ -235,7 +240,7 @@ class ChatLearning:
         """Sans Système 1, ou s'il se tait, le modèle décide seul, comme avant."""
         decisions = await self._systeme1.lire(user.content) if self._systeme1 else None
         if not decisions:
-            return Tri()
+            return Tri(oublier=oubli.demande_oubli(None, user.content))
         apprendre = decisions.get("apprendre")
         sensible = decisions.get("sensible")
         log.info(
@@ -243,18 +248,15 @@ class ChatLearning:
             apprendre=apprendre and (apprendre.reponse, round(apprendre.confiance, 2)),
             sensible=sensible and (sensible.reponse, round(sensible.confiance, 2)),
         )
-        if sensible is not None and sensible.reponse == "secret":
-            # Même incertain : rater un fait coûte peu, garder un mot de passe coûte cher.
-            # Mesuré le 10/11/2026 : les 20 secrets du test pris, 3 faux sur 62.
+        if sensibles.secret(decisions, user.content):
             return Tri(apprendre=False, secret=True)
         rien = (
             apprendre is not None
             and apprendre.reponse == "rien"
             and apprendre.confiance >= SEUIL_RIEN
         )
-        personnel = sensible is not None and sensible.reponse == "personnel"
-        oublier = oubli.demande_oubli(decisions)
-        return Tri(apprendre=not rien, personnel=personnel, oublier=oublier)
+        oublier = oubli.demande_oubli(decisions, user.content)
+        return Tri(apprendre=not rien, personnel=sensibles.personnel(decisions), oublier=oublier)
 
     async def _title(self, conversation_id: str, user: MessageRecord, reply: MessageRecord) -> None:
         try:

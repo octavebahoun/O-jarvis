@@ -22,9 +22,32 @@ from ojarvis.llm.types import LLMRequest, ToolCall
 from ojarvis.memory.embeddings import HashEmbedder, Kind, Vectors
 from ojarvis.memory.store import MemoryStore
 from ojarvis.services import Services
-from ojarvis.systeme1.decideurs import Decideurs, Systeme1
+from ojarvis.systeme1.decideurs import Choix, Decideurs, Systeme1
+from ojarvis.systeme1.sensible import personnel, secret
 from ojarvis.testing.chat import read_sse
 from tests.test_systeme1 import Apprentissage, message
+
+
+def vu(ordinaire: float, perso: float, secr: float) -> dict[str, Choix]:
+    probas = {"ordinaire": ordinaire, "personnel": perso, "secret": secr}
+    meilleure = max(probas, key=lambda r: probas[r])
+    return {"sensible": Choix(meilleure, probas[meilleure], probas)}
+
+
+def test_the_decider_alone_must_be_sure_to_call_it_a_secret() -> None:
+    # Vus le 11/11/2026 sur de vrais messages : « secret » à 0,44 et 0,43, rien n'était gardé.
+    orange = vu(0.34, 0.22, 0.44)
+    assert not secret(orange, "Mon opérateur mobile, c'est Orange")
+    assert not personnel(orange)
+    passeport = vu(0.16, 0.41, 0.43)
+    assert not secret(passeport, "Mon numéro de passeport est 12AB34567")
+    assert personnel(passeport)
+    # Un mot qui en parle, un décideur sûr, un numéro de carte ou un IBAN : secret.
+    assert secret(orange, "mon mdp wifi c'est soleil2024")
+    assert secret(vu(0.2, 0.15, 0.65), "retiens bien ça")
+    assert secret(vu(0.9, 0.05, 0.05), "ma carte : 4821 2032 5065 8525")
+    assert secret(None, "mon IBAN : FR76 3000 6000 0112 3456 7890 189")
+    assert not secret(vu(0.9, 0.05, 0.05), "appelle-moi au 06 12 34 56 78")
 
 
 class MotsCles:

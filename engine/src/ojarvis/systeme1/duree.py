@@ -22,6 +22,10 @@ APRES_LA_DATE = timedelta(days=3)
 SANS_DATE = timedelta(days=7)
 #: Jamais effacé le jour même où il est appris, même si la date dite est passée.
 AU_MOINS = timedelta(days=1)
+#: Une date passée depuis plus longtemps, c'est de l'histoire, pas un rendez-vous : durable.
+#: Le 11/11/2026, sur un vrai message, un déménagement de sept semaines plus tôt sortait
+#: « quelques jours » à 0,63, et se serait effacé le lendemain.
+HISTOIRE = timedelta(days=7)
 
 
 def jour_dit(texte: str | None) -> date | None:
@@ -36,8 +40,11 @@ def jour_dit(texte: str | None) -> date | None:
 
 def echeance(choix: Choix | None, jour: date | None, maintenant: datetime, tz: tzinfo) -> Echeance:
     """Durable, sauf un « quelques jours » assez sûr : il s'efface 3 jours après le jour dit
-    (à minuit, heure locale), ou une semaine après s'il n'y en a pas."""
+    (à minuit, heure locale), ou une semaine après s'il n'y en a pas. Un jour dit passé depuis
+    plus d'une semaine reste durable."""
     if choix is None or choix.reponse != "quelques_jours" or choix.confiance < SEUIL_COURT:
+        return Echeance(None, jour)
+    if jour is not None and jour < maintenant.astimezone(tz).date() - HISTOIRE:
         return Echeance(None, jour)
     if jour is None:
         return Echeance(maintenant + SANS_DATE, None)

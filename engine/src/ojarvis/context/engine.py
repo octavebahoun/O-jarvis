@@ -247,8 +247,9 @@ class ContextEngine:
         decisions = await self._lire(user_text)
         attendue = conversation_id in self.confirmations
         lignes = oubli.consignes(
-            oubli.demande_oubli(decisions),
+            oubli.demande_oubli(decisions, user_text),
             confirmation=oubli.confirme(user_text) if attendue else None,
+            texte=user_text,
         )
         lignes += await self._doutes(conversation_id, user_text)
         if lignes:
