@@ -69,6 +69,23 @@ function fromStored(message: StoredMessage): ChatItem {
   };
 }
 
+/**
+ * Messages enregistrés + tour en direct. Une fois la réponse enregistrée, la conversation se
+ * recharge : le message enregistré garde ce que seul le direct connaît, les souvenirs utilisés
+ * et la proposition d'un modèle plus fort.
+ */
+export function withLive(stored: ChatItem[], live: ChatItem[]): ChatItem[] {
+  const direct = new Map(live.filter((m) => m.id !== null).map((m) => [m.id, m]));
+  const merged = stored.map((m) => {
+    const turn = direct.get(m.id);
+    return turn
+      ? { ...m, context: turn.context ?? m.context, stronger: turn.stronger ?? m.stronger }
+      : m;
+  });
+  const known = new Set(stored.map((m) => m.id));
+  return [...merged, ...live.filter((m) => m.id === null || !known.has(m.id))];
+}
+
 /** Ajoute ou met à jour l'activité d'un outil (même appel : même identifiant). */
 function upsertTool(tools: ToolActivity[], tool: ToolActivity): ToolActivity[] {
   const index = tools.findIndex((t) => t.id === tool.id);
@@ -95,8 +112,7 @@ export function useChat(conversationId: string | null, onConversation: (id: stri
   const stored = useMemo(() => (detail.data?.messages ?? []).map(fromStored), [detail.data]);
   const items = useMemo(() => {
     const visibleLive = liveFor === conversationId || phase !== "idle" ? live : [];
-    const known = new Set(stored.map((m) => m.id));
-    return [...stored, ...visibleLive.filter((m) => m.id === null || !known.has(m.id))];
+    return withLive(stored, visibleLive);
   }, [stored, live, liveFor, conversationId, phase]);
 
   const patchLive = useCallback((key: string, change: Partial<ChatItem>) => {
